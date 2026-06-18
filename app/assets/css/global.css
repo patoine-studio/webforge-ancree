@@ -553,6 +553,11 @@ body {
   .wf-header-cta { display: none; }
   .wf-burger { display: inline-flex; }
   .wf-header-row { grid-template-columns: 1fr auto auto; } /* logo | appel | burger */
+  /* Sur mobile, le bouton d'appel du header devient icône seule (la place
+   * manque pour logo + numéro + burger). Le NUMÉRO reste visible en bas via la
+   * barre d'appel collante. L'aria-label (call_label) garde l'accessibilité. */
+  .wf-header-call { --pad-x: var(--pad-y); gap: 0; }
+  .wf-header-call .wf-btn-label { display: none; }
 }
 
 /* ────────────────────────────────────────────────────────────────────────
