@@ -13,7 +13,7 @@ export const HERO_BLOCK_PROJECTION = /* groq */ `{
     kicker, title, lead,
     "primaryCta": primaryCta ${LINK_PROJECTION},
     "secondaryCta": secondaryCta ${LINK_PROJECTION},
-    meta[]{ label, value },
+    meta[]{ label, value, icon },
     "visual": visual ${FIGURE_PROJECTION},
     "visualMobile": visualMobile ${FIGURE_PROJECTION}
   },

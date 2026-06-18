@@ -344,9 +344,9 @@ export const docs = [
       primaryCta: external('418 555 0147', 'tel:+14185550147'),
       secondaryCta: internal('Free quote', 'contactPage-en'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4.9' },
-        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permit', value: 'Licensed and insured' },
-        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Since', value: '2011' }
+        { _type: 'heroMetaItem', _key: 'meta-google', icon: 'lucide:star', label: 'Google', value: '4.9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', icon: 'lucide:shield-check', label: 'Permit', value: 'Licensed and insured' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', icon: 'lucide:award', label: 'Since', value: '2011' }
       ],
       visual: heroFigure('4/5', 'Service call, 4:5'),
       visualMobile: heroFigure('4/3', 'Service call, 4:3')
@@ -736,9 +736,9 @@ export const docs = [
       primaryCta: external('418 555 0147', 'tel:+14185550147'),
       secondaryCta: anchor('Free quote', 'contact'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4.9' },
-        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permit', value: 'Licensed and insured' },
-        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Since', value: '2011' }
+        { _type: 'heroMetaItem', _key: 'meta-google', icon: 'lucide:star', label: 'Google', value: '4.9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', icon: 'lucide:shield-check', label: 'Permit', value: 'Licensed and insured' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', icon: 'lucide:award', label: 'Since', value: '2011' }
       ],
       visual: heroFigure('4/5', 'Service call, 4:5'),
       visualMobile: heroFigure('4/3', 'Service call, 4:3')

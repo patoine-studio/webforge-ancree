@@ -1,6 +1,7 @@
 {
   "a11y": {
     "skip_to_content": "Aller au contenu principal",
+    "call_label": "Appeler au {phone}",
     "main_nav": "Navigation principale",
     "toggle_menu_open": "Ouvrir le menu",
     "toggle_menu_close": "Fermer le menu",
@@ -20,6 +21,7 @@
     "lang_switcher": "Passer à la version anglaise"
   },
   "ui": {
+    "call_now": "Appeler maintenant",
     "lang": {
       "target": "EN"
     },

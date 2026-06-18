@@ -82,7 +82,7 @@ export interface SanityHeroHome {
   lead: string
   primaryCta: SanityLink
   secondaryCta: SanityLink
-  meta: Array<{ label: string; value: string }>
+  meta: Array<{ label: string; value: string; icon?: string }>
   visual: SanityFigure
   visualMobile: SanityFigure
 }

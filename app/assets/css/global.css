@@ -440,10 +440,51 @@ body {
 :not(.wf-showcase-layout) > main#main { padding-top: var(--header-height); }
 .wf-header-row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  /* logo | nav | cta secondaire | appel (toujours visible). En multipage avec
+   * switcher de langue, la classe has-lang ajoute une colonne (voir plus bas). */
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  gap: calc(var(--spacing-unit) * 3);
+  gap: calc(var(--spacing-unit) * 2.4);
   height: var(--header-height); /* défini dans family/tokens.css */
+}
+/* Le bouton d'appel reste affiché à tous les paliers (le numéro tel: toujours
+ * visible, DESIGN.md), contrairement au CTA secondaire caché sur mobile. */
+.wf-header-call { white-space: nowrap; }
+
+/* ── BARRE D'APPEL COLLANTE (mobile) ─────────────────────────────────────────
+   Le téléphone est le héros: rappel d'appel permanent en bas d'écran sur mobile,
+   pleine largeur, cible tactile confortable. Ambre de conversion. Visibilité par
+   @container site (masquée en desktop, où le bouton d'appel du header suffit). */
+.wf-callbar { display: none; }
+.wf-callbar-icon { width: 2rem; height: 2rem; flex-shrink: 0; }
+.wf-callbar-num { font-variant-numeric: tabular-nums; }
+@container site (max-width: 1023.98px) {
+  .wf-callbar {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45; /* sous le header (50), barre du bas distincte */
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing-unit) * 1.2);
+    min-height: var(--call-bar-height); /* >= 48px cible tactile (DESIGN.md) */
+    padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 2);
+    /* Respecte le home indicator iOS (zone sûre du bas). */
+    padding-bottom: max(calc(var(--spacing-unit) * 1.2), env(safe-area-inset-bottom));
+    background: var(--accent-warm);
+    color: var(--accent-warm-ink);
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.7rem;
+    transition: background-color var(--motion-duration-hover) ease;
+  }
+  .wf-callbar:active { background: var(--accent-warm-hover); }
+  /* Espace en bas pour que la barre ne masque jamais le pied de page. */
+  .wf-site { padding-bottom: var(--call-bar-height); }
 }
 .wf-logo {
   display: inline-flex;
@@ -511,7 +552,7 @@ body {
   .wf-nav { display: none; }
   .wf-header-cta { display: none; }
   .wf-burger { display: inline-flex; }
-  .wf-header-row { grid-template-columns: 1fr auto; }
+  .wf-header-row { grid-template-columns: 1fr auto auto; } /* logo | appel | burger */
 }
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -532,7 +573,7 @@ body {
 /* Header multipage desktop: 4e colonne entre la nav et le CTA (la rangée de
  * base reste à 3 colonnes pour le mode landing, sans switcher). */
 @container site (min-width: 1024px) {
-  .wf-header-row.has-lang { grid-template-columns: auto 1fr auto auto; }
+  .wf-header-row.has-lang { grid-template-columns: auto 1fr auto auto auto; }
 }
 /* Sous le breakpoint nav, le switcher du header disparaît avec elle: il vit
  * alors dans le menu mobile (.wf-mobile-menu__lang). */
@@ -623,20 +664,32 @@ body {
   gap: calc(var(--spacing-unit) * 1.5);
   flex-wrap: wrap;
 }
-.wf-hero-meta {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: calc(var(--spacing-unit) * 3);
+/* Chips de confiance du héros (note Google, licence, années): pilules blanches
+ * posées sur le crème, ombre douce d'Ancrée. La preuve est MONTRÉE, pas
+ * affirmée (DESIGN.md). Réutilise le vocabulaire .wf-chip de la famille. */
+.wf-hero-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1.5);
   margin: calc(var(--spacing-unit) * 4) 0 0;
-  padding-top: calc(var(--spacing-unit) * 4);
-  border-top: var(--line-hair);
+  padding: 0;
 }
-/* space-between + cellules étirées à la même hauteur (align-items stretch par
- * défaut sur la grille): le label reste en haut, la valeur tombe au bas. Les
- * valeurs s'alignent donc toutes sur la ligne du bas même si un label wrappe. */
-.wf-hero-meta > div { display: flex; flex-direction: column; justify-content: space-between; gap: 4px; }
-/* Labels en .wf-caption et valeurs en .wf-h4 directement dans le template:
- * la meta consomme l'échelle typo du système au lieu de tailles bespoke. */
+.wf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.9);
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.7);
+  background: var(--surface);
+  border: var(--line-soft);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+.wf-chip-icon { width: 1.8rem; height: 1.8rem; color: var(--accent-1); flex-shrink: 0; }
+.wf-chip-value { font-weight: 700; font-size: 1.5rem; color: var(--text-base); }
+.wf-chip-label { font-size: 1.3rem; color: var(--text-muted); font-weight: 600; }
 
 /* Art direction du visuel (D23, contrat §15.4): UNE <picture> — <source media>
  * sert le cadrage mobile paysage, le <img> de repli le portrait desktop. Un

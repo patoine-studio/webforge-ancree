@@ -344,9 +344,9 @@ export const docs = [
       primaryCta: external('418 555 0147', 'tel:+14185550147'),
       secondaryCta: internal('Soumission gratuite', 'contactPage-fr'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4,9' },
-        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permis', value: 'Licencié et assuré' },
-        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Depuis', value: '2011' }
+        { _type: 'heroMetaItem', _key: 'meta-google', icon: 'lucide:star', label: 'Google', value: '4,9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', icon: 'lucide:shield-check', label: 'Permis', value: 'Licencié et assuré' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', icon: 'lucide:award', label: 'Depuis', value: '2011' }
       ],
       visual: heroFigure('4/5', 'Intervention, 4:5'),
       visualMobile: heroFigure('4/3', 'Intervention, 4:3')
@@ -736,9 +736,9 @@ export const docs = [
       primaryCta: external('418 555 0147', 'tel:+14185550147'),
       secondaryCta: anchor('Soumission gratuite', 'contact'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4,9' },
-        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permis', value: 'Licencié et assuré' },
-        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Depuis', value: '2011' }
+        { _type: 'heroMetaItem', _key: 'meta-google', icon: 'lucide:star', label: 'Google', value: '4,9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', icon: 'lucide:shield-check', label: 'Permis', value: 'Licencié et assuré' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', icon: 'lucide:award', label: 'Depuis', value: '2011' }
       ],
       visual: heroFigure('4/5', 'Intervention, 4:5'),
       visualMobile: heroFigure('4/3', 'Intervention, 4:3')

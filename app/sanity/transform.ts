@@ -651,7 +651,7 @@ function transformHeroHomeBody(raw: SanityHeroHome, locale: WfLocale): HeroConte
     lead: raw.lead,
     primaryCta: linkPair(raw.primaryCta, locale),
     secondaryCta: linkPair(raw.secondaryCta, locale),
-    meta: raw.meta.map((m) => ({ label: m.label, value: m.value })),
+    meta: raw.meta.map((m) => ({ label: m.label, value: m.value, icon: opt(m.icon) })),
     visual: resolveFigure(raw.visual, RATIOS.heroVisual),
     visualMobile: resolveFigure(raw.visualMobile, RATIOS.heroVisualMobile)
   }

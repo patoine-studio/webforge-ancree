@@ -29,7 +29,9 @@ export interface HeroContent {
   lead: string
   primaryCta: { label: string; href: string }
   secondaryCta: { label: string; href: string }
-  meta: Array<{ label: string; value: string }>
+  // Repères = chips de confiance du héros (note Google, licence, années).
+  // icon optionnel = nom Iconify lucide rendu en tête de chip.
+  meta: Array<{ label: string; value: string; icon?: string }>
   /* Art direction: deux cadrages distincts (deux champs image au Studio,
    * desktop portrait et mobile paysage). La résolution asset -> URL string se
    * fait dans la couche de données (transform), jamais dans le héros. */
