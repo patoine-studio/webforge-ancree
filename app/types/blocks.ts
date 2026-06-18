@@ -51,7 +51,7 @@ export type TestimonialsBlock = BlockBase<'testimonials'> & TestimonialsContent
 export type FaqBlock          = BlockBase<'faq'>          & FaqContent & { faqSchema?: boolean }
 export type ContactBlock      = BlockBase<'contact'>      & ContactContent
 
-// Blocs multipage (famille Minimaliste).
+// Blocs multipage (famille Ancrée).
 export type MediaTextBlock        = BlockBase<'media-text'>        & MediaTextContent
 export type CtaBandBlock          = BlockBase<'cta-band'>          & CtaBandContent
 export type ProcessBlock          = BlockBase<'process'>          & ProcessContent

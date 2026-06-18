@@ -29,12 +29,12 @@ const fontWeights: { weight: number; label: string }[] = [
 const fontFamilies: { token: string; stack: string; sample: string }[] = [
   {
     token: '--font-display',
-    stack: 'Archivo, "Helvetica Neue", Helvetica, Arial, sans-serif',
+    stack: '"Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
     sample: t('showcase.styleguide.typography.family_display')
   },
   {
     token: '--font-body',
-    stack: 'Archivo, "Helvetica Neue", Helvetica, Arial, sans-serif',
+    stack: '"Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif',
     sample: t('showcase.styleguide.typography.family_body')
   },
   {

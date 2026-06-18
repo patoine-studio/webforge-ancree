@@ -33,7 +33,7 @@ const hasControl = computed(() => variants.value.length > 1)
         <span class="wf-bs__type">{{ item.type }}</span>
         <span v-if="!hasControl && active.label" class="wf-bs__variant">{{ active.label }}</span>
 
-        <!-- Contrôle de variantes: onglets segmentés (filets, esprit Minimaliste).
+        <!-- Contrôle de variantes: onglets segmentés (filets, esprit Ancrée).
              Groupe de boutons à bascule (aria-pressed). -->
         <div
           v-if="hasControl"

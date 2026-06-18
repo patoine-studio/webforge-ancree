@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Page d'erreur du gabarit (404 et erreurs fatales). Sobre, famille
- * Minimaliste: en-tête réduit (signature de marque + lien d'accueil), wf-h1,
+ * Ancrée: en-tête réduit (signature de marque + lien d'accueil), wf-h1,
  * message court et lien à filet vers l'accueil. Les chaînes sont du chrome
  * produit générique (i18n ui.error.* et a11y.*, parité fr/en), jamais du
  * contenu propre au site. Noindex: une page d'erreur n'a rien à faire dans

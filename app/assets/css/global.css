@@ -220,15 +220,18 @@ body {
   gap: calc(var(--spacing-unit) * 2); /* 16px @1440 entre label et chevron-exit en état default */
   padding: var(--pad-y) var(--pad-x);
   background: var(--accent-1);
-  color: var(--bg-base);
+  color: var(--white);
   border-radius: var(--radius);
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.6rem; /* body-2, échelle typo */
   letter-spacing: -0.01em;
   text-decoration: none;
   border: 1px solid var(--accent-1);
-  transition: background-color var(--motion-duration-hover) ease, border-color var(--motion-duration-hover) ease, color var(--motion-duration-hover) ease;
+  /* Ombre douce: la signature de chaleur d'Ancrée. Le bouton se détache du crème
+   * sans trait lourd. Le ghost et l'état désactivé la retirent (voir plus bas). */
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--motion-duration-hover) ease, border-color var(--motion-duration-hover) ease, color var(--motion-duration-hover) ease, box-shadow var(--motion-duration-hover) ease, transform var(--motion-duration-hover) ease;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
@@ -300,10 +303,13 @@ body {
 .wf-btn.is-loading .wf-btn-label { transform: none; }
 
 /* Hover conditionné à :not(:disabled): un bouton désactivé ne réagit pas.
- * Le vert de repos s'assombrit en noir au survol (accent unique, cf. tokens). */
+ * Le bleu de repos s'assombrit en bleu nuit au survol, le bouton se soulève
+ * d'un cran (ombre plus prononcée): chaleur d'Ancrée, jamais sec. */
 .wf-btn:not(:disabled):hover {
   background: var(--black);
   border-color: var(--black);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 .wf-btn:not(:disabled):hover .wf-btn-chevron--exit {
   opacity: 0;
@@ -325,6 +331,8 @@ body {
   cursor: not-allowed;
   background: var(--text-muted);
   border-color: var(--text-muted);
+  box-shadow: none;
+  transform: none;
 }
 .wf-btn-sm {
   --pad-y: calc(var(--spacing-unit) * 1.25);
@@ -340,11 +348,28 @@ body {
   background: transparent;
   color: var(--accent-1);
   border-color: var(--accent-1);
+  box-shadow: none; /* l'outline ne porte pas d'ombre au repos */
 }
-.wf-btn-ghost:hover {
+.wf-btn-ghost:not(:disabled):hover {
   background: var(--accent-1);
   border-color: var(--accent-1);
-  color: var(--bg-base);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* .wf-btn-call — modifier d'appel à l'action de CONVERSION (téléphone). Ambre
+ * sur encre foncée, l'unique accent chaud à fort niveau de la famille Ancrée
+ * (DESIGN.md). Réservé au bouton d'appel: header collant, barre d'appel mobile,
+ * bouton d'appel du héros. À petite dose: jamais le bouton générique. */
+.wf-btn-call {
+  background: var(--accent-warm);
+  color: var(--accent-warm-ink);
+  border-color: var(--accent-warm);
+}
+.wf-btn-call:not(:disabled):hover {
+  background: var(--accent-warm-hover);
+  border-color: var(--accent-warm-hover);
+  color: var(--accent-warm-ink);
 }
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -391,7 +416,12 @@ body {
   left: 0;
   right: 0;
   z-index: 50;
-  background: var(--bg-base); /* fond blanc uni, sans backdrop ni bordure */
+  /* Barre collante crisp et claire (surface blanche) posée sur le crème de la
+   * page: signal de propreté et de professionnalisme, et fond net pour le bouton
+   * d'appel ambre. Hairline + ombre douce d'Ancrée pour la détacher du contenu. */
+  background: var(--surface);
+  border-bottom: var(--line-hair);
+  box-shadow: var(--shadow-sm);
   transition: transform 280ms ease;
 }
 /* Auto-hide au scroll down, réapparition au scroll up. */
@@ -1001,12 +1031,17 @@ body {
   }
 }
 .wf-testimonial {
-  background: var(--bg-base);
-  padding: calc(var(--spacing-unit) * 2); /* 20px @1440, padding de carte fluide (= Services) */
+  /* Carte de citation blanche posée sur le crème-alt: chaleur et propreté.
+   * Ombre douce d'Ancrée + rayon généreux, le filet reste très léger pour la
+   * définition (pas un cadre dur). */
+  background: var(--surface);
+  padding: calc(var(--spacing-unit) * 2.5); /* 25px, un peu plus aéré (Ancrée) */
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 20px; /* fixe, rythme interne de carte (cf. convention px) */
   border: var(--line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   position: relative;
 }
 /* Décoratif: gros guillemet typographique en tête de citation. Exception
@@ -1413,8 +1448,8 @@ body {
   background: var(--error);
   color: var(--bg-base);
   font-size: 1.1rem;
-  /* 600 = graisse max chargée (Archivo 400/500/600); un 700 serait synthétisé. */
-  font-weight: 600;
+  /* 700 chargé (Plus Jakarta Sans 500/600/700): badge dense, graisse forte. */
+  font-weight: 700;
 }
 
 /* ── Interrupteur pilule (composant <Switch>) ─────────────────────────────── */
@@ -2353,7 +2388,7 @@ body {
 /* Tête de texte (fil d'Ariane .wf-hero-breadcrumb épinglé haut-gauche, 30px sous,
    défini plus bas; titre; intro; CTA optionnel) puis image de couverture pleine
    largeur EN DESSOUS. Silhouette distincte du héros détail (split), partagée avec
-   le héros article. Sans image (faq, contact): la tête seule, Minimaliste pur. */
+   le héros article. Sans image (faq, contact): la tête seule, Ancrée pur. */
 /* Padding-bas: 0 hérité de la base .wf-hero (la section suivante possède
    l'écart, ~80px standard inter-sections). La mécanique, initiée ici pour le
    masthead, vit maintenant sur la base et couvre les quatre héros. */
@@ -2699,7 +2734,7 @@ body {
    HIGHLIGHTS — différenciateurs/engagements en liste à icônes (3 à 4 points)
    ──────────────────────────────────────────────────────────────────────── */
 /* Grille de différenciateurs. Chaque point est coiffé d'un filet fin (signature
- * Minimaliste): le rythme visuel naît des lignes, pas des cadres. auto-fit +
+ * Ancrée): le rythme visuel naît des lignes, pas des cadres. auto-fit +
  * minmax encaisse 3 ou 4 items sans paramètre de comptage: en deçà de la largeur
  * mini, les colonnes retombent proprement (1 puis 2). Container queries only. */
 .wf-highlights-grid {
@@ -2914,7 +2949,7 @@ body {
   margin-top: calc(var(--spacing-unit) * 1.6); /* ~16px sous-titre -> contenu */
 }
 
-/* Liste à puces. Filet fin en guise de puce (esprit Minimaliste: pas de point
+/* Liste à puces. Filet fin en guise de puce (esprit Ancrée: pas de point
  * lourd), indentation par token, interligne entre items distinct du rythme de
  * paragraphe pour aérer sans rompre la mesure. */
 .wf-article-rich-text-list {
@@ -3295,8 +3330,16 @@ body {
   margin: 0; /* neutralise le défaut UA de <figure> */
   aspect-ratio: var(--ratio-tile); /* cadre uniforme: toutes les tuiles, même hauteur */
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg); /* Ancrée: rayon de carte généreux */
   background: var(--bg-alt);
+  /* Ombre douce d'Ancrée: la carte image se détache du crème. S'accentue au
+   * survol (la carte se soulève légèrement). L'ombre n'est pas écrêtée par
+   * overflow:hidden (elle est hors de la box). */
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+}
+@media (hover: hover) and (pointer: fine) {
+  .wf-project-card-link:hover .wf-project-card-figure { box-shadow: var(--shadow-md); }
 }
 /* L'image (réelle ou placeholder) remplit le cadre et le recadre en cover, quel
  * que soit son ratio source. Sélecteurs simples préfixés par le lien: global.css
@@ -3435,8 +3478,13 @@ body {
 .wf-article-card-media {
   position: relative; /* ancre le tag de catégorie superposé */
   margin: 0; /* neutralise le défaut UA de <figure> */
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg); /* Ancrée: rayon de carte généreux */
   overflow: hidden;
+  box-shadow: var(--shadow-sm); /* ombre douce d'Ancrée, accentuée au survol */
+  transition: box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+}
+@media (hover: hover) and (pointer: fine) {
+  .wf-article-card:hover .wf-article-card-media { box-shadow: var(--shadow-md); }
 }
 /* L'image se rapproche légèrement au survol (desktop pointeur fin). Décoratif. */
 .wf-article-card-media .wf-image,

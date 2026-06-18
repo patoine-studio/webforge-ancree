@@ -20,7 +20,7 @@ definePageMeta({ layout: 'showcase' })
 usePageSeo({
   title: t('showcase.seo.title'),
   description: t('showcase.seo.description'),
-  titleTemplate: '%s, WebForge Minimaliste',
+  titleTemplate: '%s, WebForge Ancrée',
   noindex: true
 })
 
@@ -81,7 +81,7 @@ const onepagerHref = onePagerPath('index', locale)
         <p class="wf-showcase-bar__brand">
           <span class="wf-showcase-bar__brand-name">WebForge</span>
           <span class="wf-showcase-bar__brand-dash">-</span>
-          <span class="wf-showcase-bar__brand-family">Minimaliste</span>
+          <span class="wf-showcase-bar__brand-family">Ancrée</span>
         </p>
         <nav class="wf-showcase-tabs" :aria-label="t('showcase.intro.title')">
           <button
