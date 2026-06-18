@@ -22,6 +22,8 @@
   },
   "ui": {
     "call_now": "Appeler maintenant",
+    "before": "Avant",
+    "after": "Après",
     "lang": {
       "target": "EN"
     },

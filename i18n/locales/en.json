@@ -22,6 +22,8 @@
   },
   "ui": {
     "call_now": "Call now",
+    "before": "Before",
+    "after": "After",
     "lang": {
       "target": "FR"
     },

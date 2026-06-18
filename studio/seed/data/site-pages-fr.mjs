@@ -224,6 +224,98 @@ const contactBlock = (key) => ({
   }
 })
 
+// ── Blocs de conversion propres à la famille Ancrée ──────────────────────────
+
+/** Chips de réassurance (même jour, 24/7, estimation gratuite, prix ferme). */
+const reassuranceBlock = (key) => ({
+  _type: 'reassurance',
+  _key: key,
+  items: [
+    { _type: 'reassuranceItem', _key: 'r-jour', icon: 'lucide:calendar-check', label: 'Intervention le jour même' },
+    { _type: 'reassuranceItem', _key: 'r-urgence', icon: 'lucide:clock', label: 'Urgence 24/7' },
+    { _type: 'reassuranceItem', _key: 'r-estimation', icon: 'lucide:badge-check', label: 'Estimation gratuite' },
+    { _type: 'reassuranceItem', _key: 'r-prix', icon: 'lucide:coins', label: "Prix ferme à l'avance" }
+  ]
+})
+
+/** Bloc zone de service (Rive-Sud de Québec). */
+const serviceAreaBlock = (key) => ({
+  _type: 'serviceArea',
+  _key: key,
+  eyebrow: 'Zone desservie',
+  heading: 'On dessert toute la Rive-Sud de Québec',
+  lead: "Basés à Lévis, on se déplace vite. Du même jour au lendemain selon l'urgence et votre secteur.",
+  areas: [
+    { _type: 'serviceAreaItem', _key: 'a-levis', name: 'Lévis' },
+    { _type: 'serviceAreaItem', _key: 'a-quebec', name: 'Québec' },
+    { _type: 'serviceAreaItem', _key: 'a-st-romuald', name: 'Saint-Romuald' },
+    { _type: 'serviceAreaItem', _key: 'a-st-nicolas', name: 'Saint-Nicolas' },
+    { _type: 'serviceAreaItem', _key: 'a-charny', name: 'Charny' },
+    { _type: 'serviceAreaItem', _key: 'a-chaudiere', name: 'Chaudière-Appalaches' },
+    { _type: 'serviceAreaItem', _key: 'a-bellechasse', name: 'Bellechasse' },
+    { _type: 'serviceAreaItem', _key: 'a-lotbiniere', name: 'Lotbinière' },
+    { _type: 'serviceAreaItem', _key: 'a-beauce', name: 'Beauce' },
+    { _type: 'serviceAreaItem', _key: 'a-portneuf', name: 'Portneuf' }
+  ],
+  note: "Vous n'êtes pas certain qu'on couvre votre secteur? Appelez-nous, on vous le dit en deux minutes."
+})
+
+/** Galerie avant/après (figures sans image: placeholders soignés). */
+const beforeAfterBlock = (key) => ({
+  _type: 'beforeAfter',
+  _key: key,
+  eyebrow: 'Avant / après',
+  heading: "Des résultats qu'on montre, pas juste qu'on promet",
+  lead: 'Quelques interventions récentes, du problème réglé à la prévention qui tient.',
+  items: [
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-restaurant',
+      before: { _type: 'figure', alt: 'Cuisine de restaurant avant le traitement contre les coquerelles.', label: 'Avant le traitement', caption: 'Restaurant du Vieux-Lévis', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Même cuisine de restaurant, propre et scellée, après traitement.', label: 'Après le traitement', caption: 'Restaurant du Vieux-Lévis', ratio: '4/3' },
+      caption: 'Restaurant du Vieux-Lévis: coquerelles éradiquées, points d\'entrée scellés, suivi mensuel.'
+    },
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-duplex',
+      before: { _type: 'figure', alt: 'Chambre de duplex avant le traitement thermique contre les punaises de lit.', label: 'Avant le traitement', caption: 'Duplex à Charny', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Même chambre après traitement thermique, prête à réoccuper.', label: 'Après le traitement', caption: 'Duplex à Charny', ratio: '4/3' },
+      caption: 'Duplex à Charny: punaises de lit éliminées en une visite de traitement thermique.'
+    },
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-fourmis',
+      before: { _type: 'figure', alt: 'Solive de sous-sol grugée par les fourmis charpentières.', label: 'Avant le traitement', caption: 'Maison à Saint-Nicolas', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Structure traitée et protégée, fourmis charpentières arrêtées.', label: 'Après le traitement', caption: 'Maison à Saint-Nicolas', ratio: '4/3' },
+      caption: 'Maison à Saint-Nicolas: colonie de fourmis charpentières arrêtée avant les dégâts.'
+    }
+  ]
+})
+
+/** Formulaire de soumission à 3 champs (simulé côté client, comme le contact). */
+const quoteFormBlock = (key) => ({
+  _type: 'quoteForm',
+  _key: key,
+  eyebrow: 'Soumission gratuite',
+  heading: 'Obtenez votre soumission gratuite',
+  lead: "Trois infos, on vous rappelle aujourd'hui même. Pour une urgence, appelez directement.",
+  nameLabel: 'Votre nom',
+  phoneLabel: 'Téléphone',
+  serviceLabel: 'Type de problème',
+  serviceOptions: [
+    { _type: 'quoteServiceOption', _key: 'opt-souris', label: 'Souris ou rats' },
+    { _type: 'quoteServiceOption', _key: 'opt-fourmis', label: 'Fourmis' },
+    { _type: 'quoteServiceOption', _key: 'opt-guepes', label: 'Guêpes ou frelons' },
+    { _type: 'quoteServiceOption', _key: 'opt-punaises', label: 'Punaises de lit' },
+    { _type: 'quoteServiceOption', _key: 'opt-coquerelles', label: 'Coquerelles' },
+    { _type: 'quoteServiceOption', _key: 'opt-autre', label: 'Autre nuisible' }
+  ],
+  submitLabel: 'Demander ma soumission',
+  successTitle: 'Demande reçue.',
+  successBody: "Merci. On vous rappelle aujourd'hui même. Pour une urgence, appelez le 418 555 0147.",
+  privacyNote: "En envoyant, vous acceptez d'être contacté au sujet de votre demande."
+})
+
 // ── Documents ────────────────────────────────────────────────────────────────
 
 export const docs = [
@@ -352,6 +444,7 @@ export const docs = [
       visualMobile: heroFigure('4/3', 'Intervention, 4:3')
     }],
     pageBuilder: [
+      reassuranceBlock('home-reassurance'),
       highlightsBlock('home-highlights'),
       {
         _type: 'projectsPreview',
@@ -371,7 +464,9 @@ export const docs = [
         cta: internal('Soumission gratuite', 'contactPage-fr'),
         mode: 'auto',
       },
+      beforeAfterBlock('home-before-after'),
       statsBlock('home-stats'),
+      serviceAreaBlock('home-service-area'),
       {
         _type: 'mediaText',
         _key: 'home-story',
@@ -397,6 +492,7 @@ export const docs = [
         heading: 'Ce que nos clients en disent',
         mode: 'featured'
       },
+      quoteFormBlock('home-quote'),
       {
         _type: 'blogPreview',
         _key: 'home-blog',
@@ -437,6 +533,7 @@ export const docs = [
       }
     }],
     pageBuilder: [
+      reassuranceBlock('services-reassurance'),
       {
         _type: 'services',
         _key: 'services-grid',
@@ -447,6 +544,7 @@ export const docs = [
         mode: 'auto',
       },
       processContent('services-process'),
+      serviceAreaBlock('services-area'),
       {
         _type: 'testimonials',
         _key: 'services-testimonials',
@@ -498,6 +596,8 @@ export const docs = [
       }
     }],
     pageBuilder: [
+      beforeAfterBlock('projects-before-after'),
+      serviceAreaBlock('projects-area'),
       {
         _type: 'ctaBand',
         _key: 'projects-cta',
@@ -744,6 +844,7 @@ export const docs = [
       visualMobile: heroFigure('4/3', 'Intervention, 4:3')
     }],
     pageBuilder: [
+      reassuranceBlock('one-pager-reassurance'),
       aboutBlock('one-pager-about'),
       {
         _type: 'services',
@@ -775,6 +876,7 @@ export const docs = [
           { _key: 'faq-garantie', _type: 'reference', _ref: 'faqItem-garantie-fr' }
         ]
       },
+      quoteFormBlock('one-pager-quote'),
       contactBlock('one-pager-contact')
     ],
     seo: {

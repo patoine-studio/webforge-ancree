@@ -50,6 +50,10 @@ import type {
   ProcessBlock,
   StatsBlock,
   HighlightsBlock,
+  ReassuranceBlock,
+  ServiceAreaBlock,
+  BeforeAfterBlock,
+  QuoteFormBlock,
   LogosBlock,
   IframeBlock,
   VideoYoutubeBlock,
@@ -166,6 +170,10 @@ export type PayloadPageBlock =
   | ProcessBlock
   | StatsBlock
   | HighlightsBlock
+  | ReassuranceBlock
+  | ServiceAreaBlock
+  | BeforeAfterBlock
+  | QuoteFormBlock
   | LogosBlock
   | IframeBlock
   | VideoYoutubeBlock
@@ -334,6 +342,10 @@ const PAGE_BLOCK_TYPE_MAP = {
   process: 'process',
   stats: 'stats',
   highlights: 'highlights',
+  reassurance: 'reassurance',
+  serviceArea: 'service-area',
+  beforeAfter: 'before-after',
+  quoteForm: 'quote-form',
   logos: 'logos',
   projectsPreview: 'projects-preview',
   blogPreview: 'blog-preview',
@@ -859,6 +871,51 @@ function transformBlock(block: SanityRawBlock, site: SiteContent, locale: WfLoca
           title: item.title,
           body: item.body
         }))
+      }
+    case 'reassurance':
+      return {
+        _type: 'reassurance',
+        _key: block._key,
+        eyebrow: opt(block.eyebrow),
+        heading: opt(block.heading),
+        lead: opt(block.lead),
+        items: block.items.map((item) => ({ icon: opt(item.icon), label: item.label }))
+      }
+    case 'serviceArea':
+      return {
+        _type: 'service-area',
+        _key: block._key,
+        eyebrow: opt(block.eyebrow),
+        heading: block.heading,
+        lead: opt(block.lead),
+        areas: block.areas.map((area) => ({ name: area.name })),
+        note: opt(block.note)
+      }
+    case 'beforeAfter':
+      return {
+        _type: 'before-after',
+        _key: block._key,
+        eyebrow: opt(block.eyebrow),
+        heading: opt(block.heading),
+        lead: opt(block.lead),
+        items: block.items.map((item) => ({
+          before: resolveFigure(item.before, '4/3'),
+          after: resolveFigure(item.after, '4/3'),
+          caption: opt(item.caption)
+        }))
+      }
+    case 'quoteForm':
+      return {
+        _type: 'quote-form',
+        _key: block._key,
+        eyebrow: opt(block.eyebrow),
+        heading: block.heading,
+        lead: opt(block.lead),
+        labels: { name: block.nameLabel, phone: block.phoneLabel, service: block.serviceLabel },
+        serviceOptions: block.serviceOptions.map((o) => o.label),
+        submit: block.submitLabel,
+        success: { title: block.successTitle, body: block.successBody },
+        privacyNote: opt(block.privacyNote)
       }
     case 'logos':
       return {

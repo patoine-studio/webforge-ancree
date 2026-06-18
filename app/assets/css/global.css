@@ -2841,6 +2841,140 @@ body {
 }
 
 /* ────────────────────────────────────────────────────────────────────────
+   REASSURANCE — engagements en chips icône + libellé (rangée qui s'enroule)
+   ──────────────────────────────────────────────────────────────────────── */
+/* En-tête optionnel via <SectionHead> (.wf-shead, son margin-bottom porte
+   l'espacement avant la rangée). La rangée réutilise le vocabulaire .wf-chip de
+   la famille (pilule blanche, filet doux, ombre légère); ici chaque chip porte
+   une icône + un libellé, jamais de valeur. Container queries only. */
+.wf-reassurance-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1.5); /* 15px, aligné sur les chips du héros */
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   SERVICE AREA — zones desservies en chips épingle + nom, puis note muted
+   ──────────────────────────────────────────────────────────────────────── */
+/* En-tête via <SectionHead>. La liste de zones réutilise .wf-chip (épingle +
+   nom) et s'enroule librement. La note suit la liste, en retrait léger. */
+.wf-area-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1.5); /* 15px, même rythme que reassurance */
+}
+.wf-area-note {
+  margin: calc(var(--spacing-unit) * 3) 0 0; /* 30px sous la liste de zones */
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   BEFORE / AFTER — galerie de paires avant/après, badges sur chaque figure
+   ──────────────────────────────────────────────────────────────────────── */
+/* En-tête optionnel via <SectionHead>. Grille de paires: une colonne en mobile,
+   deux dès qu'il y a la place (chaque paire tient déjà deux figures côte à
+   côte). À l'intérieur d'une paire, les deux cadres se partagent la largeur. */
+.wf-before-after-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing-unit) * 4); /* 40px entre paires empilées */
+}
+@container site (min-width: 1024px) {
+  .wf-before-after-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4.8rem; /* gouttière de .section-grid en desktop */
+  }
+}
+
+/* Une paire: les deux cadres avant/après, puis la légende dessous. */
+.wf-ba-frames {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--spacing-unit) * 1.5); /* 15px entre les deux cadres */
+}
+
+/* Cadre d'une figure: position relative pour ancrer le badge en coin. margin 0
+   neutralise la marge UA du <figure>. */
+.wf-ba-figure {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Badge « Avant » / « Après »: pilule posée en haut à gauche de la figure,
+   encre sur surface, typo display. Décoratif au sens où il double l'ordre
+   visuel; le contenu réel (légende, alt) reste porté par la figure. */
+.wf-ba-badge {
+  position: absolute;
+  top: calc(var(--spacing-unit) * 1.2); /* 12px du bord */
+  left: calc(var(--spacing-unit) * 1.2);
+  z-index: 1;
+  padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1.2);
+  background: var(--surface);
+  color: var(--text-base);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Légende de paire sous les cadres (wf-figcap porte déjà sa typo). */
+.wf-ba-caption {
+  margin-top: calc(var(--spacing-unit) * 1.5); /* 15px sous la paire */
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   QUOTE FORM — panneau de conversion (formulaire de soumission simulé)
+   ──────────────────────────────────────────────────────────────────────── */
+/* Panneau surélevé: surface blanche, ombre douce, grand rayon. Centré et borné
+   en largeur (un formulaire court n'a pas besoin de toute la page). */
+.wf-quote-panel {
+  max-width: 52rem;
+  margin-inline: auto;
+  background: var(--surface);
+  border: var(--line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: calc(var(--spacing-unit) * 4); /* 40px */
+}
+@container site (min-width: 640px) {
+  .wf-quote-panel { padding: calc(var(--spacing-unit) * 5); } /* 50px, plus aéré dès qu'il y a la place */
+}
+
+/* En-tête du panneau: rythme owl (surtitre -> titre -> lead). */
+.wf-quote-head { display: flex; flex-direction: column; }
+.wf-quote-head > * + * { margin-top: calc(var(--spacing-unit) * 3); }              /* 30px défaut */
+.wf-quote-head > .wf-caption + .wf-h2 { margin-top: calc(var(--spacing-unit) * 1); } /* 10px surtitre -> titre */
+.wf-quote-head > .wf-h2 + p { margin-top: var(--space-title-lead); }               /* 20px titre -> lead */
+
+/* Champs du formulaire: empilés, même rythme que le formulaire de contact. */
+.wf-quote-fields {
+  margin-top: calc(var(--spacing-unit) * 4); /* 40px en-tête -> champs */
+  display: grid;
+  gap: calc(var(--spacing-unit) * 4);        /* 40px entre champs */
+}
+.wf-quote-submit { justify-self: start; }
+.wf-quote-privacy { margin: 0; }
+
+/* État succès: rythme titre -> corps, aligné à gauche dans le panneau. */
+.wf-quote-success {
+  margin-top: calc(var(--spacing-unit) * 4); /* 40px en-tête -> confirmation */
+}
+.wf-quote-success > .wf-h3 + p { margin-top: var(--space-title-lead); } /* 20px titre -> corps */
+
+/* ────────────────────────────────────────────────────────────────────────
    LOGOS (bande de confiance: certifications/affiliations en libellés texte)
    ──────────────────────────────────────────────────────────────────────── */
 /* En-tête standard via <SectionHead> (.wf-shead, aligné à gauche comme les autres

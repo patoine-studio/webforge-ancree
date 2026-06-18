@@ -224,6 +224,98 @@ const contactBlock = (key) => ({
   }
 })
 
+// ── Conversion blocks specific to the Ancrée family ──────────────────────────
+
+/** Reassurance chips (same-day, 24/7, free estimate, firm price). */
+const reassuranceBlock = (key) => ({
+  _type: 'reassurance',
+  _key: key,
+  items: [
+    { _type: 'reassuranceItem', _key: 'r-jour', icon: 'lucide:calendar-check', label: 'Same-day service' },
+    { _type: 'reassuranceItem', _key: 'r-urgence', icon: 'lucide:clock', label: '24/7 emergency' },
+    { _type: 'reassuranceItem', _key: 'r-estimation', icon: 'lucide:badge-check', label: 'Free estimate' },
+    { _type: 'reassuranceItem', _key: 'r-prix', icon: 'lucide:coins', label: 'Firm price upfront' }
+  ]
+})
+
+/** Service area block (South Shore of Quebec City). */
+const serviceAreaBlock = (key) => ({
+  _type: 'serviceArea',
+  _key: key,
+  eyebrow: 'Service area',
+  heading: 'We cover the whole South Shore of Quebec City',
+  lead: 'Based in Lévis, we get out fast. Same day to next day depending on the urgency and your area.',
+  areas: [
+    { _type: 'serviceAreaItem', _key: 'a-levis', name: 'Lévis' },
+    { _type: 'serviceAreaItem', _key: 'a-quebec', name: 'Québec' },
+    { _type: 'serviceAreaItem', _key: 'a-st-romuald', name: 'Saint-Romuald' },
+    { _type: 'serviceAreaItem', _key: 'a-st-nicolas', name: 'Saint-Nicolas' },
+    { _type: 'serviceAreaItem', _key: 'a-charny', name: 'Charny' },
+    { _type: 'serviceAreaItem', _key: 'a-chaudiere', name: 'Chaudière-Appalaches' },
+    { _type: 'serviceAreaItem', _key: 'a-bellechasse', name: 'Bellechasse' },
+    { _type: 'serviceAreaItem', _key: 'a-lotbiniere', name: 'Lotbinière' },
+    { _type: 'serviceAreaItem', _key: 'a-beauce', name: 'Beauce' },
+    { _type: 'serviceAreaItem', _key: 'a-portneuf', name: 'Portneuf' }
+  ],
+  note: 'Not sure we cover your area? Give us a call, we will tell you in two minutes.'
+})
+
+/** Before / after gallery (figures without image: tidy placeholders). */
+const beforeAfterBlock = (key) => ({
+  _type: 'beforeAfter',
+  _key: key,
+  eyebrow: 'Before / after',
+  heading: 'Results we show, not just promise',
+  lead: 'A few recent interventions, from the problem solved to prevention that holds.',
+  items: [
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-restaurant',
+      before: { _type: 'figure', alt: 'Restaurant kitchen before the cockroach treatment.', label: 'Before treatment', caption: 'Old Lévis restaurant', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Same restaurant kitchen, clean and sealed, after treatment.', label: 'After treatment', caption: 'Old Lévis restaurant', ratio: '4/3' },
+      caption: 'Old Lévis restaurant: cockroaches eradicated, entry points sealed, monthly follow-up.'
+    },
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-duplex',
+      before: { _type: 'figure', alt: 'Duplex bedroom before the heat treatment for bed bugs.', label: 'Before treatment', caption: 'Charny duplex', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Same bedroom after heat treatment, ready to move back in.', label: 'After treatment', caption: 'Charny duplex', ratio: '4/3' },
+      caption: 'Charny duplex: bed bugs eliminated in a single heat-treatment visit.'
+    },
+    {
+      _type: 'beforeAfterItem',
+      _key: 'ba-fourmis',
+      before: { _type: 'figure', alt: 'Basement joist chewed up by carpenter ants.', label: 'Before treatment', caption: 'Saint-Nicolas home', ratio: '4/3' },
+      after: { _type: 'figure', alt: 'Treated and protected structure, carpenter ants stopped.', label: 'After treatment', caption: 'Saint-Nicolas home', ratio: '4/3' },
+      caption: 'Saint-Nicolas home: carpenter ant colony stopped before the damage spread.'
+    }
+  ]
+})
+
+/** Three-field quote form (client-side simulated, like the contact form). */
+const quoteFormBlock = (key) => ({
+  _type: 'quoteForm',
+  _key: key,
+  eyebrow: 'Free quote',
+  heading: 'Get your free quote',
+  lead: 'Three details, we call you back today. For an emergency, call us directly.',
+  nameLabel: 'Your name',
+  phoneLabel: 'Phone',
+  serviceLabel: 'Type of problem',
+  serviceOptions: [
+    { _type: 'quoteServiceOption', _key: 'opt-souris', label: 'Mice or rats' },
+    { _type: 'quoteServiceOption', _key: 'opt-fourmis', label: 'Ants' },
+    { _type: 'quoteServiceOption', _key: 'opt-guepes', label: 'Wasps or hornets' },
+    { _type: 'quoteServiceOption', _key: 'opt-punaises', label: 'Bed bugs' },
+    { _type: 'quoteServiceOption', _key: 'opt-coquerelles', label: 'Cockroaches' },
+    { _type: 'quoteServiceOption', _key: 'opt-autre', label: 'Other pest' }
+  ],
+  submitLabel: 'Get my quote',
+  successTitle: 'Request received.',
+  successBody: 'Thank you. We will call you back today. For an emergency, call 418 555 0147.',
+  privacyNote: 'By submitting, you agree to be contacted about your request.'
+})
+
 // ── Documents ────────────────────────────────────────────────────────────────
 
 export const docs = [
@@ -352,6 +444,7 @@ export const docs = [
       visualMobile: heroFigure('4/3', 'Service call, 4:3')
     }],
     pageBuilder: [
+      reassuranceBlock('home-reassurance'),
       highlightsBlock('home-highlights'),
       {
         _type: 'projectsPreview',
@@ -371,7 +464,9 @@ export const docs = [
         cta: internal('Free quote', 'contactPage-en'),
         mode: 'auto',
       },
+      beforeAfterBlock('home-before-after'),
       statsBlock('home-stats'),
+      serviceAreaBlock('home-service-area'),
       {
         _type: 'mediaText',
         _key: 'home-story',
@@ -397,6 +492,7 @@ export const docs = [
         heading: 'What our clients say',
         mode: 'featured'
       },
+      quoteFormBlock('home-quote'),
       {
         _type: 'blogPreview',
         _key: 'home-blog',
@@ -437,6 +533,7 @@ export const docs = [
       }
     }],
     pageBuilder: [
+      reassuranceBlock('services-reassurance'),
       {
         _type: 'services',
         _key: 'services-grid',
@@ -447,6 +544,7 @@ export const docs = [
         mode: 'auto',
       },
       processContent('services-process'),
+      serviceAreaBlock('services-area'),
       {
         _type: 'testimonials',
         _key: 'services-testimonials',
@@ -498,6 +596,8 @@ export const docs = [
       }
     }],
     pageBuilder: [
+      beforeAfterBlock('projects-before-after'),
+      serviceAreaBlock('projects-area'),
       {
         _type: 'ctaBand',
         _key: 'projects-cta',
@@ -744,6 +844,7 @@ export const docs = [
       visualMobile: heroFigure('4/3', 'Service call, 4:3')
     }],
     pageBuilder: [
+      reassuranceBlock('one-pager-reassurance'),
       aboutBlock('one-pager-about'),
       {
         _type: 'services',
@@ -775,6 +876,7 @@ export const docs = [
           { _key: 'faq-garantie', _type: 'reference', _ref: 'faqItem-garantie-en' }
         ]
       },
+      quoteFormBlock('one-pager-quote'),
       contactBlock('one-pager-contact')
     ],
     seo: {

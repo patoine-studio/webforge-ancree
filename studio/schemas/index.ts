@@ -1,4 +1,4 @@
-// Registre des 48 types du Studio: 9 objets partagés, 15 blocs réguliers,
+// Registre des 52 types du Studio: 9 objets partagés, 19 blocs réguliers,
 // 7 blocs article, 17 documents. La config Portable Text
 // (article-blocks/article-portable-text.ts) n'est PAS enregistrée: c'est une
 // définition de champ réutilisée par les blocs, pas un type au registre.
@@ -27,6 +27,10 @@ import { ctaBand } from './objects/blocks/cta-band'
 import { process } from './objects/blocks/process'
 import { stats } from './objects/blocks/stats'
 import { highlights } from './objects/blocks/highlights'
+import { reassurance } from './objects/blocks/reassurance'
+import { serviceArea } from './objects/blocks/service-area'
+import { beforeAfter } from './objects/blocks/before-after'
+import { quoteForm } from './objects/blocks/quote-form'
 import { logos } from './objects/blocks/logos'
 import { projectsPreview } from './objects/blocks/projects-preview'
 import { blogPreview } from './objects/blocks/blog-preview'
@@ -88,6 +92,10 @@ export const schemaTypes = [
   process,
   stats,
   highlights,
+  reassurance,
+  serviceArea,
+  beforeAfter,
+  quoteForm,
   logos,
   projectsPreview,
   blogPreview,
