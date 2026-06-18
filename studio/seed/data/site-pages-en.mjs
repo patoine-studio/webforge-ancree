@@ -1,18 +1,21 @@
-// Seed EN: globales (siteSettings) et pages (accueil, services, projets,
-// à propos, blogue, FAQ, contact, one-pager).
+// Seed EN: globals (siteSettings) and pages (home, services, interventions,
+// about, blog, FAQ, contact, one-pager).
 //
-// Miroir structurel exact de site-pages-fr.mjs: mêmes documents (_id en -en),
-// mêmes _key, mêmes marqueurs { _imagePath }, mêmes modes de blocs (le bloc
-// faq est en sélection manuelle pure, spec 4.4; la page FAQ se compose en
-// sections par thème dans faqPage.sections, spec 6.7); seuls les textes et
-// libellés sont traduits (en-CA). Les refs internes pointent les documents
-// -en; les _id gardent la clé canonique FR (spec, section 11).
-// Les jetons {year} (copyright) et {email} (bandeau d'échec du formulaire)
-// restent tels quels: remplacés à la résolution.
+// Faithful transcription of the Rempart Extermination copy (content bible,
+// docs/CONTENU-DEMO-REMPART.md, sections 1 and 5). The pageBuilder composition
+// reproduces the Minimalist family template via the intelligent-block modes;
+// the faq block is pure manual selection, no mode or limit, and the FAQ page is
+// composed in sections by theme in faqPage.sections. The detail copy for the
+// pages lives on each service and project (collections), not in servicesPage or
+// projectsPage. Deterministic ids (bible, section 4).
+// Image policy (bible, section 3): figures carry alt, label, caption, ratio but
+// NO image field; brand.logo is OMITTED (text wordmark fallback).
+// The {year} (copyright) and {email} (form failure banner) tokens stay as is:
+// replaced at resolution time.
 
-// ── Fabriques locales (liens et figures récurrents) ──────────────────────────
+// ── Local factories (recurring links and figures) ────────────────────────────
 
-/** Lien interne vers un document (id déterministe -en). */
+/** Internal link to a document (deterministic -en id). */
 const internal = (label, ref) => ({
   _type: 'link',
   label,
@@ -20,7 +23,7 @@ const internal = (label, ref) => ({
   internalRef: { _type: 'reference', _ref: ref }
 })
 
-/** Lien ancre sur la page courante (one-pager). */
+/** Anchor link on the current page (one-pager). */
 const anchor = (label, target) => ({
   _type: 'link',
   label,
@@ -28,162 +31,169 @@ const anchor = (label, target) => ({
   anchor: target
 })
 
-/** Figure du héros d'accueil (art direction: même image, deux ratios). */
+/** External link (e.g. phone call). The `link` schema field is `externalUrl`
+ *  (validated scheme http/https/mailto/tel), not `href`. */
+const external = (label, url) => ({
+  _type: 'link',
+  label,
+  type: 'external',
+  externalUrl: url
+})
+
+/** Home hero figure (same framing, two ratios; no image field). */
 const heroFigure = (ratio, caption) => ({
   _type: 'figure',
-  image: { _imagePath: '/images/hero.jpg' },
-  alt: 'Cabinetmaking workshop, workbench with an ash board, hand planes and wood chisels.',
-  label: 'Workshop, ash workbench',
+  alt: 'Rempart Extermination technician on a service call inside a home in the Lévis area.',
+  label: 'Residential service call, South Shore of Quebec City',
   caption,
   ratio
 })
 
-// ── Blocs partagés entre pages (copie identique, _key propre à chaque page) ──
+// ── Blocks shared across pages (identical copy, _key unique to each page) ──
 
-/** Bloc highlights (HIGHLIGHTS_CONTENT, accueil + à propos). */
+/** Highlights block (home + about): four concrete commitments. */
 const highlightsBlock = (key) => ({
   _type: 'highlights',
   _key: key,
-  heading: 'What you get when you work with me.',
-  lead: 'No marketing promises. Four concrete commitments I honour on every piece that leaves the shop.',
+  heading: 'What you get when you call us.',
+  lead: 'No vague promises. Four clear commitments we keep on every job, at home and at the business.',
   items: [
     {
       _type: 'highlightItem',
-      _key: 'item-bois',
-      icon: 'lucide:trees',
-      title: 'Local wood',
-      body: 'Ash, maple, yellow birch and black walnut sourced within 200 km of Chambly. I know where every board comes from.'
-    },
-    {
-      _type: 'highlightItem',
-      _key: 'item-mains',
-      icon: 'lucide:hammer',
-      title: 'One pair of hands',
-      body: 'From the first sketch to delivery, I do everything myself. You are always talking to the person who builds.'
-    },
-    {
-      _type: 'highlightItem',
-      _key: 'item-joinage',
-      icon: 'lucide:ruler',
-      title: 'Traditional joinery',
-      body: 'Hand-cut mortise and tenon joints and dovetails. No hidden hardware covering up a shortcut.'
+      _key: 'item-permis',
+      icon: 'lucide:shield-check',
+      title: 'Licensed and insured',
+      body: 'Provincial pesticide application certification (MELCCFP) and full insurance. You know exactly who is coming into your home.'
     },
     {
       _type: 'highlightItem',
       _key: 'item-garantie',
-      icon: 'lucide:shield-check',
-      title: 'Lifetime structural warranty',
-      body: 'If a joint ever gives, I repair it at no charge. A solid wood piece gets handed down, not thrown away.'
+      icon: 'lucide:badge-check',
+      title: 'Results guarantee',
+      body: 'If the problem comes back during the covered period, we come back at no charge. We settle the situation for good, not just for today.'
+    },
+    {
+      _type: 'highlightItem',
+      _key: 'item-securite',
+      icon: 'lucide:heart-handshake',
+      title: 'Safe for the family',
+      body: 'Health Canada approved products, applied by trained and certified technicians. We explain what to do before and after every treatment.'
+    },
+    {
+      _type: 'highlightItem',
+      _key: 'item-urgence',
+      icon: 'lucide:clock',
+      title: '24/7 emergency service',
+      body: 'A wasp nest above the door on a Sunday evening? We answer. Evenings and weekends, we stay reachable for emergencies.'
     }
   ]
 })
 
-/** Bloc stats (STATS_CONTENT, accueil + à propos). */
+/** Stats block (home + about): trust markers. */
 const statsBlock = (key) => ({
   _type: 'stats',
   _key: key,
-  heading: 'Ten years in the shop, in a few numbers.',
+  heading: 'Fifteen years protecting the South Shore, in a few numbers.',
   items: [
-    { _type: 'statItem', _key: 'stat-fonde', value: '2014', label: 'Workshop founded in Chambly' },
-    { _type: 'statItem', _key: 'stat-pieces', value: '140+', label: 'Pieces delivered by hand' },
-    { _type: 'statItem', _key: 'stat-rayon', value: '200 km', label: 'Wood sourcing radius' },
-    { _type: 'statItem', _key: 'stat-garantie', value: 'Lifetime', label: 'Warranty on the structure' }
+    { _type: 'statItem', _key: 'stat-fonde', value: '2011', label: 'Serving the Quebec City area' },
+    { _type: 'statItem', _key: 'stat-experience', value: '15 years', label: 'Of hands-on experience' },
+    { _type: 'statItem', _key: 'stat-google', value: '4.9', label: 'Google rating across 312 reviews' },
+    { _type: 'statItem', _key: 'stat-urgence', value: '24/7', label: 'Emergency service, evenings and weekends' }
   ]
 })
 
-/** Étapes du processus (PROCESS_CONTENT, sans le n: dérivé de la position). */
+/** Process steps (without the n: derived from position). */
 const processSteps = () => ([
   {
     _type: 'processStep',
     _key: 'step-1',
-    title: 'The meeting',
-    body: 'An hour together, at the shop or at your place, to understand your project and your space. Free, with no obligation.'
+    title: 'The inspection',
+    body: 'We identify the pest, find how it gets in and assess how big the problem is. You get a clear diagnosis, no jargon, before we treat anything.'
   },
   {
     _type: 'processStep',
     _key: 'step-2',
-    title: 'The quote and the drawing',
-    body: 'A firm written quote within the week: wood species, dimensions, timeline. We lock down the drawing together before I saw a single board.'
+    title: 'The treatment',
+    body: 'We apply the right method for your situation: targeted baits, localized treatment or heat treatment. Always with approved products and a plan suited to your building.'
   },
   {
     _type: 'processStep',
     _key: 'step-3',
-    title: 'The build',
-    body: 'I mill, assemble and finish everything at the Chambly shop. I keep you posted at the key stages, sometimes with a photo.'
+    title: 'The prevention',
+    body: 'We seal the entry points and give you the right habits so the problem does not come back. Half the job is preventing the next visit.'
   },
   {
     _type: 'processStep',
     _key: 'step-4',
-    title: 'Delivery and installation',
-    body: 'I deliver and install the piece myself. Adjustments and finishing touches happen on site. The balance is only due once the piece is in place.'
+    title: 'The guarantee',
+    body: 'We follow up and stay available. If the pest comes back during the covered period, we come back at no charge. That is what settling the problem for good means.'
   }
 ])
 
-/** Bloc/objet process complet (PROCESS_CONTENT). _key omis hors pageBuilder. */
+/** Full process block/object. _key omitted outside pageBuilder. */
 const processContent = (key) => ({
   _type: 'process',
   ...(key ? { _key: key } : {}),
-  eyebrow: 'How it works',
-  heading: 'How a project unfolds',
-  lead: 'From the first call to the final installation, a single point of contact: me.',
-  cta: internal('Contact me', 'contactPage-en'),
+  eyebrow: 'The process',
+  heading: 'How an intervention unfolds',
+  lead: 'From the first call to the follow-up, a proven method and a single goal: the pest leaves and does not come back.',
+  cta: external('418 555 0147', 'tel:+14185550147'),
   steps: processSteps()
 })
 
-/** Bloc about (ABOUT_CONTENT, à propos + one-pager). */
+/** About block (about + one-pager). */
 const aboutBlock = (key) => ({
   _type: 'about',
   _key: key,
   eyebrow: 'About',
-  heading: 'One person, from drawing to delivery.',
+  heading: 'A local team that answers, and comes back if needed.',
   body: [
-    "I learned the trade in my grandfather's workshop in Saint-Hyacinthe, then spent five years with a master cabinetmaker in Lévis. Since 2014, I have worked alone in Chambly. I am the one who draws, saws, assembles and delivers. If you call, I am the one who answers.",
-    'My approach is simple: fewer pieces, better made. If I am not the right person for your project, I will tell you straight out.'
+    'Rempart Extermination is Mathieu Bouchard and his team of six technicians, based in Lévis since 2011. Mathieu started out on his own, with a truck and his certification in hand. Fifteen years later, we serve the whole South Shore of Quebec City and Chaudière-Appalaches, but the approach has not changed: you talk to real people from the region, not a call centre.',
+    'Karine, David, Jean-Philippe, Stéphanie and Olivier round out the team. All certified, all trained to clearly explain what they are doing and why. Our trade is not just chasing insects: it is giving you back your peace of mind at home.'
   ],
   photo: {
     _type: 'figure',
-    image: { _imagePath: '/images/about.jpg' },
-    alt: "The cabinetmaker's hands carving a walnut piece with a wood chisel.",
-    label: 'Workshop, hands at work',
-    caption: 'Workshop photo, 3:4',
+    alt: 'Mathieu Bouchard, founder of Rempart Extermination, in front of the service truck in Lévis.',
+    label: 'Mathieu Bouchard, founder',
+    caption: 'Team portrait, 3:4',
     ratio: '3/4'
   },
-  figcaption: 'Maxime Cormier, founder. Atelier Cormier, Chambly.',
+  figcaption: 'Mathieu Bouchard, founder and certified technician. Rempart Extermination, Lévis.',
   diffs: [
     {
       _type: 'aboutDiff',
-      _key: 'diff-bois',
-      title: 'Local wood.',
-      body: 'Ash, maple, yellow birch and black walnut, sourced within 200 km of the shop.'
+      _key: 'diff-local',
+      title: 'Local.',
+      body: "Based in Lévis, we know the region's buildings and pests. We get out fast across the whole South Shore."
     },
     {
       _type: 'aboutDiff',
-      _key: 'diff-solo',
-      title: 'A one-person shop.',
-      body: 'You talk to the person building your piece. No middleman, no subcontracting.'
+      _key: 'diff-certifie',
+      title: 'Certified.',
+      body: 'MELCCFP licensed and insured. Every technician is trained in the safe application of products.'
     },
     {
       _type: 'aboutDiff',
-      _key: 'diff-joinage',
-      title: 'Traditional joinery.',
-      body: 'Mortise and tenon joints, dovetails. No hidden hardware filling in for the craft.'
+      _key: 'diff-garantie',
+      title: 'Results guarantee.',
+      body: 'We do not disappear after the treatment. If the problem comes back during the covered period, we come back at no charge.'
     }
   ]
 })
 
-/** Bloc contact complet (CONTACT_CONTENT, page Contact + one-pager). Les
- *  valeurs des coordonnées vivent dans siteSettings (join à la résolution);
- *  seuls les libellés et la copie du formulaire sont stockés ici. */
+/** Full contact block (Contact page + one-pager). The contact detail values
+ *  live in siteSettings (joined at resolution); only the labels and the form
+ *  copy are stored here. */
 const contactBlock = (key) => ({
   _type: 'contact',
   _key: key,
   eyebrow: 'Contact',
-  heading: 'Tell me about your project.',
-  lead: "A one-hour meeting, at the shop or at your place, is enough to know whether we're a good fit to work together. No commitment until the quote is signed.",
+  heading: 'Tell us about your problem.',
+  lead: 'Describe what you see or hear, and where. We will get back to you quickly with a plan of action. For an emergency, the phone is still the fastest.',
   metaLabels: {
     phone: 'Phone',
     email: 'Email',
-    address: 'Workshop',
+    address: 'Address',
     hours: 'Hours'
   },
   form: {
@@ -198,10 +208,10 @@ const contactBlock = (key) => ({
       emailInvalid: 'Invalid email address.',
       privacyRequired: 'Please accept the privacy policy to send your request.'
     },
-    submit: { idle: 'Send your request', loading: 'Sending...' },
+    submit: { idle: 'Send request', loading: 'Sending...' },
     errorBanner: {
-      title: 'Your message could not be sent.',
-      body: 'Check your connection and try again, or write to me directly at {email}.'
+      title: 'Could not send.',
+      body: 'Check your connection and try again, or write to us directly at {email}.'
     },
     privacy: {
       text: 'I agree to have my information handled according to the',
@@ -210,40 +220,51 @@ const contactBlock = (key) => ({
   },
   success: {
     title: 'Message received.',
-    body: 'Thank you very much. You will hear back from me very soon.'
+    body: 'Thank you. We will get back to you as soon as possible. For an emergency, call us at 418 555 0147.'
   }
 })
 
 // ── Documents ────────────────────────────────────────────────────────────────
 
 export const docs = [
-  // ── Globales (siteSettings) ────────────────────────────────────────────────
+  // ── Globals (siteSettings) ─────────────────────────────────────────────────
   {
     _id: 'siteSettings-en',
     _type: 'siteSettings',
     language: 'en',
     brand: {
-      name: 'Atelier Cormier',
-      logo: { _imagePath: '/seed-assets/logo-atelier-cormier.svg' },
-      homeAriaLabel: 'Atelier Cormier, back to home',
-      tagline: 'Custom cabinetmaking, Chambly QC. Established in 2014.',
-      foundedYear: 2014
+      name: 'Rempart Extermination',
+      homeAriaLabel: 'Rempart Extermination, back to home',
+      tagline: 'Pest control for home and business. We take back control, for good.',
+      foundedYear: 2011
     },
     contact: {
-      phone: '450 555 0188',
-      email: 'bonjour@ateliercormier.ca',
+      phone: '418 555 0147',
+      email: 'bonjour@rempartextermination.ca',
       address: {
-        line1: '14 rue Bourgogne',
-        cityProv: 'Chambly QC',
-        city: 'Chambly',
+        line1: '2750 avenue des Lilas',
+        cityProv: 'Lévis QC',
+        city: 'Lévis',
         region: 'QC',
         country: 'CA',
-        postal: 'J3L 1A4'
+        postal: 'G6W 0M5'
       },
-      areaServed: ['Chambly', 'Montérégie', 'South Shore of Montreal', 'Montreal', 'Eastern Townships'],
+      areaServed: [
+        'Lévis',
+        'Quebec City',
+        'Saint-Romuald',
+        'Saint-Nicolas',
+        'Charny',
+        'Chaudière-Appalaches',
+        'Bellechasse',
+        'Lotbinière',
+        'Beauce',
+        'Portneuf',
+        'South Shore of Quebec City'
+      ],
       hours: {
-        weekdays: 'Mon to Fri, 8 am to 5 pm',
-        weekend: 'Sat by appointment'
+        weekdays: 'Mon to Fri, 7 am to 7 pm',
+        weekend: 'Sat and Sun, 24/7 emergencies'
       }
     },
     nav: {
@@ -254,23 +275,23 @@ export const docs = [
           { _key: 'nav-testimonials', ...anchor('Testimonials', 'testimonials') },
           { _key: 'nav-faq', ...anchor('FAQ', 'faq') }
         ],
-        cta: anchor('Start a project', 'contact')
+        cta: anchor('Free quote', 'contact')
       },
       multipage: {
         primary: [
           { _key: 'nav-services', ...internal('Services', 'servicesPage-en') },
-          { _key: 'nav-projets', ...internal('Projects', 'projectsPage-en') },
+          { _key: 'nav-projets', ...internal('Interventions', 'projectsPage-en') },
           { _key: 'nav-a-propos', ...internal('About', 'aboutPage-en') },
           { _key: 'nav-blogue', ...internal('Blog', 'blogPage-en') },
           { _key: 'nav-contact', ...internal('Contact', 'contactPage-en') }
         ],
-        cta: internal('Start a project', 'contactPage-en')
+        cta: internal('Free quote', 'contactPage-en')
       }
     },
     footer: {
       primary: [
         { _key: 'footer-services', ...internal('Services', 'servicesPage-en') },
-        { _key: 'footer-projets', ...internal('Projects', 'projectsPage-en') },
+        { _key: 'footer-projets', ...internal('Interventions', 'projectsPage-en') },
         { _key: 'footer-a-propos', ...internal('About', 'aboutPage-en') },
         { _key: 'footer-blogue', ...internal('Blog', 'blogPage-en') },
         { _key: 'footer-contact', ...internal('Contact', 'contactPage-en') }
@@ -298,46 +319,46 @@ export const docs = [
         { _key: 'legal-conditions', ...internal('Terms of use', 'legalPage-conditions-en') },
         { _key: 'legal-confidentialite', ...internal('Privacy policy', 'legalPage-confidentialite-en') }
       ],
-      copyright: '© {year} Atelier Cormier. All rights reserved.',
+      copyright: '© {year} Rempart Extermination. All rights reserved.',
       credit: {
         label: 'Created by',
         studio: 'Patoine Studio',
-        product: 'WebForge, Minimalist family',
+        product: 'WebForge, Anchored family',
         studioUrl: 'https://patoinestudio.ca'
       }
     },
     seo: {
-      titleSuffix: 'Atelier Cormier',
-      defaultDescription: 'Custom cabinetmaking in Chambly, Quebec. Kitchens, furniture and restoration in local solid wood. Independent workshop established in 2014.'
+      titleSuffix: 'Rempart Extermination',
+      defaultDescription: 'Pest control and extermination in Lévis and the Quebec City area. Ants, mice, wasps, bed bugs, cockroaches. Licensed, insured, results guarantee. 24/7 emergency service.'
     }
   },
 
-  // ── Accueil (homePage) ─────────────────────────────────────────────────────
+  // ── Home (homePage) ────────────────────────────────────────────────────────
   {
     _id: 'homePage-en',
     _type: 'homePage',
     language: 'en',
     hero: [{ _type: 'heroHome', _key: 'hero',
-      title: 'Local solid wood, shaped by hand, built to last a hundred years.',
-      lead: 'Kitchens, furniture and restoration, from an independent workshop in Montérégie since 2014.',
-      primaryCta: internal('Start a project', 'contactPage-en'),
-      secondaryCta: internal('See the services', 'servicesPage-en'),
+      title: 'We take back control of your home. For good.',
+      lead: 'Ants, mice, wasps, bed bugs, cockroaches: pest control for home and business in Lévis and the Quebec City area. 24/7 emergencies.',
+      primaryCta: external('418 555 0147', 'tel:+14185550147'),
+      secondaryCta: internal('Free quote', 'contactPage-en'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-etabli', label: 'Established', value: '2014' },
-        { _type: 'heroMetaItem', _key: 'meta-projets', label: 'Projects delivered', value: '140+' },
-        { _type: 'heroMetaItem', _key: 'meta-rayon', label: 'Radius', value: '200 km' }
+        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4.9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permit', value: 'Licensed and insured' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Since', value: '2011' }
       ],
-      visual: heroFigure('4/5', 'Workshop photo, 4:5'),
-      visualMobile: heroFigure('4/3', 'Workshop photo, 4:3')
+      visual: heroFigure('4/5', 'Service call, 4:5'),
+      visualMobile: heroFigure('4/3', 'Service call, 4:3')
     }],
     pageBuilder: [
       highlightsBlock('home-highlights'),
       {
         _type: 'projectsPreview',
         _key: 'home-projects',
-        heading: 'Projects that speak for themselves',
-        lead: 'A few recent builds, from sketch to installation.',
-        cta: internal('All projects', 'projectsPage-en'),
+        heading: 'Interventions that speak for themselves',
+        lead: 'A few situations we have settled recently, from the first visit to the final result.',
+        cta: internal('All interventions', 'projectsPage-en'),
         mode: 'featured',
         limit: 3
       },
@@ -345,75 +366,73 @@ export const docs = [
         _type: 'services',
         _key: 'home-services',
         eyebrow: 'Services',
-        heading: 'What I build',
-        lead: 'Five families of projects, each delivered dozens of times.',
-        cta: internal('Start a project', 'contactPage-en'),
+        heading: 'What we handle for you',
+        lead: 'Five pests we treat every day, at home and at the business.',
+        cta: internal('Free quote', 'contactPage-en'),
         mode: 'auto',
       },
       statsBlock('home-stats'),
       {
         _type: 'mediaText',
         _key: 'home-story',
-        heading: 'One person, from drawing to delivery',
+        heading: 'A local team that answers, and comes back if needed',
         body: [
-          'I have worked alone in Chambly since 2014. I am the one who draws, saws, assembles and delivers. If you call, I am the one who answers.',
-          'Fewer pieces, better made: if I am not the right person for your project, I will tell you straight out.'
+          'We have been based in Lévis since 2011. When you call, real people from the region answer, not a call centre. We know the buildings and the pests around here.',
+          'Our goal is not just to treat once: it is to settle the situation for good. We seal the entry points, explain what to watch for, and guarantee our work.'
         ],
         mediaSide: 'right',
         image: {
           _type: 'figure',
-          image: { _imagePath: '/images/about.jpg' },
-          alt: "The cabinetmaker's hands carving a walnut piece with a wood chisel.",
-          label: 'Workshop, hands at work',
-          caption: 'Workshop photo, 3:4',
+          alt: 'Rempart Extermination technician inspecting the perimeter of a home on the South Shore.',
+          label: 'Residential inspection',
+          caption: 'On site, 4:3',
           ratio: '4/3'
         },
-        cta: internal('About the workshop', 'aboutPage-en')
+        cta: internal('About the team', 'aboutPage-en')
       },
       {
         _type: 'testimonials',
         _key: 'home-testimonials',
         eyebrow: 'Testimonials',
-        heading: 'What my clients say',
+        heading: 'What our clients say',
         mode: 'featured'
       },
       {
         _type: 'blogPreview',
         _key: 'home-blog',
         heading: 'The blog',
-        lead: 'Wood, techniques and the stories behind the projects.',
+        lead: 'Prevention, pest identification and tips for a healthy home.',
         cta: internal('All blog posts', 'blogPage-en'),
         limit: 3
       },
       {
         _type: 'ctaBand',
         _key: 'home-cta',
-        title: 'Have a project in mind?',
-        subtitle: "The first meeting is free, with no obligation. Let's talk about it.",
-        primaryCta: internal('Start a project', 'contactPage-en')
+        title: 'A pest in your home?',
+        subtitle: 'The estimate is free. Call us, we will tell you what to do.',
+        primaryCta: external('418 555 0147', 'tel:+14185550147')
       }
     ],
     seo: {
       _type: 'seo',
-      title: 'Atelier Cormier | Custom Cabinetmaking in Chambly',
-      description: 'Custom cabinetmaking in Chambly, Quebec. Kitchens, furniture and restoration in local solid wood. Independent workshop established in 2014.'
+      title: 'Rempart Extermination | Extermination in Lévis and the Quebec City area',
+      description: 'Pest control and extermination in Lévis and the Quebec City area. Ants, mice, wasps, bed bugs, cockroaches. Licensed, insured, results guarantee. 24/7 emergency service.'
     }
   },
 
-  // ── Page Services (servicesPage) ───────────────────────────────────────────
+  // ── Services page (servicesPage) ───────────────────────────────────────────
   {
     _id: 'servicesPage-en',
     _type: 'servicesPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
-      title: 'What I build, and how',
-      lead: 'Five families of projects, each delivered dozens of times. If it is not on the list, I am probably not the right person for it, and I will tell you so frankly.',
+      title: 'What we handle, and how we handle it',
+      lead: 'Five pests we treat every day on the South Shore. If your situation is not on the list, call us anyway: we will point you to the right solution, honestly.',
       image: {
         _type: 'figure',
-        image: { _imagePath: '/images/service-bibliotheques.jpg' },
-        alt: 'Built-in yellow birch bookcase covering an entire living room wall.',
-        label: 'Atelier Cormier, custom build',
-        caption: 'Custom build, 2:1',
+        alt: 'Technician applying a targeted treatment along a house foundation.',
+        label: 'Rempart Extermination, targeted treatment',
+        caption: 'Service call, 2:1',
         ratio: '2/1'
       }
     }],
@@ -422,9 +441,9 @@ export const docs = [
         _type: 'services',
         _key: 'services-grid',
         eyebrow: 'Services',
-        heading: 'Five families of projects',
-        lead: "Each card leads to the full details. If you don't see what you need, write to me anyway: I will point you in the right direction.",
-        cta: internal('Start a project', 'contactPage-en'),
+        heading: 'Five pests, one proven method',
+        lead: 'Each card leads to the treatment details. Your situation is not here? Call us, chances are we have seen your case before.',
+        cta: internal('Free quote', 'contactPage-en'),
         mode: 'auto',
       },
       processContent('services-process'),
@@ -432,50 +451,49 @@ export const docs = [
         _type: 'testimonials',
         _key: 'services-testimonials',
         eyebrow: 'Testimonials',
-        heading: 'Satisfied clients, project after project',
+        heading: 'Clients at ease, intervention after intervention',
         mode: 'featured'
       },
       {
         _type: 'faq',
         _key: 'services-faq',
         eyebrow: 'FAQ',
-        heading: 'Frequently asked questions about the services',
+        heading: 'Frequently asked questions about our services',
         items: [
           { _key: 'faq-delai', _type: 'reference', _ref: 'faqItem-delai-en' },
-          { _key: 'faq-estimation', _type: 'reference', _ref: 'faqItem-estimation-en' },
-          { _key: 'faq-essences', _type: 'reference', _ref: 'faqItem-essences-en' },
+          { _key: 'faq-soumission', _type: 'reference', _ref: 'faqItem-soumission-en' },
+          { _key: 'faq-produits', _type: 'reference', _ref: 'faqItem-produits-en' },
           { _key: 'faq-garantie', _type: 'reference', _ref: 'faqItem-garantie-en' }
         ]
       },
       {
         _type: 'ctaBand',
         _key: 'services-cta',
-        title: 'Ready to start your project?',
-        subtitle: 'Describe what you have in mind. You will get a reply from me personally.',
-        primaryCta: internal('Start a project', 'contactPage-en')
+        title: 'Ready to settle the situation?',
+        subtitle: 'Describe what you are seeing. We will reply with a clear plan.',
+        primaryCta: external('418 555 0147', 'tel:+14185550147')
       }
     ],
     seo: {
       _type: 'seo',
       title: 'Services',
-      description: 'Custom kitchens, furniture, built-in bookcases, restoration and commercial millwork in local solid wood, from a Chambly workshop.'
+      description: 'Extermination of ants, mice and rats, wasps and hornets, bed bugs and cockroaches in Lévis and the Quebec City area. Licensed, insured, results guarantee.'
     }
   },
 
-  // ── Page Projets (projectsPage) ────────────────────────────────────────────
+  // ── Interventions page (projectsPage) ──────────────────────────────────────
   {
     _id: 'projectsPage-en',
     _type: 'projectsPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
-      title: 'Real projects, not catalogue photos',
-      lead: 'Every piece was drawn, cut and installed for a real home and real people. Here are some of the ones that tell the story best.',
+      title: 'Real situations, settled for good',
+      lead: 'Every intervention answers a concrete problem, in a real home or a real business in the region. Here are some of the ones that speak loudest.',
       image: {
         _type: 'figure',
-        image: { _imagePath: '/images/project-cafe-comptoir.jpg' },
-        alt: 'Solid wood café counter with matching wall shelves.',
-        label: 'Café Le Moulin, Chambly',
-        caption: 'Project, 2:1',
+        alt: 'Restaurant kitchen made clean again after a cockroach intervention.',
+        label: 'Old Lévis restaurant, intervention',
+        caption: 'Intervention, 2:1',
         ratio: '2/1'
       }
     }],
@@ -483,32 +501,31 @@ export const docs = [
       {
         _type: 'ctaBand',
         _key: 'projects-cta',
-        title: 'Your project could be next',
-        subtitle: 'Tell me what you are imagining. I will tell you frankly what is possible.',
-        primaryCta: internal('Start a project', 'contactPage-en')
+        title: 'Your situation will be the next one settled',
+        subtitle: 'Tell us what is going on at your place. We will tell you honestly what to do.',
+        primaryCta: external('418 555 0147', 'tel:+14185550147')
       }
     ],
     seo: {
       _type: 'seo',
-      title: 'Projects',
-      description: 'Custom cabinetmaking projects: kitchens, furniture, bookcases and restoration in local solid wood, in Montérégie.'
+      title: 'Interventions',
+      description: 'Pest control case studies: cockroaches, bed bugs, rodents, carpenter ants and wasps, settled on the South Shore of Quebec City.'
     }
   },
 
-  // ── À propos (aboutPage) ───────────────────────────────────────────────────
+  // ── About (aboutPage) ──────────────────────────────────────────────────────
   {
     _id: 'aboutPage-en',
     _type: 'aboutPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
-      title: 'One person, from drawing to delivery',
-      lead: 'I have worked alone in Chambly since 2014. I am the one who draws, saws, assembles and delivers. And I am the one who answers when you call.',
+      title: 'A local, certified team that answers',
+      lead: 'Rempart Extermination has protected homes and businesses on the South Shore since 2011. Mathieu Bouchard and his team of six technicians know the region, and stay available well after the treatment.',
       image: {
         _type: 'figure',
-        image: { _imagePath: '/images/hero.jpg' },
-        alt: 'Cabinetmaking workshop, workbench with an ash board, hand planes and wood chisels.',
-        label: 'Workshop in Chambly',
-        caption: 'Workshop, 2:1',
+        alt: 'The Rempart Extermination team in front of the service trucks in Lévis.',
+        label: 'Rempart Extermination team, Lévis',
+        caption: 'Team, 2:1',
         ratio: '2/1'
       }
     }],
@@ -520,89 +537,89 @@ export const docs = [
         _type: 'logos',
         _key: 'about-logos',
         eyebrow: 'Credentials',
-        heading: 'Standards I put my name behind.',
+        heading: 'Standards we stand behind, in writing.',
         items: [
-          { _type: 'logoItem', _key: 'logo-guilde', label: 'Quebec Guild of Artisan Cabinetmakers' },
-          { _type: 'logoItem', _key: 'logo-fsc', label: 'FSC-certified wood' },
-          { _type: 'logoItem', _key: 'logo-fournisseurs', label: 'Montérégie suppliers' },
-          { _type: 'logoItem', _key: 'logo-finitions', label: 'VOC-free oil finishes' },
-          { _type: 'logoItem', _key: 'logo-garantie', label: 'Lifetime structural warranty' }
+          { _type: 'logoItem', _key: 'logo-acgp', label: 'CPMA member' },
+          { _type: 'logoItem', _key: 'logo-melccfp', label: 'MELCCFP licensed' },
+          { _type: 'logoItem', _key: 'logo-assure', label: 'Insured' },
+          { _type: 'logoItem', _key: 'logo-garantie', label: 'Results guarantee' },
+          { _type: 'logoItem', _key: 'logo-sante-canada', label: 'Health Canada approved products' }
         ]
       },
       {
         _type: 'testimonials',
         _key: 'about-testimonials',
         eyebrow: 'Testimonials',
-        heading: 'The trust of my clients',
+        heading: 'The trust of our clients',
         mode: 'featured'
       },
       {
         _type: 'ctaBand',
         _key: 'about-cta',
-        title: 'Want to meet?',
-        subtitle: 'At the shop or at your place, the first meeting is free.',
-        primaryCta: internal('Start a project', 'contactPage-en')
+        title: 'Want us to handle your problem?',
+        subtitle: 'The estimate is free, at home and at the business.',
+        primaryCta: external('418 555 0147', 'tel:+14185550147')
       }
     ],
     seo: {
       _type: 'seo',
       title: 'About',
-      description: 'A solo cabinetmaker in Chambly since 2014. From drawing to delivery, local wood and traditional joinery.'
+      description: 'A local extermination team in Lévis since 2011. MELCCFP licensed, insured and backed by a results guarantee on the South Shore of Quebec City.'
     }
   },
 
-  // ── Page Blogue (blogPage) ─────────────────────────────────────────────────
+  // ── Blog page (blogPage) ───────────────────────────────────────────────────
   {
     _id: 'blogPage-en',
     _type: 'blogPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
       title: 'The blog',
-      lead: 'Wood, techniques and the stories behind the projects. Everything I wish someone had explained to me before ordering a custom piece.'
+      lead: 'Prevention, pest identification, healthy home. The practical advice we give our clients every day, before a problem even sets in.'
     }],
     listCta: {
       _type: 'ctaBand',
-      title: 'A project inspired by these reads?',
-      subtitle: "Let's talk about it. The first meeting is free, with no obligation.",
-      primaryCta: internal('Start a project', 'contactPage-en')
+      title: 'A situation that cannot wait?',
+      subtitle: 'Call us. The estimate is free and we answer emergencies 24/7.',
+      primaryCta: external('418 555 0147', 'tel:+14185550147')
     },
     categoryCta: {
       _type: 'ctaBand',
-      title: 'Have a project in mind?',
-      subtitle: 'The first meeting is free, with no obligation.',
-      primaryCta: internal('Start a project', 'contactPage-en')
+      title: 'A pest in your home?',
+      subtitle: 'The estimate is free. Call us, we will tell you what to do.',
+      primaryCta: external('418 555 0147', 'tel:+14185550147')
     },
     articleCta: {
       _type: 'ctaBand',
-      title: 'Thinking about a custom piece?',
-      subtitle: 'Describe your project. The first meeting is free, with no obligation.',
-      primaryCta: internal('Start a project', 'contactPage-en')
+      title: 'Need an intervention?',
+      subtitle: 'Describe your situation. The estimate is free and with no obligation.',
+      primaryCta: internal('Free quote', 'contactPage-en')
     },
     related: { heading: 'Read next' },
     pageBuilder: [],
     seo: {
       _type: 'seo',
       title: 'Blog',
-      description: "The Atelier Cormier blog: wood, techniques and the stories behind the workshop's projects."
+      description: 'The Rempart Extermination blog: prevention, pest identification and tips for keeping a healthy home on the South Shore of Quebec City.'
     }
   },
 
-  // ── Page FAQ (faqPage) ─────────────────────────────────────────────────────
+  // ── FAQ page (faqPage) ─────────────────────────────────────────────────────
   {
     _id: 'faqPage-en',
     _type: 'faqPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
-      title: 'The questions people ask me',
-      lead: 'Timelines, prices, materials, warranty, care. Honest answers, before we even talk.'
+      title: 'The questions people ask us',
+      lead: 'Timelines, service area, estimate, safety, guarantee, price, follow-up and process. The honest answers, before we even talk.'
     }],
-    // 8 sections en mode manuel, mêmes _key et même ordre que le FR
-    // (spec 6.7): reproduit la page V1 à l'identique.
+    // 8 sections in manual mode, one per theme; Price and payment carries price
+    // then deposit. Reproduces the template composition exactly.
     sections: [
       {
         _type: 'faqSection',
-        _key: 'section-delais',
-        theme: { _type: 'reference', _ref: 'faqTheme-delais-en' },
+        _key: 'section-urgence',
+        theme: { _type: 'reference', _ref: 'faqTheme-urgence-en' },
         mode: 'manual',
         items: [
           { _key: 'q-delai', _type: 'reference', _ref: 'faqItem-delai-en' }
@@ -610,8 +627,8 @@ export const docs = [
       },
       {
         _type: 'faqSection',
-        _key: 'section-zone-desservie',
-        theme: { _type: 'reference', _ref: 'faqTheme-zone-desservie-en' },
+        _key: 'section-zone',
+        theme: { _type: 'reference', _ref: 'faqTheme-zone-en' },
         mode: 'manual',
         items: [
           { _key: 'q-zone', _type: 'reference', _ref: 'faqItem-zone-en' }
@@ -619,20 +636,20 @@ export const docs = [
       },
       {
         _type: 'faqSection',
-        _key: 'section-estimation-et-devis',
-        theme: { _type: 'reference', _ref: 'faqTheme-estimation-et-devis-en' },
+        _key: 'section-soumission',
+        theme: { _type: 'reference', _ref: 'faqTheme-soumission-en' },
         mode: 'manual',
         items: [
-          { _key: 'q-estimation', _type: 'reference', _ref: 'faqItem-estimation-en' }
+          { _key: 'q-soumission', _type: 'reference', _ref: 'faqItem-soumission-en' }
         ]
       },
       {
         _type: 'faqSection',
-        _key: 'section-materiaux',
-        theme: { _type: 'reference', _ref: 'faqTheme-materiaux-en' },
+        _key: 'section-securite',
+        theme: { _type: 'reference', _ref: 'faqTheme-securite-en' },
         mode: 'manual',
         items: [
-          { _key: 'q-essences', _type: 'reference', _ref: 'faqItem-essences-en' }
+          { _key: 'q-produits', _type: 'reference', _ref: 'faqItem-produits-en' }
         ]
       },
       {
@@ -646,8 +663,8 @@ export const docs = [
       },
       {
         _type: 'faqSection',
-        _key: 'section-prix-et-paiement',
-        theme: { _type: 'reference', _ref: 'faqTheme-prix-et-paiement-en' },
+        _key: 'section-prix',
+        theme: { _type: 'reference', _ref: 'faqTheme-prix-en' },
         mode: 'manual',
         items: [
           { _key: 'q-prix', _type: 'reference', _ref: 'faqItem-prix-en' },
@@ -656,11 +673,11 @@ export const docs = [
       },
       {
         _type: 'faqSection',
-        _key: 'section-entretien',
-        theme: { _type: 'reference', _ref: 'faqTheme-entretien-en' },
+        _key: 'section-suivi',
+        theme: { _type: 'reference', _ref: 'faqTheme-suivi-en' },
         mode: 'manual',
         items: [
-          { _key: 'q-entretien', _type: 'reference', _ref: 'faqItem-entretien-en' }
+          { _key: 'q-suivi', _type: 'reference', _ref: 'faqItem-suivi-en' }
         ]
       },
       {
@@ -669,7 +686,7 @@ export const docs = [
         theme: { _type: 'reference', _ref: 'faqTheme-processus-en' },
         mode: 'manual',
         items: [
-          { _key: 'q-modifications', _type: 'reference', _ref: 'faqItem-modifications-en' }
+          { _key: 'q-processus', _type: 'reference', _ref: 'faqItem-processus-en' }
         ]
       }
     ],
@@ -677,15 +694,15 @@ export const docs = [
       {
         _type: 'ctaBand',
         _key: 'faq-cta',
-        title: "Can't find your answer?",
-        subtitle: 'Write to me, I answer personally. The first meeting is free, with no obligation.',
-        primaryCta: internal('Contact me', 'contactPage-en')
+        title: 'Cannot find your answer?',
+        subtitle: 'Call us, we answer in person. The estimate is free and with no obligation.',
+        primaryCta: external('418 555 0147', 'tel:+14185550147')
       }
     ],
     seo: {
       _type: 'seo',
       title: 'Frequently asked questions',
-      description: 'Materials, timelines, prices, care, warranty and process: honest answers to the most common questions, before we even talk.'
+      description: 'Timelines, service area, estimate, product safety, guarantee, price and follow-up: honest answers to the most common questions, before we even talk.'
     }
   },
 
@@ -695,8 +712,8 @@ export const docs = [
     _type: 'contactPage',
     language: 'en',
     hero: [{ _type: 'pageHero', _key: 'hero',
-      title: "Let's start your project",
-      lead: 'An idea, a sketch on a napkin or just an itch: write to me. The first meeting is free, with no obligation.'
+      title: 'We will handle your problem',
+      lead: 'A nest, some traces, noises in the walls or just a hunch: write to us about what you are noticing. We will get back to you with a clear plan. For an emergency, call us, it is faster.'
     }],
     pageBuilder: [
       contactBlock('contact-page')
@@ -704,27 +721,27 @@ export const docs = [
     seo: {
       _type: 'seo',
       title: 'Contact',
-      description: 'Start a custom cabinetmaking project in Chambly. Write to me or call the workshop. First meeting free, with no obligation.'
+      description: 'Get a free quote for an extermination intervention in Lévis and the Quebec City area. Write to us or call us. 24/7 emergencies.'
     }
   },
 
-  // ── One-Pager, palier 1 (onePager) ─────────────────────────────────────────
+  // ── One-Pager, tier 1 (onePager) ───────────────────────────────────────────
   {
     _id: 'onePager-en',
     _type: 'onePager',
     language: 'en',
     hero: [{ _type: 'heroHome', _key: 'hero',
-      title: 'Local solid wood, shaped by hand, built to last a hundred years.',
-      lead: 'Kitchens, furniture and restoration, from an independent workshop in Montérégie since 2014.',
-      primaryCta: anchor('Start a project', 'contact'),
-      secondaryCta: anchor('See the services', 'services'),
+      title: 'We take back control of your home. For good.',
+      lead: 'Ants, mice, wasps, bed bugs, cockroaches: pest control for home and business in Lévis and the Quebec City area. 24/7 emergencies.',
+      primaryCta: external('418 555 0147', 'tel:+14185550147'),
+      secondaryCta: anchor('Free quote', 'contact'),
       meta: [
-        { _type: 'heroMetaItem', _key: 'meta-etabli', label: 'Established', value: '2014' },
-        { _type: 'heroMetaItem', _key: 'meta-projets', label: 'Projects delivered', value: '140+' },
-        { _type: 'heroMetaItem', _key: 'meta-rayon', label: 'Radius', value: '200 km' }
+        { _type: 'heroMetaItem', _key: 'meta-google', label: 'Google', value: '4.9' },
+        { _type: 'heroMetaItem', _key: 'meta-permis', label: 'Permit', value: 'Licensed and insured' },
+        { _type: 'heroMetaItem', _key: 'meta-depuis', label: 'Since', value: '2011' }
       ],
-      visual: heroFigure('4/5', 'Workshop photo, 4:5'),
-      visualMobile: heroFigure('4/3', 'Workshop photo, 4:3')
+      visual: heroFigure('4/5', 'Service call, 4:5'),
+      visualMobile: heroFigure('4/3', 'Service call, 4:3')
     }],
     pageBuilder: [
       aboutBlock('one-pager-about'),
@@ -732,9 +749,9 @@ export const docs = [
         _type: 'services',
         _key: 'one-pager-services',
         eyebrow: 'Services',
-        heading: 'Four things, done properly.',
-        lead: 'I do not do everything. Here is what I do: each line represents a project I have delivered at least twenty times.',
-        cta: anchor('Request a quote', 'contact'),
+        heading: 'The pests we handle most often.',
+        lead: 'We do not pretend to do everything. Here is what we treat every day, at home and at the business, across the whole South Shore.',
+        cta: anchor('Free quote', 'contact'),
         mode: 'auto',
         limit: 4,
       },
@@ -742,19 +759,19 @@ export const docs = [
         _type: 'testimonials',
         _key: 'one-pager-testimonials',
         eyebrow: 'Testimonials',
-        heading: 'Three clients, three projects, one rule: deliver what was promised.',
+        heading: 'Three clients, three situations, the same peace of mind regained.',
         mode: 'featured'
       },
       {
         _type: 'faq',
         _key: 'one-pager-faq',
         eyebrow: 'FAQ',
-        heading: 'The questions I get asked most often.',
+        heading: 'The questions people ask us most often.',
         items: [
           { _key: 'faq-delai', _type: 'reference', _ref: 'faqItem-delai-en' },
           { _key: 'faq-zone', _type: 'reference', _ref: 'faqItem-zone-en' },
-          { _key: 'faq-estimation', _type: 'reference', _ref: 'faqItem-estimation-en' },
-          { _key: 'faq-essences', _type: 'reference', _ref: 'faqItem-essences-en' },
+          { _key: 'faq-soumission', _type: 'reference', _ref: 'faqItem-soumission-en' },
+          { _key: 'faq-produits', _type: 'reference', _ref: 'faqItem-produits-en' },
           { _key: 'faq-garantie', _type: 'reference', _ref: 'faqItem-garantie-en' }
         ]
       },
@@ -762,8 +779,8 @@ export const docs = [
     ],
     seo: {
       _type: 'seo',
-      title: 'Atelier Cormier | Custom Cabinetmaking in Chambly',
-      description: 'Custom cabinetmaking in Chambly, Quebec. Established in 2014.'
+      title: 'Rempart Extermination | Extermination in Lévis and the Quebec City area',
+      description: 'Pest control and extermination in Lévis and the Quebec City area. Licensed, insured, results guarantee. 24/7 emergency service.'
     }
   }
 ]
