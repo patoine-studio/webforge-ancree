@@ -1,14 +1,42 @@
 <script setup lang="ts">
 /* En-tete collant avec numero (langage de conversion grave de la famille).
- * Transparent et clair par-dessus le heros full bleed; devient blanc solide
- * (texte bleu nuit, filet, ombre douce) une fois le heros quitte au defilement.
- * Sur une page sans heros, il est solide d'emblee. Navigation par ancres au
- * desktop; au mobile, un menu en panneau. */
+ * Transparent et clair par-dessus le heros full bleed; devient blanc solide une
+ * fois le heros quitte au defilement; solide d'emblee sur une page sans heros.
+ * Deux modes: 'landing' (one-pager: ancres + scrollspy, qualifiees par la racine
+ * `home`) et 'multipage' (liens de route via le route-map). */
+import { routePath, routeLabel, type RouteKey } from '~/config/route-map'
+
+const props = withDefaults(
+  defineProps<{
+    mode?: 'multipage' | 'landing'
+    /** Racine pour qualifier les ancres en mode landing (one-pager sous /one-pager). */
+    home?: string
+  }>(),
+  { mode: 'landing', home: '/' }
+)
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 const links = useSiteNav()
 const otherLocalePath = computed(() => switchLocalePath(locale.value === 'fr' ? 'en' : 'fr'))
+
+// Nav multipage: liens de route localises depuis le route-map.
+const MULTIPAGE_NAV: RouteKey[] = ['services', 'blog', 'faq', 'contact']
+const multipageLinks = computed(() =>
+  MULTIPAGE_NAV.map((key) => ({
+    to: routePath(key, locale.value as 'fr' | 'en'),
+    label: routeLabel(key, locale.value as 'fr' | 'en')
+  }))
+)
+const brandTo = computed(() =>
+  props.mode === 'multipage' ? routePath('home', locale.value as 'fr' | 'en') : localePath('/')
+)
+// Ancres du landing qualifiees par la racine du one-pager (fonctionnent depuis
+// une page legale du sous-arbre). En racine '/', l'ancre reste #section.
+function landingHref(href: string): string {
+  return props.home && props.home !== '/' ? `${props.home}${href}` : href
+}
 
 const solid = ref(false)
 const menuOpen = ref(false)
@@ -41,7 +69,7 @@ onBeforeUnmount(() => {
 <template>
   <header class="header" :class="{ 'header--solid': solid }">
     <div class="wf-container header__row">
-      <NuxtLink :to="localePath('/')" class="header__brand" :aria-label="t('site.home_aria')">
+      <NuxtLink :to="brandTo" class="header__brand" :aria-label="t('site.home_aria')">
         <span class="header__mark" aria-hidden="true">
           <Icon name="lucide:shield-check" />
         </span>
@@ -52,9 +80,16 @@ onBeforeUnmount(() => {
       </NuxtLink>
 
       <nav class="header__nav" :aria-label="t('a11y.main_nav')">
-        <a v-for="link in links" :key="link.href" :href="link.href" class="header__link">
-          {{ t(link.labelKey) }}
-        </a>
+        <template v-if="mode === 'multipage'">
+          <NuxtLink v-for="link in multipageLinks" :key="link.to" :to="link.to" class="header__link">
+            {{ link.label }}
+          </NuxtLink>
+        </template>
+        <template v-else>
+          <a v-for="link in links" :key="link.href" :href="landingHref(link.href)" class="header__link">
+            {{ t(link.labelKey) }}
+          </a>
+        </template>
       </nav>
 
       <div class="header__actions">
