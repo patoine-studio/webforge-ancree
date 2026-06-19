@@ -1,9 +1,45 @@
-/* Tokens de marque — propres à CE site (Ancrée / démo à définir).
- * Rebrander un autre site de la famille = changer ces valeurs. Minimal pour
- * l'instant: surfaces, texte, accent. Le reste arrive avec le design. */
+/* Tokens de marque, propres a CE site (demo Rempart Extermination, famille
+ * Ancree). Rebrander un autre site de la famille, c'est changer ce fichier. La
+ * couche famille (geometrie, typo, mouvement) vit dans family/tokens.css; ici,
+ * seulement la palette, les surfaces et la teinte d'ombre.
+ *
+ * Decision de Charles (19 juin 2026): fond BLANC, clean, PAS de beige. Ceci
+ * surclasse le creme #F5F0E8 de DESIGN.md pour cette demo. La chaleur d'Ancree
+ * vient desormais des accents (ambre, bleu), de l'imagerie et des ombres chaudes,
+ * pas d'un champ beige. Bleu nuit pour le texte, bleu confiance et ambre en
+ * accents. Surfaces et filets derives en OKLCH (neutres a peine teintes). */
 :root {
-  --wf-surface: #ffffff;
-  --wf-text: #1a1a1a;
-  --wf-text-muted: #5a5a5a;
-  --wf-accent: #1e6fb0;
+  /* Pigments bruts. */
+  --paper: oklch(99.2% 0.003 95); /* blanc clean, chaleur imperceptible (jamais #fff pur) */
+  --navy:  #16243f; /* bleu nuit, texte et bandes fortes */
+  --slate: #5c6678; /* ardoise, texte secondaire */
+  --blue:  #1e6fb0; /* bleu confiance, accent */
+  --amber: #fbbf24; /* ambre, accent d'appel */
+
+  /* Surfaces (neutres teintes vers le bleu nuit, jamais de beige). */
+  --bg-base: var(--paper);
+  --bg-alt:  color-mix(in oklch, var(--navy) 4%, var(--paper));  /* alternance tres subtile */
+  --bg-lift: #ffffff;                                            /* cartes relevees (petite surface) */
+  --bg-deep: var(--navy);                                        /* bandes fortes pleine largeur */
+
+  /* Surface d'accent chaud, usage parcimonieux (puces, chips), jamais un fond. */
+  --accent-call-soft: color-mix(in oklch, var(--amber) 16%, var(--paper));
+
+  /* Texte. */
+  --text-base:   var(--navy);
+  --text-muted:  var(--slate);
+  --text-ondeep: color-mix(in oklch, white 94%, var(--blue)); /* texte clair sur navy ou sur image */
+  --text-oncall: var(--navy);                                 /* texte sur ambre (contraste fort) */
+
+  /* Accents. */
+  --accent-trust: var(--blue);
+  --accent-call:  var(--amber);
+
+  /* Teinte d'ombre: brun chaud doux, base des elevations (family/tokens.css).
+   * Jamais du noir pur (DESIGN.md: ombres chaudes et douces). */
+  --shadow-tint: oklch(36% 0.045 56);
+
+  /* Fonctionnel. */
+  --error:      #b23b2e;
+  --error-soft: color-mix(in oklch, var(--error) 10%, var(--bg-base));
 }

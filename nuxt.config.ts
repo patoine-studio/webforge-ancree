@@ -26,8 +26,18 @@ export default defineNuxtConfig({
   ignore: ['studio/**'],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    // Constante de compilation: false en prod (le mode preview Sanity sera
+    // recable avec l'architecture de contenu). Elle coupe le code de preview et
+    // le bypass de mouvement dans la signature « s'ancre en montant ».
+    define: { __WF_PREVIEW__: 'false' }
   },
+
+  // Noms de composants plats (sans prefixe de dossier): <Hero>, <Button>,
+  // <Header>, peu importe l'arborescence. Convention de la famille. On limite
+  // le scan aux .vue: les block-map.ts ne sont pas des composants (importes
+  // explicitement), sinon Nuxt les nomme tous deux « BlockMap » (collision).
+  components: [{ path: '~/components', pathPrefix: false, extensions: ['vue'] }],
 
   app: {
     head: {
@@ -50,13 +60,15 @@ export default defineNuxtConfig({
     '@nuxtjs/seo'
   ],
 
-  // Client Sanity (lecture publique CDN, sans token). Le visual editing / preview
-  // sera recâblé avec la nouvelle architecture de contenu.
+  // Client Sanity (lecture publique, sans token). useCdn: false — le site est
+  // genere statiquement, donc toutes les lectures se font au BUILD: l'API directe
+  // garantit du contenu frais (le CDN accuse un leger retard apres publication).
+  // Aucune requete Sanity a l'execution (tout est prerendu).
   sanity: {
     projectId: sanityProjectId,
     dataset: sanityDataset,
     apiVersion: sanityApiVersion,
-    useCdn: true
+    useCdn: false
   },
 
   // Pipeline image (@nuxt/image, IPX). Les images du contenu vivront sur le CDN
@@ -77,8 +89,19 @@ export default defineNuxtConfig({
   css: [
     '~/family/tokens.css',
     '~/brand/tokens.css',
+    '~/assets/css/typography.css',
+    '~/assets/css/grid.css',
     '~/assets/css/main.css'
   ],
+
+  // Typographies de la famille Ancree (DESIGN.md). Poids declares explicitement,
+  // sinon le navigateur synthetise des faux-gras incoherents. Aucune italique.
+  fonts: {
+    families: [
+      { name: 'Bitter', provider: 'google', weights: [600, 700, 800], styles: ['normal'] },
+      { name: 'Source Sans 3', provider: 'google', weights: [400, 600], styles: ['normal'] }
+    ]
+  },
 
   // Bilingue: FR à la racine, EN sous /en. Pas de détection navigateur (statique).
   i18n: {

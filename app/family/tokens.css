@@ -1,10 +1,60 @@
-/* Tokens de la famille Ancrée — CANVAS VIERGE.
- *
- * Le système complet (échelle typographique, espacement fluide, géométrie,
- * mouvement) sera rebâti avec le design de la famille. Ici, le strict minimum
- * pour que la coquille s'affiche. Discipline 1 (aucune valeur design en dur dans
- * les composants): toute valeur vit dans ce fichier ou dans brand/tokens.css. */
+/* Tokens de la famille Ancree: ce qui est VRAI pour tout site de la famille,
+ * peu importe le client (typographies, geometrie, rythme, formules derivees,
+ * mouvement). AUCUNE couleur ici; les couleurs vivent dans brand/tokens.css et
+ * les formules (filets, ombres) se resolvent a l'usage contre elles. Base
+ * 1rem = 10px @1440 (moteur de taille fluide dans main.css). Discipline 1:
+ * aucune valeur design en dur dans les composants, tout passe par ces tokens. */
 :root {
-  --wf-font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --wf-font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', monospace;
+  /* Typographie. Display = Bitter, un slab serif chaud et plante au sol (etabli,
+   * local, terre-a-terre), distinct des sans geometriques par defaut. Corps =
+   * Source Sans 3, humaniste lisible. Chargees par @nuxt/fonts. */
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  --font-body:    "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", "JetBrains Mono", monospace;
+
+  /* Geometrie. Rayons doux autour de 10px (DESIGN.md: matiere et chaleur). */
+  --radius-sm:   0.8rem; /* 8px,  puces et petits elements */
+  --radius:      1.2rem; /* 12px, cartes et boutons */
+  --radius-lg:   2rem;   /* 20px, grande image du heros */
+  --radius-pill: 99rem;  /* pastilles d'ancrage local */
+
+  --header-height: 7.2rem; /* 72px, en-tete collant */
+
+  /* Ratios d'image. */
+  --ratio-portrait:  4 / 5;
+  --ratio-landscape: 4 / 3;
+  --ratio-wide:      3 / 2;
+  --ratio-video:     16 / 9;
+
+  /* Rythme d'espacement. La base Tailwind (--spacing, @theme) vaut 0.5rem; ici
+   * les paliers verticaux de bloc et les espaces typographiques intra-bloc. */
+  --spacing-unit: calc(var(--spacing) * 2); /* 1rem, alias pour le CSS brut */
+  --space-block-tight:   5rem; /* palier de section serre */
+  --space-block-default: 9rem; /* palier standard, genereux (chaleur) */
+  --space-title-lead: 20px; /* titre vers texte, px fixe assume */
+  --space-lead-cta:   36px; /* texte vers bouton */
+
+  /* Filets, resolus a l'usage contre la couleur de texte de marque. */
+  --line-width: 1px;
+  --line-hair: var(--line-width) solid color-mix(in oklch, var(--text-base) 10%, transparent);
+  --line-soft: var(--line-width) solid color-mix(in oklch, var(--text-base) 6%, transparent);
+
+  /* Elevations: ombres chaudes, douces, en couches. Les blocs semblent poses,
+   * stables, ancres au sol (DESIGN.md). --shadow-tint vient de la marque. */
+  --elev-low:  0 1px 2px color-mix(in oklch, var(--shadow-tint) 10%, transparent),
+               0 3px 8px color-mix(in oklch, var(--shadow-tint) 7%, transparent);
+  --elev-mid:  0 2px 4px color-mix(in oklch, var(--shadow-tint) 8%, transparent),
+               0 10px 26px color-mix(in oklch, var(--shadow-tint) 12%, transparent);
+  --elev-high: 0 8px 16px color-mix(in oklch, var(--shadow-tint) 9%, transparent),
+               0 28px 56px color-mix(in oklch, var(--shadow-tint) 16%, transparent);
+
+  /* Mouvement, signature « ca s'ancre en montant »: une deceleration marquee
+   * (expo out), comme un objet qui se pose au sol. Miroir JS dans family/motion.ts
+   * (meme courbe settle). prefers-reduced-motion gere par le kill-switch global. */
+  --motion-duration-hover:  160ms;
+  --motion-duration-line:   240ms;
+  --motion-duration-expand: 320ms;
+  --motion-duration-spin:   900ms;
+  --motion-duration-pulse: 2600ms; /* respiration calme du bouton d'appel */
+  --motion-ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
 }

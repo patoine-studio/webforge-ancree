@@ -1,70 +1,126 @@
 @import "tailwindcss";
 
-/* CSS de base du canvas. Reset minimal + la coquille placeholder. Toutes les
- * valeurs viennent des tokens (family/ et brand/), aucune en dur ici. */
+/* Pont Tailwind v4: reexporte les tokens dans l'espace Tailwind pour que les
+ * utilitaires (p-2, gap-4, bg-bg-base, font-display) pointent sur les memes
+ * variables. Aucun commentaire a caracteres Unicode (box-drawing) juste avant
+ * @theme: ca casse le parseur Tailwind v4 et reinitialise --spacing. */
+@theme {
+  --spacing: 0.5rem;
+  --color-bg-base: var(--bg-base);
+  --color-bg-alt: var(--bg-alt);
+  --color-bg-deep: var(--bg-deep);
+  --color-text-base: var(--text-base);
+  --color-text-muted: var(--text-muted);
+  --color-accent-trust: var(--accent-trust);
+  --color-accent-call: var(--accent-call);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
 
+/* Reset minimal. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
-html,
-body {
+* {
   margin: 0;
-  padding: 0;
+}
+
+/* Moteur de taille fluide: tout le structurel est en rem, donc un seul clamp sur
+ * html met tout le systeme a l'echelle. Mobile: 1rem = 100vw/37.5 (375 -> 10px).
+ * Desktop (>= 1024px): 1rem = 100vw/144 (1440 -> 10px, 1920 -> 13.33px). C'est
+ * la seule exception viewport justifiee (html est l'ancetre de tout conteneur). */
+html {
+  font-size: clamp(8.533px, calc(100vw / 37.5), 10px);
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+  -webkit-text-size-adjust: 100%;
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: clamp(10px, calc(100vw / 144), 13.333px);
+  }
 }
 
 body {
-  font-family: var(--wf-font-body);
-  color: var(--wf-text);
-  background: var(--wf-surface);
+  font-family: var(--font-body);
+  font-size: 1.7rem;
+  line-height: 1.6;
+  color: var(--text-base);
+  background: var(--bg-base);
+  text-wrap: pretty;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Lien d'évitement (a11y): visible au focus clavier seulement. */
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Hote de conteneur: toutes les requetes @container site visent cette largeur. */
+.wf-site {
+  container-type: inline-size;
+  container-name: site;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.wf-site > main {
+  flex: 1 0 auto;
+}
+
+/* Lien d'evitement (a11y): visible au focus clavier seulement. */
 .wf-skip {
   position: absolute;
   left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--text-base);
+  color: var(--bg-base);
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 .wf-skip:focus {
-  left: 1rem;
-  top: 1rem;
-  z-index: 10;
+  left: 1.2rem;
+  top: 1.2rem;
 }
 
-/* Coquille placeholder (accueil + page d'erreur). */
-.canvas {
-  min-height: 100dvh;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.75rem;
-  padding: 2rem;
-  text-align: center;
+/* Texte reserve aux lecteurs d'ecran. */
+.wf-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
-.canvas-kicker {
-  margin: 0;
-  font-family: var(--wf-font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--wf-accent);
+
+/* Focus clavier: anneau de confiance, jamais supprime. */
+:focus-visible {
+  outline: 2px solid var(--accent-trust);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
-.canvas-title {
-  margin: 0;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-}
-.canvas-lead {
-  margin: 0;
-  max-width: 38ch;
-  color: var(--wf-text-muted);
-}
-.canvas-link {
-  margin-top: 0.5rem;
-  color: var(--wf-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+
+/* prefers-reduced-motion: fige toutes les animations et transitions CSS. Le JS
+ * (GSAP: reveal, entree, parallaxe) est coupe separement via motionDisabled(). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

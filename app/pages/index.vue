@@ -1,23 +1,32 @@
 <script setup lang="ts">
-// Accueil placeholder du canvas vierge. La reconstruction (héros, blocs, contenu
-// Sanity) remplace cette page.
-const { t } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
-const { locale } = useI18n()
+/* Accueil de la demo Rempart Extermination. Le contenu vient de Sanity (une
+ * requete au build, transformee vers les formes que les composants consomment).
+ * Si le dataset est vide ou injoignable, on retombe sur les fixtures: le site
+ * rend toujours. Heros split full bleed, puis la page-builder decline la
+ * signature « s'ancre en montant ». */
+import { HOME_QUERY, transformHome } from '~/sanity/content'
+
+const { t, locale } = useI18n()
+
+const { data: raw } = await useSanityQuery<unknown>(HOME_QUERY, { lang: locale.value })
+
+const home = computed(() => transformHome(raw.value, locale.value as 'fr' | 'en'))
+
+// Fixtures de repli (contenu identique au seed; garantit un rendu en l'absence
+// de donnees Sanity).
+const heroFallback = useHeroContent()
+const blocksFallback = useHomeBlocks()
+
+const hero = computed(() => home.value?.hero ?? heroFallback.value)
+const blocks = computed(() => home.value?.blocks ?? blocksFallback)
 
 useSeoMeta({
-  title: () => t('home.title'),
-  description: () => t('home.lead')
+  title: () => home.value?.seo.title || t('home.title'),
+  description: () => home.value?.seo.description || t('home.lead')
 })
 </script>
 
 <template>
-  <section class="canvas">
-    <p class="canvas-kicker">webforge-ancree</p>
-    <h1 class="canvas-title">{{ t('home.title') }}</h1>
-    <p class="canvas-lead">{{ t('home.lead') }}</p>
-    <NuxtLink class="canvas-link" :to="switchLocalePath(locale === 'fr' ? 'en' : 'fr')">
-      {{ t('home.switch') }}
-    </NuxtLink>
-  </section>
+  <Hero :hero="hero" />
+  <PageBuilder :blocks="blocks" reveal />
 </template>

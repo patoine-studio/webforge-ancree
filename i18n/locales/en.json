@@ -1,11 +1,89 @@
 {
+  "showcase": {
+    "title": "Ancrée family",
+    "subtitle": "Style guide and block library",
+    "lead": "The skin, the 16-column grid and the blocks of the Ancrée family, rendered for real. Internal page, not indexed.",
+    "section_system": "Visual system",
+    "colors": "Colours",
+    "typography": "Typography",
+    "buttons": "Buttons",
+    "hero": "Hero",
+    "blocks": "Page blocks",
+    "type_sample": "We take back control, for good"
+  },
   "a11y": {
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "main_nav": "Main navigation",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "ui": {
+    "learn_more": "Learn more"
+  },
+  "nav": {
+    "services": "Services",
+    "areas": "Service areas",
+    "about": "About",
+    "reviews": "Reviews",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "faq": {
+    "still_wondering_title": "A question that isn’t here?",
+    "still_wondering_lead": "Call us, you always reach a real person."
+  },
+  "site": {
+    "home_aria": "Rempart Extermination, back to home"
+  },
+  "contact": {
+    "phone_display": "450 555 0199",
+    "phone_href": "tel:+14505550199",
+    "email_display": "bonjour{'@'}rempart-extermination.ca",
+    "email_href": "mailto:bonjour{'@'}rempart-extermination.ca",
+    "call_short": "Call",
+    "error_name": "Please enter your name.",
+    "error_contact": "Please enter a valid phone number or email.",
+    "required": "required",
+    "optional": "optional"
+  },
+  "callbar": {
+    "estimate": "Free estimate"
+  },
+  "pages": {
+    "services_heading": "Our pest control services",
+    "services_lead": "Residential and commercial, handled by certified technicians with products safe for family and pets.",
+    "privacy_heading": "Privacy policy",
+    "terms_heading": "Terms of use",
+    "legal_body": "This is a demo template. The real legal content will be written before the site goes live."
+  },
+  "footer": {
+    "tagline": "Residential and commercial pest control, rooted on Montreal's North Shore.",
+    "nav_heading": "Explore",
+    "contact_heading": "Get in touch",
+    "rights": "All rights reserved.",
+    "credit": "Designed by",
+    "studio": "Patoine Studio",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use"
   },
   "home": {
-    "title": "Ancrée",
-    "lead": "Blank canvas. The family rebuild starts here.",
+    "title": "Rempart Extermination, residential pest control on the North Shore",
+    "lead": "Certified, guaranteed pest control on Montreal's North Shore. A technician at your door, often the same day.",
     "switch": "Français"
+  },
+  "hero": {
+    "kicker": "North Shore of Montreal and Laval",
+    "title": "Pests at home? We handle it for good.",
+    "lead": "Residential and commercial pest control on Montreal's North Shore. A certified technician at your door, often the same day, with a written guarantee.",
+    "cta_primary": "Call now",
+    "cta_secondary": "Get an estimate",
+    "proof_1_value": "Certified",
+    "proof_1_label": "and fully insured",
+    "proof_2_value": "4.9 out of 5",
+    "proof_2_label": "from 600+ Google reviews",
+    "proof_3_value": "Guaranteed",
+    "proof_3_label": "satisfaction or we come back",
+    "image_alt": "A smiling Rempart Extermination technician in front of his van in a North Shore residential neighbourhood at sunset."
   },
   "error": {
     "not_found": "Page not found",

@@ -1,15 +1,93 @@
 {
+  "showcase": {
+    "title": "Famille Ancrée",
+    "subtitle": "Guide de style et bibliothèque de blocs",
+    "lead": "La peau, la grille à 16 colonnes et les blocs de la famille Ancrée, rendus en vrai. Page interne, non indexée.",
+    "section_system": "Système visuel",
+    "colors": "Couleurs",
+    "typography": "Typographie",
+    "buttons": "Boutons",
+    "hero": "Héros",
+    "blocks": "Blocs de page",
+    "type_sample": "On reprend le contrôle, pour de bon"
+  },
   "a11y": {
-    "skip_to_content": "Aller au contenu"
+    "skip_to_content": "Aller au contenu",
+    "main_nav": "Navigation principale",
+    "open_menu": "Ouvrir le menu",
+    "close_menu": "Fermer le menu"
+  },
+  "ui": {
+    "learn_more": "En savoir plus"
+  },
+  "nav": {
+    "services": "Services",
+    "areas": "Zones desservies",
+    "about": "À propos",
+    "reviews": "Avis",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "faq": {
+    "still_wondering_title": "Une question qui n’est pas ici?",
+    "still_wondering_lead": "Appelez-nous, c’est toujours une vraie personne qui répond."
+  },
+  "site": {
+    "home_aria": "Rempart Extermination, retour à l’accueil"
+  },
+  "contact": {
+    "phone_display": "450 555 0199",
+    "phone_href": "tel:+14505550199",
+    "email_display": "bonjour{'@'}rempart-extermination.ca",
+    "email_href": "mailto:bonjour{'@'}rempart-extermination.ca",
+    "call_short": "Appeler",
+    "error_name": "Entrez votre nom.",
+    "error_contact": "Entrez un téléphone ou un courriel valide.",
+    "required": "requis",
+    "optional": "facultatif"
+  },
+  "callbar": {
+    "estimate": "Estimation gratuite"
+  },
+  "pages": {
+    "services_heading": "Nos services d’extermination",
+    "services_lead": "Résidentiel et commercial, traités par des techniciens certifiés avec des produits sûrs pour la famille et les animaux.",
+    "privacy_heading": "Politique de confidentialité",
+    "terms_heading": "Conditions d’utilisation",
+    "legal_body": "Ceci est un gabarit de démonstration. Le contenu légal réel sera rédigé avant la mise en ligne du site."
+  },
+  "footer": {
+    "tagline": "Extermination résidentielle et commerciale, ancrée sur la Rive-Nord de Montréal.",
+    "nav_heading": "Naviguer",
+    "contact_heading": "Nous joindre",
+    "rights": "Tous droits réservés.",
+    "credit": "Conçu par",
+    "studio": "Patoine Studio",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d’utilisation"
   },
   "home": {
-    "title": "Ancrée",
-    "lead": "Canvas vierge. La reconstruction de la famille commence ici.",
+    "title": "Rempart Extermination, extermination résidentielle sur la Rive-Nord",
+    "lead": "Service d’extermination certifié et garanti sur la Rive-Nord de Montréal. Un technicien à votre porte, souvent le jour même.",
     "switch": "English"
+  },
+  "hero": {
+    "kicker": "Rive-Nord de Montréal et Laval",
+    "title": "Des nuisibles chez vous? On règle ça pour de bon.",
+    "lead": "Extermination résidentielle et commerciale sur la Rive-Nord de Montréal. Un technicien certifié à votre porte, souvent le jour même, avec une garantie écrite.",
+    "cta_primary": "Appeler maintenant",
+    "cta_secondary": "Obtenir une estimation",
+    "proof_1_value": "Certifié",
+    "proof_1_label": "et entièrement assuré",
+    "proof_2_value": "4,9 sur 5",
+    "proof_2_label": "sur plus de 600 avis Google",
+    "proof_3_value": "Garanti",
+    "proof_3_label": "satisfaction ou on revient",
+    "image_alt": "Un technicien de Rempart Extermination souriant devant son camion, dans un quartier résidentiel de la Rive-Nord au coucher du soleil."
   },
   "error": {
     "not_found": "Page introuvable",
     "generic": "Une erreur est survenue",
-    "home": "Retour à l'accueil"
+    "home": "Retour à l’accueil"
   }
 }

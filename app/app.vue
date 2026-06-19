@@ -6,6 +6,9 @@ const i18nHead = useLocaleHead({ dir: false, lang: false, seo: true })
 useHead(() => ({
   link: (i18nHead.value.link ?? []).filter((l) => l.rel === 'alternate')
 }))
+
+// Overlay de grille, outil dev seulement (touche `g`). Hors bundle de prod.
+const isDev = import.meta.dev
 </script>
 
 <template>
@@ -13,4 +16,5 @@ useHead(() => ({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <DevGrid v-if="isDev" />
 </template>

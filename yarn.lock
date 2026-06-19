@@ -12943,6 +12943,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gsap@npm:^3.13.0":
+  version: 3.15.0
+  resolution: "gsap@npm:3.15.0"
+  checksum: 10c0/5d86de72cb0bd6b20502c34c329a83a7d679979731bb465164407b7a5225aa61d612beee740eea36258622897c116cd2ca35320d530b7cf68bad62522361fcf7
+  languageName: node
+  linkType: hard
+
 "gunzip-maybe@npm:^1.4.2":
   version: 1.4.2
   resolution: "gunzip-maybe@npm:1.4.2"
@@ -20819,6 +20826,7 @@ __metadata:
     "@sanity/client": "npm:^7.22.1"
     "@tailwindcss/vite": "npm:^4.2.4"
     "@types/node": "npm:^25.9.1"
+    gsap: "npm:^3.13.0"
     nuxt: "npm:^4.4.6"
     pinia: "npm:^3.0.4"
     tailwindcss: "npm:^4.2.4"
