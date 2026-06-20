@@ -20,7 +20,8 @@ const heroBlock = computed<HeroPageBlock>(() => ({
   cta: { label: t('hero.cta_primary'), href: t('contact.phone_href') }
 }))
 
-const { data: raw } = await useSanityQuery<{ services?: Array<{ _id: string; icon?: string; title: string; body?: string; featured?: boolean }> }>(
+const { data: raw } = await useSanityBuildQuery<{ services?: Array<{ _id: string; icon?: string; title: string; body?: string; featured?: boolean }> }>(
+  `services-index:${locale.value}`,
   SERVICES_INDEX_QUERY,
   { lang: locale.value }
 )

@@ -9,7 +9,7 @@ definePageMeta({ layout: 'landing' })
 
 const { t, locale } = useI18n()
 
-const { data: raw } = await useSanityQuery<unknown>(HOME_QUERY, { lang: locale.value })
+const { data: raw } = await useSanityBuildQuery<unknown>(`home:${locale.value}`, HOME_QUERY, { lang: locale.value })
 
 const home = computed(() => transformHome(raw.value, locale.value as 'fr' | 'en'))
 

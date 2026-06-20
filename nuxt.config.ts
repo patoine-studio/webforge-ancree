@@ -81,7 +81,11 @@ export default defineNuxtConfig({
     projectId: sanityProjectId,
     dataset: sanityDataset,
     apiVersion: sanityApiVersion,
-    useCdn: false
+    useCdn: false,
+    // Lecture publique: perspective 'published' (le defaut 'raw' du client exige un
+    // token et renvoie 403 sur le dataset public). Aucune requete a l'execution: la
+    // lecture se fait au build (useSanityBuildQuery), jamais depuis le navigateur.
+    perspective: 'published'
   },
 
   // Pipeline image (@nuxt/image, IPX). Les images du contenu vivront sur le CDN

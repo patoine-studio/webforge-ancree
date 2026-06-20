@@ -12,7 +12,7 @@ const slug = computed(() => String(route.params.slug || ''))
 const setI18nParams = useSetI18nParams()
 setI18nParams({ fr: { slug: slug.value }, en: { slug: slug.value } })
 
-const { data: raw } = await useSanityQuery<unknown>(SERVICE_CITY_QUERY, { lang: locale.value, slug: slug.value })
+const { data: raw } = await useSanityBuildQuery<unknown>(`serviceCity:${locale.value}:${slug.value}`, SERVICE_CITY_QUERY, { lang: locale.value, slug: slug.value })
 const page = computed(() => transformServiceCity(raw.value))
 
 // Repli: titre derive du slug (ex "saint-eustache" -> "Saint-Eustache").
