@@ -57,6 +57,7 @@ const classes = computed(() => [
 
 <style scoped>
 .btn {
+  --btn-lift: 2px; /* amplitude du soulevement au survol, source unique du geste */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -77,6 +78,18 @@ const classes = computed(() => [
     box-shadow var(--motion-duration-hover) var(--motion-ease-settle),
     color var(--motion-duration-hover) var(--motion-ease-settle);
 }
+
+/* Focus clavier dedie: l'anneau epouse le rayon du bouton (l'outline suit le
+ * border-radius reel), au lieu du repli 3px global. Tokenise. */
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--accent-trust);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius);
+}
+/* Sur fond sombre (heros), l'anneau passe au papier pour rester net sur image. */
+.btn--ondark:focus-visible {
+  outline-color: var(--paper);
+}
 .btn__icon {
   width: 1.9rem;
   height: 1.9rem;
@@ -90,9 +103,16 @@ const classes = computed(() => [
   box-shadow: var(--elev-mid);
 }
 .btn--call:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(-1 * var(--btn-lift)));
   box-shadow: var(--elev-high);
   background: color-mix(in oklch, var(--accent-call) 90%, white);
+}
+/* Appui: le bouton se pose au sol (revient a plat, l'ombre redescend), retour
+ * tactile. La respiration se fige a l'appui pour laisser voir l'etat presse. */
+.btn--call:active {
+  transform: translateY(0);
+  box-shadow: var(--elev-mid);
+  animation-play-state: paused;
 }
 
 /* Primaire: bleu nuit plein. */
@@ -102,20 +122,33 @@ const classes = computed(() => [
   box-shadow: var(--elev-low);
 }
 .btn--primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(-1 * var(--btn-lift)));
   box-shadow: var(--elev-mid);
   background: color-mix(in oklch, var(--text-base) 88%, var(--accent-trust));
 }
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: var(--elev-low);
+}
 
-/* Fantome: filet, fond transparent. */
+/* Fantome: filet, fond transparent. Une ombre flush a peine percue le pose sur
+ * la surface (sans elle, il parait inacheve a cote du call et du primary). */
 .btn--ghost {
   background: transparent;
   color: var(--text-base);
-  box-shadow: inset 0 0 0 var(--line-width) color-mix(in oklch, var(--text-base) 22%, transparent);
+  box-shadow:
+    var(--elev-flush),
+    inset 0 0 0 var(--line-width) color-mix(in oklch, var(--text-base) 22%, transparent);
 }
 .btn--ghost:hover {
   background: color-mix(in oklch, var(--text-base) 5%, transparent);
-  box-shadow: inset 0 0 0 var(--line-width) color-mix(in oklch, var(--text-base) 38%, transparent);
+  box-shadow:
+    var(--elev-flush),
+    inset 0 0 0 var(--line-width) color-mix(in oklch, var(--text-base) 38%, transparent);
+}
+.btn--ghost:active {
+  transform: translateY(1px);
+  background: color-mix(in oklch, var(--text-base) 9%, transparent);
 }
 
 /* Fantome sur fond sombre (heros full bleed): texte et filet clairs. */
@@ -126,6 +159,10 @@ const classes = computed(() => [
 .btn--ghost.btn--ondark:hover {
   background: color-mix(in oklch, white 12%, transparent);
   box-shadow: inset 0 0 0 var(--line-width) color-mix(in oklch, white 70%, transparent);
+}
+.btn--ghost.btn--ondark:active {
+  transform: translateY(1px);
+  background: color-mix(in oklch, white 18%, transparent);
 }
 
 .btn--sm {

@@ -20,6 +20,11 @@
 
   --header-height: 7.2rem; /* 72px, en-tete collant */
 
+  /* Focus clavier: anneau de confiance, jamais supprime. Tokenise pour que les
+   * composants (bouton) l'epousent au lieu d'un rayon en dur. */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 3px;
+
   /* Ratios d'image. */
   --ratio-portrait:  4 / 5;
   --ratio-landscape: 4 / 3;
@@ -43,6 +48,7 @@
 
   /* Elevations: ombres chaudes, douces, en couches. Les blocs semblent poses,
    * stables, ancres au sol (DESIGN.md). --shadow-tint vient de la marque. */
+  --elev-flush: 0 1px 1px color-mix(in oklch, var(--shadow-tint) 6%, transparent); /* lift a peine percu, juste decoller du fond */
   --elev-low:  0 1px 2px color-mix(in oklch, var(--shadow-tint) 10%, transparent),
                0 3px 8px color-mix(in oklch, var(--shadow-tint) 7%, transparent);
   --elev-mid:  0 2px 4px color-mix(in oklch, var(--shadow-tint) 8%, transparent),

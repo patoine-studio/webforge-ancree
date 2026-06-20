@@ -105,10 +105,12 @@ svg {
   border: 0;
 }
 
-/* Focus clavier: anneau de confiance, jamais supprime. */
+/* Focus clavier: anneau de confiance, jamais supprime. Largeur et decalage
+ * tokenises; le rayon 3px ne sert que de repli aux elements non arrondis (les
+ * composants arrondis, comme le bouton, voient l'anneau epouser leur rayon). */
 :focus-visible {
-  outline: 2px solid var(--accent-trust);
-  outline-offset: 3px;
+  outline: var(--focus-ring-width) solid var(--accent-trust);
+  outline-offset: var(--focus-ring-offset);
   border-radius: 3px;
 }
 
