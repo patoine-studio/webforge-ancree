@@ -19,7 +19,7 @@ export interface AboutPhoto {
 }
 
 export interface AboutContent {
-  eyebrow: string
+  eyebrow?: string // marqueur de section; absent sur une page dediee (le masthead le porte)
   heading: string
   body: string[] // paragraphes du recit
   photo: AboutPhoto

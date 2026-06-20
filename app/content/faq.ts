@@ -10,7 +10,7 @@ export interface FaqQuestion {
 }
 
 export interface FaqContent {
-  eyebrow: string
+  eyebrow?: string // marqueur de section; absent sur une page dediee (le masthead le porte)
   heading: string
   items: FaqQuestion[]
 }

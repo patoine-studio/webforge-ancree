@@ -130,8 +130,23 @@ export default defineNuxtConfig({
     preset: 'static',
     prerender: {
       crawlLinks: true,
-      // Coquille bilingue: accueil FR + EN. La reconstruction étendra cette liste.
-      routes: ['/', '/en']
+      // Accueil bilingue + pages multipage simples. PROVISOIRE: l'etape de cablage
+      // du routage (route-map -> i18n customRoutes + staticPagePaths) remplacera
+      // cette liste; d'ici la, ces pages ne sont liees par aucune nav (le Header
+      // multipage est dormant), donc on les prerend explicitement. Les segments EN
+      // restent /en/<fr> tant que les customRoutes i18n ne sont pas branches.
+      routes: [
+        '/',
+        '/en',
+        '/services',
+        '/en/services',
+        '/a-propos',
+        '/en/a-propos',
+        '/faq',
+        '/en/faq',
+        '/contact',
+        '/en/contact'
+      ]
     }
   }
 })

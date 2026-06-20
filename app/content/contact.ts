@@ -38,7 +38,7 @@ export interface ContactForm {
 }
 
 export interface ContactContent {
-  eyebrow: string
+  eyebrow?: string // marqueur de section; absent sur une page dediee (le masthead le porte)
   heading: string
   lead: string
   meta: ContactMetaItem[]

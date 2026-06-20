@@ -44,7 +44,7 @@ defineProps<AboutBlock>()
 
         <!-- Recit. -->
         <div class="about__copy" data-reveal-stagger>
-          <p class="about__eyebrow wf-caption">
+          <p v-if="eyebrow" class="about__eyebrow wf-caption">
             <span class="about__tick" aria-hidden="true" />{{ eyebrow }}
           </p>
           <h2 class="about__heading wf-h2">{{ heading }}</h2>

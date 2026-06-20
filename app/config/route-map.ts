@@ -53,6 +53,12 @@ export const ROUTES = {
     parent: 'home',
     pageName: 'services/index'
   },
+  about: {
+    path: { fr: '/a-propos', en: '/about' },
+    label: { fr: 'À propos', en: 'About' },
+    parent: 'home',
+    pageName: 'a-propos'
+  },
   // « Blogue » cote usager FR; l'URL /blog reste identique dans les deux langues
   // (seuls les slugs de contenu changent sous /blog).
   blog: {
