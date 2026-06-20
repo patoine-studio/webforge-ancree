@@ -881,6 +881,914 @@
         "answer": "Very little. We send you a short, plain checklist when we book, usually clearing a few cupboards or moving furniture away from a wall. If you are not sure about something, call us and we will sort it out together before the visit.",
         "order": 5
       }
+    },
+    {
+      "type": "category",
+      "content": {
+        "_id": "category-nuisibles-fr",
+        "description": "Repérer les signes tôt et comprendre à quoi vous avez affaire.",
+        "language": "fr",
+        "order": 1,
+        "slug": {
+          "_type": "slug",
+          "current": "nuisibles"
+        },
+        "title": "Connaître les nuisibles"
+      }
+    },
+    {
+      "type": "category",
+      "content": {
+        "_id": "category-prevention-fr",
+        "description": "Des gestes simples pour garder les nuisibles dehors avant qu’ils ne s’installent.",
+        "language": "fr",
+        "order": 0,
+        "slug": {
+          "_type": "slug",
+          "current": "prevention"
+        },
+        "title": "Prévention"
+      }
+    },
+    {
+      "type": "category",
+      "content": {
+        "_id": "category-nuisibles-en",
+        "description": "Spot the signs early and understand what you are dealing with.",
+        "language": "en",
+        "order": 1,
+        "slug": {
+          "_type": "slug",
+          "current": "nuisibles"
+        },
+        "title": "Knowing your pests"
+      }
+    },
+    {
+      "type": "category",
+      "content": {
+        "_id": "category-prevention-en",
+        "description": "Simple habits to keep pests out before they ever settle in.",
+        "language": "en",
+        "order": 0,
+        "slug": {
+          "_type": "slug",
+          "current": "prevention"
+        },
+        "title": "Prevention"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-fourmis-fr",
+        "author": "L’équipe Rempart",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "La fourmi charpentière ne mange pas le bois, elle le creuse pour y nicher. Quand on la voit à l’intérieur, la colonie est souvent déjà établie tout près. La bonne nouvelle: quelques habitudes la tiennent à distance."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "D’où elles viennent"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r2",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s2",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "La fourmi charpentière cherche le bois humide et ramolli: un seuil qui coule, un poteau de patio, le rebord d’un toit plat. De là, quelques éclaireuses trouvent le chemin de l’intérieur le long d’une plinthe ou d’un tuyau de chauffage."
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r3",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s3",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Un "
+                  },
+                  {
+                    "_key": "s4",
+                    "_type": "span",
+                    "marks": [
+                      "strong"
+                    ],
+                    "text": "traitement ciblé"
+                  },
+                  {
+                    "_key": "s5",
+                    "_type": "span",
+                    "marks": [],
+                    "text": " règle le problème à la source plutôt que de courir après les ouvrières une à une. Voyez nos "
+                  },
+                  {
+                    "_key": "s6",
+                    "_type": "span",
+                    "marks": [
+                      "l1"
+                    ],
+                    "text": "services"
+                  },
+                  {
+                    "_key": "s7",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "."
+                  }
+                ],
+                "markDefs": [
+                  {
+                    "_key": "l1",
+                    "_type": "link",
+                    "href": "/services"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r4",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s8",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Guettez ces signes autour de la maison:"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r5",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s9",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Une fine sciure (vermoulure) sous un cadre de fenêtre ou une poutre"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r6",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s10",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Un léger bruissement dans un mur par une soirée douce"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r7",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s11",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "De grosses fourmis ailées près d’une lumière au printemps"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleImage",
+            "caption": "Une inspection soignée trouve le nid, pas seulement les ouvrières.",
+            "image": {
+              "_type": "figure",
+              "alt": "Inspection rapprochée d’une charpente de bois",
+              "src": "/images/inspection-rempart.jpg"
+            }
+          },
+          {
+            "_key": "b4",
+            "_type": "articleCallout",
+            "text": "La plupart des problèmes de fourmis charpentières commencent par l’humidité. Réglez la fuite d’abord, et le bois cesse d’être une invitation.",
+            "title": "Gardez le bois au sec",
+            "tone": "note"
+          },
+          {
+            "_key": "b5",
+            "_type": "articleQuote",
+            "attribution": "Un technicien de Rempart",
+            "quote": "On ne fait pas qu’arroser et repartir. On trouve où vit la colonie et on la traite là."
+          },
+          {
+            "_key": "b6",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r8",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s12",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Quand nous appeler"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r9",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s13",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Si vous voyez des ouvrières à l’intérieur deux jours de suite, ou des fourmis ailées dans la maison, ça vaut un coup d’œil. Plus tôt on trouve le nid, plus petit est le traitement."
+                  }
+                ],
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b7",
+            "_type": "articleInlineCta",
+            "cta": {
+              "_type": "link",
+              "href": "/contact",
+              "label": "Obtenir une estimation gratuite"
+            },
+            "text": "Pas certain de ce que vous voyez? Envoyez-nous une photo et on vous le dira."
+          }
+        ],
+        "category": {
+          "_ref": "category-prevention-fr",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "Un technicien de Rempart inspecte la fondation d’une maison",
+          "src": "/images/hero-technicien.jpg"
+        },
+        "date": "2026-05-28",
+        "excerpt": "Elles s’annoncent rarement. Voici comment lire les premiers signes et empêcher une colonie de s’installer chez vous.",
+        "language": "fr",
+        "readingMinutes": 6,
+        "slug": {
+          "_type": "slug",
+          "current": "prevenir-les-fourmis-charpentieres"
+        },
+        "title": "Fourmis charpentières: les arrêter avant qu’elles n’atteignent le bois"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-punaises-fr",
+        "author": "L’équipe Rempart",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "La punaise de lit fait de l’auto-stop. Elle n’apparaît presque jamais de nulle part: elle arrive dans une valise, un divan d’occasion, le sac d’un invité. La bonne nouvelle, c’est qu’une habitude soignée à la porte en arrête la plupart."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Au retour d’un voyage, défaites les bagages dans la salle de bain ou le garage, pas sur le lit. Passez ce qui se lave à la sécheuse à cycle chaud, et gardez la valise loin de la chambre quelques jours."
+                  }
+                ],
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleQuote",
+            "attribution": "Un technicien de Rempart",
+            "quote": "Prise dès la première semaine, une intervention contre les punaises est discrète et rapide. Laissée des mois, c’est une autre histoire."
+          }
+        ],
+        "category": {
+          "_ref": "category-prevention-fr",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "Une chambre claire et bien rangée",
+          "src": "/images/hero-rempart.jpg"
+        },
+        "date": "2026-03-02",
+        "excerpt": "La plupart des problèmes de punaises rentrent dans une valise. Quelques minutes de soin à la porte changent tout.",
+        "language": "fr",
+        "readingMinutes": 4,
+        "slug": {
+          "_type": "slug",
+          "current": "punaises-de-lit-les-bons-reflexes"
+        },
+        "title": "Punaises de lit: les bons réflexes au retour de voyage"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-souris-fr",
+        "author": "L’équipe Rempart",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "La souris est une locataire discrète. Quand on l’entend, un petit groupe a souvent déjà trouvé nourriture, eau et un coin chaud pour nicher. Les signes se lisent facilement une fois qu’on les connaît."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Les premiers indices"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r2",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s2",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "On remarque en général les traces avant la souris elle-même:"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r3",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s3",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "De petites crottes sombres le long d’un mur ou dans une armoire"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r4",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s4",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Des marques de grignotage sur un emballage ou un coin de gypse"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r5",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s5",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Une odeur de musc dans un espace fermé comme le garde-manger"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleGallery",
+            "items": [
+              {
+                "_key": "g1",
+                "_type": "figure",
+                "alt": "Scellement d’un point d’entrée le long de la fondation",
+                "src": "/images/inspection-rempart.jpg"
+              },
+              {
+                "_key": "g2",
+                "_type": "figure",
+                "alt": "L’équipe Rempart devant la camionnette de service",
+                "src": "/images/equipe-rempart.jpg"
+              }
+            ]
+          },
+          {
+            "_key": "b4",
+            "_type": "articleCallout",
+            "text": "Deux souris deviennent une douzaine en une saison. Agir dans les premières semaines garde les choses simples.",
+            "title": "N’attendez pas",
+            "tone": "warning"
+          }
+        ],
+        "category": {
+          "_ref": "category-nuisibles-fr",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "Un technicien vérifie les points d’entrée le long d’une fondation",
+          "src": "/images/inspection-rempart.jpg"
+        },
+        "date": "2026-04-15",
+        "excerpt": "Une souris voyage rarement seule. Apprenez à repérer une infestation tôt, avant qu’elle ne passe du garage aux murs.",
+        "language": "fr",
+        "readingMinutes": 5,
+        "slug": {
+          "_type": "slug",
+          "current": "reconnaitre-une-infestation-de-souris"
+        },
+        "title": "Lire les signes d’un problème de souris"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-fourmis-en",
+        "author": "The Rempart team",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "Carpenter ants do not eat wood, they hollow it out to nest. By the time you see them indoors, the colony is often already established nearby. The good news: a few habits keep them at bay."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Where they come from"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r2",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s2",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Carpenter ants look for damp, softened wood: a leaking sill, a deck post, the edge of a flat roof. From there, a few scouts find their way inside along a baseboard or a heating pipe."
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r3",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s3",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "A "
+                  },
+                  {
+                    "_key": "s4",
+                    "_type": "span",
+                    "marks": [
+                      "strong"
+                    ],
+                    "text": "targeted treatment"
+                  },
+                  {
+                    "_key": "s5",
+                    "_type": "span",
+                    "marks": [],
+                    "text": " solves the problem at the source rather than chasing workers one by one. See our "
+                  },
+                  {
+                    "_key": "s6",
+                    "_type": "span",
+                    "marks": [
+                      "l1"
+                    ],
+                    "text": "services"
+                  },
+                  {
+                    "_key": "s7",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "."
+                  }
+                ],
+                "markDefs": [
+                  {
+                    "_key": "l1",
+                    "_type": "link",
+                    "href": "/en/services"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r4",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s8",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Watch for these signs around the house:"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r5",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s9",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Fine sawdust (frass) under a window frame or a beam"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r6",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s10",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "A faint rustling inside a wall on a warm evening"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r7",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s11",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Large winged ants near a light in spring"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleImage",
+            "caption": "A careful inspection finds the nest, not just the workers.",
+            "image": {
+              "_type": "figure",
+              "alt": "Close inspection of a wooden frame",
+              "src": "/images/inspection-rempart.jpg"
+            }
+          },
+          {
+            "_key": "b4",
+            "_type": "articleCallout",
+            "text": "Most carpenter ant problems start with moisture. Fix the leak first, and the wood stops being an invitation.",
+            "title": "Keep wood dry",
+            "tone": "note"
+          },
+          {
+            "_key": "b5",
+            "_type": "articleQuote",
+            "attribution": "A Rempart technician",
+            "quote": "We do not just spray and leave. We find where the colony lives and treat it there."
+          },
+          {
+            "_key": "b6",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r8",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s12",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "When to call"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r9",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s13",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "If you see workers indoors two days in a row, or winged ants inside, it is worth a look. The earlier we find the nest, the smaller the treatment."
+                  }
+                ],
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b7",
+            "_type": "articleInlineCta",
+            "cta": {
+              "_type": "link",
+              "href": "/en/contact",
+              "label": "Get a free estimate"
+            },
+            "text": "Not sure what you are seeing? Send us a photo and we will tell you."
+          }
+        ],
+        "category": {
+          "_ref": "category-prevention-en",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "A Rempart technician inspecting the foundation of a house",
+          "src": "/images/hero-technicien.jpg"
+        },
+        "date": "2026-05-28",
+        "excerpt": "They rarely announce themselves. Here is how to read the early signs and keep a colony from settling into your home.",
+        "language": "en",
+        "readingMinutes": 6,
+        "slug": {
+          "_type": "slug",
+          "current": "prevenir-les-fourmis-charpentieres"
+        },
+        "title": "Carpenter ants: stopping them before they reach the wood"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-punaises-en",
+        "author": "The Rempart team",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "Bed bugs are hitchhikers. They almost never appear out of nowhere: they arrive in luggage, a second-hand couch, a guest’s bag. The good news is that a careful habit at the door stops most of them."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "When you come back from a trip, unpack in the bathroom or the garage, not on the bed. Run washable items through a hot dryer cycle, and keep the suitcase away from the bedroom for a few days."
+                  }
+                ],
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleQuote",
+            "attribution": "A Rempart technician",
+            "quote": "Caught in the first week, a bed bug treatment is discreet and quick. Left for months, it is a different story."
+          }
+        ],
+        "category": {
+          "_ref": "category-prevention-en",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "A bright, tidy bedroom",
+          "src": "/images/hero-rempart.jpg"
+        },
+        "date": "2026-03-02",
+        "excerpt": "Most bed bug problems come home in a suitcase. A few minutes of care at the door makes all the difference.",
+        "language": "en",
+        "readingMinutes": 4,
+        "slug": {
+          "_type": "slug",
+          "current": "punaises-de-lit-les-bons-reflexes"
+        },
+        "title": "Bed bugs: the right reflexes after a trip"
+      }
+    },
+    {
+      "type": "article",
+      "content": {
+        "_id": "article-souris-en",
+        "author": "The Rempart team",
+        "body": [
+          {
+            "_key": "b1",
+            "_type": "articleLead",
+            "text": "Mice are quiet tenants. By the time you hear them, a small group has usually found food, water and a warm place to nest. The signs are easy to read once you know them."
+          },
+          {
+            "_key": "b2",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_key": "r1",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s1",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "The early tells"
+                  }
+                ],
+                "style": "h2"
+              },
+              {
+                "_key": "r2",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s2",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "You will usually notice the traces before the mouse itself:"
+                  }
+                ],
+                "style": "normal"
+              },
+              {
+                "_key": "r3",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s3",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Small dark droppings along a wall or inside a cupboard"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r4",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s4",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "Gnaw marks on packaging or a corner of drywall"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              },
+              {
+                "_key": "r5",
+                "_type": "block",
+                "children": [
+                  {
+                    "_key": "s5",
+                    "_type": "span",
+                    "marks": [],
+                    "text": "A musky smell in a closed space like a pantry"
+                  }
+                ],
+                "level": 1,
+                "listItem": "bullet",
+                "style": "normal"
+              }
+            ]
+          },
+          {
+            "_key": "b3",
+            "_type": "articleGallery",
+            "items": [
+              {
+                "_key": "g1",
+                "_type": "figure",
+                "alt": "Sealing an entry point along the foundation",
+                "src": "/images/inspection-rempart.jpg"
+              },
+              {
+                "_key": "g2",
+                "_type": "figure",
+                "alt": "The Rempart team beside the service van",
+                "src": "/images/equipe-rempart.jpg"
+              }
+            ]
+          },
+          {
+            "_key": "b4",
+            "_type": "articleCallout",
+            "text": "A pair of mice becomes a dozen in a season. Acting in the first weeks keeps it simple.",
+            "title": "Do not wait",
+            "tone": "warning"
+          }
+        ],
+        "category": {
+          "_ref": "category-nuisibles-en",
+          "_type": "reference"
+        },
+        "cover": {
+          "_type": "figure",
+          "alt": "A technician checking entry points along a foundation",
+          "src": "/images/inspection-rempart.jpg"
+        },
+        "date": "2026-04-15",
+        "excerpt": "A mouse rarely travels alone. Learn to spot an infestation early, before it moves from the garage into the walls.",
+        "language": "en",
+        "readingMinutes": 5,
+        "slug": {
+          "_type": "slug",
+          "current": "reconnaitre-une-infestation-de-souris"
+        },
+        "title": "Reading the signs of a mouse problem"
+      }
     }
   ]
 }
