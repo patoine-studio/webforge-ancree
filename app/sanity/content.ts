@@ -3,7 +3,9 @@
  * par language == $lang. La page fetch via useSanityQuery au build; si Sanity est
  * vide, l'appelant retombe sur les fixtures (le site ne casse jamais). Les
  * libelles d'interface (formulaire de contact, etc.) restent hors de Sanity. */
-import type { HeroHomeBlock, PageBlock } from '~/types/blocks'
+import type { HeroHomeBlock, PageBlock, ArticleBlock } from '~/types/blocks'
+import type { ArticleContent } from '~/content/article'
+import type { CategoryContent } from '~/content/blog'
 import { contactFixture } from '~/content/contact'
 
 type Locale = 'fr' | 'en'
@@ -58,6 +60,33 @@ export const SERVICES_INDEX_QUERY = `{
   "services": *[_type == "service" && language == $lang] | order(order asc, title asc){ _id, "slug": slug.current, icon, title, body, featured },
   "site": *[_type == "siteSettings" && language == $lang][0]{ phoneHref }
 }`
+
+/* Blog: tous les articles (corps complet) + categories de la langue. Le site est
+ * statique et la demo a peu d'articles: une seule requete au build suffit a la
+ * liste, aux archives, aux articles et aux relies. Corps projete par _type pour
+ * coller aux contrats des blocs d'article. */
+export const BLOG_QUERY = `{
+  "categories": *[_type == "category" && language == $lang] | order(order asc, title asc){ "slug": slug.current, title, description },
+  "articles": *[_type == "article" && language == $lang] | order(date desc){
+    "slug": slug.current, title, excerpt,
+    "cover": cover{ src, alt },
+    date, author, readingMinutes,
+    "category": category->{ "slug": slug.current, title },
+    body[]{
+      _key, _type,
+      _type == "articleLead" => { text },
+      _type == "articleRichText" => { "body": body[]{ _key, _type, style, listItem, level, "children": children[]{ _key, text, marks }, "markDefs": markDefs[]{ _key, _type, href } } },
+      _type == "articleImage" => { "image": image{ src, alt }, caption },
+      _type == "articleQuote" => { quote, attribution },
+      _type == "articleGallery" => { "items": items[]{ src, alt } },
+      _type == "articleCallout" => { tone, title, text },
+      _type == "articleInlineCta" => { text, "cta": cta{ label, href } }
+    }
+  }
+}`
+
+/* Slugs des articles (prerender, si on veut s'affranchir du seul crawlLinks). */
+export const ARTICLE_SLUGS_QUERY = `*[_type == "article" && defined(slug.current)]{ "slug": slug.current, "category": category->slug.current }`
 
 /* ---------- Transformations ---------- */
 
@@ -238,4 +267,64 @@ export function transformServiceCity(doc: any): ServiceCityPage | null {
     areaName: doc.site?.areaName,
     services: (doc.services || []).map((s: any) => ({ icon: s.icon, title: s.title, body: s.body }))
   }
+}
+
+/* ---------- Blog ---------- */
+
+// Corps d'article Sanity -> blocs typés du contrat (mapping articleX -> _type court).
+function transformArticleBody(body: any): ArticleBlock[] {
+  if (!Array.isArray(body)) return []
+  const out: ArticleBlock[] = []
+  for (const b of body) {
+    switch (b._type) {
+      case 'articleLead':
+        out.push({ _type: 'lead', _key: b._key, text: b.text } as ArticleBlock)
+        break
+      case 'articleRichText':
+        out.push({ _type: 'rich-text', _key: b._key, value: b.body || [] } as ArticleBlock)
+        break
+      case 'articleImage':
+        out.push({ _type: 'image', _key: b._key, image: { src: b.image?.src, alt: b.image?.alt || '', caption: b.caption } } as ArticleBlock)
+        break
+      case 'articleQuote':
+        out.push({ _type: 'quote', _key: b._key, quote: b.quote, attribution: b.attribution } as ArticleBlock)
+        break
+      case 'articleGallery':
+        out.push({ _type: 'gallery', _key: b._key, items: (b.items || []).map((i: any) => ({ src: i.src, alt: i.alt || '' })) } as ArticleBlock)
+        break
+      case 'articleCallout':
+        out.push({ _type: 'callout', _key: b._key, tone: b.tone === 'warning' ? 'warning' : 'note', title: b.title, text: b.text } as ArticleBlock)
+        break
+      case 'articleInlineCta':
+        out.push({ _type: 'inline-cta', _key: b._key, text: b.text, cta: { label: b.cta?.label, href: b.cta?.href } } as ArticleBlock)
+        break
+    }
+  }
+  return out
+}
+
+export interface BlogContent {
+  articles: ArticleContent[]
+  categories: CategoryContent[]
+}
+
+export function transformBlog(data: any): BlogContent | null {
+  if (!data) return null
+  const categories: CategoryContent[] = (data.categories || []).map((c: any) => ({
+    title: c.title,
+    slug: c.slug,
+    description: c.description
+  }))
+  const articles: ArticleContent[] = (data.articles || []).map((a: any) => ({
+    slug: a.slug,
+    title: a.title,
+    excerpt: a.excerpt,
+    cover: { src: a.cover?.src, alt: a.cover?.alt || '' },
+    date: a.date,
+    author: a.author || '',
+    readingMinutes: a.readingMinutes || 0,
+    category: a.category ? { title: a.category.title, slug: a.category.slug } : undefined,
+    body: transformArticleBody(a.body)
+  }))
+  return { articles, categories }
 }

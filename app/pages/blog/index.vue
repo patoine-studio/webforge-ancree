@@ -8,7 +8,8 @@ import { breadcrumbsFor, type Locale } from '~/config/route-map'
 const { t, locale } = useI18n()
 const loc = computed(() => locale.value as Locale)
 
-const { categories, cards } = useBlogContent()
+const { articles, categories } = await useBlog()
+const cards = computed(() => articles.value.map((a) => toCard(a, loc.value)))
 
 const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',

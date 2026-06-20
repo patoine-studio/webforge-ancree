@@ -7,7 +7,6 @@
 import type { HeroArticleBlock, HeroPageBlock, CtaBandBlock } from '~/types/blocks'
 import type { HeroVisual } from '~/content/hero'
 import type { ArticleCardData } from '~/composables/useArticles'
-import { articlesFixture } from '~/content/article'
 import { ctaBandFixture } from '~/content/cta-band'
 import {
   breadcrumbsFor,
@@ -32,7 +31,10 @@ const segments = computed<string[]>(() => {
 const setI18nParams = useSetI18nParams()
 setI18nParams({ fr: { slug: segments.value }, en: { slug: segments.value } })
 
-const match = computed(() => resolveBlogRoute(segments.value, isEn.value))
+// Contenu Sanity au build (repli fixtures).
+const { articles, categories } = await useBlog()
+
+const match = computed(() => resolveBlogRoute(segments.value, articles.value, categories.value))
 if (!match.value) {
   throw createError({ statusCode: 404, statusMessage: 'Article introuvable', fatal: true })
 }
@@ -66,9 +68,8 @@ const articleHero = computed<HeroArticleBlock | null>(() => {
 const related = computed<ArticleCardData[]>(() => {
   const a = article.value
   if (!a) return []
-  return articlesFixture(isEn.value)
+  return articles.value
     .filter((x) => x.slug !== a.slug && x.category?.slug === a.category?.slug)
-    .sort((x, y) => y.date.localeCompare(x.date))
     .slice(0, 3)
     .map((x) => toCard(x, loc.value))
 })
@@ -92,7 +93,6 @@ const archiveHero = computed<HeroPageBlock | null>(() => {
 const archiveCards = computed<ArticleCardData[]>(() =>
   archive.value ? archive.value.articles.map((x) => toCard(x, loc.value)) : []
 )
-const { categories } = useBlogContent()
 
 // ── SEO ──────────────────────────────────────────────────────────────────────
 useSeoMeta({

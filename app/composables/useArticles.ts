@@ -1,10 +1,11 @@
-/* Logique du blog (fixtures pour l'instant; le fetch Sanity au build s'y branchera
- * ensuite sur le meme moule que les autres pages). Source unique des helpers d'URL
- * d'article, de mise en carte, de resolution du catch-all /blog et de formatage de
- * date. i18n document-level: slug partage fr/en, l'URL ne differe que par le
- * prefixe de locale. */
+/* Logique du blog. Lecture Sanity au BUILD via useSanityBuildQuery (null cote
+ * client -> repli fixtures, le site ne casse jamais), sur le moule des autres
+ * pages. Source unique des helpers d'URL d'article, de mise en carte, de
+ * resolution du catch-all /blog et de formatage de date. i18n document-level:
+ * slug partage fr/en, l'URL ne differe que par le prefixe de locale. */
 import { articlesFixture, type ArticleContent } from '~/content/article'
 import { categoriesFixture, type CategoryContent } from '~/content/blog'
+import { BLOG_QUERY, transformBlog } from '~/sanity/content'
 import { routePath, type Locale } from '~/config/route-map'
 import type { ArticleFigure } from '~/content/article-blocks'
 
@@ -61,12 +62,14 @@ export type BlogRouteMatch =
   | { type: 'category'; category: CategoryContent; articles: ArticleContent[] }
   | null
 
-/** Resout les segments du catch-all /blog. Priorite a la categorie (1 segment),
- *  puis a l'article (1 segment sans categorie, ou 2 segments categorie+slug). */
-export function resolveBlogRoute(segments: string[], isEn: boolean): BlogRouteMatch {
-  const articles = articlesFixture(isEn)
-  const categories = categoriesFixture(isEn)
-
+/** Resout les segments du catch-all /blog contre le jeu d'articles + categories.
+ *  Priorite a la categorie (1 segment), puis a l'article (1 segment sans
+ *  categorie, ou 2 segments categorie+slug). */
+export function resolveBlogRoute(
+  segments: string[],
+  articles: ArticleContent[],
+  categories: CategoryContent[]
+): BlogRouteMatch {
   if (segments.length === 1) {
     const seg = segments[0]!
     const category = categories.find((c) => c.slug === seg)
@@ -90,17 +93,26 @@ export function resolveBlogRoute(segments: string[], isEn: boolean): BlogRouteMa
   return null
 }
 
-/** Donnees reactives du blog (liste triee + categories), localisees. */
-export function useBlogContent() {
+/** Contenu du blog (articles tries + categories), Sanity au build avec repli
+ *  fixtures. Async: a appeler avec await en setup (Suspense Nuxt). */
+export async function useBlog() {
   const { locale } = useI18n()
   const loc = computed(() => locale.value as Locale)
   const isEn = computed(() => loc.value === 'en')
 
-  const articles = computed<ArticleContent[]>(() =>
-    [...articlesFixture(isEn.value)].sort((a, b) => b.date.localeCompare(a.date))
-  )
-  const categories = computed<CategoryContent[]>(() => categoriesFixture(isEn.value))
-  const cards = computed<ArticleCardData[]>(() => articles.value.map((a) => toCard(a, loc.value)))
+  const { data: raw } = await useSanityBuildQuery<unknown>(`blog:${loc.value}`, BLOG_QUERY, { lang: loc.value })
+  const fromSanity = computed(() => transformBlog(raw.value))
 
-  return { locale: loc, isEn, articles, categories, cards }
+  const articles = computed<ArticleContent[]>(() => {
+    const s = fromSanity.value
+    if (s && s.articles.length) return s.articles
+    return articlesFixture(isEn.value).slice().sort((a, b) => b.date.localeCompare(a.date))
+  })
+  const categories = computed<CategoryContent[]>(() => {
+    const s = fromSanity.value
+    if (s && s.categories.length) return s.categories
+    return categoriesFixture(isEn.value)
+  })
+
+  return { locale: loc, isEn, articles, categories }
 }

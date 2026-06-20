@@ -23,7 +23,11 @@ import {
   ImageIcon,
   UsersIcon,
   CheckmarkCircleIcon,
-  PhoneIcon
+  PhoneIcon,
+  DocumentTextIcon,
+  TagIcon,
+  ImagesIcon,
+  BulbOutlineIcon
 } from '@sanity/icons'
 
 /* Champ langue partage, ajoute a chaque document localise. */
@@ -334,6 +338,195 @@ const faqItem = defineType({
   preview: { select: { title: 'question', language: 'language' }, prepare: ({ title, language }) => ({ title, subtitle: (language || '').toUpperCase() }) }
 })
 
+/* ---------- Blocs du corps d'article (objets) ---------- */
+
+const articleLead = defineType({
+  name: 'articleLead',
+  title: 'Amorce',
+  type: 'object',
+  icon: BlockContentIcon,
+  fields: [defineField({ name: 'text', title: 'Amorce', type: 'text', rows: 3, validation: (r) => r.required() })],
+  preview: { select: { subtitle: 'text' }, prepare: ({ subtitle }) => ({ title: 'Amorce', subtitle }) }
+})
+
+const articleRichText = defineType({
+  name: 'articleRichText',
+  title: 'Texte riche',
+  type: 'object',
+  icon: DocumentTextIcon,
+  fields: [
+    defineField({
+      name: 'body',
+      title: 'Contenu',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'Titre de section', value: 'h2' },
+            { title: 'Sous-titre', value: 'h3' }
+          ],
+          lists: [
+            { title: 'Puces', value: 'bullet' },
+            { title: 'Numerotee', value: 'number' }
+          ],
+          marks: {
+            decorators: [
+              { title: 'Gras', value: 'strong' },
+              { title: 'Italique', value: 'em' }
+            ],
+            annotations: [
+              defineArrayMember({
+                name: 'link',
+                title: 'Lien',
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'Destination',
+                    type: 'string',
+                    description: 'Route (/services), ancre (#contact) ou https://, tel:, mailto:.',
+                    validation: (r) => r.required()
+                  })
+                ]
+              })
+            ]
+          }
+        })
+      ]
+    })
+  ],
+  preview: { prepare: () => ({ title: 'Texte riche' }) }
+})
+
+const articleImage = defineType({
+  name: 'articleImage',
+  title: 'Image',
+  type: 'object',
+  icon: ImageIcon,
+  fields: [
+    defineField({ name: 'image', title: 'Image', type: 'figure', validation: (r) => r.required() }),
+    defineField({ name: 'caption', title: 'Legende', type: 'string' })
+  ],
+  preview: { select: { subtitle: 'image.alt' }, prepare: ({ subtitle }) => ({ title: 'Image', subtitle }) }
+})
+
+const articleQuote = defineType({
+  name: 'articleQuote',
+  title: 'Citation',
+  type: 'object',
+  icon: CommentIcon,
+  fields: [
+    defineField({ name: 'quote', title: 'Citation', type: 'text', rows: 3, validation: (r) => r.required() }),
+    defineField({ name: 'attribution', title: 'Attribution', type: 'string' })
+  ],
+  preview: { select: { subtitle: 'quote' }, prepare: ({ subtitle }) => ({ title: 'Citation', subtitle }) }
+})
+
+const articleGallery = defineType({
+  name: 'articleGallery',
+  title: 'Galerie',
+  type: 'object',
+  icon: ImagesIcon,
+  fields: [
+    defineField({ name: 'items', title: 'Images', type: 'array', of: [defineArrayMember({ type: 'figure' })], validation: (r) => r.min(2) })
+  ],
+  preview: { select: { items: 'items' }, prepare: ({ items }) => ({ title: 'Galerie', subtitle: `${(items || []).length} images` }) }
+})
+
+const articleCallout = defineType({
+  name: 'articleCallout',
+  title: 'Encadre',
+  type: 'object',
+  icon: BulbOutlineIcon,
+  fields: [
+    defineField({
+      name: 'tone',
+      title: 'Ton',
+      type: 'string',
+      options: { list: [{ title: 'Note', value: 'note' }, { title: 'Avertissement', value: 'warning' }], layout: 'radio' },
+      initialValue: 'note',
+      validation: (r) => r.required()
+    }),
+    defineField({ name: 'title', title: 'Titre', type: 'string' }),
+    defineField({ name: 'text', title: 'Texte', type: 'text', rows: 3, validation: (r) => r.required() })
+  ],
+  preview: { select: { title: 'title', subtitle: 'text' }, prepare: ({ title, subtitle }) => ({ title: title || 'Encadre', subtitle }) }
+})
+
+const articleInlineCta = defineType({
+  name: 'articleInlineCta',
+  title: 'Appel a l’action',
+  type: 'object',
+  icon: PhoneIcon,
+  fields: [
+    defineField({ name: 'text', title: 'Texte', type: 'text', rows: 2, validation: (r) => r.required() }),
+    defineField({ name: 'cta', title: 'Bouton', type: 'link', validation: (r) => r.required() })
+  ],
+  preview: { select: { subtitle: 'text' }, prepare: ({ subtitle }) => ({ title: 'Appel a l’action', subtitle }) }
+})
+
+const articleBody = defineType({
+  name: 'articleBody',
+  title: 'Corps de l’article',
+  type: 'array',
+  of: [
+    defineArrayMember({ type: 'articleLead' }),
+    defineArrayMember({ type: 'articleRichText' }),
+    defineArrayMember({ type: 'articleImage' }),
+    defineArrayMember({ type: 'articleQuote' }),
+    defineArrayMember({ type: 'articleGallery' }),
+    defineArrayMember({ type: 'articleCallout' }),
+    defineArrayMember({ type: 'articleInlineCta' })
+  ]
+})
+
+/* ---------- Documents du blog ---------- */
+
+const category = defineType({
+  name: 'category',
+  title: 'Categorie',
+  type: 'document',
+  icon: TagIcon,
+  fields: [
+    languageField,
+    defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' }, validation: (r) => r.required() }),
+    defineField({ name: 'title', title: 'Titre', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'description', title: 'Description (archive)', type: 'text', rows: 2 }),
+    defineField({ name: 'order', title: 'Ordre', type: 'number', initialValue: 0 })
+  ],
+  preview: { select: { title: 'title', language: 'language' }, prepare: ({ title, language }) => ({ title, subtitle: `Categorie ${(language || '').toUpperCase()}` }) }
+})
+
+const article = defineType({
+  name: 'article',
+  title: 'Article',
+  type: 'document',
+  icon: DocumentTextIcon,
+  fields: [
+    languageField,
+    defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' }, validation: (r) => r.required() }),
+    defineField({ name: 'title', title: 'Titre', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'excerpt', title: 'Accroche', type: 'text', rows: 3, validation: (r) => r.required() }),
+    defineField({ name: 'cover', title: 'Couverture', type: 'figure', validation: (r) => r.required() }),
+    defineField({
+      name: 'category',
+      title: 'Categorie',
+      type: 'reference',
+      to: [{ type: 'category' }],
+      // Une categorie de la MEME langue que l'article (i18n document-level).
+      options: { filter: ({ document }) => ({ filter: 'language == $lang', params: { lang: (document as { language?: string }).language || 'fr' } }) }
+    }),
+    defineField({ name: 'date', title: 'Date de publication', type: 'date', validation: (r) => r.required() }),
+    defineField({ name: 'author', title: 'Auteur', type: 'string' }),
+    defineField({ name: 'readingMinutes', title: 'Duree de lecture (min)', type: 'number' }),
+    defineField({ name: 'body', title: 'Corps', type: 'articleBody' })
+  ],
+  orderings: [{ title: 'Date (recent)', name: 'dateDesc', by: [{ field: 'date', direction: 'desc' }] }],
+  preview: { select: { title: 'title', language: 'language', media: 'cover' }, prepare: ({ title, language }) => ({ title, subtitle: `Article ${(language || '').toUpperCase()}` }) }
+})
+
 export const schemaTypes: SchemaTypeDefinition[] = [
   // objets
   figure,
@@ -350,11 +543,22 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   ctaBandBlock,
   contactBlock,
   pageBuilder,
+  // objets d'article
+  articleLead,
+  articleRichText,
+  articleImage,
+  articleQuote,
+  articleGallery,
+  articleCallout,
+  articleInlineCta,
+  articleBody,
   // documents
   siteSettings,
   homePage,
   service,
   serviceCity,
   testimonial,
-  faqItem
+  faqItem,
+  category,
+  article
 ]
