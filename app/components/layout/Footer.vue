@@ -23,6 +23,13 @@ const brandTo = computed(() => (props.mode === 'multipage' ? localePath('/') : p
 function landingHref(href: string): string {
   return props.home && props.home !== '/' ? `${props.home}${href}` : href
 }
+
+// Liens legaux conscients du mode: en landing, vers les pages legales du one-pager
+// (meme mode pour le visiteur); en multipage, vers les pages legales racine.
+// localePath donne la route reelle (et suivra les customRoutes une fois branches).
+const legalBase = computed(() => (props.mode === 'landing' ? '/one-pager' : ''))
+const privacyTo = computed(() => localePath(`${legalBase.value}/politique-confidentialite`))
+const termsTo = computed(() => localePath(`${legalBase.value}/conditions-utilisation`))
 </script>
 
 <template>
@@ -75,8 +82,8 @@ function landingHref(href: string): string {
           <a href="https://patoinestudio.ca" target="_blank" rel="noopener noreferrer">{{ t('footer.studio') }}</a>
         </p>
         <nav class="footer__legal" :aria-label="t('footer.nav_heading')">
-          <NuxtLink :to="localePath('/politique-confidentialite')" class="footer__legal-link">{{ t('footer.privacy') }}</NuxtLink>
-          <NuxtLink :to="localePath('/conditions-utilisation')" class="footer__legal-link">{{ t('footer.terms') }}</NuxtLink>
+          <NuxtLink :to="privacyTo" class="footer__legal-link">{{ t('footer.privacy') }}</NuxtLink>
+          <NuxtLink :to="termsTo" class="footer__legal-link">{{ t('footer.terms') }}</NuxtLink>
         </nav>
       </div>
     </div>
