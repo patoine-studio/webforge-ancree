@@ -21,13 +21,22 @@ const switchLocalePath = useSwitchLocalePath()
 const links = useSiteNav()
 const otherLocalePath = computed(() => switchLocalePath(locale.value === 'fr' ? 'en' : 'fr'))
 
-// Nav multipage: liens de route localises depuis le route-map.
-const MULTIPAGE_NAV: RouteKey[] = ['services', 'blog', 'faq', 'contact']
+// Nav multipage: liens de route localises depuis le route-map. `blog` reviendra
+// quand la page /blog existera (sinon le link checker casse: la page doit exister
+// avant d'etre liee). `about` (/a-propos) est une vraie page, donc dans la nav.
+const MULTIPAGE_NAV: RouteKey[] = ['services', 'about', 'faq', 'contact']
 const multipageLinks = computed(() =>
   MULTIPAGE_NAV.map((key) => ({
     to: routePath(key, locale.value as 'fr' | 'en'),
     label: routeLabel(key, locale.value as 'fr' | 'en')
   }))
+)
+
+// Liens du menu mobile, normalises {label, href} selon le mode (route ou ancre).
+const menuLinks = computed(() =>
+  props.mode === 'multipage'
+    ? multipageLinks.value.map((l) => ({ label: l.label, href: l.to }))
+    : links.map((l) => ({ label: t(l.labelKey), href: landingHref(l.href) }))
 )
 const brandTo = computed(() =>
   props.mode === 'multipage' ? routePath('home', locale.value as 'fr' | 'en') : localePath('/')
@@ -121,7 +130,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <MobileMenu :open="menuOpen" :links="links" @close="menuOpen = false" />
+    <MobileMenu :open="menuOpen" :links="menuLinks" @close="menuOpen = false" />
   </header>
 </template>
 

@@ -138,6 +138,8 @@ export default defineNuxtConfig({
       routes: [
         '/',
         '/en',
+        '/one-pager',
+        '/en/one-pager',
         '/services',
         '/en/services',
         '/a-propos',

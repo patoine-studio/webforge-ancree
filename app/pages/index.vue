@@ -1,28 +1,47 @@
 <script setup lang="ts">
-/* Accueil de la demo Rempart Extermination. Le contenu vient de Sanity (une
- * requete au build, transformee vers les formes que les composants consomment).
- * Si le dataset est vide ou injoignable, on retombe sur les fixtures: le site
- * rend toujours. Heros split full bleed, puis la page-builder decline la
- * signature « s'ancre en montant ». */
-import { HOME_QUERY, transformHome } from '~/sanity/content'
+/* Accueil MULTIPAGE (mode Multipage, racine /). Une passerelle: le heros, puis
+ * un choix d'apercus qui MENENT aux pages dediees (services -> /services, villes
+ * -> pages service-ville, temoignages, bandeau d'appel -> /contact). Le contenu
+ * profond (a-propos, FAQ, formulaire) vit sur ses pages dediees, joignables par
+ * la nav multipage; on ne le duplique pas ici. En-tete en mode multipage (liens
+ * de route), via le layout default.
+ *
+ * Contenu de demo via fixtures (comme les autres pages multipage), en attendant
+ * un type de page d'accueil Sanity. Les gestes qui pointaient vers une ancre du
+ * one-pager (#contact) sont recables vers la vraie route /contact. */
+import type { HeroHomeBlock, PageBlock } from '~/types/blocks'
 
 const { t, locale } = useI18n()
+const isEn = computed(() => locale.value === 'en')
+const localePrefix = computed(() => (isEn.value ? '/en' : ''))
 
-const { data: raw } = await useSanityQuery<unknown>(HOME_QUERY, { lang: locale.value })
+// Blocs retenus pour la passerelle (apercus + conversion), dans l'ordre de rendu.
+const GATEWAY_BLOCKS = new Set(['trust-bar', 'services', 'service-cities', 'testimonials', 'cta-band'])
 
-const home = computed(() => transformHome(raw.value, locale.value as 'fr' | 'en'))
+// Recable une ancre du one-pager (#contact) vers la vraie route /contact.
+function toContactRoute(href: string | undefined): string | undefined {
+  return href === '#contact' ? `${localePrefix.value}/contact` : href
+}
 
-// Fixtures de repli (contenu identique au seed; garantit un rendu en l'absence
-// de donnees Sanity).
-const heroFallback = useHeroContent()
-const blocksFallback = useHomeBlocks()
+const heroBase = useHeroContent()
+const hero = computed<HeroHomeBlock>(() => ({
+  ...heroBase.value,
+  secondaryCta: { ...heroBase.value.secondaryCta, href: `${localePrefix.value}/contact` }
+}))
 
-const hero = computed(() => home.value?.hero ?? heroFallback.value)
-const blocks = computed(() => home.value?.blocks ?? blocksFallback)
+const blocks = computed<PageBlock[]>(() =>
+  useHomeBlocks()
+    .filter((b) => GATEWAY_BLOCKS.has(b._type))
+    .map((b) =>
+      b._type === 'cta-band'
+        ? { ...b, secondaryCta: b.secondaryCta ? { ...b.secondaryCta, href: toContactRoute(b.secondaryCta.href)! } : undefined }
+        : b
+    )
+)
 
 useSeoMeta({
-  title: () => home.value?.seo.title || t('home.title'),
-  description: () => home.value?.seo.description || t('home.lead')
+  title: () => t('home.title'),
+  description: () => t('home.lead')
 })
 </script>
 

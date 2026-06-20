@@ -2,10 +2,14 @@
 /* Menu mobile: panneau plein ecran ouvert depuis le burger de l'en-tete. Ferme
  * au clic sur un lien, sur le fond, ou avec Echap; verrouille le defilement et
  * pose le focus sur le premier lien. Rendu en position fixe (pas de Teleport,
- * pour rester sain au SSR). */
-import type { NavLink } from '~/composables/useSiteNav'
+ * pour rester sain au SSR). Recoit des liens deja normalises {label, href}
+ * (l'en-tete les construit selon le mode: ancres en landing, routes en multipage). */
+interface MenuLink {
+  label: string
+  href: string
+}
 
-const props = defineProps<{ open: boolean; links: NavLink[] }>()
+const props = defineProps<{ open: boolean; links: MenuLink[] }>()
 const emit = defineEmits<{ close: [] }>()
 
 const { t, locale } = useI18n()
@@ -58,7 +62,7 @@ onBeforeUnmount(() => {
 
         <nav class="mm__nav" :aria-label="t('a11y.main_nav')">
           <a v-for="link in links" :key="link.href" :href="link.href" class="mm__link" @click="close">
-            {{ t(link.labelKey) }}
+            {{ link.label }}
           </a>
         </nav>
 
