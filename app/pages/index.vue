@@ -32,11 +32,21 @@ const hero = computed<HeroHomeBlock>(() => ({
 const blocks = computed<PageBlock[]>(() =>
   useHomeBlocks()
     .filter((b) => GATEWAY_BLOCKS.has(b._type))
-    .map((b) =>
-      b._type === 'cta-band'
-        ? { ...b, secondaryCta: b.secondaryCta ? { ...b.secondaryCta, href: toContactRoute(b.secondaryCta.href)! } : undefined }
-        : b
-    )
+    .map((b) => {
+      // Bandeau d'appel: geste secondaire vers la vraie route /contact.
+      if (b._type === 'cta-band') {
+        return { ...b, secondaryCta: b.secondaryCta ? { ...b.secondaryCta, href: toContactRoute(b.secondaryCta.href)! } : undefined }
+      }
+      // Services (apercu): les cartes ne sont PAS des liens individuels (pas de
+      // page par nuisible; les slugs /extermination/* sont des VILLES, pas des
+      // services). On neutralise les href des items; le CTA « Voir tous les
+      // services » -> /services reste le chemin. Cartes informatives, posees.
+      if (b._type === 'services') {
+        const items = (b as { items?: Array<Record<string, unknown>> }).items ?? []
+        return { ...b, items: items.map((it) => ({ ...it, href: undefined })) }
+      }
+      return b
+    })
 )
 
 useSeoMeta({
