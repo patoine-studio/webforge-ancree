@@ -17,9 +17,12 @@ const props = withDefaults(
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const switchLocalePath = useSwitchLocalePath()
 const links = useSiteNav()
-const otherLocalePath = computed(() => switchLocalePath(locale.value === 'fr' ? 'en' : 'fr'))
+// Bascule de langue via <SwitchLocalePathLink>: ses routes sont resolues AVANT
+// l'envoi, en honorant setI18nParams (slug TRADUIT par langue des pages nuisible).
+// L'imperatif switchLocalePath garderait le slug brut au prerendu -> lien croise
+// casse (et pages fantomes via crawlLinks).
+const otherLocale = computed<'fr' | 'en'>(() => (locale.value === 'fr' ? 'en' : 'fr'))
 
 // Nav multipage: source partagee avec le pied de page (useMultipageNav).
 const multipageLinks = useMultipageNav()
@@ -109,7 +112,7 @@ watch(() => route.fullPath, () => {
       </nav>
 
       <div class="header__actions">
-        <a class="header__lang" :href="otherLocalePath">{{ t('home.switch') }}</a>
+        <SwitchLocalePathLink class="header__lang" :locale="otherLocale">{{ t('home.switch') }}</SwitchLocalePathLink>
         <a class="header__phone" :href="t('contact.phone_href')">
           <Icon name="lucide:phone" class="header__phone-icon" aria-hidden="true" />
           {{ t('contact.phone_display') }}

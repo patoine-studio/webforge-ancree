@@ -18,6 +18,8 @@ import {
   staticPagePaths,
   buildI18nPages,
   DOC_ROUTES,
+  SERVICE_DETAILS,
+  serviceDetailPath,
   type Locale
 } from './app/config/route-map'
 // Config + garde du blog (PUR TS, importable hors contexte d'alias Nuxt).
@@ -211,7 +213,20 @@ const SITEMAP_DYNAMIC_URLS: SitemapUrlEntry[] = [
         alternatives: alternativesFor(categoryPresence.get(c.slug), (l) => categoryUrl(l, c.slug))
       }))
     ]
-  })
+  }),
+  // Pages par nuisible (fixtures, presentes dans les deux langues). Slug TRADUIT
+  // par langue: l'alternate pointe vers le slug de l'autre langue (pas un chemin
+  // partage). Source unique = SERVICE_DETAILS du route-map.
+  ...SUPPORTED_LOCALES.flatMap((locale) =>
+    SERVICE_DETAILS.map((d) => ({
+      loc: serviceDetailPath(d.key, locale),
+      _sitemap: LOCALE_HREFLANG[locale],
+      alternatives: [
+        ...SUPPORTED_LOCALES.map((l) => ({ hreflang: LOCALE_HREFLANG[l], href: serviceDetailPath(d.key, l) })),
+        { hreflang: 'x-default', href: serviceDetailPath(d.key, DEFAULT_LOCALE) }
+      ]
+    }))
+  )
 ]
 
 // Routes de prerendu: pages statiques du route-map (segments EN localises par
@@ -226,9 +241,14 @@ const DYNAMIC_PRERENDER_ROUTES = SUPPORTED_LOCALES.flatMap((locale) => {
     ...paginationUrls(slugs.articles.length, routePath('blog', locale))
   ]
 })
+// Pages par nuisible (fixtures): slug traduit par langue, source SERVICE_DETAILS.
+const SERVICE_DETAIL_PRERENDER = SUPPORTED_LOCALES.flatMap((locale) =>
+  SERVICE_DETAILS.map((d) => serviceDetailPath(d.key, locale))
+)
 const PRERENDER_ROUTES = [
   ...SUPPORTED_LOCALES.flatMap((locale) => staticPagePaths(locale)),
-  ...DYNAMIC_PRERENDER_ROUTES
+  ...DYNAMIC_PRERENDER_ROUTES,
+  ...SERVICE_DETAIL_PRERENDER
 ]
 
 export default defineNuxtConfig({

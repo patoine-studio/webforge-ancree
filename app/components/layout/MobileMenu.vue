@@ -13,7 +13,6 @@ const props = defineProps<{ open: boolean; links: MenuLink[] }>()
 const emit = defineEmits<{ close: [] }>()
 
 const { t, locale } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
 const panelRef = ref<HTMLElement | null>(null)
 
 function close(): void {
@@ -77,7 +76,7 @@ onBeforeUnmount(() => {
             {{ t('hero.cta_primary') }}
           </Button>
           <a class="mm__phone" :href="t('contact.phone_href')">{{ t('contact.phone_display') }}</a>
-          <a class="mm__lang" :href="switchLocalePath(locale === 'fr' ? 'en' : 'fr')" @click="close">{{ t('home.switch') }}</a>
+          <SwitchLocalePathLink class="mm__lang" :locale="locale === 'fr' ? 'en' : 'fr'" @click="close">{{ t('home.switch') }}</SwitchLocalePathLink>
         </div>
       </div>
     </div>
