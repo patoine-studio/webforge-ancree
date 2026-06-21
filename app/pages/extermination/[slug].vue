@@ -2,12 +2,18 @@
 /* Page service-ville (SEO local), le moteur de la famille Ancree. Contenu tire
  * de Sanity (serviceCity par slug + langue). Repli generique a partir du slug si
  * le document est absent, pour que le build statique ne tombe jamais en 404.
- * En-tete solide (pas de heros), donc on reserve la hauteur de l'en-tete. */
+ * En-tete solide (pas de heros), donc on reserve la hauteur de l'en-tete. Sous le
+ * contenu propre a la ville, un corps reutilise: le bloc process (methode) et le
+ * bandeau d'appel repris du payload de l'accueil (conversion). */
 import { breadcrumbsFromTrail } from '~/config/route-map'
+import { processFixture } from '~/content/process'
+import type { PageBlock, CtaBandBlock } from '~/types/blocks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
 const slug = computed(() => String(route.params.slug || ''))
+const isEn = computed(() => locale.value === 'en')
+const localePrefix = computed(() => (isEn.value ? '/en' : ''))
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({ fr: { slug: slug.value }, en: { slug: slug.value } })
@@ -26,6 +32,34 @@ const body = computed(() => page.value?.body ?? [])
 const services = computed(() => page.value?.services ?? [])
 const phoneHref = computed(() => page.value?.phoneHref || t('contact.phone_href'))
 const phoneDisplay = computed(() => page.value?.phoneDisplay || t('contact.phone_display'))
+
+// Contenu de l'accueil (payload unique, repli fixtures): source du bandeau d'appel
+// a reutiliser plus bas, sans dupliquer le contenu.
+const home = useHome()
+
+// Recable une ancre du one-pager (#contact) vers la vraie route /contact.
+function toContactRoute(href: string | undefined): string | undefined {
+  return href === '#contact' ? `${localePrefix.value}/contact` : href
+}
+
+// Corps reutilise sous le contenu propre a la ville: bloc process (methode) puis
+// bandeau d'appel repris de l'accueil (present seulement s'il existe au payload).
+const bodyBlocks = computed<PageBlock[]>(() => {
+  const out: PageBlock[] = [
+    { _type: 'process', _key: 'process', ...processFixture(isEn.value) }
+  ]
+  const cta = home.value.blocks.find((b): b is CtaBandBlock => b._type === 'cta-band')
+  if (cta) {
+    out.push({
+      ...cta,
+      _key: 'cta-band',
+      secondaryCta: cta.secondaryCta
+        ? { ...cta.secondaryCta, href: toContactRoute(cta.secondaryCta.href)! }
+        : undefined
+    })
+  }
+  return out
+})
 
 // Page service-ville (SEO local): ItemPage + fil d'Ariane home -> ville. Le
 // seoTitle Sanity est un titre COMPLET (la marque y est deja, comme le homePage):
@@ -55,7 +89,7 @@ usePageSeo({
           <Button :href="phoneHref" kind="anchor" variant="call" icon="lucide:phone" :pulse="true">
             {{ phoneDisplay }}
           </Button>
-          <Button :to="localeRoute" :href="`#services`" kind="anchor" variant="ghost" tone="ondark" icon="lucide:arrow-down">
+          <Button :href="`#services`" kind="anchor" variant="ghost" tone="ondark" icon="lucide:arrow-down">
             {{ t('nav.services') }}
           </Button>
         </div>
@@ -78,6 +112,8 @@ usePageSeo({
         </ul>
       </section>
     </div>
+
+    <PageBuilder :blocks="bodyBlocks" reveal />
   </article>
 </template>
 
