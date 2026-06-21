@@ -57,7 +57,6 @@ const classes = computed(() => [
 
 <style scoped>
 .btn {
-  --btn-lift: 2px; /* amplitude du soulevement au survol, source unique du geste */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +72,6 @@ const classes = computed(() => [
   text-decoration: none;
   cursor: pointer;
   transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
     background-color var(--motion-duration-hover) var(--motion-ease-settle),
     box-shadow var(--motion-duration-hover) var(--motion-ease-settle),
     color var(--motion-duration-hover) var(--motion-ease-settle);
@@ -102,16 +100,15 @@ const classes = computed(() => [
   color: var(--text-oncall);
   box-shadow: var(--elev-mid);
 }
+/* Survol: teinte seulement, le bouton ne se souleve pas. Cale avec le langage
+ * Ancree « ancre au sol »: les boutons restent poses, jamais flottants. */
 .btn--call:hover {
-  transform: translateY(calc(-1 * var(--btn-lift)));
-  box-shadow: var(--elev-high);
   background: color-mix(in oklch, var(--accent-call) 90%, white);
 }
-/* Appui: le bouton se pose au sol (revient a plat, l'ombre redescend), retour
- * tactile. La respiration se fige a l'appui pour laisser voir l'etat presse. */
+/* Appui: teinte un cran plus marquee, retour tactile sans mouvement. La
+ * respiration se fige a l'appui pour laisser voir l'etat presse. */
 .btn--call:active {
-  transform: translateY(0);
-  box-shadow: var(--elev-mid);
+  background: color-mix(in oklch, var(--accent-call) 82%, white);
   animation-play-state: paused;
 }
 
@@ -122,13 +119,10 @@ const classes = computed(() => [
   box-shadow: var(--elev-low);
 }
 .btn--primary:hover {
-  transform: translateY(calc(-1 * var(--btn-lift)));
-  box-shadow: var(--elev-mid);
   background: color-mix(in oklch, var(--text-base) 88%, var(--accent-trust));
 }
 .btn--primary:active {
-  transform: translateY(0);
-  box-shadow: var(--elev-low);
+  background: color-mix(in oklch, var(--text-base) 80%, var(--accent-trust));
 }
 
 /* Fantome: filet, fond transparent. Une ombre flush a peine percue le pose sur
@@ -147,7 +141,6 @@ const classes = computed(() => [
     inset 0 0 0 var(--line-width) color-mix(in oklch, var(--text-base) 38%, transparent);
 }
 .btn--ghost:active {
-  transform: translateY(1px);
   background: color-mix(in oklch, var(--text-base) 9%, transparent);
 }
 
@@ -161,7 +154,6 @@ const classes = computed(() => [
   box-shadow: inset 0 0 0 var(--line-width) color-mix(in oklch, white 70%, transparent);
 }
 .btn--ghost.btn--ondark:active {
-  transform: translateY(1px);
   background: color-mix(in oklch, white 18%, transparent);
 }
 
