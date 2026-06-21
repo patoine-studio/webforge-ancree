@@ -40,7 +40,7 @@ export interface ServicesContent {
 // Services par ville: bloc signature, remplace le portfolio de projets.
 export interface CityItem {
   name: string
-  href: string // page service-ville, ex /extermination/laval
+  href: string // page service-ville, ex /villes/laval
   note?: string
   featured?: boolean
 }

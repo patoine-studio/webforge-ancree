@@ -8,6 +8,7 @@ import type { ArticleContent } from '~/content/article'
 import type { CategoryContent } from '~/content/blog'
 import type { SiteIdentity } from '~/content/site'
 import { contactFixture } from '~/content/contact'
+import { serviceCityPath } from '~/config/route-map'
 
 type Locale = 'fr' | 'en'
 
@@ -123,7 +124,7 @@ export function transformHome(data: any, locale: Locale): HomeContent | null {
         blocks.push({
           _type: 'service-cities', _key: key,
           eyebrow: b.eyebrow, heading: b.heading, lead: b.lead, areaLabel: b.areaLabel, areaName: b.areaName, areaNote: b.areaNote,
-          cities: cities.map((c: any) => ({ name: c.city, href: `${p}/extermination/${c.slug}`, note: c.note, featured: c.featured }))
+          cities: cities.map((c: any) => ({ name: c.city, href: serviceCityPath(c.slug, locale), note: c.note, featured: c.featured }))
         } as PageBlock)
         break
       case 'aboutBlock':

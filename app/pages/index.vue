@@ -41,10 +41,11 @@ const blocks = computed<PageBlock[]>(() =>
       if (b._type === 'cta-band') {
         return { ...b, secondaryCta: b.secondaryCta ? { ...b.secondaryCta, href: toContactRoute(b.secondaryCta.href)! } : undefined }
       }
-      // Services (apercu): les cartes ne sont PAS des liens individuels (pas de
-      // page par nuisible; les slugs /extermination/* sont des VILLES, pas des
-      // services). On neutralise les href des items; le CTA « Voir tous les
-      // services » -> /services reste le chemin. Cartes informatives, posees.
+      // Services (apercu): les cartes ne sont PAS encore des liens individuels.
+      // Les pages par nuisible (/services/extermination-<nuisible>) arrivent au
+      // prochain temps; les villes, elles, vivent desormais sous le hub /villes.
+      // On neutralise les href des items; le CTA « Voir tous les services » ->
+      // /services reste le chemin. Cartes informatives, posees.
       if (b._type === 'services') {
         const items = (b as { items?: Array<Record<string, unknown>> }).items ?? []
         return { ...b, items: items.map((it) => ({ ...it, href: undefined })) }

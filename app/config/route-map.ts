@@ -13,7 +13,7 @@
 //   - Showcase a /showcase (vitrine, noindex).
 // Blog INCLUS (articles, categories). Projets ABANDONNES (les services par ville
 // sont le moteur SEO local d'Ancree). Route dynamique du metier: serviceCity
-// (/extermination/[slug]).
+// sous le hub /villes (FR) / /service-areas (EN).
 
 // ── Locales ──────────────────────────────────────────────────────────────────
 
@@ -52,6 +52,15 @@ export const ROUTES = {
     label: { fr: 'Services', en: 'Services' },
     parent: 'home',
     pageName: 'services/index'
+  },
+  // Hub des villes desservies (le « ou » du SEO local). EN localise via les
+  // customRoutes i18n (segment /service-areas). Les pages ville vivent sous ce hub
+  // (serviceCity ci-dessous); l'ancien chemin /extermination a ete retire.
+  villes: {
+    path: { fr: '/villes', en: '/service-areas' },
+    label: { fr: 'Villes', en: 'Service areas' },
+    parent: 'home',
+    pageName: 'villes/index'
   },
   about: {
     // EN localise via les customRoutes i18n (buildI18nPages branche dans nuxt.config).
@@ -173,11 +182,14 @@ export const DOC_ROUTES: Record<WfDocType, DocRouteSpec> = {
   faqPage: { pageName: ROUTES.faq.pageName, urls: ROUTES.faq.path, params: [] },
   contactPage: { pageName: ROUTES.contact.pageName, urls: ROUTES.contact.path, params: [] },
   onePager: { pageName: ONE_PAGER_PAGES.index.pageName, urls: ONE_PAGER_PAGES.index.path, params: [] },
-  // Route dynamique du metier Ancree (remplace le 'project' de Minimaliste).
-  // Segment EN identique au FR (terme reconnaissable; a traduire si le seed le veut).
+  // Route dynamique du metier Ancree (remplace le 'project' de Minimaliste): pages
+  // service-ville, le « ou » du SEO local, sous le hub /villes (FR) / /service-areas
+  // (EN). Le slug de ville est PARTAGE entre langues; seul le segment parent est
+  // localise (customRoutes i18n). Cohabite avec les pages par nuisible sous /services
+  // (matrice service x lieu). Sitemap et prerendu suivent via DOC_ROUTES.serviceCity.urls.
   serviceCity: {
-    pageName: 'extermination/[slug]',
-    urls: { fr: '/extermination/[slug]', en: '/extermination/[slug]' },
+    pageName: 'villes/[slug]',
+    urls: { fr: '/villes/[slug]', en: '/service-areas/[slug]' },
     params: ['slug']
   },
   // Article AVEC categorie (2 segments). Le cas sans categorie (/blog/[slug]) est
@@ -203,6 +215,13 @@ export function legalRouteKeyForId(id: string): Extract<RouteKey, 'terms' | 'pri
   if (id.includes('confidentialite')) return 'privacy'
   if (id.includes('conditions')) return 'terms'
   return null
+}
+
+/** Chemin COMPLET (prefixe de locale inclus) d'une page service-ville pour un slug
+ *  de ville. Segment parent localise (/villes vs /service-areas), slug partage.
+ *  Source unique consommee par les blocs (service-cities) et le hub /villes. */
+export function serviceCityPath(slug: string, locale: Locale): string {
+  return `${localePrefix(locale)}${DOC_ROUTES.serviceCity.urls[locale].replace('[slug]', slug)}`
 }
 
 // ── Builders i18n (customRoutes de @nuxtjs/i18n, consomme par nuxt.config) ───
@@ -272,7 +291,7 @@ function ancestorChain(key: RouteKey, locale: Locale): Crumb[] {
  *  - Sans `leaf`: la route `key` EST la page courante; son dernier maillon perd
  *    son lien (page courante non cliquable).
  *  - Avec `leaf`: la route `key` est le parent (reste un lien), `leaf` est la
- *    page courante (ex. une ville sous /extermination).
+ *    page courante (ex. une ville sous le hub /villes).
  */
 export function breadcrumbsFor(key: RouteKey, leaf?: Crumb, locale: Locale = DEFAULT_LOCALE): Crumb[] {
   const chain = ancestorChain(key, locale)

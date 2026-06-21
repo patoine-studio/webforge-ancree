@@ -4,6 +4,7 @@ import { testimonialsFixture } from '~/content/testimonials'
 import { faqFixture } from '~/content/faq'
 import { ctaBandFixture } from '~/content/cta-band'
 import { contactFixture } from '~/content/contact'
+import { serviceCityPath } from '~/config/route-map'
 
 /* PROTOTYPE de contenu pour la validation des dispositions. Le CONTENU de demo
  * vit ici en attendant l'architecture Sanity (qui le remplacera sans toucher aux
@@ -86,7 +87,7 @@ export function useHomeBlocks(): PageBlock[] {
       : 'Intervention rapide partout dans la couronne nord, souvent le jour même.',
     cities: citySlugs.map((c) => ({
       name: c.name,
-      href: `${p}/extermination/${c.slug}`,
+      href: serviceCityPath(c.slug, locale.value as 'fr' | 'en'),
       note: cityNote,
       featured: c.featured
     }))

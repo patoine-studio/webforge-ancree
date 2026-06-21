@@ -5,7 +5,7 @@
  * En-tete solide (pas de heros), donc on reserve la hauteur de l'en-tete. Sous le
  * contenu propre a la ville, un corps reutilise: le bloc process (methode) et le
  * bandeau d'appel repris du payload de l'accueil (conversion). */
-import { breadcrumbsFromTrail } from '~/config/route-map'
+import { breadcrumbsFor } from '~/config/route-map'
 import { processFixture } from '~/content/process'
 import type { PageBlock, CtaBandBlock } from '~/types/blocks'
 
@@ -61,17 +61,18 @@ const bodyBlocks = computed<PageBlock[]>(() => {
   return out
 })
 
-// Page service-ville (SEO local): ItemPage + fil d'Ariane home -> ville. Le
-// seoTitle Sanity est un titre COMPLET (la marque y est deja, comme le homePage):
-// on neutralise le gabarit pour ne pas doubler le suffixe. Le repli (heading nu,
-// derive du slug) garde le gabarit « %s | {marque} » pour porter la marque.
+// Page service-ville (SEO local): ItemPage + fil d'Ariane Accueil -> Villes ->
+// ville (le hub /villes est le parent). Le seoTitle Sanity est un titre COMPLET
+// (la marque y est deja, comme le homePage): on neutralise le gabarit pour ne pas
+// doubler le suffixe. Le repli (heading nu, derive du slug) garde le gabarit
+// « %s | {marque} » pour porter la marque.
 const hasSanityTitle = !!page.value?.seo.title
 usePageSeo({
   title: page.value?.seo.title || heading.value,
   titleTemplate: hasSanityTitle ? null : undefined,
   description: page.value?.seo.description || lead.value,
   webPageType: 'ItemPage',
-  breadcrumbs: breadcrumbsFromTrail(locale.value as 'fr' | 'en', { label: cityName.value })
+  breadcrumbs: breadcrumbsFor('villes', { label: cityName.value }, locale.value as 'fr' | 'en')
 })
 </script>
 
@@ -89,7 +90,7 @@ usePageSeo({
           <Button :href="phoneHref" kind="anchor" variant="call" icon="lucide:phone" :pulse="true">
             {{ phoneDisplay }}
           </Button>
-          <Button :href="`#services`" kind="anchor" variant="ghost" tone="ondark" icon="lucide:arrow-down">
+          <Button v-if="services.length" :href="`#services`" kind="anchor" variant="ghost" tone="ondark" icon="lucide:arrow-down">
             {{ t('nav.services') }}
           </Button>
         </div>

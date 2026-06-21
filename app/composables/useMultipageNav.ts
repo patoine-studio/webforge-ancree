@@ -3,10 +3,11 @@
  * routes (et non les ancres du one-pager, qui vivent dans useSiteNav).
  *
  * `about` est une vraie page, donc presente. `blog` est rejoint depuis que la
- * liste /blog et les articles existent (etape 4). */
+ * liste /blog et les articles existent (etape 4). `villes` = hub des villes
+ * desservies (le « ou » du SEO local), apres services (le « quoi »). */
 import { routePath, routeLabel, type RouteKey } from '~/config/route-map'
 
-export const MULTIPAGE_NAV_KEYS: readonly RouteKey[] = ['services', 'blog', 'about', 'faq', 'contact']
+export const MULTIPAGE_NAV_KEYS: readonly RouteKey[] = ['services', 'villes', 'blog', 'about', 'faq', 'contact']
 
 export interface RouteNavLink {
   to: string
