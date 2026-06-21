@@ -5,8 +5,21 @@
  * mosaique de villes desservies. Chaque ville mene a une page service-ville.
  * Aucune numerotation. */
 import type { ServiceCitiesBlock } from '~/types/blocks'
+import type { SectionCta } from '~/content/blocks'
+import { routePath } from '~/config/route-map'
 
 defineProps<ServiceCitiesBlock>()
+
+const { t, locale } = useI18n()
+const route = useRoute()
+
+// Geste « voir toutes les villes » vers le hub /villes (symetrie avec le bloc
+// services -> /services). Supprime sur le hub lui-meme pour eviter l'auto-lien.
+// Libelle i18n (affordance de nav), cible derivee du route-map (pas en dur).
+const villesPath = computed(() => routePath('villes', locale.value as 'fr' | 'en'))
+const areaCtas = computed<SectionCta[]>(() =>
+  route.path === villesPath.value ? [] : [{ label: t('cities.see_all'), href: villesPath.value }]
+)
 
 function cityKind(href: string): 'internal' | 'external' {
   return href.startsWith('http') ? 'external' : 'internal'
@@ -16,7 +29,7 @@ function cityKind(href: string): 'internal' | 'external' {
 <template>
   <section class="cities">
     <div class="wf-container">
-      <SectionHead :eyebrow="eyebrow" :heading="heading" :lead="lead" />
+      <SectionHead :eyebrow="eyebrow" :heading="heading" :lead="lead" :ctas="areaCtas" />
 
       <div class="cities__layout section-grid">
         <aside class="cities__area" data-reveal>

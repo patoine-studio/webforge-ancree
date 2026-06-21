@@ -50,6 +50,9 @@
   "site": {
     "home_aria": "Rempart Extermination, back to home"
   },
+  "cities": {
+    "see_all": "See all cities"
+  },
   "contact": {
     "phone_display": "450 555 0199",
     "phone_href": "tel:+14505550199",

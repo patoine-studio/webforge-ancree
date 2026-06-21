@@ -46,7 +46,7 @@ export function aboutFixture(isEn: boolean): AboutContent {
       stats: [
         { value: '18 years', label: 'protecting Rive-Nord homes' },
         { value: '6 200+', label: 'households served' },
-        { value: '14 cities', label: 'covered every week' },
+        { value: '10 cities', label: 'covered every week' },
         { value: '9', label: 'certified technicians' }
       ]
     }
@@ -65,7 +65,7 @@ export function aboutFixture(isEn: boolean): AboutContent {
     stats: [
       { value: '18 ans', label: 'à protéger la Rive-Nord' },
       { value: '6 200+', label: 'foyers servis' },
-      { value: '14 villes', label: 'desservies chaque semaine' },
+      { value: '10 villes', label: 'desservies chaque semaine' },
       { value: '9', label: 'techniciens certifiés' }
     ]
   }

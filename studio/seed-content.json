@@ -99,7 +99,7 @@
             "stats": [
               { "_key": "s1", "value": "18 ans", "label": "à protéger la Rive-Nord" },
               { "_key": "s2", "value": "6 200+", "label": "foyers servis" },
-              { "_key": "s3", "value": "14 villes", "label": "desservies chaque semaine" },
+              { "_key": "s3", "value": "10 villes", "label": "desservies chaque semaine" },
               { "_key": "s4", "value": "9", "label": "techniciens certifiés" }
             ]
           },
@@ -202,7 +202,7 @@
             "stats": [
               { "_key": "s1", "value": "18 years", "label": "protecting North Shore homes" },
               { "_key": "s2", "value": "6,200+", "label": "households served" },
-              { "_key": "s3", "value": "14 cities", "label": "covered every week" },
+              { "_key": "s3", "value": "10 cities", "label": "covered every week" },
               { "_key": "s4", "value": "9", "label": "certified technicians" }
             ]
           },
