@@ -187,10 +187,11 @@ export const DOC_ROUTES: Record<WfDocType, DocRouteSpec> = {
   faqPage: { pageName: ROUTES.faq.pageName, urls: ROUTES.faq.path, params: [] },
   contactPage: { pageName: ROUTES.contact.pageName, urls: ROUTES.contact.path, params: [] },
   onePager: { pageName: ONE_PAGER_PAGES.index.pageName, urls: ONE_PAGER_PAGES.index.path, params: [] },
-  // Collection service (les nuisibles): page detail /services/[slug], slug PARTAGE
-  // fr/en (exclude i18n au schema). Distinct du registre SERVICE_DETAILS code-keye
-  // (slugs riches traduits) que la page /services/[slug].vue consomme aujourd'hui:
-  // la reconciliation (page detail pilotee par Sanity vs fixtures) se fait au lot D.
+  // Collection service (les nuisibles): page detail /services/[slug]. Le slug est
+  // RICHE en mots-cles et TRADUIT par langue (le doc EN porte SON propre slug); le
+  // PATTERN d'URL reste partage fr/en, seule la VALEUR du slug change (setI18nParams
+  // dans la page, depuis service.translations). Source unique consommee par la page
+  // /services/[slug].vue, le prerendu et le sitemap (slugs de la collection Sanity).
   service: {
     pageName: 'services/[slug]',
     urls: { fr: '/services/[slug]', en: '/services/[slug]' },
@@ -236,57 +237,6 @@ export function legalRouteKeyForId(id: string): Extract<RouteKey, 'terms' | 'pri
  *  Source unique consommee par les blocs (service-cities) et le hub /villes. */
 export function serviceCityPath(slug: string, locale: Locale): string {
   return `${localePrefix(locale)}${DOC_ROUTES.serviceCity.urls[locale].replace('[slug]', slug)}`
-}
-
-// ── Pages de service par nuisible (le « quoi » du SEO local) ─────────────────
-//
-// Pages /services/<slug> ou le slug est RICHE en mots-cles ET TRADUIT par langue
-// (FR extermination-fourmis-charpentieres <-> EN carpenter-ant-extermination), au
-// contraire des villes (slug partage). La cle stable identifie le nuisible; les
-// slugs par langue servent les URL, le hreflang (fr<->en) et le prerendu. Le
-// CONTENU (titre, corps, icone) vit dans content/services-detail.ts, keye par la
-// meme cle (repli demo par fixtures). Registre = source unique, importe par
-// nuxt.config (prerendu + sitemap) et par la page /services/[slug].
-export interface ServiceDetailSpec {
-  /** Cle stable du nuisible (independante de la langue). */
-  key: string
-  /** Slug RICHE en mots-cles, traduit par langue. */
-  slug: Record<Locale, string>
-}
-
-export const SERVICE_DETAILS: readonly ServiceDetailSpec[] = [
-  { key: 'fourmis-charpentieres', slug: { fr: 'extermination-fourmis-charpentieres', en: 'carpenter-ant-extermination' } },
-  { key: 'souris-rats', slug: { fr: 'extermination-souris-rats', en: 'rodent-extermination' } },
-  { key: 'punaises-de-lit', slug: { fr: 'extermination-punaises-de-lit', en: 'bed-bug-extermination' } },
-  { key: 'guepes-frelons', slug: { fr: 'extermination-guepes-frelons', en: 'wasp-hornet-extermination' } },
-  { key: 'commercial', slug: { fr: 'extermination-commerciale', en: 'commercial-pest-control' } }
-]
-
-/** Chemin COMPLET (prefixe inclus) d'une page nuisible, pour une cle et une locale.
- *  Repli sur l'index /services si la cle est inconnue. */
-export function serviceDetailPath(key: string, locale: Locale): string {
-  const spec = SERVICE_DETAILS.find((s) => s.key === key)
-  if (!spec) return routePath('services', locale)
-  return `${localePrefix(locale)}/services/${spec.slug[locale]}`
-}
-
-/** Resout un slug vers la cle de nuisible, INDEPENDAMMENT de la langue: les 10
- *  slugs (5 nuisibles x 2 langues) sont globalement uniques, donc un slug identifie
- *  un nuisible sans ambiguite. Robuste au prerendu (la locale peut ne pas etre
- *  encore resolue au montage; seul le slug de l'URL fait foi). null si inconnu. */
-export function serviceDetailKeyForSlug(slug: string): string | null {
-  return SERVICE_DETAILS.find((s) => SUPPORTED_LOCALES.some((l) => s.slug[l] === slug))?.key ?? null
-}
-
-/** Specs des slugs par langue d'un nuisible (pour setI18nParams: l'alternate de
- *  langue porte un slug DIFFERENT). null = cle inconnue. */
-export function serviceDetailSpec(key: string): ServiceDetailSpec | null {
-  return SERVICE_DETAILS.find((s) => s.key === key) ?? null
-}
-
-/** Chemins COMPLETS de toutes les pages nuisible d'une locale (prerendu). */
-export function serviceDetailPaths(locale: Locale): string[] {
-  return SERVICE_DETAILS.map((s) => serviceDetailPath(s.key, locale))
 }
 
 // ── Builders i18n (customRoutes de @nuxtjs/i18n, consomme par nuxt.config) ───

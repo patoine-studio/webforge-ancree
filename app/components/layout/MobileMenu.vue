@@ -48,8 +48,9 @@ function onKeydown(e: KeyboardEvent): void {
   if (e.key !== 'Tab') return
   const items = focusables()
   if (items.length === 0) return
-  const first = items[0]
-  const last = items[items.length - 1]
+  // items.length > 0 garanti par la garde ci-dessus: les bornes existent.
+  const first = items[0]!
+  const last = items[items.length - 1]!
   const active = document.activeElement as HTMLElement | null
   const inside = !!active && !!panelRef.value?.contains(active)
   if (e.shiftKey && (active === first || !inside)) {

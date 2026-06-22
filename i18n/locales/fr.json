@@ -63,7 +63,25 @@
     "error_name": "Entrez votre nom.",
     "error_contact": "Entrez un téléphone ou un courriel valide.",
     "required": "requis",
-    "optional": "facultatif"
+    "optional": "facultatif",
+    "meta": {
+      "phone": "Nous appeler",
+      "email": "Nous écrire",
+      "area": "Zone de service",
+      "hours": "Heures"
+    },
+    "form": {
+      "field_name": "Votre nom",
+      "field_contact": "Téléphone ou courriel",
+      "field_message": "Qu’est-ce qui se passe?",
+      "submit_idle": "Envoyer ma demande",
+      "submit_loading": "Envoi en cours...",
+      "success_title": "Message reçu, merci.",
+      "success_body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous au 450 555-0199.",
+      "error_title": "L’envoi n’a pas fonctionné.",
+      "error_body": "Réessayez dans un moment, ou appelez-nous directement au 450 555-0199. On veut vraiment vous lire.",
+      "privacy_note": "Vos informations restent chez nous et servent seulement à répondre à votre demande."
+    }
   },
   "callbar": {
     "estimate": "Estimation gratuite"
@@ -83,8 +101,11 @@
     "blog_heading": "Le blogue de Rempart",
     "blog_lead": "Des conseils clairs pour garder votre maison saine: prévention, signes à surveiller, et les bons réflexes avant d’appeler.",
     "privacy_heading": "Politique de confidentialité",
-    "terms_heading": "Conditions d’utilisation",
-    "legal_body": "Ceci est un gabarit de démonstration. Le contenu légal réel sera rédigé avant la mise en ligne du site."
+    "terms_heading": "Conditions d’utilisation"
+  },
+  "legal": {
+    "effective": "En vigueur depuis le {date}.",
+    "updated": "Dernière mise à jour le {date}."
   },
   "footer": {
     "tagline": "Extermination résidentielle et commerciale, ancrée sur la Rive-Nord de Montréal.",

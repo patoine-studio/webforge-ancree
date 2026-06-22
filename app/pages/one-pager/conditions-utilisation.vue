@@ -1,24 +1,25 @@
 <script setup lang="ts">
 /* Page legale du ONE-PAGER (sous /one-pager, layout landing: en-tete par ancres
  * qualifie par /one-pager). Masthead hero-page sobre, sans fil d'Ariane (hors de
- * l'arbre de breadcrumbs multipage). Le pendant multipage est /conditions-utilisation. */
+ * l'arbre de breadcrumbs multipage). Rend le MEME document legal que la version
+ * racine /conditions-utilisation, pilote par Sanity (useContent('legal')). */
 import type { HeroPageBlock } from '~/types/blocks'
 
 definePageMeta({ layout: 'landing' })
 
-const { t } = useI18n()
+const legal = useContent('legal')
+const doc = computed(() => legal.value.conditions)
 
 const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',
   _key: 'masthead',
-  title: t('pages.terms_heading')
+  title: doc.value.title
 }))
 
 // Sous-arbre one-pager: NOINDEX (exclu du sitemap aussi). Pas de fil d'Ariane
 // (hors de l'arbre de breadcrumbs multipage).
 usePageSeo({
-  title: t('pages.terms_heading'),
-  description: t('pages.legal_body'),
+  title: doc.value.title,
   noindex: true
 })
 </script>
@@ -26,17 +27,6 @@ usePageSeo({
 <template>
   <article>
     <Hero :hero="heroBlock" />
-    <div class="wf-container legal">
-      <p class="legal__body wf-body-1 wf-text-muted">{{ t('pages.legal_body') }}</p>
-    </div>
+    <LegalBody :doc="doc" />
   </article>
 </template>
-
-<style scoped>
-.legal {
-  padding-block: var(--space-block-default);
-}
-.legal__body {
-  max-width: 60ch;
-}
-</style>

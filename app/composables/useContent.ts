@@ -1,49 +1,63 @@
-// Accesseurs de contenu: lecture SYNCHRONE du payload unique (plugin 01.content),
-// repli sur les fixtures quand le payload est absent (le site ne casse jamais).
+// useContent: point d'acces unique au contenu TRANSVERSE du site.
 //
-// Chaque accesseur rend un computed: les consommateurs qui le RENDENT se mettent
-// a jour in-place en mode preview (usePayload() lira alors le store live, et le
-// computed re-derive). En <script>, passer par `.value`.
+// Expose le contenu qui ne vit pas dans un bloc de page-builder:
+//   - `site`    : identite/NAP de la marque (Header, Footer, Logo, graphe SEO).
+//   - `legal`   : pages legales (conditions, confidentialite), consommees par
+//                 le gabarit legal-page.
+//   - `consent` : config de consentement aux temoins (categories + version de
+//                 politique), consommee par le bandeau de consentement et son store.
 //
-// Remplace les useSanityBuildQuery par page: les pages lisent ces composables au
-// lieu de fetcher leur propre requete.
+// V2 (Sanity, fail-fast): `site` et `legal` viennent du payload (fetch unique du
+// plugin 01.content, lecture synchrone via usePayload). `consent` reste du CODE:
+// c'est la config par site (categories de temoins reellement installees), pas du
+// contenu editorial. Porte 1:1 de Minimaliste.
+//
+// Chaque accesseur rend un computed: les consommateurs qui le RENDENT (Header,
+// Footer, Logo, pages legales) se mettent a jour IN-PLACE en mode preview
+// (usePayload() lit alors le store live, et le computed re-derive a chaque
+// edition). En <script>, passer par `.value`.
 
-import { toValue, type ComputedRef, type MaybeRefOrGetter } from 'vue'
-import type { HomeContent, ServiceCityPage, ServiceIndexItem } from '~/sanity/content'
-import { siteFixture, type SiteIdentity } from '~/content/site'
+import { computed, type ComputedRef } from 'vue'
+import type { LegalContent, SiteRuntime } from '~/sanity/transform'
 
-/** Contenu de l'accueil (heros + blocs + seo), payload sinon fixtures i18n. */
-export function useHome(): ComputedRef<HomeContent> {
-  const heroFallback = useHeroContent()
-  const blocksFallback = useHomeBlocks()
-  return computed<HomeContent>(() => {
-    const home = usePayload()?.home
-    if (home && home.hero) return home
-    return { hero: heroFallback.value, blocks: blocksFallback, seo: {} }
+/** Categorie de temoins reellement installee sur ce site (config de code, jamais
+ *  editorial). Forme minimale: identifiant + drapeau « requise » (les requises ne
+ *  sont pas refusables, ex temoins strictement necessaires). */
+export interface ConsentCategory {
+  id: string
+  required: boolean
+}
+export interface ConsentConfig {
+  /** Version de la politique: un bump force un nouveau consentement. */
+  policyVersion: string
+  categories: ConsentCategory[]
+}
+
+/** Config de consentement de CE site (categories de temoins installees). Constante
+ *  de code, jamais du contenu Sanity: elle decrit l'infrastructure du site, pas un
+ *  texte editable. La demo Rempart n'installe aucun temoin non essentiel. */
+export const CONSENT_CONFIG: ConsentConfig = {
+  policyVersion: '2026-01',
+  categories: [{ id: 'necessary', required: true }]
+}
+
+type ContentSources = {
+  site: SiteRuntime
+  legal: LegalContent
+  consent: ConsentConfig
+}
+
+export function useContent<K extends keyof ContentSources>(key: K): ComputedRef<ContentSources[K]> {
+  return computed(() => {
+    if (key === 'consent') {
+      return CONSENT_CONFIG as ContentSources[K]
+    }
+    const payload = usePayload()
+    const sources: ContentSources = {
+      site: payload.site,
+      legal: payload.legal,
+      consent: CONSENT_CONFIG
+    }
+    return sources[key]
   })
-}
-
-/** Identite du site (siteSettings), payload sinon fixture. */
-export function useSiteIdentity(): ComputedRef<SiteIdentity> {
-  const { locale } = useI18n()
-  const isEn = computed(() => locale.value === 'en')
-  return computed<SiteIdentity>(() => usePayload()?.site ?? siteFixture(isEn.value))
-}
-
-/** Cartes de services pour l'index /services, payload sinon items du bloc de fixtures. */
-export function useServicesIndex(): ComputedRef<ServiceIndexItem[]> {
-  const blocksFallback = useHomeBlocks()
-  return computed<ServiceIndexItem[]>(() => {
-    const p = usePayload()
-    if (p && p.servicesIndex.length) return p.servicesIndex
-    const block = blocksFallback.find((b) => b._type === 'services') as { items?: ServiceIndexItem[] } | undefined
-    return block?.items ?? []
-  })
-}
-
-/** Page service-ville par slug (reactif: ref/getter/chaine), ou null si absente
- *  du payload (l'appelant derive alors un repli generique depuis le slug, jamais
- *  de 404). Reactif au parametre de route pour la navigation cliente. */
-export function useServiceCity(slug: MaybeRefOrGetter<string>): ComputedRef<ServiceCityPage | null> {
-  return computed<ServiceCityPage | null>(() => usePayload()?.serviceCities[toValue(slug)] ?? null)
 }

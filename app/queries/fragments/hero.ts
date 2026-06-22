@@ -1,0 +1,33 @@
+// Fragment GROQ: bloc heros (accueil/one-pager et page de niveau 2).
+// Imports RELATIFS (fermeture nuxt.config).
+
+import { FIGURE_PROJECTION } from './figure'
+import { LINK_PROJECTION } from './link'
+
+/**
+ * Heros d'Ancree, discrimine par `_type` (le transform mappe vers _type kebab):
+ *   - heroHome (objet `heroHome`, champ dedie de homePage et onePager, HORS
+ *     pageBuilder): kicker d'ancrage, titre, accroche, deux CTA (objet link),
+ *     preuves integrees (objet `proof`: icon/value/label) et visuel full bleed.
+ *   - pageHero (objet `pageHero`, heros des pages fixes de niveau 2): titre,
+ *     accroche, CTA optionnel (objet link) et image phare.
+ */
+export const HERO_BLOCK_PROJECTION = /* groq */ `{
+  _type,
+  _key,
+  _type == "heroHome" => {
+    kicker,
+    title,
+    lead,
+    "primaryCta": primaryCta ${LINK_PROJECTION},
+    "secondaryCta": secondaryCta ${LINK_PROJECTION},
+    meta[]{ icon, value, label },
+    "visual": visual ${FIGURE_PROJECTION}
+  },
+  _type == "pageHero" => {
+    title,
+    lead,
+    "cta": cta ${LINK_PROJECTION},
+    "image": image ${FIGURE_PROJECTION}
+  }
+}`

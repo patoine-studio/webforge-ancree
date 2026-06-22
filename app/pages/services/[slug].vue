@@ -1,98 +1,88 @@
 <script setup lang="ts">
-/* Page de service par nuisible (le « quoi » du SEO local). Route /services/[slug]
- * ou le slug est RICHE en mots-cles et TRADUIT par langue (FR
- * extermination-fourmis-charpentieres <-> EN carpenter-ant-extermination). On
- * resout le slug courant vers la cle stable du nuisible, on tire le contenu de la
- * fixture (repli demo), et on pose les params i18n pour que l'alternate de langue
- * porte SON propre slug. Sous le contenu propre au nuisible, un maillage croise:
- * le bloc villes desservies (-> /villes) et le bandeau d'appel, repris du payload
- * de l'accueil. En-tete solide (masthead clair, pas de heros). */
-import {
-  breadcrumbsFor,
-  serviceDetailKeyForSlug,
-  serviceDetailSpec
-} from '~/config/route-map'
-import { serviceDetailFixture } from '~/content/services-detail'
-import type { HeroPageBlock, PageBlock, ServiceCitiesBlock, CtaBandBlock } from '~/types/blocks'
+/* Page de service par nuisible (le « quoi » du SEO local). Contenu tire de Sanity
+ * (collection service, par slug + langue). Le slug est RICHE en mots-cles et TRADUIT
+ * par langue (FR extermination-fourmis-charpentieres <-> EN carpenter-ant-extermination);
+ * on pose les params i18n via service.translations pour que l'alternate de langue
+ * porte SON propre slug. Sous le contenu propre au nuisible (intro + points forts),
+ * un corps oriente conversion (processus, temoignages, bandeau d'appel) compose par
+ * useServiceBlocks depuis service.detail. En-tete solide (masthead clair, pas de heros). */
+import { breadcrumbsFor } from '~/config/route-map'
+import type { WfLocale } from '~/sanity/transform'
+import type { HeroPageBlock } from '~/types/blocks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
-const isEn = computed(() => locale.value === 'en')
-const localePrefix = computed(() => (isEn.value ? '/en' : ''))
+const loc = computed(() => locale.value as 'fr' | 'en')
 
-const slug = computed(() => String(route.params.slug || ''))
-const key = computed(() => serviceDetailKeyForSlug(slug.value))
-const detail = computed(() => serviceDetailFixture(key.value, isEn.value))
-
-// Slug inconnu: 404 propre (en statique, seuls les slugs connus sont prerendus;
-// ce garde couvre une navigation cliente vers un slug inexistant).
-if (!detail.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page introuvable' })
-}
-
-// Alternate de langue: chaque langue porte SON slug (traduit). Le slug n'est pas
-// partage ici, contrairement aux villes.
+// Composable appele inconditionnellement en setup (avant le 404 possible).
 const setI18nParams = useSetI18nParams()
-const spec = serviceDetailSpec(key.value!)
-if (spec) {
-  setI18nParams({ fr: { slug: spec.slug.fr }, en: { slug: spec.slug.en } })
+
+const slug = String(route.params.slug)
+const maybeService = useService(slug)
+// Slug inconnu: 404 fatal propre. En statique, seuls les slugs connus sont
+// prerendus; ce garde couvre une navigation cliente vers un slug inexistant.
+if (!maybeService) {
+  throw createError({ statusCode: 404, statusMessage: 'Service introuvable', fatal: true })
 }
 
-// Masthead (bloc du catalogue de heros, rendu par <Hero>). Fil Accueil > Services
-// > [nuisible]; eyebrow = marqueur de service; appel direct.
+// Alternate de langue: chaque langue porte SON slug (traduit). Slug equivalent tire
+// de service.translations (payload); repli sur le meme slug si la traduction manque.
+const slugFor = (lang: WfLocale): string =>
+  maybeService.translations?.find((tr) => tr.lang === lang)?.slug ?? maybeService.slug
+setI18nParams({ fr: { slug: slugFor('fr') }, en: { slug: slugFor('en') } })
+
+// Rendu reactif: suit les editions live du service courant; repli sur le snapshot
+// si l'item disparait du graphe scope. Le template auto-unwrap ces computed.
+const service = computed(() => useService(slug) ?? maybeService)
+
+const breadcrumbs = computed(() => breadcrumbsFor('services', { label: service.value.title }, loc.value))
+
+// Masthead (bloc hero-page, rendu par <Hero>). Compose code depuis le document
+// service: eyebrow d'ancrage (meta du service, repli i18n), titre, accroche (body),
+// appel direct, fil d'Ariane (route-map). Intro et points forts vivent dans le corps.
 const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',
-  _key: 'masthead',
-  crumbs: breadcrumbsFor('services', { label: detail.value!.cardTitle }, locale.value as 'fr' | 'en'),
-  eyebrow: detail.value!.eyebrow,
-  title: detail.value!.title,
-  lead: detail.value!.lead,
+  _key: `masthead-${service.value.slug}`,
+  crumbs: breadcrumbs.value,
+  eyebrow: service.value.meta ?? t('hero.kicker'),
+  title: service.value.title,
+  lead: service.value.body,
   cta: { label: t('hero.cta_primary'), href: t('contact.phone_href') }
 }))
 
-// Contenu de l'accueil (payload unique, repli fixtures): source du maillage croise
-// (villes desservies + bandeau d'appel), sans dupliquer le contenu.
-const home = useHome()
-function toContactRoute(href: string | undefined): string | undefined {
-  return href === '#contact' ? `${localePrefix.value}/contact` : href
-}
-const bodyBlocks = computed<PageBlock[]>(() => {
-  const out: PageBlock[] = []
-  const cities = home.value.blocks.find((b): b is ServiceCitiesBlock => b._type === 'service-cities')
-  if (cities) out.push({ ...cities, _key: 'cities' })
-  const cta = home.value.blocks.find((b): b is CtaBandBlock => b._type === 'cta-band')
-  if (cta) {
-    out.push({
-      ...cta,
-      _key: 'cta-band',
-      secondaryCta: cta.secondaryCta
-        ? { ...cta.secondaryCta, href: toContactRoute(cta.secondaryCta.href)! }
-        : undefined
-    })
-  }
-  return out
-})
+// Points forts: les benefices du service (collection), icone commune = icone du
+// service (les benefices ne portent pas d'icone propre au contrat). Decision de
+// composition de page, jamais un champ Studio; la peau (template/CSS) reste intacte.
+const intro = computed(() => service.value.intro ?? [])
+const highlights = computed(() =>
+  service.value.benefits.map((b) => ({ icon: service.value.icon ?? 'lucide:check', title: b.title, body: b.body }))
+)
+
+// Corps oriente conversion depuis service.detail (processus + temoignages + bandeau
+// d'appel), compose par useServiceBlocks et rendu par le page-builder.
+const blocks = computed(() => useServiceBlocks(service.value))
 
 // Page nuisible (SEO local): ItemPage + fil Accueil > Services > [nuisible].
 usePageSeo({
-  title: detail.value!.title,
-  description: detail.value!.lead,
+  title: service.value.title,
+  description: service.value.body,
+  image: service.value.image || undefined,
   webPageType: 'ItemPage',
-  breadcrumbs: breadcrumbsFor('services', { label: detail.value!.cardTitle }, locale.value as 'fr' | 'en')
+  breadcrumbs: breadcrumbs.value
 })
 </script>
 
 <template>
-  <div v-if="detail" class="pest">
+  <div class="pest">
     <Hero :hero="heroBlock" />
 
     <div class="wf-container pest__body">
-      <div class="pest__intro">
-        <p v-for="(para, i) in detail.intro" :key="i" class="wf-body-1 wf-text-muted pest__para">{{ para }}</p>
+      <div v-if="intro.length" class="pest__intro">
+        <p v-for="(para, i) in intro" :key="i" class="wf-body-1 wf-text-muted pest__para">{{ para }}</p>
       </div>
 
-      <ul class="pest__highlights" data-reveal-stagger>
-        <li v-for="h in detail.highlights" :key="h.title" class="pest__highlight">
+      <ul v-if="highlights.length" class="pest__highlights" data-reveal-stagger>
+        <li v-for="h in highlights" :key="h.title" class="pest__highlight">
           <span class="pest__highlight-icon" aria-hidden="true">
             <Icon :name="h.icon" />
           </span>
@@ -102,7 +92,7 @@ usePageSeo({
       </ul>
     </div>
 
-    <PageBuilder :blocks="bodyBlocks" reveal />
+    <PageBuilder :blocks="blocks" reveal />
   </div>
 </template>
 

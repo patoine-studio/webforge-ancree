@@ -18,8 +18,6 @@ import {
   staticPagePaths,
   buildI18nPages,
   DOC_ROUTES,
-  SERVICE_DETAILS,
-  serviceDetailPath,
   type Locale
 } from './app/config/route-map'
 // Config + garde du blog (PUR TS, importable hors contexte d'alias Nuxt).
@@ -52,16 +50,33 @@ const sanityBuildClient = createClient({
 // i18n document-level: un doc par langue, SLUG PARTAGE fr/en. On fetch par langue
 // (chaque arbre de routes a son jeu), puis l'alternate hreflang se deduit du meme
 // slug sous l'autre prefixe de locale.
+// La collection service (les nuisibles) a un slug RICHE en mots-cles et TRADUIT
+// par langue (le doc EN porte SON propre slug, distinct du FR). On projette donc
+// pour chaque service de la langue courante la carte de ses slugs par langue
+// (translation.metadata du plugin @sanity/document-internationalization): le
+// prerendu prend le slug de la langue, le sitemap pose l'alternate sur le slug
+// TRADUIT de l'autre langue. Les serviceCity, eux, partagent leur slug fr/en.
 const ROUTE_SLUGS_QUERY = `{
   "articles": *[_type == "article" && language == $lang && defined(slug.current)]{ "slug": slug.current, "category": category->slug.current },
   "categories": *[_type == "category" && language == $lang && defined(slug.current)]{ "slug": slug.current },
-  "cities": *[_type == "serviceCity" && language == $lang && defined(slug.current)]{ "slug": slug.current }
+  "cities": *[_type == "serviceCity" && language == $lang && defined(slug.current)]{ "slug": slug.current },
+  "services": *[_type == "service" && language == $lang && defined(slug.current)]{
+    "slug": slug.current,
+    "slugByLang": *[_type == "translation.metadata" && references(^._id)][0].translations[]{ "lang": _key, "slug": value->slug.current }
+  }
 }`
 
 interface SlugRef { slug: string }
 interface ArticleSlugRef extends SlugRef { category: string | null }
-interface RouteSlugs { articles: ArticleSlugRef[]; categories: SlugRef[]; cities: SlugRef[] }
-const EMPTY_SLUGS: RouteSlugs = { articles: [], categories: [], cities: [] }
+interface SlugByLang { lang: Locale; slug: string | null }
+interface ServiceSlugRef extends SlugRef { slugByLang: SlugByLang[] | null }
+interface RouteSlugs {
+  articles: ArticleSlugRef[]
+  categories: SlugRef[]
+  cities: SlugRef[]
+  services: ServiceSlugRef[]
+}
+const EMPTY_SLUGS: RouteSlugs = { articles: [], categories: [], cities: [], services: [] }
 
 // Fetch GRACIEUX: un reseau coupe ne casse pas le build (Ancree retombe partout
 // sur ses fixtures). Sans slugs: sitemap dynamique reduit, prerendu rabattu sur
@@ -124,6 +139,11 @@ const articleUrl = (locale: Locale, slug: string, category: string | null): stri
   const base = routePath('blog', locale)
   return category ? `${base}/${category}/${slug}` : `${base}/${slug}`
 }
+// Service (les nuisibles): le PATTERN /services/[slug] est partage fr/en, seul le
+// slug est traduit par langue. Derive du route-map (DOC_ROUTES.service) pour suivre
+// toute localisation future du segment parent sans divergence prerendu/sitemap.
+const serviceUrl = (locale: Locale, slug: string): string =>
+  `${localePrefix(locale)}${DOC_ROUTES.service.urls[locale].replace('[slug]', slug)}`
 // Pages de pagination de la liste (n >= 2): /blog/page/N. Page 1 = /blog nu. Vide
 // quand la liste tient sur une page (cas de la demo, 3 articles). Hors sitemap
 // (noindex au niveau page), seulement prerendues.
@@ -159,6 +179,7 @@ const presenceBySlug = (pick: (s: RouteSlugs) => SlugRef[]): Map<string, Set<Loc
 const articlePresence = presenceBySlug((s) => s.articles)
 const categoryPresence = presenceBySlug((s) => s.categories)
 const cityPresence = presenceBySlug((s) => s.cities)
+const servicePresence = presenceBySlug((s) => s.services)
 // Categorie d'un article (identique entre langues, modele partage): pour batir
 // l'URL de l'alternate de l'autre langue.
 const articleCategoryBySlug = new Map<string, string | null>()
@@ -167,6 +188,26 @@ for (const locale of SUPPORTED_LOCALES) {
     if (!articleCategoryBySlug.has(a.slug)) articleCategoryBySlug.set(a.slug, a.category ?? null)
   }
 }
+
+// Slug TRADUIT d'un service dans une langue cible, indexe par son slug dans la
+// langue source. Le service porte un slug distinct par langue (cf. ROUTE_SLUGS_QUERY):
+// pour l'alternate hreflang de l'autre langue, on suit translation.metadata (slugByLang).
+// Cle = `${sourceLocale}:${slug}`; valeur = carte langue -> slug traduit. Repli sur le
+// meme slug si la traduction manque (degradation gracieuse, jamais d'href casse).
+const serviceSlugByLang = new Map<string, Partial<Record<Locale, string>>>()
+for (const locale of SUPPORTED_LOCALES) {
+  for (const svc of slugsByLocale[locale].services) {
+    const byLang: Partial<Record<Locale, string>> = {}
+    for (const tr of svc.slugByLang ?? []) {
+      if (tr.slug) byLang[tr.lang] = tr.slug
+    }
+    serviceSlugByLang.set(`${locale}:${svc.slug}`, byLang)
+  }
+}
+// Slug d'un service dans une langue cible, depuis (langue source, slug source).
+// Repli sur le slug source quand la traduction est absente.
+const serviceSlugIn = (sourceLocale: Locale, sourceSlug: string, target: Locale): string =>
+  serviceSlugByLang.get(`${sourceLocale}:${sourceSlug}`)?.[target] ?? sourceSlug
 
 // Alternates d'un doc dynamique: une entree par langue ou il existe + x-default
 // sur la langue par defaut (si presente). hrefs relatifs, resolus en absolu par
@@ -211,22 +252,21 @@ const SITEMAP_DYNAMIC_URLS: SitemapUrlEntry[] = [
         loc: categoryUrl(locale, c.slug),
         _sitemap: LOCALE_HREFLANG[locale],
         alternatives: alternativesFor(categoryPresence.get(c.slug), (l) => categoryUrl(l, c.slug))
+      })),
+      // Pages par nuisible (collection service Sanity). Slug TRADUIT par langue:
+      // l'alternate pointe vers le slug de l'AUTRE langue (suivi via slugByLang),
+      // pas un chemin partage. Presence par langue: alternate seulement la ou la
+      // traduction existe vraiment (miroir des villes/articles).
+      ...slugs.services.map((svc) => ({
+        loc: serviceUrl(locale, svc.slug),
+        _sitemap: LOCALE_HREFLANG[locale],
+        alternatives: alternativesFor(
+          servicePresence.get(svc.slug),
+          (l) => serviceUrl(l, serviceSlugIn(locale, svc.slug, l))
+        )
       }))
     ]
-  }),
-  // Pages par nuisible (fixtures, presentes dans les deux langues). Slug TRADUIT
-  // par langue: l'alternate pointe vers le slug de l'autre langue (pas un chemin
-  // partage). Source unique = SERVICE_DETAILS du route-map.
-  ...SUPPORTED_LOCALES.flatMap((locale) =>
-    SERVICE_DETAILS.map((d) => ({
-      loc: serviceDetailPath(d.key, locale),
-      _sitemap: LOCALE_HREFLANG[locale],
-      alternatives: [
-        ...SUPPORTED_LOCALES.map((l) => ({ hreflang: LOCALE_HREFLANG[l], href: serviceDetailPath(d.key, l) })),
-        { hreflang: 'x-default', href: serviceDetailPath(d.key, DEFAULT_LOCALE) }
-      ]
-    }))
-  )
+  })
 ]
 
 // Routes de prerendu: pages statiques du route-map (segments EN localises par
@@ -236,19 +276,16 @@ const DYNAMIC_PRERENDER_ROUTES = SUPPORTED_LOCALES.flatMap((locale) => {
   const slugs = slugsByLocale[locale]
   return [
     ...slugs.cities.map((c) => cityUrl(locale, c.slug)),
+    // Pages par nuisible (collection service Sanity): slug traduit par langue.
+    ...slugs.services.map((svc) => serviceUrl(locale, svc.slug)),
     ...slugs.articles.map((a) => articleUrl(locale, a.slug, a.category)),
     ...slugs.categories.map((c) => categoryUrl(locale, c.slug)),
     ...paginationUrls(slugs.articles.length, routePath('blog', locale))
   ]
 })
-// Pages par nuisible (fixtures): slug traduit par langue, source SERVICE_DETAILS.
-const SERVICE_DETAIL_PRERENDER = SUPPORTED_LOCALES.flatMap((locale) =>
-  SERVICE_DETAILS.map((d) => serviceDetailPath(d.key, locale))
-)
 const PRERENDER_ROUTES = [
   ...SUPPORTED_LOCALES.flatMap((locale) => staticPagePaths(locale)),
-  ...DYNAMIC_PRERENDER_ROUTES,
-  ...SERVICE_DETAIL_PRERENDER
+  ...DYNAMIC_PRERENDER_ROUTES
 ]
 
 export default defineNuxtConfig({

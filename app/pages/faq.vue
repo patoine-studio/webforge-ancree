@@ -1,55 +1,39 @@
 <script setup lang="ts">
-/* Page FAQ (multipage). Masthead hero-page (fil d'Ariane + titre + appel), puis
- * le bloc FAQ (accordeon + carte d'appel) et un bandeau d'appel de cloture. Le
- * contenu de demo vient des fixtures en attendant l'architecture Sanity; le bloc
- * porte son propre titre de section (le masthead porte le titre de page), mais
- * SANS sur-titre: le masthead a deja l'eyebrow d'ancrage local. Le bandeau d'appel
- * pointe son geste secondaire vers la vraie page /contact. */
-import { faqFixture } from '~/content/faq'
-import { ctaBandFixture } from '~/content/cta-band'
+/* Page FAQ (multipage). Masthead hero-page (porte son propre fil d'Ariane, du
+ * payload) puis le pageBuilder du document faqPage (bloc faq en accordeon,
+ * bandeau d'appel de cloture). La copie et le SEO viennent du document Sanity
+ * (payload), composes par la couche composable. Posture fail-fast: aucune
+ * fixture en direct. /faq est la SEULE page du site a baliser ses questions
+ * (mainEntity du noeud WebPage): la source du balisage est la banque groupee par
+ * theme (useFaqByTheme), aplatie dans l'ordre des sections du document. */
 import { breadcrumbsFor } from '~/config/route-map'
-import type { HeroPageBlock, PageBlock } from '~/types/blocks'
 
-const { t, locale } = useI18n()
-const isEn = computed(() => locale.value === 'en')
-const localePrefix = computed(() => (isEn.value ? '/en' : ''))
+const { locale } = useI18n()
+const wfLocale = locale.value as 'fr' | 'en'
 
-const heroBlock = computed<HeroPageBlock>(() => ({
-  _type: 'hero-page',
-  _key: 'masthead',
-  crumbs: breadcrumbsFor('faq', undefined, locale.value as 'fr' | 'en'),
-  eyebrow: t('hero.kicker'),
-  title: t('pages.faq_heading'),
-  lead: t('pages.faq_lead'),
-  cta: { label: t('hero.cta_primary'), href: t('contact.phone_href') }
-}))
+const hero = usePageHero('faq')
+const breadcrumbs = breadcrumbsFor('faq', undefined, wfLocale)
+const seo = useFixedPage('faq').seo
 
-const blocks = computed<PageBlock[]>(() => {
-  const cta = ctaBandFixture(isEn.value)
-  return [
-    { _type: 'faq', _key: 'faq', ...faqFixture(isEn.value), eyebrow: undefined },
-    {
-      _type: 'cta-band',
-      _key: 'cta',
-      ...cta,
-      secondaryCta: { label: cta.secondaryCta!.label, href: `${localePrefix.value}/contact` }
-    }
-  ]
-})
+// Source unique du balisage FAQPage: les questions groupees par theme (memes
+// sections, meme ordre que le Studio). Aplaties pour le mainEntity Schema.org.
+const groups = useFaqByTheme()
 
-// FAQPage: /faq est la SEULE page du site a baliser ses questions (mainEntity du
-// noeud WebPage). Meme source et meme ordre que l'accordeon rendu (faqFixture).
+// FAQPage: balise ses questions (mainEntity du noeud WebPage). Meme source et
+// meme ordre que la banque rendue.
 usePageSeo({
-  title: t('pages.faq_heading'),
-  description: t('pages.faq_lead'),
-  breadcrumbs: breadcrumbsFor('faq', undefined, locale.value as 'fr' | 'en'),
-  faq: faqFixture(isEn.value).items.map((it) => ({ question: it.q, answer: it.a }))
+  title: seo.title,
+  description: seo.description,
+  breadcrumbs,
+  faq: groups.value.flatMap((g) => g.items).map((f) => ({ question: f.q, answer: f.a }))
 })
+
+const blocks = useFaqPageBlocks()
 </script>
 
 <template>
   <div>
-    <Hero :hero="heroBlock" />
+    <Hero :hero="hero" />
     <PageBuilder :blocks="blocks" reveal />
   </div>
 </template>

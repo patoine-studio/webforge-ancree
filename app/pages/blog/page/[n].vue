@@ -1,9 +1,11 @@
 <script setup lang="ts">
 /* Blog: page de pagination [n] (n >= 2; la page 1 est /blog nu). Meme masthead +
- * filtre + grille que la liste, sur la tranche n. Contenu mince duplique de la
- * liste -> NOINDEX au niveau page (hors index ET sitemap meme si le site devient
+ * filtre + grille + bandeau d'appel que la liste, sur la tranche n. Contenu du
+ * payload unique (fail-fast): articles + categories de useBlog(), heros et copie du
+ * document blogPage, CTA de liste (listCta). Contenu mince duplique de la liste ->
+ * NOINDEX au niveau page (hors index ET sitemap meme si le site devient
  * indexable). 404 hors borne. Route plus specifique que le catch-all /blog. */
-import type { HeroPageBlock } from '~/types/blocks'
+import type { HeroPageBlock, CtaBandBlock } from '~/types/blocks'
 import {
   breadcrumbsFromTrail,
   routeLabel,
@@ -23,6 +25,8 @@ const setI18nParams = useSetI18nParams()
 setI18nParams({ fr: { n: rawN }, en: { n: rawN } })
 
 const { articles, categories } = useBlog()
+const heroContent = usePageHero('blog')
+const blogContent = useBlogPageContent()
 const pageData = computed(() => paginate(articles.value, n))
 
 // Borne: entier CANONIQUE >= 2 et <= totalPages, sinon 404 (la page 1 vit sur
@@ -47,9 +51,13 @@ const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',
   _key: 'masthead',
   crumbs: crumbs.value,
-  title: t('pages.blog_heading'),
-  lead: t('pages.blog_lead')
+  title: heroContent.value.title,
+  lead: heroContent.value.lead
 }))
+
+const ctaBlocks = computed<CtaBandBlock[]>(() => [
+  { _type: 'cta-band', _key: 'blog-cta', ...blogContent.listCta }
+])
 
 // Titre et description PROPRES a la page (derives du numero, jamais ceux de /blog
 // mot pour mot). NOINDEX: contenu mince. CollectionPage + fil d'Ariane.
@@ -72,6 +80,7 @@ usePageSeo({
         <Pagination :page="pageData.page" :total-pages="pageData.totalPages" :base-path="routePath('blog', loc)" />
       </div>
     </section>
+    <PageBuilder :blocks="ctaBlocks" reveal />
   </div>
 </template>
 

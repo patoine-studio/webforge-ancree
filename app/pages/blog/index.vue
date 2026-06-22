@@ -1,34 +1,45 @@
 <script setup lang="ts">
 /* Liste du blog (/blog). Masthead hero-page + filtre de categories (route-based)
- * + grille d'articles. Contenu en fixtures pour l'instant (le fetch Sanity au
- * build s'y branchera sur le moule de services/index.vue). */
-import type { HeroPageBlock } from '~/types/blocks'
+ * + grille d'articles + bandeau d'appel. Contenu du payload unique (fail-fast):
+ * articles + categories de useBlog(), heros et copie du document blogPage, CTA de
+ * liste (listCta), aucun repli fixtures. */
+import type { HeroPageBlock, CtaBandBlock } from '~/types/blocks'
 import { breadcrumbsFor, routePath, type Locale } from '~/config/route-map'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const loc = computed(() => locale.value as Locale)
 
 const { articles, categories } = useBlog()
+const heroContent = usePageHero('blog')
+const blogContent = useBlogPageContent()
 // Page 1 de la liste. La pagination ne s'affiche qu'au-dela d'ARTICLES_PER_PAGE
 // (la demo a 3 articles -> une seule page, <Pagination> masque). Les pages
 // suivantes vivent sur /blog/page/[n].
 const pageData = computed(() => paginate(articles.value, 1))
 const cards = computed(() => pageData.value.items.map((a) => toCard(a, loc.value)))
 
+// Heros de page lu du document blogPage (title/lead), fil d'Ariane derive du
+// route-map (source unique du chemin), comme le port de Minimaliste.
 const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',
   _key: 'masthead',
   crumbs: breadcrumbsFor('blog', undefined, loc.value),
-  title: t('pages.blog_heading'),
-  lead: t('pages.blog_lead')
+  title: heroContent.value.title,
+  lead: heroContent.value.lead
 }))
+
+const ctaBlocks = computed<CtaBandBlock[]>(() => [
+  { _type: 'cta-band', _key: 'blog-cta', ...blogContent.listCta }
+])
 
 // Liste du blog: CollectionPage indexable + BreadcrumbList (route-map). Le nœud
 // Article n'est porté que par les pages d'article (catch-all). Schema.org et
-// métas via usePageSeo, source unique du SEO de page (port de Minimaliste).
+// métas via usePageSeo, source unique du SEO de page. Title/description du SEO du
+// document blogPage (replis deja faits au transform).
+const seo = useFixedPage('blog').seo
 usePageSeo({
-  title: t('pages.blog_heading'),
-  description: t('pages.blog_lead'),
+  title: seo.title,
+  description: seo.description,
   webPageType: 'CollectionPage',
   breadcrumbs: breadcrumbsFor('blog', undefined, loc.value)
 })
@@ -44,6 +55,7 @@ usePageSeo({
         <Pagination :page="pageData.page" :total-pages="pageData.totalPages" :base-path="routePath('blog', loc)" />
       </div>
     </section>
+    <PageBuilder :blocks="ctaBlocks" reveal />
   </div>
 </template>
 

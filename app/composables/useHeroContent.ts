@@ -1,40 +1,22 @@
+// useHeroContent: acces au contenu du heros d'accueil, homogene avec useContent()
+// et useOnePagerBlocks(): la page n'importe jamais le contenu en dur.
+//
+// Le heros n'est PAS un bloc de page-builder (composant impose par le type de
+// page): il a son propre accesseur plutot que de transiter par le page-builder.
+//
+// V2 (Sanity, fail-fast): deux documents portent un heros d'accueil: homePage (CTA
+// en routes, mode multipage) et onePager (CTA en ancres). Le parametre `source`
+// (optionnel, defaut 'home') choisit le document. Les CTA sortent du transform deja
+// resolus en href: les pages ne les reecrivent plus. Porte 1:1 de Minimaliste.
+
+import { computed, type ComputedRef } from 'vue'
 import type { HeroHomeBlock } from '~/types/blocks'
 
-/* PROTOTYPE de validation du heros. Le contenu (textes) vient de l'i18n
- * (discipline 2: aucun texte d'interface ni contenu en dur dans le composant);
- * seule la STRUCTURE du bloc vit ici, en attendant l'architecture Sanity. Apres
- * validation de la disposition, ce composable lira usePayload().heroes.home sans
- * changer son contrat (ComputedRef<HeroHomeBlock>), donc le heros ne bouge pas.
- * Le numero de telephone et l'image de demo seront aussi pilotes par Sanity. */
-export function useHeroContent(): ComputedRef<HeroHomeBlock> {
-  const { t } = useI18n()
-
-  return computed<HeroHomeBlock>(() => ({
-    _type: 'hero-home',
-    _key: 'home-hero',
-    kicker: t('hero.kicker'),
-    title: t('hero.title'),
-    lead: t('hero.lead'),
-    primaryCta: { label: t('hero.cta_primary'), href: t('contact.phone_href') },
-    secondaryCta: { label: t('hero.cta_secondary'), href: '#contact' },
-    meta: [
-      { icon: 'lucide:shield-check', value: t('hero.proof_1_value'), label: t('hero.proof_1_label') },
-      { icon: 'lucide:star', value: t('hero.proof_2_value'), label: t('hero.proof_2_label') },
-      { icon: 'lucide:badge-check', value: t('hero.proof_3_value'), label: t('hero.proof_3_label') }
-    ],
-    visual: {
-      ratio: '16/9',
-      src: '/images/hero-technicien.jpg',
-      alt: t('hero.image_alt'),
-      label: '',
-      caption: ''
-    },
-    visualMobile: {
-      ratio: '4/5',
-      src: '/images/hero-technicien.jpg',
-      alt: t('hero.image_alt'),
-      label: '',
-      caption: ''
-    }
-  }))
+// computed: le heros d'accueil/one-pager se met a jour in-place en preview (le
+// template auto-unwrap le ref; usePayload() lit le store live).
+export function useHeroContent(source: 'home' | 'one-pager' = 'home'): ComputedRef<HeroHomeBlock> {
+  return computed(() => {
+    const heroes = usePayload().heroes
+    return source === 'one-pager' ? heroes.onePager : heroes.home
+  })
 }

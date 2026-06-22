@@ -2,12 +2,12 @@
 /* Catch-all sous /blog. Resout les segments: 1 segment = archive de categorie
  * (priorite) ou article sans categorie; 2 segments = article categorise. Article:
  * masthead hero-article + corps (ArticleBuilder) + reliés + bandeau d'appel.
- * Archive: masthead hero-page + filtre + grille filtree. Contenu en fixtures pour
- * l'instant (le fetch Sanity au build s'y branchera). */
+ * Archive: masthead hero-page + filtre + grille filtree. Contenu du payload unique
+ * (fail-fast): articles + categories de useBlog(), CTA et en-tete des relies du
+ * document blogPage (useBlogPageContent), plus aucun repli fixtures. */
 import type { HeroArticleBlock, HeroPageBlock, CtaBandBlock } from '~/types/blocks'
 import type { HeroVisual } from '~/content/hero'
 import type { ArticleCardData } from '~/composables/useArticles'
-import { ctaBandFixture } from '~/content/cta-band'
 import {
   breadcrumbsFor,
   breadcrumbsFromTrail,
@@ -18,9 +18,8 @@ import {
 } from '~/config/route-map'
 
 const route = useRoute()
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const loc = computed(() => locale.value as Locale)
-const isEn = computed(() => loc.value === 'en')
 
 const segments = computed<string[]>(() => {
   const s = route.params.slug
@@ -41,8 +40,11 @@ const segments = computed<string[]>(() => {
 const setI18nParams = useSetI18nParams()
 setI18nParams({ fr: { slug: segments.value }, en: { slug: segments.value } })
 
-// Contenu du blog depuis le payload unique (plugin 01.content), repli fixtures.
+// Contenu du blog depuis le payload unique (fail-fast, aucun repli fixtures).
 const { articles, categories } = useBlog()
+// Copie du document blogPage (payload): CTA des sorties de conversion (article et
+// archive) + en-tete de la section « a lire aussi ». Liens deja resolus en href.
+const blogContent = useBlogPageContent()
 
 const match = computed(() => resolveBlogRoute(segments.value, articles.value, categories.value))
 if (!match.value) {
@@ -85,7 +87,7 @@ const related = computed<ArticleCardData[]>(() => {
 })
 
 const articleCta = computed<CtaBandBlock[]>(() => [
-  { _type: 'cta-band', _key: 'article-cta', ...ctaBandFixture(isEn.value) }
+  { _type: 'cta-band', _key: 'article-cta', ...blogContent.articleCta }
 ])
 
 // ── Archive de categorie ─────────────────────────────────────────────────────
@@ -108,6 +110,9 @@ const archivePage = computed(() => (archive.value ? paginate(archive.value.artic
 const archiveCards = computed<ArticleCardData[]>(() =>
   archivePage.value ? archivePage.value.items.map((x) => toCard(x, loc.value)) : []
 )
+const categoryCta = computed<CtaBandBlock[]>(() => [
+  { _type: 'cta-band', _key: 'category-cta', ...blogContent.categoryCta }
+])
 
 // ── SEO + Schema.org ──────────────────────────────────────────────────────────
 // Branche figée au setup (snapshot du match résolu après l'await): article =
@@ -160,7 +165,7 @@ if (seoMatch?.type === 'article') {
 
     <section v-if="related.length" class="article-related">
       <div class="wf-container">
-        <h2 class="article-related__heading wf-h3">{{ t('ui.blog.related') }}</h2>
+        <h2 class="article-related__heading wf-h3">{{ blogContent.related.heading }}</h2>
         <ArticleGrid :cards="related" heading-level="h3" class="article-related__grid" />
       </div>
     </section>
@@ -183,6 +188,7 @@ if (seoMatch?.type === 'article') {
         />
       </div>
     </section>
+    <PageBuilder :blocks="categoryCta" reveal />
   </div>
 </template>
 

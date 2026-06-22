@@ -4,7 +4,6 @@
 // serveur et ne serialise QUE le resultat transforme (ContentPayload) dans le
 // payload Nuxt de la route. A l'hydratation client, le payload est deja la:
 // AUCUN fetch cote client en production, usePayload() le lit en synchrone.
-// Remplace les useSanityBuildQuery par page (une lecture hydratee, pas N).
 //
 // Prefixe `01.` pour s'executer avant tout plugin consommateur eventuel.
 //
@@ -14,9 +13,14 @@
 //     import.meta.prerender) ramene a 1 fetch Sanity par langue par build.
 //   - dev: pas de cache, contenu frais a chaque requete SSR.
 //
-// GRACIEUX (adaptation Ancree, vs le fail-fatal de Minimaliste): un fetch echoue
-// n'arrete PAS le build. On laisse le payload vide; les composables retombent sur
-// leurs fixtures (le site rend toujours). On signale par un avertissement.
+// FAIL-FAST (arrimage sur Minimaliste, vs l'ancien repli gracieux): un fetch ou
+// une transformation qui echoue rend createError fatal. Un generate sans contenu
+// doit ECHOUER, jamais produire un site vide. Aucun repli fixtures runtime.
+//
+// contactUi: en famille Ancree, le contactBlock Sanity ne porte qu'eyebrow/
+// heading/lead. Les etiquettes de coordonnees et les libelles du formulaire sont
+// du chrome produit (discipline 2), tires d'i18n et injectes ici dans
+// transformGraph (3e parametre). resolveContactUi lit les messages de la langue.
 //
 // Purete statique: AUCUN import statique des composables @nuxtjs/sanity ici (ils
 // trainent des marqueurs visual-editing dans le bundle client). Deux gardes de
@@ -26,33 +30,47 @@
 //   - import.meta.server: le client n'a jamais besoin du client Sanity (le
 //     payload est serialise au rendu serveur).
 
-import { CONTENT_GRAPH_QUERY, transformGraph } from '~/sanity/content'
-import type { Locale } from '~/config/route-map'
+import { CONTENT_GRAPH_QUERY } from '~/queries/documents'
+import { resolvePreviewQuery } from '~/queries/route-query-map'
+import { transformGraph, type SanityGraph, type WfLocale } from '~/sanity/transform'
+import { resolveContactUi } from '~/composables/useContactUi'
 
 // Cache au niveau module: une promesse par langue, partagee entre toutes les
 // routes prerendues du meme process de generate.
-const prerenderFetches = new Map<Locale, Promise<unknown>>()
+const prerenderFetches = new Map<WfLocale, Promise<SanityGraph>>()
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   // ── Branche preview (Worker preview, garde par Cloudflare Access) ──
   // SERVEUR seulement. Sert les BROUILLONS a chaque rendu (always-drafts; sur,
-  // car le domaine preview est garde par Access). Meme cle, meme forme que la
-  // base: usePayload() ne voit aucune difference. Le middleware 00.preview-content
-  // re-fetch sur navigation cliente. Branche morte en statique (élaguée).
+  // car le domaine preview est garde par Access). Requete SCOPEE de la route
+  // courante (resolvePreviewQuery), meme cle/forme que la base: usePayload() ne
+  // voit aucune difference. Le middleware 00.preview-content re-fetch sur
+  // navigation cliente. Branche morte en statique (elaguee).
   if (__WF_PREVIEW__ && import.meta.server) {
     const { useSanityQuery } = await import('@nuxtjs/sanity/runtime/composables/useSanityQuery.js')
     const { useSanityVisualEditingState } = await import('@nuxtjs/sanity/runtime/composables/useSanityVisualEditingState.js')
     const visualEditingState = useSanityVisualEditingState()
     const locale = useWfLocale()
+    const { query, slug } = resolvePreviewQuery(useRoute().path)
     // Cookie present (iframe Studio): le module pilote perspective + token + stega.
     // Cookie absent (onglet autonome): on force drafts + le token serveur.
     const previewOptions = visualEditingState?.enabled
       ? {}
       : { queryOptions: { perspective: 'drafts' as const, token: visualEditingState?.token } }
-    const { data } = await useSanityQuery<unknown>(CONTENT_GRAPH_QUERY, { lang: locale }, previewOptions)
-    if (data.value) {
-      nuxtApp.payload.data[payloadKey(locale)] = transformGraph(data.value, locale)
+    const { data, error } = await useSanityQuery<SanityGraph>(
+      query,
+      { language: locale, slug },
+      previewOptions
+    )
+    if (error.value || !data.value) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Echec du chargement du contenu Sanity en mode preview (${locale})${error.value ? `: ${error.value.message}` : ''}`,
+        cause: error.value ?? undefined,
+        fatal: true
+      })
     }
+    nuxtApp.payload.data[payloadKey(locale)] = transformGraph(data.value, locale, resolveContactUi(locale))
     return
   }
 
@@ -63,9 +81,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     const { useSanity } = await import('@nuxtjs/sanity/runtime/composables/useSanity.js')
     const sanity = useSanity()
 
-    const runFetch = (locale: Locale): Promise<unknown> => sanity.fetch<unknown>(CONTENT_GRAPH_QUERY, { lang: locale })
+    const runFetch = (locale: WfLocale): Promise<SanityGraph> =>
+      sanity.fetch<SanityGraph>(CONTENT_GRAPH_QUERY, { language: locale })
 
-    const fetchGraph = (locale: Locale): Promise<unknown> => {
+    const fetchGraph = (locale: WfLocale): Promise<SanityGraph> => {
       if (!import.meta.prerender) return runFetch(locale)
       let pending = prerenderFetches.get(locale)
       if (!pending) {
@@ -76,19 +95,24 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
 
     const locale = useWfLocale()
+    const contactUi = resolveContactUi(locale)
     const { error } = await useAsyncData(
       payloadKey(locale),
       () => fetchGraph(locale),
       // Le transform ne tourne qu'au fetch serveur: le client recoit la forme
       // finale, une seule copie serialisee par route.
-      { transform: (raw: unknown) => transformGraph(raw, locale) }
+      { transform: (raw: SanityGraph) => transformGraph(raw, locale, contactUi) }
     )
 
-    // GRACIEUX: on n'arrete pas le build sur un fetch echoue (reseau coupe,
-    // dataset injoignable). Le payload reste vide -> les composables servent les
-    // fixtures. L'avertissement signale la degradation sans la masquer.
+    // Un generate sans contenu doit ECHOUER, jamais produire un site vide:
+    // l'erreur (reseau, dataset incomplet, transformation) est rendue fatale.
     if (error.value) {
-      console.warn(`[webforge] Fetch du contenu Sanity (${locale}) echoue: repli sur les fixtures.`, error.value)
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Echec du chargement du contenu Sanity (${locale}): ${error.value.message}`,
+        cause: error.value,
+        fatal: true
+      })
     }
   }
 })

@@ -1,0 +1,1733 @@
+// Transformation du payload Sanity brut vers le modele de contenu d'Ancree.
+//
+// Couche PURE: aucun import Nuxt runtime, importable en test et depuis la
+// fermeture de nuxt.config.ts (d'ou les imports RELATIFS partout). Les composants
+// ne voient JAMAIS le brut: images en `src` string, `_type` Vue kebab-case, liens
+// en `href` string.
+//
+// Architecture portee 1:1 de webforge-minimaliste (app/sanity/transform.ts); la
+// LOGIQUE metier des 8 blocs vient de l'ancien app/sanity/content.ts (transformHome),
+// reshapee dans cette architecture. La PEAU est intouchable: la sortie de
+// resolveBlocks (cote composable) doit matcher app/types/blocks.ts AU CHAMP PRES.
+//
+// POSTURE FAIL-FAST (decision Charles, renverse la discipline 3 historique): le
+// transform THROW si un singleton ou un hero manque (requireDoc / requireHero), et
+// assertNever garantit l'exhaustivite des switchs de blocs. AUCUN repli fixtures
+// runtime ici: un generate sans contenu doit echouer, jamais produire un site vide.
+//
+// Familly Ancree (vs Minimaliste): pas de doc-type project; serviceCity (les villes
+// desservies) est le moteur SEO local et remplace projects. Le parametre GROQ est
+// $language partout. La SEO d'une ville vient de l'objet `seo` (title/description/
+// ogImage), pas de seoTitle/seoDescription. `article.category` est un objet
+// {slug,title} dereference, `readingMinutes` le nom du champ.
+//
+// Blocs intelligents (services, serviceCities, testimonials, faq): le payload les
+// garde SEMI-resolus (copie transformee SANS items + parametres de selection). La
+// resolution des items vit dans resolveBlocks (couche composable), qui reutilise
+// les collections du payload. Les 4 blocs autonomes (trustBar, about, cta-band,
+// contact) sortent deja dans leur forme finale.
+
+import { routePath, onePagerPath, serviceCityPath, legalRouteKeyForId } from '../config/route-map'
+import { SOCIAL_PLATFORMS, type SocialPlatform } from '../config/socials'
+import type { SiteIdentity, SiteNav, SiteNavSet, SiteNavLink, SiteFooter, SiteFooterCredit } from '../content/site'
+import type { HeroContent, HeroPageContent } from '../content/hero'
+import type {
+  TrustBarContent,
+  ServicesContent,
+  ServiceCitiesContent
+} from '../content/blocks'
+import type { AboutContent } from '../content/about'
+import type { TestimonialsContent } from '../content/testimonials'
+import type { FaqContent } from '../content/faq'
+import type { CtaBandContent } from '../content/cta-band'
+import type { ContactContent, ContactForm, ContactMetaItem } from '../content/contact'
+import type { ProcessContent } from '../content/process'
+import type { CategoryContent } from '../content/blog'
+import type { ArticleContent } from '../content/article'
+import type {
+  ArticleFigure,
+  PortableTextBlock
+} from '../content/article-blocks'
+import type {
+  BlockBase,
+  TrustBarBlock,
+  AboutBlock,
+  CtaBandBlock,
+  ContactBlock,
+  HeroHomeBlock,
+  HeroPageBlock,
+  HeroBlock,
+  ArticleBlock
+} from '../types/blocks'
+
+// ── Locale ───────────────────────────────────────────────────────────────────
+
+export type WfLocale = 'fr' | 'en'
+
+// ── Types du graphe Sanity brut (cale sur les projections deja ecrites) ──────
+//
+// app/queries/** definit la forme EXACTE de ce que CONTENT_GRAPH_QUERY ramene.
+// On la modelise ici (Ancree n'a pas de app/types/sanity.ts) pour que le transform
+// reste type-safe sans `any`. `Maybe<T>` = nullabilite GROQ (null) ou absence.
+
+type Maybe<T> = T | null | undefined
+
+/** Lien (objet `link`, LINK_PROJECTION): ref interne dereferencee au minimum. */
+interface SanityLinkRef {
+  _type:
+    | 'homePage' | 'servicesPage' | 'villesPage' | 'aboutPage' | 'blogPage'
+    | 'faqPage' | 'contactPage' | 'onePager'
+    | 'service' | 'serviceCity' | 'article' | 'category' | 'legalPage'
+  _id: string
+  slug?: Maybe<string>
+  catSlug?: Maybe<string>
+}
+interface SanityLink {
+  label: string
+  type: 'internal' | 'anchor' | 'external'
+  externalUrl?: Maybe<string>
+  anchor?: Maybe<string>
+  internalRef?: Maybe<SanityLinkRef>
+}
+
+/** Figure (objet `figure`, FIGURE_PROJECTION): asset deja resolu en URL CDN. */
+interface SanityFigure {
+  src?: Maybe<string>
+  alt?: Maybe<string>
+  label?: Maybe<string>
+  caption?: Maybe<string>
+  ratio?: Maybe<string>
+}
+
+/** SEO de page fixe (SEO_PROJECTION). */
+interface SanitySeo {
+  title?: Maybe<string>
+  description?: Maybe<string>
+  ogImage?: Maybe<string>
+}
+
+/** Bandeau d'appel (CTA_BAND_PROJECTION). */
+interface SanityCtaBand {
+  title: string
+  subtitle?: Maybe<string>
+  primaryCta: SanityLink
+  secondaryCta?: Maybe<SanityLink>
+}
+
+/** Bloc processus modelise en place (PROCESS_PROJECTION). */
+interface SanityProcess {
+  eyebrow?: Maybe<string>
+  heading?: Maybe<string>
+  lead?: Maybe<string>
+  cta?: Maybe<SanityLink>
+  steps?: Maybe<Array<{ title: string; body: string }>>
+}
+
+/** Heros discrimine par `_type` (HERO_BLOCK_PROJECTION). */
+interface SanityHeroHome {
+  _type: 'heroHome'
+  _key: string
+  kicker?: Maybe<string>
+  title: string
+  lead: string
+  primaryCta: SanityLink
+  secondaryCta: SanityLink
+  meta?: Maybe<Array<{ icon?: Maybe<string>; value: string; label: string }>>
+  visual: SanityFigure
+}
+interface SanityPageHero {
+  _type: 'pageHero'
+  _key: string
+  title: string
+  lead?: Maybe<string>
+  cta?: Maybe<SanityLink>
+  image?: Maybe<SanityFigure>
+}
+type SanityRawHeroBlock = SanityHeroHome | SanityPageHero
+
+// Les 8 blocs du pageBuilder (PAGE_BUILDER_PROJECTION), discrimines par `_type`.
+interface SanityTrustBarBlock {
+  _type: 'trustBar'
+  _key: string
+  items?: Maybe<Array<{ icon: string; value: string; label: string }>>
+}
+interface SanityServicesBlock {
+  _type: 'servicesBlock'
+  _key: string
+  eyebrow: string
+  heading: string
+  lead?: Maybe<string>
+  cta?: Maybe<SanityLink>
+  mode?: Maybe<'auto' | 'manual'>
+  refs?: Maybe<string[]>
+  limit?: Maybe<number>
+}
+interface SanityServiceCitiesBlock {
+  _type: 'serviceCitiesBlock'
+  _key: string
+  eyebrow: string
+  heading: string
+  lead?: Maybe<string>
+  areaLabel: string
+  areaName: string
+  areaNote?: Maybe<string>
+  mode?: Maybe<'auto' | 'manual'>
+  refs?: Maybe<string[]>
+  limit?: Maybe<number>
+}
+interface SanityAboutBlock {
+  _type: 'aboutBlock'
+  _key: string
+  eyebrow?: Maybe<string>
+  heading: string
+  body?: Maybe<unknown[]>
+  photo: SanityFigure
+  stats?: Maybe<Array<{ value: string; label: string }>>
+}
+interface SanityTestimonialsBlock {
+  _type: 'testimonialsBlock'
+  _key: string
+  eyebrow: string
+  heading: string
+  mode?: Maybe<'featured' | 'service' | 'city' | 'manual'>
+  service?: Maybe<string>
+  city?: Maybe<string>
+  refs?: Maybe<string[]>
+  limit?: Maybe<number>
+}
+interface SanityFaqBlock {
+  _type: 'faqBlock'
+  _key: string
+  eyebrow?: Maybe<string>
+  heading: string
+  refs?: Maybe<string[]>
+}
+interface SanityCtaBandBlock extends SanityCtaBand {
+  _type: 'ctaBand'
+  _key: string
+}
+interface SanityContactBlock {
+  _type: 'contactBlock'
+  _key: string
+  eyebrow?: Maybe<string>
+  heading: string
+  lead: string
+}
+type SanityRawBlock =
+  | SanityTrustBarBlock
+  | SanityServicesBlock
+  | SanityServiceCitiesBlock
+  | SanityAboutBlock
+  | SanityTestimonialsBlock
+  | SanityFaqBlock
+  | SanityCtaBandBlock
+  | SanityContactBlock
+
+// Corps d'article (ARTICLE_BODY_PROJECTION), 7 blocs discrimines par `_type`.
+interface SanityRawPortableSpan {
+  _key: string
+  text?: Maybe<string>
+  marks?: Maybe<string[]>
+}
+interface SanityRawPortableBlock {
+  _key: string
+  _type: string
+  style?: Maybe<string>
+  listItem?: Maybe<string>
+  level?: Maybe<number>
+  children?: Maybe<SanityRawPortableSpan[]>
+  markDefs?: Maybe<Array<{ _key: string; _type: string; href?: Maybe<string> }>>
+}
+type SanityRawArticleBlock =
+  | { _type: 'articleLead'; _key: string; text: string }
+  | { _type: 'articleRichText'; _key: string; body?: Maybe<SanityRawPortableBlock[]> }
+  | { _type: 'articleImage'; _key: string; image: SanityFigure; caption?: Maybe<string> }
+  | { _type: 'articleQuote'; _key: string; quote: string; attribution?: Maybe<string> }
+  | { _type: 'articleGallery'; _key: string; items?: Maybe<SanityFigure[]> }
+  | { _type: 'articleCallout'; _key: string; tone?: Maybe<string>; title?: Maybe<string>; text: string }
+  | { _type: 'articleInlineCta'; _key: string; text: string; cta: SanityLink }
+
+/** Traductions normalisees (TRANSLATIONS_PROJECTION). */
+interface SanityDocTranslation {
+  lang: string
+  slug?: Maybe<string>
+  catSlug?: Maybe<string>
+}
+
+/** siteSettings FULL (SITE_SETTINGS_PROJECTION). */
+interface SanitySiteSettings {
+  brand: {
+    name: string
+    logo: { src?: Maybe<string> }
+    tagline?: Maybe<string>
+    foundedYear?: Maybe<number>
+    homeAriaLabel?: Maybe<string>
+  }
+  contact: {
+    phoneDisplay?: Maybe<string>
+    phoneHref?: Maybe<string>
+    emailDisplay?: Maybe<string>
+    emailHref?: Maybe<string>
+    areaName?: Maybe<string>
+    hours?: Maybe<string[]>
+    address?: Maybe<{
+      streetAddress?: Maybe<string>
+      addressLocality?: Maybe<string>
+      addressRegion?: Maybe<string>
+      postalCode?: Maybe<string>
+      addressCountry?: Maybe<string>
+    }>
+  }
+  nav: {
+    landing: { primary: SanityLink[]; cta: SanityLink }
+    multipage: { primary: SanityLink[]; cta: SanityLink }
+  }
+  footer: {
+    primary: SanityLink[]
+    utility?: Maybe<SanityLink[]>
+    pageLinks?: Maybe<SanityLink[]>
+    copyright: string
+    credit: { label: string; studio: string; studioUrl: string; product: string }
+  }
+  socials?: Maybe<Array<{ platform: string; url: string }>>
+  seo: {
+    titleSuffix: string
+    defaultDescription?: Maybe<string>
+    defaultOgImage?: Maybe<string>
+  }
+}
+
+/** Page legale (LEGAL_PROJECTION). */
+interface SanityLegalSectionBlock {
+  _type: string
+  text?: Maybe<string>
+  items?: Maybe<string[]>
+}
+interface SanityLegalPage {
+  _id: string
+  title: string
+  effective?: Maybe<string>
+  updated?: Maybe<string>
+  sections?: Maybe<Array<{ title: string; body?: Maybe<SanityLegalSectionBlock[]> }>>
+}
+
+/** Copie de page de detail d'un service (SERVICE_DETAIL_PROJECTION). */
+interface SanityServiceDetail {
+  benefits: { heading: string; cta: SanityLink }
+  included: { heading: string }
+  process: SanityProcess
+  serviceCities: {
+    eyebrow?: Maybe<string>
+    heading: string
+    lead?: Maybe<string>
+    cta?: Maybe<SanityLink>
+  }
+  testimonials: { eyebrow: string; heading: string }
+  cta: SanityCtaBand
+}
+
+/** Document service (collection `services`). */
+interface SanityService {
+  _id: string
+  slug: string
+  icon?: Maybe<string>
+  title: string
+  body?: Maybe<string>
+  meta?: Maybe<string>
+  image: SanityFigure
+  intro?: Maybe<string[]>
+  benefits?: Maybe<Array<{ title: string; body: string }>>
+  detail?: Maybe<SanityServiceDetail>
+  related?: Maybe<string[]>
+  featured?: Maybe<boolean>
+  order?: Maybe<number>
+  translations?: Maybe<SanityDocTranslation[]>
+}
+
+/** Document serviceCity (collection `serviceCities`, remplace `projects`). */
+interface SanityServiceCity {
+  _id: string
+  slug: string
+  city: string
+  region?: Maybe<string>
+  note?: Maybe<string>
+  heading?: Maybe<string>
+  lead?: Maybe<string>
+  body?: Maybe<unknown[]>
+  seo?: Maybe<SanitySeo>
+  featured?: Maybe<boolean>
+  order?: Maybe<number>
+  translations?: Maybe<SanityDocTranslation[]>
+}
+
+/** Document article (collection `articles`). */
+interface SanityArticle {
+  _id: string
+  slug: string
+  title: string
+  excerpt: string
+  cover: SanityFigure
+  category?: Maybe<{ slug: string; title: string }>
+  date: string
+  author?: Maybe<string>
+  readingMinutes?: Maybe<number>
+  body?: Maybe<SanityRawArticleBlock[]>
+  translations?: Maybe<SanityDocTranslation[]>
+}
+
+/** Document category (collection `categories`). */
+interface SanityCategory {
+  title: string
+  slug: string
+  description?: Maybe<string>
+  translations?: Maybe<SanityDocTranslation[]>
+}
+
+/** Document testimonial (collection `testimonials`). */
+interface SanityTestimonial {
+  _id: string
+  quote: string
+  name: string
+  context?: Maybe<string>
+  service?: Maybe<string>
+  city?: Maybe<string>
+  featured?: Maybe<boolean>
+}
+
+/** Document faqItem (collection `faqItems`). */
+interface SanityFaqItem {
+  _id: string
+  question: string
+  answer: string
+  theme?: Maybe<string>
+}
+
+/** Singleton fixe (hero pageHero + pageBuilder + seo). */
+interface SanityFixedPage {
+  hero?: Maybe<SanityRawHeroBlock>
+  pageBuilder?: Maybe<SanityRawBlock[]>
+  seo?: Maybe<SanitySeo>
+}
+/** Singleton d'accueil/one-pager (hero heroHome + pageBuilder + seo). */
+interface SanityHomeLikePage {
+  hero?: Maybe<SanityRawHeroBlock>
+  pageBuilder?: Maybe<SanityRawBlock[]>
+  seo?: Maybe<SanitySeo>
+}
+/** Singleton blog (CTA dediees + related, en plus). */
+interface SanityBlogPage extends SanityFixedPage {
+  listCta: SanityCtaBand
+  categoryCta: SanityCtaBand
+  articleCta: SanityCtaBand
+  related: { heading: string }
+}
+/** Singleton FAQ (sections groupees, en plus). */
+interface SanityFaqPageSection {
+  theme?: Maybe<{ title: string; slug: string }>
+  mode?: Maybe<'auto' | 'manual'>
+  refs?: Maybe<string[]>
+}
+interface SanityFaqPage extends SanityFixedPage {
+  sections?: Maybe<SanityFaqPageSection[]>
+}
+
+/** Le graphe complet ramene par CONTENT_GRAPH_QUERY ($language). */
+export interface SanityGraph {
+  siteSettings: Maybe<SanitySiteSettings>
+  homePage: Maybe<SanityHomeLikePage>
+  servicesPage: Maybe<SanityFixedPage>
+  villesPage: Maybe<SanityFixedPage>
+  aboutPage: Maybe<SanityFixedPage>
+  blogPage: Maybe<SanityBlogPage>
+  faqPage: Maybe<SanityFaqPage>
+  contactPage: Maybe<SanityFixedPage>
+  onePager: Maybe<SanityHomeLikePage>
+  legalPages: SanityLegalPage[]
+  services: SanityService[]
+  serviceCities: SanityServiceCity[]
+  articles: SanityArticle[]
+  categories: SanityCategory[]
+  testimonials: SanityTestimonial[]
+  faqItems: SanityFaqItem[]
+}
+
+// ── Texte d'interface injecte (discipline 2: libelles hors Sanity) ────────────
+//
+// Le contactBlock ne porte que eyebrow/heading/lead au Studio. Les libelles du
+// FORMULAIRE (champs, etats du bouton, succes, banniere d'echec, confidentialite)
+// et les ETIQUETTES des coordonnees (NAP) sont de l'INTERFACE: ils vivent en i18n,
+// jamais dans Sanity (discipline 2) ni en dur dans cette couche pure. resolveBlocks
+// (couche composable, qui a acces a i18n) les injecte ici. Le transform JOINT la
+// NAP structuree de siteSettings.contact a ces etiquettes (jointure structuree, PAS
+// par sous-chaine de label comme l'ancien content.ts).
+
+/** Etiquettes des quatre coordonnees du panneau contact (du i18n). */
+export interface ContactMetaLabels {
+  phone: string
+  email: string
+  area: string
+  hours: string
+}
+
+/** Texte d'interface du contactBlock, injecte par resolveBlocks (i18n). */
+export interface ContactUiText {
+  /** Etiquettes des coordonnees jointes a la NAP de siteSettings. */
+  metaLabels: ContactMetaLabels
+  /** Libelles du formulaire (champs, bouton, succes, echec, confidentialite). */
+  form: ContactForm
+}
+
+// ── Modele du payload (sortie de transformGraph) ─────────────────────────────
+
+/** SEO final d'une page fixe: replis (titre/lead du hero, defaut des globales)
+ *  deja resolus. `image` = URL CDN de l'ogImage si fournie. */
+export interface PageSeo {
+  title: string
+  description: string
+  image?: string
+}
+
+// Parametres de selection des blocs intelligents, tels que stockes au Studio. La
+// resolution des items (contre les collections) vit dans resolveBlocks.
+export interface ServicesSelection {
+  mode: 'auto' | 'manual'
+  /** Slugs des services choisis (mode manual). */
+  refs: string[]
+  limit?: number
+}
+export interface ServiceCitiesSelection {
+  mode: 'auto' | 'manual'
+  /** Slugs des villes choisies (mode manual). */
+  refs: string[]
+  limit?: number
+}
+export interface TestimonialsSelection {
+  // Mode `city` (ref serviceCity) remplace le `project` de Minimaliste.
+  mode: 'featured' | 'service' | 'city' | 'manual'
+  /** Slug du service (mode service). */
+  service?: string
+  /** Slug de la ville (mode city). */
+  city?: string
+  /** Ids (_id Sanity) des temoignages choisis (mode manual). */
+  refs: string[]
+  limit?: number
+}
+export interface FaqSelection {
+  /** Ids (_id Sanity) des questions choisies: selection manuelle PURE, resolue
+   *  dans l'ordre de l'array par resolveBlocks. */
+  refs: string[]
+}
+
+// Blocs intelligents semi-resolus: copie transformee (SANS items/cities) +
+// selection. resolveBlocks (couche composable) produit le PageBlock final
+// (app/types/blocks.ts). Chaque `_type` n'apparait qu'une fois: discrimination sure.
+export type PendingServicesBlock = BlockBase<'services'> &
+  Omit<ServicesContent, 'items'> & { selection: ServicesSelection }
+export type PendingServiceCitiesBlock = BlockBase<'service-cities'> &
+  Omit<ServiceCitiesContent, 'cities'> & { selection: ServiceCitiesSelection }
+export type PendingTestimonialsBlock = BlockBase<'testimonials'> &
+  Omit<TestimonialsContent, 'items'> & { selection: TestimonialsSelection }
+export type PendingFaqBlock = BlockBase<'faq'> &
+  Omit<FaqContent, 'items'> & { selection: FaqSelection }
+
+/**
+ * Bloc du payload: union discriminee par `_type` Vue (kebab-case). Les 4 blocs
+ * autonomes sortent deja dans leur forme finale (app/types/blocks.ts); les 4 blocs
+ * intelligents sortent en forme « pending » (selection a resoudre).
+ */
+export type PayloadPageBlock =
+  | TrustBarBlock
+  | AboutBlock
+  | CtaBandBlock
+  | ContactBlock
+  | PendingServicesBlock
+  | PendingServiceCitiesBlock
+  | PendingTestimonialsBlock
+  | PendingFaqBlock
+
+/** Traduction d'un doc de collection, normalisee (slug de l'autre langue;
+ *  catSlug seulement sur les articles). Sert le switcher de langue et
+ *  setI18nParams sur les pages detail. */
+export interface DocTranslation {
+  lang: WfLocale
+  slug?: string
+  catSlug?: string
+}
+
+/** Extension additive: les docs de collection portent leurs traductions. */
+export type Translated<T> = T & { translations?: DocTranslation[] }
+
+/** Bloc processus du payload (champ dedie service.detail.process). Etend
+ *  ProcessContent (la numerotation des etapes reste derivee au rendu). */
+export type ProcessPayload = ProcessContent
+
+/** Copie de la page de detail d'un service, composee section par section. Reflete
+ *  SERVICE_DETAIL_PROJECTION; portee par CHAQUE document service (12.16). */
+export interface ServiceDetailPayload {
+  benefits: { heading: string; cta: { label: string; href: string } }
+  included: { heading: string }
+  process: ProcessPayload
+  serviceCities: {
+    eyebrow?: string
+    heading: string
+    lead?: string
+    ctaLabel?: string
+    ctaHref?: string
+  }
+  testimonials: { eyebrow: string; heading: string }
+  cta: CtaBandContent
+}
+
+/** Service du payload: identite + carte + copie de SA page de detail + traductions.
+ *  `detail` optionnel: en preview scope, les services NON courants sortent en carte
+ *  sans leur copie de page. En prod statique, detail est toujours fourni. */
+export interface ServicePayload {
+  _id: string
+  slug: string
+  icon?: string
+  title: string
+  body?: string
+  meta?: string
+  /** Image en src string (contrat des blocs); figure sans image -> '' (placeholder). */
+  image: string
+  /** Meta de figure (alt/label/caption) pour serviceImage() cote composable. */
+  imageMeta: { alt: string; label: string; caption: string }
+  intro?: string[]
+  benefits: Array<{ title: string; body: string }>
+  detail?: ServiceDetailPayload
+  related: string[]
+  featured?: boolean
+  order?: number
+}
+export type ServiceWithMeta = Translated<ServicePayload>
+
+/** Ville desservie du payload: la page service-ville (remplace le projet). Le corps
+ *  (`body`) et la `seo` ne sortent que pour l'item de detail courant en preview. */
+export interface ServiceCityPayload {
+  _id: string
+  slug: string
+  city: string
+  region?: string
+  note?: string
+  heading?: string
+  lead?: string
+  body?: string[]
+  seo?: PageSeo
+  featured?: boolean
+  order?: number
+}
+export type ServiceCityWithDetail = Translated<ServiceCityPayload>
+
+export interface HomePagePayload {
+  pageBuilder: PayloadPageBlock[]
+  seo: PageSeo
+}
+export interface FixedPagePayload {
+  hero: HeroPageBlock
+  pageBuilder: PayloadPageBlock[]
+  seo: PageSeo
+}
+/** Section de la page FAQ: un theme (titre + slug d'ancre) et sa selection de
+ *  questions, SEMI-resolue (useFaqByTheme resout les items contre la banque). */
+export interface FaqPageSection {
+  /** Absent = cas Studio degrade (le schema exige le theme). */
+  theme?: { title: string; slug: string }
+  mode: 'auto' | 'manual'
+  /** Ids (_id Sanity) des questions choisies (mode manual). */
+  refs: string[]
+}
+export interface FaqPagePayload extends FixedPagePayload {
+  sections: FaqPageSection[]
+}
+/** Page blog: les CTA reutilisables (liste/categorie/article) et le titre de la
+ *  section « a lire aussi », en plus du squelette de page fixe. */
+export interface BlogPagePayload extends FixedPagePayload {
+  listCta: CtaBandContent
+  categoryCta: CtaBandContent
+  articleCta: CtaBandContent
+  related: { heading: string }
+}
+export interface OnePagerPayload {
+  pageBuilder: PayloadPageBlock[]
+  seo: PageSeo
+}
+
+/** Document legal du payload (dates formatees, sections aplaties). */
+export interface LegalSectionBlock {
+  paragraph?: string
+  list?: string[]
+  todo?: string
+}
+export interface LegalDoc {
+  title: string
+  effective: string
+  updated: string
+  sections: Array<{ title: string; body: LegalSectionBlock[] }>
+}
+export interface LegalContent {
+  conditions: LegalDoc
+  confidentialite: LegalDoc
+}
+
+/** Identite du site posee sur le payload: le sous-ensemble SEO (SiteIdentity, NAP +
+ *  zone desservie, source unique du graphe Schema.org) ENRICHI de la navigation,
+ *  du pied de page et des reseaux sociaux deja resolus. L'En-tete, le Menu mobile et
+ *  le Pied de page lisent nav/footer/socials; usePageSeo lit les champs plats de
+ *  SiteIdentity. Un seul objet, lu de deux maniere selon le consommateur. */
+export interface SiteRuntime extends SiteIdentity {
+  nav: SiteNav
+  footer: SiteFooter
+  socials: SocialLink[]
+}
+
+/** Le modele de contenu complet, fetche et transforme une fois par langue. */
+export interface ContentPayload {
+  site: SiteRuntime
+  legal: LegalContent
+  heroes: {
+    home: HeroHomeBlock
+    onePager: HeroHomeBlock
+  }
+  pages: {
+    home: HomePagePayload
+    services: FixedPagePayload
+    villes: FixedPagePayload
+    about: FixedPagePayload
+    blog: BlogPagePayload
+    faq: FaqPagePayload
+    contact: FixedPagePayload
+    onePager: OnePagerPayload
+  }
+  collections: {
+    services: ServiceWithMeta[]
+    serviceCities: ServiceCityWithDetail[]
+    articles: Translated<ArticleContent>[]
+    categories: Translated<CategoryContent>[]
+    testimonials: TestimonialPayload[]
+    faqItems: FaqItemPayload[]
+  }
+}
+
+/** Temoignage du payload: id = _id Sanity (les refs manuelles pointent ces _id).
+ *  Cle `city` (ref serviceCity), PAS `project`. */
+export interface TestimonialPayload {
+  id: string
+  quote: string
+  name: string
+  context?: string
+  service?: string
+  city?: string
+  featured?: boolean
+}
+/** Question FAQ du payload: id = _id Sanity, theme = slug du faqTheme reference. */
+export interface FaqItemPayload {
+  id: string
+  q: string
+  a: string
+  theme?: string
+}
+
+// ── Helpers generiques ────────────────────────────────────────────────────────
+
+/** Garde d'exhaustivite: un cas non couvert casse la compilation, jamais le rendu. */
+function assertNever(value: never): never {
+  throw new Error(`Cas non couvert par la transformation Sanity: ${JSON.stringify(value)}`)
+}
+
+/** Normalise la nullabilite GROQ (null) vers l'optionnalite (undefined). */
+function opt<T>(value: Maybe<T>): T | undefined {
+  return value ?? undefined
+}
+
+/**
+ * Stega: en preview, le client Sanity encode des caracteres invisibles APRES
+ * chaque chaine (overlays clic-pour-editer). Sans effet sur une valeur AFFICHEE;
+ * sur une valeur de LOGIQUE (mode compare, slug servant de cle/filtre/href, code de
+ * langue) ils cassent l'egalite stricte et les URLs. On les retire donc des chaines
+ * NON affichees. No-op en prod (aucun stega) et hors preview.
+ */
+const STEGA_RE = /[​‌‍⁠⁡⁢⁣﻿\u{1D173}-\u{1D17A}]/gu
+
+function cleanLogic<T extends string | null | undefined>(value: T): T {
+  return (typeof value === 'string' ? value.replace(STEGA_RE, '') : value) as T
+}
+
+/** Coerce un tableau de contenu en paragraphes texte. Accepte des chaines ou des
+ *  blocs Portable Text { children:[{text}] } / { text }. Repris de l'ancien
+ *  content.ts (corps de about / serviceCity). */
+function toParagraphs(arr: Maybe<unknown[]>): string[] {
+  if (!Array.isArray(arr)) return []
+  return arr
+    .map((item): string => {
+      if (typeof item === 'string') return item
+      if (item && typeof item === 'object') {
+        const o = item as { text?: unknown; children?: unknown }
+        if (typeof o.text === 'string') return o.text
+        if (Array.isArray(o.children)) {
+          return o.children.map((c) => (c as { text?: string })?.text ?? '').join('')
+        }
+      }
+      return ''
+    })
+    .filter((s) => s.length > 0)
+}
+
+function requireDoc<T>(doc: Maybe<T>, name: string): T {
+  if (!doc) {
+    throw new Error(
+      `Document Sanity « ${name} » introuvable (seed incomplet ou langue manquante): generate interrompu.`
+    )
+  }
+  return doc
+}
+
+// ── Mapping des _type (camelCase Sanity -> kebab Vue) ─────────────────────────
+
+const PAGE_BLOCK_TYPE_MAP = {
+  trustBar: 'trust-bar',
+  servicesBlock: 'services',
+  serviceCitiesBlock: 'service-cities',
+  aboutBlock: 'about',
+  testimonialsBlock: 'testimonials',
+  faqBlock: 'faq',
+  ctaBand: 'cta-band',
+  contactBlock: 'contact'
+} as const
+
+const ARTICLE_BLOCK_TYPE_MAP = {
+  articleLead: 'lead',
+  articleRichText: 'rich-text',
+  articleImage: 'image',
+  articleQuote: 'quote',
+  articleGallery: 'gallery',
+  articleCallout: 'callout',
+  articleInlineCta: 'inline-cta'
+} as const
+
+const HERO_BLOCK_TYPE_MAP = { heroHome: 'hero-home', pageHero: 'hero-page' } as const
+
+/** `_type` Sanity (camelCase) -> `_type` Vue (kebab-case). Restreint aux 8 blocs
+ *  de page + 7 blocs d'article + 2 heros. Inconnu = erreur immediate (un nouveau
+ *  bloc au Studio exige son pendant Vue). */
+export function mapBlockType(sanityType: string): string {
+  const maps: Record<string, string> = {
+    ...PAGE_BLOCK_TYPE_MAP,
+    ...ARTICLE_BLOCK_TYPE_MAP,
+    ...HERO_BLOCK_TYPE_MAP
+  }
+  const mapped = maps[sanityType]
+  if (!mapped) {
+    throw new Error(`_type Sanity sans equivalent Vue: « ${sanityType} »`)
+  }
+  return mapped
+}
+
+/** Cle d'ancrage stable par type de bloc: les ancres de section (#services...
+ *  #contact) doivent rester coherentes avec la nav. Sanity stocke des _key opaques;
+ *  on les remappe pour que tout ancrage resolve. A PRESERVER. */
+const ANCHOR_KEY: Record<SanityRawBlock['_type'], string> = {
+  trustBar: 'trust',
+  servicesBlock: 'services',
+  serviceCitiesBlock: 'cities',
+  aboutBlock: 'about',
+  testimonialsBlock: 'testimonials',
+  faqBlock: 'faq',
+  ctaBand: 'cta-band',
+  contactBlock: 'contact'
+}
+
+// ── Liens, localises (prefixe /en inclus en EN via le route-map) ──────────────
+
+/** Route d'un document reference. Jamais vers project (abandonne): serviceCity
+ *  prend sa place. Exporte: les composables de resolution de lien s'appuient
+ *  dessus, AUCUNE duplication du mapping _type -> route ailleurs. */
+export function docPath(ref: SanityLinkRef, locale: WfLocale): string {
+  const requireSlug = (): string => {
+    if (!ref.slug) {
+      throw new Error(`Reference ${ref._type} sans slug (id ${ref._id}): lien irresoluble`)
+    }
+    return cleanLogic(ref.slug)
+  }
+  switch (ref._type) {
+    case 'homePage':
+      return routePath('home', locale)
+    case 'servicesPage':
+      return routePath('services', locale)
+    case 'villesPage':
+      return routePath('villes', locale)
+    case 'aboutPage':
+      return routePath('about', locale)
+    case 'blogPage':
+      return routePath('blog', locale)
+    case 'faqPage':
+      return routePath('faq', locale)
+    case 'contactPage':
+      return routePath('contact', locale)
+    case 'onePager':
+      return onePagerPath('index', locale)
+    case 'service':
+      return `${routePath('services', locale)}/${requireSlug()}`
+    case 'serviceCity':
+      // Segment parent localise (/villes vs /service-areas), slug partage.
+      return serviceCityPath(requireSlug(), locale)
+    case 'article': {
+      // La categorie determine le segment parent: /blog/<cat>/<slug> ou /blog/<slug>.
+      const cat = cleanLogic(ref.catSlug)
+      return cat
+        ? `${routePath('blog', locale)}/${cat}/${requireSlug()}`
+        : `${routePath('blog', locale)}/${requireSlug()}`
+    }
+    case 'category':
+      return `${routePath('blog', locale)}/${requireSlug()}`
+    case 'legalPage': {
+      // Pas de slug sur legalPage: routage par _id deterministe du seed.
+      const key = legalRouteKeyForId(ref._id)
+      if (key) return routePath(key, locale)
+      throw new Error(`Page legale inconnue (id ${ref._id}): lien irresoluble`)
+    }
+    default:
+      return assertNever(ref._type)
+  }
+}
+
+/**
+ * `link` Sanity -> href string, localise. internal = route du doc; anchor =
+ * `#ancre` (ou `/route#ancre` si une page est referencee); external = URL telle
+ * quelle. Un lien irresoluble interrompt le build: jamais de lien mort silencieux.
+ */
+export function resolveLink(link: SanityLink, locale: WfLocale): string {
+  switch (link.type) {
+    case 'external': {
+      if (!link.externalUrl) {
+        throw new Error(`Lien externe sans URL: « ${link.label} »`)
+      }
+      return link.externalUrl
+    }
+    case 'anchor': {
+      const hash = `#${cleanLogic(link.anchor) ?? ''}`
+      return link.internalRef ? `${docPath(link.internalRef, locale)}${hash}` : hash
+    }
+    case 'internal': {
+      if (!link.internalRef) {
+        throw new Error(`Lien interne sans reference (publiee): « ${link.label} »`)
+      }
+      return docPath(link.internalRef, locale)
+    }
+    default:
+      return assertNever(link.type)
+  }
+}
+
+/** Couple { label, href } des CTA. */
+function linkPair(link: SanityLink, locale: WfLocale): { label: string; href: string } {
+  return { label: link.label, href: resolveLink(link, locale) }
+}
+
+// ── Figures ───────────────────────────────────────────────────────────────────
+
+export interface ResolvedFigure {
+  ratio: string
+  src?: string
+  alt: string
+  label: string
+  caption: string
+}
+
+// Ratios par defaut par usage, cales sur les valeurs dominantes d'Ancree. Le seed
+// stocke toujours le ratio explicite: ces defauts servent le contenu cree ensuite
+// au Studio (les interfaces front exigent un ratio string).
+export const RATIOS = {
+  heroVisual: '16/9',
+  heroVisualMobile: '4/5',
+  pageHero: '2/1',
+  aboutPhoto: '3/4',
+  serviceImage: '4/3',
+  articleCover: '16/9',
+  articleImage: '4/3',
+  articleGalleryItem: '4/3'
+} as const
+
+/**
+ * `figure` Sanity -> figure resolue. `src` absent (figure sans image) reste absent:
+ * le fragment <Image> rend son placeholder soigne, jamais une 404. Le ratio devient
+ * une valeur CSS: en preview le stega y colle des caracteres invisibles qui la
+ * rendent invalide; on ne garde que chiffres, / et . (no-op en prod).
+ */
+export function resolveFigure(figure: Maybe<SanityFigure>, defaultRatio: string): ResolvedFigure {
+  const f = figure ?? {}
+  return {
+    ratio: (f.ratio ?? defaultRatio).replace(/[^0-9/.]/g, '') || defaultRatio,
+    src: opt(f.src),
+    alt: f.alt ?? '',
+    label: f.label ?? '',
+    caption: f.caption ?? ''
+  }
+}
+
+/** Figure d'article (ArticleFigure: src/alt/caption?). src absent -> '' (le bloc
+ *  image/galerie rend son placeholder). */
+function resolveArticleFigure(figure: Maybe<SanityFigure>, caption?: Maybe<string>): ArticleFigure {
+  const f = figure ?? {}
+  return {
+    src: opt(f.src) ?? '',
+    alt: f.alt ?? '',
+    caption: opt(caption) ?? opt(f.caption)
+  }
+}
+
+// ── Portable Text (texte riche d'article) ─────────────────────────────────────
+
+/**
+ * Portable Text Sanity -> PortableTextBlock[] du contrat article-blocks. Ancree
+ * garde la forme Portable Text RICHE (le bloc Vue rich-text serialise titres,
+ * listes, gras/italique et liens), contrairement a Minimaliste qui aplatit en
+ * RichTextEntry. On normalise simplement la nullabilite GROQ.
+ */
+export function ptToRichTextEntries(blocks: Maybe<SanityRawPortableBlock[]>): PortableTextBlock[] {
+  return (blocks ?? []).map((b) => {
+    const style = (b.style === 'h2' || b.style === 'h3' ? b.style : 'normal') as PortableTextBlock['style']
+    const out: PortableTextBlock = {
+      _type: 'block',
+      _key: b._key,
+      style,
+      children: (b.children ?? []).map((c) => ({
+        _type: 'span' as const,
+        _key: c._key,
+        text: c.text ?? '',
+        marks: opt(c.marks)
+      }))
+    }
+    if (b.listItem === 'bullet' || b.listItem === 'number') out.listItem = b.listItem
+    if (typeof b.level === 'number') out.level = b.level
+    if (b.markDefs && b.markDefs.length) {
+      out.markDefs = b.markDefs.map((m) => ({
+        _key: m._key,
+        _type: 'link' as const,
+        href: m.href ?? ''
+      }))
+    }
+    return out
+  })
+}
+
+// ── Dates legales ──────────────────────────────────────────────────────────────
+
+/** Date ISO (YYYY-MM-DD) -> date longue localisee (« 1er janvier 2026 » en fr-CA).
+ *  Champ vide -> jeton todo encadre par le gabarit legal-page. */
+export function formatLegalDate(date: Maybe<string>, locale: WfLocale, emptyToken: string): string {
+  if (!date) return emptyToken
+  const [year, month, day] = date.split('-').map(Number)
+  if (!year || !month || !day) return emptyToken
+  const formatted = new Intl.DateTimeFormat(locale === 'en' ? 'en-CA' : 'fr-CA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC'
+  }).format(new Date(Date.UTC(year, month - 1, day)))
+  return locale === 'en' ? formatted : formatted.replace(/^1 /, '1er ')
+}
+
+const LEGAL_DATE_TODO: Record<WfLocale, { effective: string; updated: string }> = {
+  fr: {
+    effective: "[date d'entree en vigueur, ex. 1er janvier 2026]",
+    updated: '[date de derniere mise a jour, ex. 1er janvier 2026]'
+  },
+  en: {
+    effective: '[effective date, e.g. January 1, 2026]',
+    updated: '[last updated date, e.g. January 1, 2026]'
+  }
+}
+
+// ── Briques partagees ──────────────────────────────────────────────────────────
+
+function transformCtaBand(raw: SanityCtaBand, locale: WfLocale): CtaBandContent {
+  return {
+    title: raw.title,
+    subtitle: opt(raw.subtitle),
+    primaryCta: linkPair(raw.primaryCta, locale),
+    secondaryCta: raw.secondaryCta ? linkPair(raw.secondaryCta, locale) : undefined
+  }
+}
+
+/** Bloc processus (champ dedie service.detail.process). eyebrow/heading exiges par
+ *  ProcessContent: replis sur '' si absents du Studio (cas degrade). */
+function transformProcess(raw: SanityProcess, locale: WfLocale): ProcessPayload {
+  return {
+    eyebrow: raw.eyebrow ?? '',
+    heading: raw.heading ?? '',
+    lead: opt(raw.lead),
+    steps: (raw.steps ?? []).map((step) => ({
+      // Icone d'etape non saisie au Studio (le schema processus n'a pas d'icone
+      // par etape): le bloc Vue rend l'index de la ligne d'horizon. Repli vide.
+      icon: '',
+      title: step.title,
+      body: step.body
+    }))
+  }
+}
+
+// ── Heros ───────────────────────────────────────────────────────────────────
+
+function transformHeroHomeBody(raw: SanityHeroHome, locale: WfLocale): HeroContent {
+  const visual = resolveFigure(raw.visual, RATIOS.heroVisual)
+  return {
+    kicker: opt(raw.kicker),
+    title: raw.title,
+    lead: raw.lead,
+    primaryCta: linkPair(raw.primaryCta, locale),
+    secondaryCta: linkPair(raw.secondaryCta, locale),
+    meta: (raw.meta ?? []).map((m) => ({ value: m.value, label: m.label, icon: opt(m.icon) })),
+    visual,
+    // Cadrage mobile derive de la meme image (paysage 4/5); le seed n'a qu'un visuel.
+    visualMobile: { ...visual, ratio: RATIOS.heroVisualMobile }
+  }
+}
+
+function transformPageHeroBody(raw: SanityPageHero, locale: WfLocale): HeroPageContent {
+  return {
+    title: raw.title,
+    lead: opt(raw.lead),
+    cta: raw.cta ? linkPair(raw.cta, locale) : undefined
+    // crumbs: composes par la page (route-map), jamais au CMS.
+    // image: pageHero porte une image au schema, mais HeroPageContent n'en a pas
+    // (les pages simples portent leur visuel dans le corps); on l'ignore ici.
+  }
+}
+
+/** Bloc heros brut -> bloc heros Vue (corps transforme + _type kebab + _key). */
+function transformHeroBlock(raw: SanityRawHeroBlock, locale: WfLocale): HeroBlock {
+  switch (raw._type) {
+    case 'heroHome':
+      return { _type: 'hero-home', _key: raw._key, ...transformHeroHomeBody(raw, locale) }
+    case 'pageHero':
+      return { _type: 'hero-page', _key: raw._key, ...transformPageHeroBody(raw, locale) }
+    default:
+      return assertNever(raw)
+  }
+}
+
+function requireHero(raw: Maybe<SanityRawHeroBlock>, name: string): SanityRawHeroBlock {
+  if (!raw) throw new Error(`Document « ${name} » sans bloc heros (seed/contenu incomplet).`)
+  return raw
+}
+
+function asHomeHero(raw: Maybe<SanityRawHeroBlock>, name: string, locale: WfLocale): HeroHomeBlock {
+  const b = transformHeroBlock(requireHero(raw, name), locale)
+  if (b._type !== 'hero-home') throw new Error(`Document « ${name} »: heros attendu de type accueil.`)
+  return b
+}
+function asPageHero(raw: Maybe<SanityRawHeroBlock>, name: string, locale: WfLocale): HeroPageBlock {
+  const b = transformHeroBlock(requireHero(raw, name), locale)
+  if (b._type !== 'hero-page') throw new Error(`Document « ${name} »: heros attendu de type page.`)
+  return b
+}
+
+/** Replis SEO: title vide -> titre du hero; description vide -> lead du hero, sinon
+ *  defaultDescription des globales. L'og:image garde sa chaine de replis cote
+ *  usePageSeo: `image` reste l'ogImage propre a la page. */
+function resolveSeo(
+  seo: Maybe<SanitySeo>,
+  heroTitle: string,
+  heroLead: Maybe<string>,
+  defaults: SanitySiteSettings['seo']
+): PageSeo {
+  return {
+    title: seo?.title ?? heroTitle,
+    description: seo?.description ?? heroLead ?? defaults.defaultDescription ?? '',
+    image: opt(seo?.ogImage)
+  }
+}
+
+// ── Page builder (8 blocs) ────────────────────────────────────────────────────
+
+function transformBlock(
+  block: SanityRawBlock,
+  site: SiteWithHours,
+  contactUi: ContactUiText,
+  locale: WfLocale
+): PayloadPageBlock {
+  const key = ANCHOR_KEY[block._type] ?? block._key
+  switch (block._type) {
+    case 'trustBar':
+      return {
+        _type: 'trust-bar',
+        _key: key,
+        items: (block.items ?? []).map((i) => ({ icon: i.icon, value: i.value, label: i.label }))
+      }
+    case 'servicesBlock':
+      return {
+        _type: 'services',
+        _key: key,
+        eyebrow: block.eyebrow,
+        heading: block.heading,
+        lead: opt(block.lead),
+        ctaLabel: block.cta ? block.cta.label : undefined,
+        ctaHref: block.cta ? resolveLink(block.cta, locale) : undefined,
+        selection: {
+          mode: cleanLogic(block.mode) ?? 'auto',
+          refs: (block.refs ?? []).map((r) => cleanLogic(r)),
+          limit: opt(block.limit)
+        }
+      }
+    case 'serviceCitiesBlock':
+      return {
+        _type: 'service-cities',
+        _key: key,
+        eyebrow: block.eyebrow,
+        heading: block.heading,
+        lead: opt(block.lead),
+        areaLabel: block.areaLabel,
+        areaName: block.areaName,
+        areaNote: opt(block.areaNote),
+        selection: {
+          mode: cleanLogic(block.mode) ?? 'auto',
+          refs: (block.refs ?? []).map((r) => cleanLogic(r)),
+          limit: opt(block.limit)
+        }
+      }
+    case 'aboutBlock':
+      return {
+        _type: 'about',
+        _key: key,
+        eyebrow: opt(block.eyebrow),
+        heading: block.heading,
+        body: toParagraphs(block.body),
+        photo: ((): AboutBlock['photo'] => {
+          const f = resolveFigure(block.photo, RATIOS.aboutPhoto)
+          return { src: f.src ?? '', alt: f.alt }
+        })(),
+        stats: (block.stats ?? []).map((s) => ({ value: s.value, label: s.label }))
+      }
+    case 'testimonialsBlock':
+      return {
+        _type: 'testimonials',
+        _key: key,
+        eyebrow: block.eyebrow,
+        heading: block.heading,
+        selection: {
+          mode: cleanLogic(block.mode) ?? 'featured',
+          service: cleanLogic(opt(block.service)),
+          city: cleanLogic(opt(block.city)),
+          refs: (block.refs ?? []).map((r) => cleanLogic(r)),
+          limit: opt(block.limit)
+        }
+      }
+    case 'faqBlock':
+      return {
+        _type: 'faq',
+        _key: key,
+        eyebrow: opt(block.eyebrow),
+        heading: block.heading,
+        // Selection manuelle pure: refs (_id) resolues dans l'ordre de l'array.
+        selection: { refs: (block.refs ?? []).map((r) => cleanLogic(r)) }
+      }
+    case 'ctaBand':
+      return { _type: 'cta-band', _key: key, ...transformCtaBand(block, locale) }
+    case 'contactBlock':
+      return transformContactBlock(block, site, contactUi, key)
+    default:
+      return assertNever(block)
+  }
+}
+
+/**
+ * Compose le contactBlock final. Le bloc Sanity ne porte que eyebrow/heading/lead;
+ * la NAP (telephone, courriel, zone, heures) est JOINTE depuis siteSettings.contact
+ * de facon STRUCTUREE (chaque etiquette associee a son champ source, pas par
+ * sous-chaine de label comme l'ancien content.ts), et les libelles du formulaire
+ * viennent de l'interface (ContactUiText, i18n). C'est le point delicat: la fixture
+ * disparait mais ContactContent.form/meta sont toujours produits.
+ */
+function transformContactBlock(
+  block: SanityContactBlock,
+  site: SiteWithHours,
+  contactUi: ContactUiText,
+  key: string
+): ContactBlock {
+  const labels = contactUi.metaLabels
+  const meta: ContactMetaItem[] = []
+  // Telephone: valeur + href tel:, depuis la NAP structuree.
+  if (site.phoneDisplay) {
+    meta.push({ label: labels.phone, value: site.phoneDisplay, href: opt(site.phoneHref) })
+  }
+  // Courriel: valeur + href mailto:.
+  if (site.emailDisplay) {
+    meta.push({ label: labels.email, value: site.emailDisplay, href: opt(site.emailHref) })
+  }
+  // Zone de service: une ligne (le nom de lieu desservi).
+  if (site.areaName) {
+    meta.push({ label: labels.area, lines: [site.areaName] })
+  }
+  // Heures: plusieurs lignes (depuis siteSettings.contact.hours).
+  if (site.hours && site.hours.length) {
+    meta.push({ label: labels.hours, lines: site.hours })
+  }
+  return {
+    _type: 'contact',
+    _key: key,
+    eyebrow: opt(block.eyebrow),
+    heading: block.heading,
+    lead: block.lead,
+    meta,
+    // Libelles du formulaire: interface pure, injectee depuis i18n.
+    form: contactUi.form
+  }
+}
+
+export function transformPageBuilder(
+  blocks: Maybe<SanityRawBlock[]>,
+  site: SiteWithHours,
+  contactUi: ContactUiText,
+  locale: WfLocale
+): PayloadPageBlock[] {
+  return (blocks ?? []).map((block) => transformBlock(block, site, contactUi, locale))
+}
+
+// ── Corps d'article (7 blocs) ─────────────────────────────────────────────────
+
+function transformArticleBlock(block: SanityRawArticleBlock, locale: WfLocale): ArticleBlock {
+  switch (block._type) {
+    case 'articleLead':
+      return { _type: 'lead', _key: block._key, text: block.text }
+    case 'articleRichText':
+      return { _type: 'rich-text', _key: block._key, value: ptToRichTextEntries(block.body) }
+    case 'articleImage':
+      return {
+        _type: 'image',
+        _key: block._key,
+        image: resolveArticleFigure(block.image, block.caption)
+      }
+    case 'articleQuote':
+      return {
+        _type: 'quote',
+        _key: block._key,
+        quote: block.quote,
+        attribution: opt(block.attribution)
+      }
+    case 'articleGallery':
+      return {
+        _type: 'gallery',
+        _key: block._key,
+        items: (block.items ?? []).map((figure) => resolveArticleFigure(figure))
+      }
+    case 'articleCallout':
+      return {
+        _type: 'callout',
+        _key: block._key,
+        tone: block.tone === 'warning' ? 'warning' : 'note',
+        title: opt(block.title),
+        text: block.text
+      }
+    case 'articleInlineCta':
+      return {
+        _type: 'inline-cta',
+        _key: block._key,
+        text: block.text,
+        cta: linkPair(block.cta, locale)
+      }
+    default:
+      return assertNever(block)
+  }
+}
+
+export function transformArticleBody(blocks: Maybe<SanityRawArticleBlock[]>, locale: WfLocale): ArticleBlock[] {
+  return (blocks ?? []).map((block) => transformArticleBlock(block, locale))
+}
+
+// ── Globales (siteSettings) ───────────────────────────────────────────────────
+
+/** siteSettings FULL -> SiteIdentity. La forme suit la NAP native d'Ancree
+ *  (phoneDisplay/phoneHref/emailDisplay/emailHref + address structuree + hours). */
+export function transformSiteSettings(raw: SanitySiteSettings): SiteIdentity {
+  const a = raw.contact.address
+  // Adresse incluse seulement si les CINQ champs sont presents (« adresse complete
+  // ou rien »): un noeud PostalAddress a champs nuls casserait le LocalBusiness.
+  const address =
+    a && a.streetAddress && a.addressLocality && a.addressRegion && a.postalCode && a.addressCountry
+      ? {
+          streetAddress: a.streetAddress,
+          addressLocality: a.addressLocality,
+          addressRegion: a.addressRegion,
+          postalCode: a.postalCode,
+          addressCountry: a.addressCountry
+        }
+      : undefined
+  return {
+    brandName: raw.brand.name,
+    tagline: opt(raw.brand.tagline),
+    phoneDisplay: opt(raw.contact.phoneDisplay),
+    phoneHref: opt(raw.contact.phoneHref),
+    emailDisplay: opt(raw.contact.emailDisplay),
+    emailHref: opt(raw.contact.emailHref),
+    areaName: opt(raw.contact.areaName),
+    ...(address ? { address } : {})
+  }
+}
+
+/** Heures de bureau (siteSettings.contact.hours), pour le panneau contact. Hors
+ *  SiteIdentity (qui suit le contrat SEO): expose a part pour la jointure NAP. */
+function siteHours(raw: SanitySiteSettings): string[] {
+  return (raw.contact.hours ?? []).filter((h): h is string => typeof h === 'string' && h.length > 0)
+}
+
+// SiteIdentity + heures, pour la jointure du contactBlock (les heures ne sont pas
+// dans le contrat SEO SiteIdentity mais le panneau contact en a besoin).
+interface SiteWithHours extends SiteIdentity {
+  hours?: string[]
+}
+
+// ── Reseaux sociaux (top-level, pour le Footer) ───────────────────────────────
+
+/** Reseau social resolu: icone + libelle derives de la plateforme (map code). */
+export interface SocialLink {
+  platform: SocialPlatform
+  url: string
+  icon: string
+  label: string
+}
+
+export function transformSocials(raw: Maybe<Array<{ platform: string; url: string }>>): SocialLink[] {
+  return (raw ?? []).flatMap((s) => {
+    const platform = cleanLogic(s.platform) as SocialPlatform
+    const url = cleanLogic(s.url)
+    const meta = SOCIAL_PLATFORMS[platform]
+    if (!meta || !url) return []
+    return [{ platform, url, icon: meta.icon, label: meta.label }]
+  })
+}
+
+// ── Navigation et pied de page (liens deja resolus en href) ───────────────────
+
+/** Lien de navigation: { label, href } resolu par le route-map. linkPair gere les
+ *  trois types (interne, ancre, externe); jamais un objet link Sanity brut servi au
+ *  template. C'est le SiteNavLink du contrat (app/content/site.ts). */
+function navLink(link: SanityLink, locale: WfLocale): SiteNavLink {
+  return linkPair(link, locale)
+}
+
+/** Un jeu de navigation (landing ou multipage): liens primaires + appel a l'action
+ *  optionnel. Le CTA est absent si Sanity ne le porte pas (le template le garde). */
+function transformNavSet(
+  raw: { primary?: Maybe<SanityLink[]>; cta?: Maybe<SanityLink> },
+  locale: WfLocale
+): SiteNavSet {
+  return {
+    primary: (raw.primary ?? []).map((link) => navLink(link, locale)),
+    ...(raw.cta ? { cta: navLink(raw.cta, locale) } : {})
+  }
+}
+
+/** Navigation FULL (siteSettings.nav): deux jeux, landing (ancres du one-pager) et
+ *  multipage (routes reelles). Source unique de l'En-tete, du Menu mobile et du
+ *  Pied de page; aucune nav codee en dur cote composant. */
+export function transformNav(raw: SanitySiteSettings['nav'], locale: WfLocale): SiteNav {
+  return {
+    landing: transformNavSet(raw.landing, locale),
+    multipage: transformNavSet(raw.multipage, locale)
+  }
+}
+
+/** Pied de page FULL (siteSettings.footer): liens primaires, utilitaires et
+ *  raccourcis de pages (tous resolus en href), texte de droits et credit du studio
+ *  (libelle + lien optionnel). Le credit du document porte studio + studioUrl
+ *  separes; on les replie en { label, href } du contrat SiteFooterCredit. */
+export function transformFooter(raw: SanitySiteSettings['footer'], locale: WfLocale): SiteFooter {
+  const credit: SiteFooterCredit | undefined = raw.credit
+    ? {
+        label: raw.credit.label,
+        ...(raw.credit.studioUrl ? { href: raw.credit.studioUrl } : {})
+      }
+    : undefined
+  return {
+    primary: (raw.primary ?? []).map((link) => navLink(link, locale)),
+    utility: (raw.utility ?? []).map((link) => navLink(link, locale)),
+    pageLinks: (raw.pageLinks ?? []).map((link) => navLink(link, locale)),
+    copyright: raw.copyright,
+    ...(credit ? { credit } : {})
+  }
+}
+
+// ── Pages legales ──────────────────────────────────────────────────────────────
+
+function transformLegalBlock(block: SanityLegalSectionBlock): LegalSectionBlock {
+  switch (block._type) {
+    case 'legalParagraph':
+      return { paragraph: block.text ?? '' }
+    case 'legalList':
+      return { list: block.items ?? [] }
+    case 'legalTodo':
+      return { todo: block.text ?? '' }
+    default:
+      // Bloc legal au type inattendu: paragraphe au mieux (jamais casser le rendu
+      // d'une page legale sur un type non prevu, le contenu reel viendra du seed).
+      return { paragraph: block.text ?? '' }
+  }
+}
+
+function transformLegalDoc(doc: SanityLegalPage, locale: WfLocale): LegalDoc {
+  return {
+    title: doc.title,
+    effective: formatLegalDate(doc.effective, locale, LEGAL_DATE_TODO[locale].effective),
+    updated: formatLegalDate(doc.updated, locale, LEGAL_DATE_TODO[locale].updated),
+    sections: (doc.sections ?? []).map((section) => ({
+      title: section.title,
+      body: (section.body ?? []).map(transformLegalBlock)
+    }))
+  }
+}
+
+export function transformLegal(pages: SanityLegalPage[], locale: WfLocale): LegalContent {
+  // Ids deterministes du seed: legalPage-<conditions|confidentialite>-<lang>.
+  const findDoc = (key: 'conditions' | 'confidentialite'): SanityLegalPage => {
+    const id = `legalPage-${key}-${locale}`
+    const doc = pages.find((page) => page._id === id)
+    return requireDoc(doc, id)
+  }
+  return {
+    conditions: transformLegalDoc(findDoc('conditions'), locale),
+    confidentialite: transformLegalDoc(findDoc('confidentialite'), locale)
+  }
+}
+
+// ── Copies des pages de detail (portees par chaque doc de collection) ─────────
+
+function transformServiceDetail(raw: SanityServiceDetail, locale: WfLocale): ServiceDetailPayload {
+  return {
+    benefits: { heading: raw.benefits.heading, cta: linkPair(raw.benefits.cta, locale) },
+    included: { heading: raw.included.heading },
+    process: transformProcess(raw.process, locale),
+    serviceCities: {
+      eyebrow: opt(raw.serviceCities.eyebrow),
+      heading: raw.serviceCities.heading,
+      lead: opt(raw.serviceCities.lead),
+      ctaLabel: raw.serviceCities.cta ? raw.serviceCities.cta.label : undefined,
+      ctaHref: raw.serviceCities.cta ? resolveLink(raw.serviceCities.cta, locale) : undefined
+    },
+    testimonials: { eyebrow: raw.testimonials.eyebrow, heading: raw.testimonials.heading },
+    cta: transformCtaBand(raw.cta, locale)
+  }
+}
+
+// ── Collections ────────────────────────────────────────────────────────────────
+
+/** Traductions normalisees: entrees sans slug ou de langue inconnue ecartees. */
+export function transformTranslations(raw: Maybe<SanityDocTranslation[]>): DocTranslation[] {
+  return (raw ?? [])
+    .filter((t): t is SanityDocTranslation => Boolean(t && (cleanLogic(t.lang) === 'fr' || cleanLogic(t.lang) === 'en') && t.slug))
+    .map((t) => ({
+      lang: cleanLogic(t.lang) as WfLocale,
+      slug: cleanLogic(opt(t.slug)),
+      catSlug: cleanLogic(opt(t.catSlug))
+    }))
+}
+
+function transformService(raw: SanityService, locale: WfLocale): ServiceWithMeta {
+  const figure = resolveFigure(raw.image, RATIOS.serviceImage)
+  return {
+    _id: raw._id,
+    slug: cleanLogic(raw.slug),
+    icon: opt(raw.icon),
+    title: raw.title,
+    body: opt(raw.body),
+    meta: opt(raw.meta),
+    image: figure.src ?? '',
+    imageMeta: { alt: figure.alt, label: figure.label, caption: figure.caption },
+    intro: opt(raw.intro),
+    benefits: (raw.benefits ?? []).map((b) => ({ title: b.title, body: b.body })),
+    detail: raw.detail ? transformServiceDetail(raw.detail, locale) : undefined,
+    related: (raw.related ?? []).map((r) => cleanLogic(r)),
+    featured: opt(raw.featured),
+    order: opt(raw.order),
+    translations: transformTranslations(raw.translations)
+  }
+}
+
+function transformServiceCity(raw: SanityServiceCity, locale: WfLocale): ServiceCityWithDetail {
+  return {
+    _id: raw._id,
+    slug: cleanLogic(raw.slug),
+    city: raw.city,
+    region: opt(raw.region),
+    note: opt(raw.note),
+    heading: opt(raw.heading),
+    lead: opt(raw.lead),
+    // Corps absent pour les villes NON courantes en preview scope -> undefined.
+    body: raw.body ? toParagraphs(raw.body) : undefined,
+    // La SEO de ville vient de l'objet `seo` (title/description/ogImage), PAS de
+    // seoTitle/seoDescription comme l'ancien content.ts. Absente -> undefined (la
+    // page derive ses replis). Pas de repli hero ici: une ville n'a pas de hero.
+    seo: raw.seo
+      ? { title: raw.seo.title ?? '', description: raw.seo.description ?? '', image: opt(raw.seo.ogImage) }
+      : undefined,
+    featured: opt(raw.featured),
+    order: opt(raw.order),
+    translations: transformTranslations(raw.translations)
+  }
+}
+
+function transformArticle(raw: SanityArticle, locale: WfLocale): Translated<ArticleContent> {
+  return {
+    slug: cleanLogic(raw.slug),
+    title: raw.title,
+    excerpt: raw.excerpt,
+    cover: resolveArticleFigure(raw.cover),
+    date: raw.date,
+    author: raw.author ?? '',
+    readingMinutes: raw.readingMinutes ?? 0,
+    // category deja un objet { slug, title } dereference (jamais le slug brut).
+    category: raw.category ? { title: raw.category.title, slug: cleanLogic(raw.category.slug) } : undefined,
+    body: transformArticleBody(raw.body, locale),
+    translations: transformTranslations(raw.translations)
+  }
+}
+
+function transformCategory(raw: SanityCategory): Translated<CategoryContent> {
+  return {
+    title: raw.title,
+    slug: cleanLogic(raw.slug),
+    description: opt(raw.description),
+    translations: transformTranslations(raw.translations)
+  }
+}
+
+function transformTestimonial(raw: SanityTestimonial): TestimonialPayload {
+  return {
+    // id = _id Sanity: les refs des blocs manuels pointent les memes _id.
+    id: raw._id,
+    quote: raw.quote,
+    name: raw.name,
+    context: opt(raw.context),
+    service: cleanLogic(opt(raw.service)),
+    // Cle `city` (ref serviceCity), PAS `project`.
+    city: cleanLogic(opt(raw.city)),
+    featured: opt(raw.featured)
+  }
+}
+
+function transformFaqItem(raw: SanityFaqItem): FaqItemPayload {
+  return {
+    id: raw._id,
+    q: raw.question,
+    a: raw.answer,
+    theme: cleanLogic(opt(raw.theme))
+  }
+}
+
+// ── Graphe complet ─────────────────────────────────────────────────────────────
+
+/**
+ * Payload brut d'une langue -> modele de contenu d'Ancree. FAIL-FAST: toute donnee
+ * manquante qui rendrait le site incomplet (singleton absent, hero manquant, page
+ * legale manquante, lien brise) interrompt la transformation avec un message clair.
+ * Un generate sans contenu doit echouer, jamais produire un site vide.
+ *
+ * `contactUi` injecte les libelles d'interface du contactBlock (formulaire +
+ * etiquettes NAP) depuis i18n (discipline 2): la couche pure ne code aucun libelle.
+ */
+export function transformGraph(raw: SanityGraph, locale: WfLocale, contactUi: ContactUiText): ContentPayload {
+  const siteSettings = requireDoc(raw.siteSettings, 'siteSettings')
+  const homePage = requireDoc(raw.homePage, 'homePage')
+  const servicesPage = requireDoc(raw.servicesPage, 'servicesPage')
+  const villesPage = requireDoc(raw.villesPage, 'villesPage')
+  const aboutPage = requireDoc(raw.aboutPage, 'aboutPage')
+  const blogPage = requireDoc(raw.blogPage, 'blogPage')
+  const faqPage = requireDoc(raw.faqPage, 'faqPage')
+  const contactPage = requireDoc(raw.contactPage, 'contactPage')
+  const onePager = requireDoc(raw.onePager, 'onePager')
+
+  const identity = transformSiteSettings(siteSettings)
+  // Identite SEO (SiteIdentity) ENRICHIE de la nav, du pied de page et des reseaux
+  // sociaux deja resolus: un seul objet `site` du payload. usePageSeo lit les champs
+  // plats; l'En-tete/Menu mobile/Pied de page lisent nav/footer/socials.
+  const site: SiteRuntime = {
+    ...identity,
+    nav: transformNav(siteSettings.nav, locale),
+    footer: transformFooter(siteSettings.footer, locale),
+    socials: transformSocials(siteSettings.socials)
+  }
+  // Site enrichi des heures, pour la jointure NAP du contactBlock (les heures ne
+  // sont pas dans le contrat SEO SiteIdentity mais le panneau contact les rend).
+  const siteForContact: SiteWithHours = { ...identity, hours: siteHours(siteSettings) }
+  const seoDefaults = siteSettings.seo
+  const builder = (blocks: Maybe<SanityRawBlock[]>): PayloadPageBlock[] =>
+    transformPageBuilder(blocks, siteForContact, contactUi, locale)
+
+  const heroes = {
+    home: asHomeHero(homePage.hero, 'homePage', locale),
+    onePager: asHomeHero(onePager.hero, 'onePager', locale)
+  }
+
+  const servicesHero = asPageHero(servicesPage.hero, 'servicesPage', locale)
+  const villesHero = asPageHero(villesPage.hero, 'villesPage', locale)
+  const aboutHero = asPageHero(aboutPage.hero, 'aboutPage', locale)
+  const blogHero = asPageHero(blogPage.hero, 'blogPage', locale)
+  const faqHero = asPageHero(faqPage.hero, 'faqPage', locale)
+  const contactHero = asPageHero(contactPage.hero, 'contactPage', locale)
+
+  return {
+    site,
+    legal: transformLegal(raw.legalPages, locale),
+    heroes,
+    pages: {
+      home: {
+        pageBuilder: builder(homePage.pageBuilder),
+        seo: resolveSeo(homePage.seo, heroes.home.title, heroes.home.lead, seoDefaults)
+      },
+      services: {
+        hero: servicesHero,
+        pageBuilder: builder(servicesPage.pageBuilder),
+        seo: resolveSeo(servicesPage.seo, servicesHero.title, servicesHero.lead, seoDefaults)
+      },
+      villes: {
+        hero: villesHero,
+        pageBuilder: builder(villesPage.pageBuilder),
+        seo: resolveSeo(villesPage.seo, villesHero.title, villesHero.lead, seoDefaults)
+      },
+      about: {
+        hero: aboutHero,
+        pageBuilder: builder(aboutPage.pageBuilder),
+        seo: resolveSeo(aboutPage.seo, aboutHero.title, aboutHero.lead, seoDefaults)
+      },
+      blog: {
+        hero: blogHero,
+        listCta: transformCtaBand(blogPage.listCta, locale),
+        categoryCta: transformCtaBand(blogPage.categoryCta, locale),
+        articleCta: transformCtaBand(blogPage.articleCta, locale),
+        related: { heading: blogPage.related.heading },
+        pageBuilder: builder(blogPage.pageBuilder),
+        seo: resolveSeo(blogPage.seo, blogHero.title, blogHero.lead, seoDefaults)
+      },
+      faq: {
+        hero: faqHero,
+        // Composition du listing de la page FAQ: une section par theme, dans l'ordre
+        // des sections; selection SEMI-resolue (useFaqByTheme resout les items).
+        sections: (faqPage.sections ?? []).map((section) => ({
+          theme: section.theme
+            ? { title: section.theme.title, slug: cleanLogic(section.theme.slug) }
+            : undefined,
+          mode: cleanLogic(section.mode) ?? 'auto',
+          refs: (section.refs ?? []).map((r) => cleanLogic(r))
+        })),
+        pageBuilder: builder(faqPage.pageBuilder),
+        seo: resolveSeo(faqPage.seo, faqHero.title, faqHero.lead, seoDefaults)
+      },
+      contact: {
+        hero: contactHero,
+        pageBuilder: builder(contactPage.pageBuilder),
+        seo: resolveSeo(contactPage.seo, contactHero.title, contactHero.lead, seoDefaults)
+      },
+      onePager: {
+        pageBuilder: builder(onePager.pageBuilder),
+        seo: resolveSeo(onePager.seo, heroes.onePager.title, heroes.onePager.lead, seoDefaults)
+      }
+    },
+    collections: {
+      services: raw.services.map((service) => transformService(service, locale)),
+      serviceCities: raw.serviceCities.map((city) => transformServiceCity(city, locale)),
+      articles: raw.articles.map((article) => transformArticle(article, locale)),
+      categories: raw.categories.map((category) => transformCategory(category)),
+      testimonials: raw.testimonials.map(transformTestimonial),
+      faqItems: raw.faqItems.map(transformFaqItem)
+    }
+  }
+}

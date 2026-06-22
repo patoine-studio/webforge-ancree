@@ -1,30 +1,33 @@
 <script setup lang="ts">
 /* Grille des services par nuisible: cartes CLIQUABLES vers les pages detail
- * (/services/<slug-traduit>). Source unique = serviceDetailList (fixture) +
- * serviceDetailPath (route-map). Premiere carte vedette (bleu nuit). Reutilisee par
- * le hub /services ET les pages ville (maillage service x lieu). Le niveau de titre
- * des cartes s'adapte au contexte (h2 sous un masthead h1, h3 sous une section h2). */
-import { serviceDetailPath } from '~/config/route-map'
-import { serviceDetailList } from '~/content/services-detail'
+ * (/services/<slug>). Source = collection service (Sanity, via useServices); href
+ * construit sur la base localisee /services + slug du document. Premiere carte
+ * vedette (bleu nuit). Reutilisee par le hub /services ET les pages ville (maillage
+ * service x lieu). Le niveau de titre des cartes s'adapte au contexte (h2 sous un
+ * masthead h1, h3 sous une section h2). */
+import { routePath } from '~/config/route-map'
 
 withDefaults(defineProps<{ headingLevel?: 'h2' | 'h3' }>(), { headingLevel: 'h3' })
 
 const { t, locale } = useI18n()
-const items = computed(() => serviceDetailList(locale.value === 'en'))
-function href(key: string): string {
-  return serviceDetailPath(key, locale.value as 'fr' | 'en')
+const items = computed(() => useServices())
+// Base localisee des pages de detail (prefixe /en inclus en EN): un href construit
+// en dur sur la base FR enverrait les cartes EN vers des 404.
+const detailBase = computed(() => routePath('services', locale.value as 'fr' | 'en'))
+function href(slug: string): string {
+  return `${detailBase.value}/${slug}`
 }
 </script>
 
 <template>
   <ul class="sg">
-    <li v-for="(s, i) in items" :key="s.key" class="sg__card" :class="{ 'sg__card--featured': i === 0 }">
-      <NuxtLink :to="href(s.key)" class="sg__inner">
+    <li v-for="(s, i) in items" :key="s.slug" class="sg__card" :class="{ 'sg__card--featured': i === 0 }">
+      <NuxtLink :to="href(s.slug)" class="sg__inner">
         <span class="sg__icon-wrap">
-          <Icon :name="s.icon" class="sg__icon" aria-hidden="true" />
+          <Icon :name="s.icon ?? 'lucide:check'" class="sg__icon" aria-hidden="true" />
         </span>
-        <component :is="headingLevel" class="sg__title wf-h4">{{ s.cardTitle }}</component>
-        <p class="sg__body wf-body-2">{{ s.cardTeaser }}</p>
+        <component :is="headingLevel" class="sg__title wf-h4">{{ s.title }}</component>
+        <p class="sg__body wf-body-2">{{ s.body }}</p>
         <span class="sg__more">
           {{ t('ui.learn_more') }}
           <Icon name="lucide:arrow-right" aria-hidden="true" />

@@ -19,28 +19,24 @@ const props = withDefaults(
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const links = useSiteNav()
+// Navigation editable depuis Sanity (siteSettings.nav): landing = ancres du
+// one-pager, multipage = routes reelles. Source unique, partagee avec le Pied de
+// page et le Menu mobile (plus aucun jeu de liens code en dur cote composant).
+const site = useContent('site')
+const headerLandingLinks = computed(() => site.value.nav.landing.primary)
+const headerMultipageLinks = computed(() => site.value.nav.multipage.primary)
 // Bascule de langue via <SwitchLocalePathLink>: ses routes sont resolues AVANT
 // l'envoi, en honorant setI18nParams (slug TRADUIT par langue des pages nuisible).
 // L'imperatif switchLocalePath garderait le slug brut au prerendu -> lien croise
 // casse (et pages fantomes via crawlLinks).
 const otherLocale = computed<'fr' | 'en'>(() => (locale.value === 'fr' ? 'en' : 'fr'))
 
-// Nav multipage: source partagee avec le pied de page (useMultipageNav).
-const multipageLinks = useMultipageNav()
-
-// La FAQ ne vit que dans le pied de page: on la retire de l'en-tete (nav desktop
-// ET menu mobile) sans toucher aux sources partagees, que le pied de page
-// continue de consommer telles quelles.
-const faqRoute = computed(() => routePath('faq', locale.value as 'fr' | 'en'))
-const headerMultipageLinks = computed(() => multipageLinks.value.filter((l) => l.to !== faqRoute.value))
-const headerLandingLinks = computed(() => links.filter((l) => l.labelKey !== 'nav.faq'))
-
-// Liens du menu mobile, normalises {label, href} selon le mode (route ou ancre).
+// Liens du menu mobile, normalises {label, href} selon le mode. En landing, les
+// ancres sont qualifiees par la racine du one-pager (landingHref).
 const menuLinks = computed(() =>
   props.mode === 'multipage'
-    ? headerMultipageLinks.value.map((l) => ({ label: l.label, href: l.to }))
-    : headerLandingLinks.value.map((l) => ({ label: t(l.labelKey), href: landingHref(l.href) }))
+    ? headerMultipageLinks.value.map((l) => ({ label: l.label, href: l.href }))
+    : headerLandingLinks.value.map((l) => ({ label: l.label, href: landingHref(l.href) }))
 )
 const brandTo = computed(() =>
   props.mode === 'multipage' ? routePath('home', locale.value as 'fr' | 'en') : localePath('/')
@@ -155,13 +151,13 @@ watch(() => route.fullPath, () => {
 
       <nav class="header__nav" :aria-label="t('a11y.main_nav')">
         <template v-if="mode === 'multipage'">
-          <NuxtLink v-for="link in headerMultipageLinks" :key="link.to" :to="link.to" class="header__link">
+          <NuxtLink v-for="link in headerMultipageLinks" :key="link.href" :to="link.href" class="header__link">
             {{ link.label }}
           </NuxtLink>
         </template>
         <template v-else>
           <a v-for="link in headerLandingLinks" :key="link.href" :href="landingHref(link.href)" class="header__link">
-            {{ t(link.labelKey) }}
+            {{ link.label }}
           </a>
         </template>
       </nav>

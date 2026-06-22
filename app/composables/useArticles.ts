@@ -1,13 +1,16 @@
 /* Logique du blog. Le contenu vient du payload unique (plugin 01.content) via
- * usePayload().blog, avec repli fixtures (le site ne casse jamais). Source unique
- * des helpers d'URL d'article, de mise en carte, de resolution du catch-all /blog,
- * de pagination et de formatage de date. i18n document-level: slug partage fr/en,
+ * usePayload().collections (articles + categories), en POSTURE FAIL-FAST: plus de
+ * repli fixtures runtime (usePayload throw si le contenu manque). Source unique des
+ * helpers d'URL d'article, de mise en carte, de resolution du catch-all /blog, de
+ * pagination et de formatage de date. i18n document-level: slug partage fr/en,
  * l'URL ne differe que par le prefixe de locale. */
-import { articlesFixture, type ArticleContent } from '~/content/article'
-import { categoriesFixture, type CategoryContent } from '~/content/blog'
+import { computed } from 'vue'
+import type { ArticleContent } from '~/content/article'
+import type { CategoryContent } from '~/content/blog'
 import { routePath, type Locale } from '~/config/route-map'
 import { ARTICLES_PER_PAGE } from '~/content/blog-guards'
 import type { ArticleFigure } from '~/content/article-blocks'
+import type { Translated } from '~/sanity/transform'
 
 export interface ArticleCardData {
   slug: string
@@ -41,7 +44,7 @@ export function formatArticleDate(iso: string, locale: Locale): string {
   }).format(d)
 }
 
-/** Met un article en forme de carte (liste, grille, reliés). */
+/** Met un article en forme de carte (liste, grille, relies). */
 export function toCard(article: ArticleContent, locale: Locale): ArticleCardData {
   return {
     slug: article.slug,
@@ -77,17 +80,17 @@ export function paginate<T>(items: T[], page: number, perPage = ARTICLES_PER_PAG
 }
 
 export type BlogRouteMatch =
-  | { type: 'article'; article: ArticleContent }
-  | { type: 'category'; category: CategoryContent; articles: ArticleContent[] }
+  | { type: 'article'; article: Translated<ArticleContent> }
+  | { type: 'category'; category: Translated<CategoryContent>; articles: ArticleContent[] }
   | null
 
 /** Resout les segments du catch-all /blog contre le jeu d'articles + categories.
- *  Priorite a la categorie (1 segment), puis a l'article (1 segment sans
- *  categorie, ou 2 segments categorie+slug). */
+ *  Priorite a la categorie (1 segment), puis a l'article (1 segment sans categorie,
+ *  ou 2 segments categorie+slug). */
 export function resolveBlogRoute(
   segments: string[],
-  articles: ArticleContent[],
-  categories: CategoryContent[]
+  articles: Translated<ArticleContent>[],
+  categories: Translated<CategoryContent>[]
 ): BlogRouteMatch {
   if (segments.length === 1) {
     const seg = segments[0]!
@@ -112,23 +115,51 @@ export function resolveBlogRoute(
   return null
 }
 
-/** Contenu du blog (articles tries + categories), lu du payload unique (plugin
- *  01.content) avec repli fixtures. Lecture synchrone. */
+/* ---------- Selection (helpers purs sur la collection du payload) ---------- */
+
+export interface ArticleQuery {
+  category?: string
+  exclude?: string
+  limit?: number
+}
+
+/** Articles tries par date decroissante (plus recent d'abord), filtres localement. */
+export function useArticles(query: ArticleQuery = {}): Translated<ArticleContent>[] {
+  let out = [...usePayload().collections.articles].sort((a, b) => (a.date < b.date ? 1 : -1))
+  if (query.category) out = out.filter((a) => a.category?.slug === query.category)
+  if (query.exclude) out = out.filter((a) => a.slug !== query.exclude)
+  if (typeof query.limit === 'number') out = out.slice(0, query.limit)
+  return out
+}
+
+export function useArticle(slug: string): Translated<ArticleContent> | undefined {
+  return usePayload().collections.articles.find((a) => a.slug === slug)
+}
+
+/** Articles relies: meme categorie (ou plus recents si l'article n'en a pas), en
+ *  excluant l'article courant. */
+export function useRelatedArticles(article: ArticleContent, limit = 2): Translated<ArticleContent>[] {
+  return useArticles({ category: article.category?.slug, exclude: article.slug, limit })
+}
+
+/** Met un article en forme de carte (categorie resolue en titre affichable). */
+export function articleCard(article: ArticleContent, locale: Locale): ArticleCardData {
+  return toCard(article, locale)
+}
+
+/* ---------- Contenu du blog (articles + categories du payload) ---------- */
+
+/** Contenu du blog, lu du payload unique (fail-fast, aucun repli fixtures). Lecture
+ *  synchrone via usePayload(); reactif a la langue pour la navigation cliente. */
 export function useBlog() {
   const { locale } = useI18n()
   const loc = computed(() => locale.value as Locale)
   const isEn = computed(() => loc.value === 'en')
 
-  const articles = computed<ArticleContent[]>(() => {
-    const blog = usePayload()?.blog
-    if (blog && blog.articles.length) return blog.articles
-    return articlesFixture(isEn.value).slice().sort((a, b) => b.date.localeCompare(a.date))
-  })
-  const categories = computed<CategoryContent[]>(() => {
-    const blog = usePayload()?.blog
-    if (blog && blog.categories.length) return blog.categories
-    return categoriesFixture(isEn.value)
-  })
+  const articles = computed<Translated<ArticleContent>[]>(() =>
+    [...usePayload().collections.articles].sort((a, b) => b.date.localeCompare(a.date))
+  )
+  const categories = computed<Translated<CategoryContent>[]>(() => usePayload().collections.categories)
 
   return { locale: loc, isEn, articles, categories }
 }

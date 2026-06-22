@@ -21,7 +21,9 @@ export default defineComponent({
       for (const mark of span.marks ?? []) {
         // Capture dans une const fraiche: le slot de NuxtLink est lazy, sans ca il
         // lirait `node` reassigne (a lui-meme) -> auto-reference infinie.
-        const inner = node
+        // Annotation explicite: sans elle, l'inference de `h(...)` reboucle sur
+        // `node` via `inner` et TS le marque `any` recursif (TS7022).
+        const inner: VNode | string = node
         if (mark === 'strong') node = h('strong', null, [inner])
         else if (mark === 'em') node = h('em', null, [inner])
         else {

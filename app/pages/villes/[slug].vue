@@ -1,77 +1,56 @@
 <script setup lang="ts">
-/* Page service-ville (SEO local), le moteur de la famille Ancree. Contenu tire
- * de Sanity (serviceCity par slug + langue). Repli generique a partir du slug si
- * le document est absent, pour que le build statique ne tombe jamais en 404.
- * En-tete solide (pas de heros), donc on reserve la hauteur de l'en-tete. Sous le
- * contenu propre a la ville, un corps reutilise: le bloc process (methode) et le
- * bandeau d'appel repris du payload de l'accueil (conversion). */
+/* Page service-ville (SEO local), le moteur de la famille Ancree. Contenu tire de
+ * Sanity (collection serviceCity par slug + langue), posture fail-fast: 404 si le
+ * document est absent (plus de repli generique derive du slug). Le slug est PARTAGE
+ * fr/en (seul le segment parent est localise). En-tete solide (pas de heros), donc
+ * on reserve la hauteur de l'en-tete. Sous le contenu propre a la ville (prose), la
+ * grille service x lieu (maillage local) mene aux pages de service. */
 import { breadcrumbsFor } from '~/config/route-map'
-import { processFixture } from '~/content/process'
-import type { PageBlock, CtaBandBlock } from '~/types/blocks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
-const slug = computed(() => String(route.params.slug || ''))
-const isEn = computed(() => locale.value === 'en')
-const localePrefix = computed(() => (isEn.value ? '/en' : ''))
+const loc = computed(() => locale.value as 'fr' | 'en')
 
+// Composable appele inconditionnellement en setup (avant le 404 possible).
 const setI18nParams = useSetI18nParams()
-setI18nParams({ fr: { slug: slug.value }, en: { slug: slug.value } })
 
-// Page service-ville depuis le payload unique (plugin 01.content), reactif au
-// slug. null si absente -> repli generique derive du slug ci-dessous (jamais 404).
-const page = useServiceCity(slug)
-
-// Repli: titre derive du slug (ex "saint-eustache" -> "Saint-Eustache").
-const cityName = computed(() => page.value?.city || slug.value.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join('-'))
-const heading = computed(() => page.value?.heading || (locale.value === 'en' ? `Pest control in ${cityName.value}` : `Extermination à ${cityName.value}`))
-const lead = computed(() => page.value?.lead || (locale.value === 'en'
-  ? `Local, certified pest control in ${cityName.value} and across the North Shore. A technician at your door, often the same day.`
-  : `Extermination locale et certifiée à ${cityName.value} et partout sur la Rive-Nord. Un technicien à votre porte, souvent le jour même.`))
-const body = computed(() => page.value?.body ?? [])
-const phoneHref = computed(() => page.value?.phoneHref || t('contact.phone_href'))
-const phoneDisplay = computed(() => page.value?.phoneDisplay || t('contact.phone_display'))
-
-// Contenu de l'accueil (payload unique, repli fixtures): source du bandeau d'appel
-// a reutiliser plus bas, sans dupliquer le contenu.
-const home = useHome()
-
-// Recable une ancre du one-pager (#contact) vers la vraie route /contact.
-function toContactRoute(href: string | undefined): string | undefined {
-  return href === '#contact' ? `${localePrefix.value}/contact` : href
+const slug = String(route.params.slug)
+const maybeCity = useServiceCity(slug)
+// Ville inconnue: 404 fatal propre. En statique, seuls les slugs connus sont
+// prerendus; ce garde couvre une navigation cliente vers un slug inexistant.
+if (!maybeCity) {
+  throw createError({ statusCode: 404, statusMessage: 'Ville introuvable', fatal: true })
 }
 
-// Corps reutilise sous le contenu propre a la ville: bloc process (methode) puis
-// bandeau d'appel repris de l'accueil (present seulement s'il existe au payload).
-const bodyBlocks = computed<PageBlock[]>(() => {
-  const out: PageBlock[] = [
-    { _type: 'process', _key: 'process', ...processFixture(isEn.value) }
-  ]
-  const cta = home.value.blocks.find((b): b is CtaBandBlock => b._type === 'cta-band')
-  if (cta) {
-    out.push({
-      ...cta,
-      _key: 'cta-band',
-      secondaryCta: cta.secondaryCta
-        ? { ...cta.secondaryCta, href: toContactRoute(cta.secondaryCta.href)! }
-        : undefined
-    })
-  }
-  return out
-})
+// Slug PARTAGE entre langues (seul le segment parent est localise): l'alternate
+// porte le meme slug dans les deux langues.
+setI18nParams({ fr: { slug }, en: { slug } })
 
-// Page service-ville (SEO local): ItemPage + fil d'Ariane Accueil -> Villes ->
-// ville (le hub /villes est le parent). Le seoTitle Sanity est un titre COMPLET
-// (la marque y est deja, comme le homePage): on neutralise le gabarit pour ne pas
-// doubler le suffixe. Le repli (heading nu, derive du slug) garde le gabarit
-// « %s | {marque} » pour porter la marque.
-const hasSanityTitle = !!page.value?.seo.title
+// Rendu reactif: suit les editions live de la ville courante; repli sur le snapshot
+// si l'item disparait du graphe scope. Le template auto-unwrap ces computed.
+const city = computed(() => useServiceCity(slug) ?? maybeCity)
+
+// Coordonnees d'appel: NAP de la marque (siteSettings), plus du document ville.
+const site = useContent('site')
+const phoneHref = computed(() => site.value.phoneHref ?? t('contact.phone_href'))
+const phoneDisplay = computed(() => site.value.phoneDisplay ?? t('contact.phone_display'))
+
+const cityName = computed(() => city.value.city)
+const heading = computed(() => city.value.heading ?? city.value.city)
+const lead = computed(() => city.value.lead ?? '')
+const body = computed(() => city.value.body ?? [])
+
+// Page service-ville (SEO local): ItemPage + fil d'Ariane Accueil -> Villes -> ville
+// (le hub /villes est le parent). Le seo.title Sanity est un titre COMPLET (la marque
+// y est deja, comme le homePage): on neutralise le gabarit pour ne pas doubler le
+// suffixe. Sans titre Sanity, le repli (heading) garde le gabarit « %s | {marque} ».
+const hasSanityTitle = computed(() => !!city.value.seo?.title)
 usePageSeo({
-  title: page.value?.seo.title || heading.value,
-  titleTemplate: hasSanityTitle ? null : undefined,
-  description: page.value?.seo.description || lead.value,
+  title: city.value.seo?.title || heading.value,
+  titleTemplate: hasSanityTitle.value ? null : undefined,
+  description: city.value.seo?.description || lead.value,
   webPageType: 'ItemPage',
-  breadcrumbs: breadcrumbsFor('villes', { label: cityName.value }, locale.value as 'fr' | 'en')
+  breadcrumbs: breadcrumbsFor('villes', { label: cityName.value }, loc.value)
 })
 </script>
 
@@ -84,7 +63,7 @@ usePageSeo({
           {{ t('nav.areas') }}
         </p>
         <h1 class="city__title wf-h1">{{ heading }}</h1>
-        <p class="city__lead wf-body-1">{{ lead }}</p>
+        <p v-if="lead" class="city__lead wf-body-1">{{ lead }}</p>
         <div class="city__actions">
           <Button :href="phoneHref" kind="anchor" variant="call" icon="lucide:phone" :pulse="true">
             {{ phoneDisplay }}
@@ -97,7 +76,7 @@ usePageSeo({
     </header>
 
     <div class="wf-container city__body">
-      <div class="city__prose">
+      <div v-if="body.length" class="city__prose">
         <p v-for="(para, i) in body" :key="i" class="wf-body-1 wf-text-muted city__para">{{ para }}</p>
       </div>
 
@@ -106,8 +85,6 @@ usePageSeo({
         <ServicesGrid />
       </section>
     </div>
-
-    <PageBuilder :blocks="bodyBlocks" reveal />
   </article>
 </template>
 

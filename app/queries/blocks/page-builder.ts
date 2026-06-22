@@ -1,0 +1,84 @@
+// Agregateur GROQ du page-builder: les 8 blocs d'Ancree discrimines par `_type`,
+// composes a partir des fragments transverses. C'est le point d'entree unique du
+// contenu de page compose au Studio. Imports RELATIFS (fermeture nuxt.config).
+//
+// Les 8 blocs d'Ancree (et UNIQUEMENT ceux-la, pas de bloc Minimaliste absent):
+//   trustBar, servicesBlock, serviceCitiesBlock, aboutBlock,
+//   testimonialsBlock, faqBlock, ctaBand, contactBlock.
+//
+// Blocs intelligents (servicesBlock, serviceCitiesBlock, testimonialsBlock,
+// faqBlock): on ne projette QUE les parametres de selection, jamais les items
+// resolus. La resolution des items vit dans resolveBlocks (couche composable),
+// qui reutilise les collections du payload.
+//   - refs de services et de villes -> slugs (collections indexees par slug);
+//   - refs de temoignages et de questions FAQ -> _id (les ids de sortie = _id
+//     Sanity);
+//   - le bloc faq est en selection manuelle PURE: refs seulement, resolues dans
+//     l'ordre de l'array, plus de mode ni de limit.
+//
+// Le `_key` opaque du Studio est conserve: le transform le remappe vers une cle
+// semantique stable par type (anchorKey) pour que les ancres #services...#contact
+// resolvent sur la nav.
+//
+// Le contactBlock ne porte que eyebrow/heading/lead: les coordonnees (NAP) sont
+// jointes depuis siteSettings.contact au transform, les libelles de formulaire
+// viennent de i18n (discipline 2). Aucun champ form/meta ici.
+
+import { FIGURE_PROJECTION } from '../fragments/figure'
+import { LINK_PROJECTION } from '../fragments/link'
+import { CTA_BAND_PROJECTION } from '../fragments/cta'
+
+export const PAGE_BUILDER_PROJECTION = /* groq */ `pageBuilder[]{
+  _key,
+  _type,
+  _type == "trustBar" => {
+    items[]{ icon, value, label }
+  },
+  _type == "servicesBlock" => {
+    eyebrow,
+    heading,
+    lead,
+    "cta": cta ${LINK_PROJECTION},
+    mode,
+    "refs": items[]->slug.current,
+    limit
+  },
+  _type == "serviceCitiesBlock" => {
+    eyebrow,
+    heading,
+    lead,
+    areaLabel,
+    areaName,
+    areaNote,
+    mode,
+    "refs": items[]->slug.current,
+    limit
+  },
+  _type == "aboutBlock" => {
+    eyebrow,
+    heading,
+    body,
+    "photo": photo ${FIGURE_PROJECTION},
+    stats[]{ value, label }
+  },
+  _type == "testimonialsBlock" => {
+    eyebrow,
+    heading,
+    mode,
+    "service": service->slug.current,
+    "city": city->slug.current,
+    "refs": items[]->_id,
+    limit
+  },
+  _type == "faqBlock" => {
+    eyebrow,
+    heading,
+    "refs": items[]->_id
+  },
+  _type == "ctaBand" => ${CTA_BAND_PROJECTION},
+  _type == "contactBlock" => {
+    eyebrow,
+    heading,
+    lead
+  }
+}`

@@ -6,7 +6,7 @@
  * requete de conteneur), via le meme block-map que la page-builder de prod. */
 import { regularBlockMap } from '~/components/page-builder/block-map'
 import { breadcrumbsFor } from '~/config/route-map'
-import type { HeroPageBlock } from '~/types/blocks'
+import type { HeroPageBlock, PageBlock } from '~/types/blocks'
 
 definePageMeta({ layout: 'showcase' })
 
@@ -34,16 +34,18 @@ const heroPageSample = computed<HeroPageBlock>(() => ({
   cta: { label: t('hero.cta_primary'), href: t('contact.phone_href') }
 }))
 
-/* Echantillons = fixtures de la home. On neutralise les liens du bloc services:
- * le fixture pointe vers des slugs de parasites sans page, ce qui casserait le
- * link checker du build statique. Les liens de villes (pages reelles) restent. */
-type AnyBlock = Record<string, unknown>
-const sampleBlocks = (useHomeBlocks() as AnyBlock[]).map((b) =>
+/* Echantillons = SNAPSHOT des blocs resolus de la home (useHomeBlocks().value:
+ * vitrine interne, pas de preview live ici, une capture suffit). On neutralise les
+ * liens du bloc services: les pages de detail par service ne sont pas crawlees par
+ * le link checker du build statique. Les liens de villes (pages reelles) restent.
+ * On reste type sur PageBlock: la branche services NARROW sur _type pour produire
+ * un ServicesBlock valide (liens vides), les autres blocs passent inchanges. */
+const sampleBlocks: PageBlock[] = useHomeBlocks().value.map((b) =>
   b._type === 'services'
     ? {
         ...b,
         ctaHref: undefined,
-        items: ((b.items as AnyBlock[]) ?? []).map((it) => ({ ...it, href: undefined }))
+        items: b.items.map((it) => ({ ...it, href: undefined }))
       }
     : b
 )

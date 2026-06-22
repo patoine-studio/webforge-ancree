@@ -8,15 +8,23 @@
 /* Le pied de page suit le mode (comme l'en-tete): en multipage la nav pointe vers
  * des routes; en landing (one-pager), vers les ancres qualifiees par la racine du
  * one-pager. */
+import { onePagerPath, routePath } from '~/config/route-map'
+
 const props = withDefaults(
   defineProps<{ mode?: 'multipage' | 'landing'; home?: string }>(),
   { mode: 'multipage', home: '/' }
 )
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const links = useSiteNav()
-const multipageLinks = useMultipageNav()
+// Navigation et liens du pied editables depuis Sanity (siteSettings.nav / .footer):
+// meme source unique que l'En-tete et le Menu mobile. La nav du pied suit le mode
+// (ancres du one-pager en landing, routes en multipage); les liens legaux viennent
+// de footer.utility, requalifies vers le sous-arbre one-pager en mode landing.
+const site = useContent('site')
+const footerNav = computed(() =>
+  props.mode === 'multipage' ? site.value.nav.multipage.primary : site.value.nav.landing.primary
+)
 const year = useState<number>('site-year', () => new Date().getFullYear())
 
 const brandTo = computed(() => (props.mode === 'multipage' ? localePath('/') : props.home))
@@ -24,12 +32,17 @@ function landingHref(href: string): string {
   return props.home && props.home !== '/' ? `${props.home}${href}` : href
 }
 
-// Liens legaux conscients du mode: en landing, vers les pages legales du one-pager
-// (meme mode pour le visiteur); en multipage, vers les pages legales racine.
-// localePath donne la route reelle (et suivra les customRoutes une fois branches).
-const legalBase = computed(() => (props.mode === 'landing' ? '/one-pager' : ''))
-const privacyTo = computed(() => localePath(`${legalBase.value}/politique-confidentialite`))
-const termsTo = computed(() => localePath(`${legalBase.value}/conditions-utilisation`))
+// Liens legaux conscients du mode: en multipage, les href du payload (routes
+// racine) tels quels; en landing, requalifies vers leurs pendants du sous-arbre
+// one-pager via le route-map (jamais une concatenation home + chemin, qui placerait
+// mal le prefixe /en). footer.utility porte les legales (ordre du document).
+function legalHref(href: string): string {
+  if (props.mode !== 'landing') return href
+  const loc = locale.value as 'fr' | 'en'
+  if (href === routePath('terms', loc)) return onePagerPath('terms', loc)
+  if (href === routePath('privacy', loc)) return onePagerPath('privacy', loc)
+  return href
+}
 </script>
 
 <template>
@@ -53,13 +66,13 @@ const termsTo = computed(() => localePath(`${legalBase.value}/conditions-utilisa
         <nav class="footer__col" :aria-label="t('footer.nav_heading')">
           <p class="footer__heading wf-caption">{{ t('footer.nav_heading') }}</p>
           <template v-if="mode === 'multipage'">
-            <NuxtLink v-for="link in multipageLinks" :key="link.to" :to="link.to" class="footer__link">
+            <NuxtLink v-for="link in footerNav" :key="link.href" :to="link.href" class="footer__link">
               {{ link.label }}
             </NuxtLink>
           </template>
           <template v-else>
-            <a v-for="link in links" :key="link.href" :href="landingHref(link.href)" class="footer__link">
-              {{ t(link.labelKey) }}
+            <a v-for="link in footerNav" :key="link.href" :href="landingHref(link.href)" class="footer__link">
+              {{ link.label }}
             </a>
           </template>
         </nav>
@@ -77,13 +90,17 @@ const termsTo = computed(() => localePath(`${legalBase.value}/conditions-utilisa
 
       <div class="footer__bottom">
         <p class="footer__copy">© {{ year }} Rempart Extermination. {{ t('footer.rights') }}</p>
-        <p class="footer__credit">
-          {{ t('footer.credit') }}
-          <a href="https://patoinestudio.ca" target="_blank" rel="noopener noreferrer">{{ t('footer.studio') }}</a>
+        <p v-if="site.footer.credit" class="footer__credit">
+          {{ site.footer.credit.label }}
+          <a v-if="site.footer.credit.href" :href="site.footer.credit.href" target="_blank" rel="noopener noreferrer">{{ t('footer.studio') }}</a>
         </p>
         <nav class="footer__legal" :aria-label="t('footer.nav_heading')">
-          <NuxtLink :to="privacyTo" class="footer__legal-link">{{ t('footer.privacy') }}</NuxtLink>
-          <NuxtLink :to="termsTo" class="footer__legal-link">{{ t('footer.terms') }}</NuxtLink>
+          <NuxtLink
+            v-for="link in site.footer.utility"
+            :key="link.href"
+            :to="legalHref(link.href)"
+            class="footer__legal-link"
+          >{{ link.label }}</NuxtLink>
         </nav>
       </div>
     </div>
