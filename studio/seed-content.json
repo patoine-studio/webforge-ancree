@@ -7193,7 +7193,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.siteSettings.siteSettings",
+        "_id": "translation-siteSettings",
         "_type": "translation.metadata",
         "schemaTypes": [
           "siteSettings"
@@ -7201,16 +7201,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "siteSettings-fr"
+              "_ref": "siteSettings-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "siteSettings"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "siteSettings-en"
+              "_ref": "siteSettings-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "siteSettings"
+              }
             }
           }
         ]
@@ -7219,7 +7231,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqTheme.faqTheme-tarification",
+        "_id": "translation-faqTheme-tarification",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqTheme"
@@ -7227,16 +7239,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-tarification-fr"
+              "_ref": "faqTheme-tarification-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-tarification-en"
+              "_ref": "faqTheme-tarification-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           }
         ]
@@ -7245,7 +7269,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqTheme.faqTheme-intervention",
+        "_id": "translation-faqTheme-intervention",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqTheme"
@@ -7253,16 +7277,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-intervention-fr"
+              "_ref": "faqTheme-intervention-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-intervention-en"
+              "_ref": "faqTheme-intervention-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           }
         ]
@@ -7271,7 +7307,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqTheme.faqTheme-traitement",
+        "_id": "translation-faqTheme-traitement",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqTheme"
@@ -7279,16 +7315,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-traitement-fr"
+              "_ref": "faqTheme-traitement-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqTheme-traitement-en"
+              "_ref": "faqTheme-traitement-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
             }
           }
         ]
@@ -7297,7 +7345,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.legalPage.legalPage-conditions",
+        "_id": "translation-legalPage-conditions",
         "_type": "translation.metadata",
         "schemaTypes": [
           "legalPage"
@@ -7305,16 +7353,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "legalPage-conditions-fr"
+              "_ref": "legalPage-conditions-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "legalPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "legalPage-conditions-en"
+              "_ref": "legalPage-conditions-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "legalPage"
+              }
             }
           }
         ]
@@ -7323,7 +7383,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.legalPage.legalPage-confidentialite",
+        "_id": "translation-legalPage-confidentialite",
         "_type": "translation.metadata",
         "schemaTypes": [
           "legalPage"
@@ -7331,16 +7391,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "legalPage-confidentialite-fr"
+              "_ref": "legalPage-confidentialite-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "legalPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "legalPage-confidentialite-en"
+              "_ref": "legalPage-confidentialite-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "legalPage"
+              }
             }
           }
         ]
@@ -7349,7 +7421,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.homePage.homePage",
+        "_id": "translation-homePage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "homePage"
@@ -7357,16 +7429,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "homePage-fr"
+              "_ref": "homePage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "homePage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "homePage-en"
+              "_ref": "homePage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "homePage"
+              }
             }
           }
         ]
@@ -7375,7 +7459,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.servicesPage.servicesPage",
+        "_id": "translation-servicesPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "servicesPage"
@@ -7383,16 +7467,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "servicesPage-fr"
+              "_ref": "servicesPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "servicesPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "servicesPage-en"
+              "_ref": "servicesPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "servicesPage"
+              }
             }
           }
         ]
@@ -7401,7 +7497,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.villesPage.villesPage",
+        "_id": "translation-villesPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "villesPage"
@@ -7409,16 +7505,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "villesPage-fr"
+              "_ref": "villesPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "villesPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "villesPage-en"
+              "_ref": "villesPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "villesPage"
+              }
             }
           }
         ]
@@ -7427,7 +7535,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.aboutPage.aboutPage",
+        "_id": "translation-aboutPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "aboutPage"
@@ -7435,16 +7543,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "aboutPage-fr"
+              "_ref": "aboutPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "aboutPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "aboutPage-en"
+              "_ref": "aboutPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "aboutPage"
+              }
             }
           }
         ]
@@ -7453,7 +7573,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.blogPage.blogPage",
+        "_id": "translation-blogPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "blogPage"
@@ -7461,16 +7581,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "blogPage-fr"
+              "_ref": "blogPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "blogPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "blogPage-en"
+              "_ref": "blogPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "blogPage"
+              }
             }
           }
         ]
@@ -7479,7 +7611,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqPage.faqPage",
+        "_id": "translation-faqPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqPage"
@@ -7487,16 +7619,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqPage-fr"
+              "_ref": "faqPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqPage-en"
+              "_ref": "faqPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqPage"
+              }
             }
           }
         ]
@@ -7505,7 +7649,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.contactPage.contactPage",
+        "_id": "translation-contactPage",
         "_type": "translation.metadata",
         "schemaTypes": [
           "contactPage"
@@ -7513,16 +7657,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "contactPage-fr"
+              "_ref": "contactPage-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "contactPage"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "contactPage-en"
+              "_ref": "contactPage-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "contactPage"
+              }
             }
           }
         ]
@@ -7531,7 +7687,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.onePager.onePager",
+        "_id": "translation-onePager",
         "_type": "translation.metadata",
         "schemaTypes": [
           "onePager"
@@ -7539,16 +7695,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "onePager-fr"
+              "_ref": "onePager-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "onePager"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "onePager-en"
+              "_ref": "onePager-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "onePager"
+              }
             }
           }
         ]
@@ -7557,7 +7725,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.service.service-fourmis-charpentieres",
+        "_id": "translation-service-fourmis-charpentieres",
         "_type": "translation.metadata",
         "schemaTypes": [
           "service"
@@ -7565,16 +7733,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "service-fourmis-charpentieres-fr"
+              "_ref": "service-fourmis-charpentieres-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "service-fourmis-charpentieres-en"
+              "_ref": "service-fourmis-charpentieres-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           }
         ]
@@ -7583,7 +7763,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.service.service-souris-rats",
+        "_id": "translation-service-souris-rats",
         "_type": "translation.metadata",
         "schemaTypes": [
           "service"
@@ -7591,16 +7771,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "service-souris-rats-fr"
+              "_ref": "service-souris-rats-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "service-souris-rats-en"
+              "_ref": "service-souris-rats-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           }
         ]
@@ -7609,7 +7801,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.service.service-punaises-de-lit",
+        "_id": "translation-service-punaises-de-lit",
         "_type": "translation.metadata",
         "schemaTypes": [
           "service"
@@ -7617,16 +7809,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "service-punaises-de-lit-fr"
+              "_ref": "service-punaises-de-lit-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "service-punaises-de-lit-en"
+              "_ref": "service-punaises-de-lit-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           }
         ]
@@ -7635,7 +7839,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.service.service-guepes-frelons",
+        "_id": "translation-service-guepes-frelons",
         "_type": "translation.metadata",
         "schemaTypes": [
           "service"
@@ -7643,16 +7847,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "service-guepes-frelons-fr"
+              "_ref": "service-guepes-frelons-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "service-guepes-frelons-en"
+              "_ref": "service-guepes-frelons-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           }
         ]
@@ -7661,7 +7877,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.service.service-commercial",
+        "_id": "translation-service-commercial",
         "_type": "translation.metadata",
         "schemaTypes": [
           "service"
@@ -7669,16 +7885,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "service-commercial-fr"
+              "_ref": "service-commercial-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "service-commercial-en"
+              "_ref": "service-commercial-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
             }
           }
         ]
@@ -7687,7 +7915,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-laval",
+        "_id": "translation-serviceCity-laval",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7695,16 +7923,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-laval-fr"
+              "_ref": "serviceCity-laval-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-laval-en"
+              "_ref": "serviceCity-laval-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7713,7 +7953,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-terrebonne",
+        "_id": "translation-serviceCity-terrebonne",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7721,16 +7961,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-terrebonne-fr"
+              "_ref": "serviceCity-terrebonne-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-terrebonne-en"
+              "_ref": "serviceCity-terrebonne-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7739,7 +7991,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-repentigny",
+        "_id": "translation-serviceCity-repentigny",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7747,16 +7999,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-repentigny-fr"
+              "_ref": "serviceCity-repentigny-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-repentigny-en"
+              "_ref": "serviceCity-repentigny-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7765,7 +8029,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-blainville",
+        "_id": "translation-serviceCity-blainville",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7773,16 +8037,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-blainville-fr"
+              "_ref": "serviceCity-blainville-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-blainville-en"
+              "_ref": "serviceCity-blainville-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7791,7 +8067,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-mascouche",
+        "_id": "translation-serviceCity-mascouche",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7799,16 +8075,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-mascouche-fr"
+              "_ref": "serviceCity-mascouche-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-mascouche-en"
+              "_ref": "serviceCity-mascouche-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7817,7 +8105,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-boisbriand",
+        "_id": "translation-serviceCity-boisbriand",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7825,16 +8113,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-boisbriand-fr"
+              "_ref": "serviceCity-boisbriand-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-boisbriand-en"
+              "_ref": "serviceCity-boisbriand-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7843,7 +8143,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.serviceCity.serviceCity-saint-eustache",
+        "_id": "translation-serviceCity-saint-eustache",
         "_type": "translation.metadata",
         "schemaTypes": [
           "serviceCity"
@@ -7851,16 +8151,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-saint-eustache-fr"
+              "_ref": "serviceCity-saint-eustache-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "serviceCity-saint-eustache-en"
+              "_ref": "serviceCity-saint-eustache-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "serviceCity"
+              }
             }
           }
         ]
@@ -7869,7 +8181,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-hebert",
+        "_id": "translation-testimonial-hebert",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -7877,16 +8189,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-hebert-fr"
+              "_ref": "testimonial-hebert-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-hebert-en"
+              "_ref": "testimonial-hebert-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -7895,7 +8219,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-bouchard",
+        "_id": "translation-testimonial-bouchard",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -7903,16 +8227,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-bouchard-fr"
+              "_ref": "testimonial-bouchard-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-bouchard-en"
+              "_ref": "testimonial-bouchard-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -7921,7 +8257,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-lemieux",
+        "_id": "translation-testimonial-lemieux",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -7929,16 +8265,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-lemieux-fr"
+              "_ref": "testimonial-lemieux-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-lemieux-en"
+              "_ref": "testimonial-lemieux-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -7947,7 +8295,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-benali",
+        "_id": "translation-testimonial-benali",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -7955,16 +8303,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-benali-fr"
+              "_ref": "testimonial-benali-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-benali-en"
+              "_ref": "testimonial-benali-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -7973,7 +8333,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-tremblay",
+        "_id": "translation-testimonial-tremblay",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -7981,16 +8341,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-tremblay-fr"
+              "_ref": "testimonial-tremblay-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-tremblay-en"
+              "_ref": "testimonial-tremblay-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -7999,7 +8371,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.testimonial.testimonial-lavoie",
+        "_id": "translation-testimonial-lavoie",
         "_type": "translation.metadata",
         "schemaTypes": [
           "testimonial"
@@ -8007,16 +8379,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-lavoie-fr"
+              "_ref": "testimonial-lavoie-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "testimonial-lavoie-en"
+              "_ref": "testimonial-lavoie-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
             }
           }
         ]
@@ -8025,7 +8409,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-prix",
+        "_id": "translation-faqItem-prix",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8033,16 +8417,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-prix-fr"
+              "_ref": "faqItem-prix-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-prix-en"
+              "_ref": "faqItem-prix-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8051,7 +8447,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-delai",
+        "_id": "translation-faqItem-delai",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8059,16 +8455,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-delai-fr"
+              "_ref": "faqItem-delai-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-delai-en"
+              "_ref": "faqItem-delai-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8077,7 +8485,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-securite",
+        "_id": "translation-faqItem-securite",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8085,16 +8493,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-securite-fr"
+              "_ref": "faqItem-securite-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-securite-en"
+              "_ref": "faqItem-securite-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8103,7 +8523,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-garantie",
+        "_id": "translation-faqItem-garantie",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8111,16 +8531,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-garantie-fr"
+              "_ref": "faqItem-garantie-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-garantie-en"
+              "_ref": "faqItem-garantie-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8129,7 +8561,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-produits",
+        "_id": "translation-faqItem-produits",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8137,16 +8569,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-produits-fr"
+              "_ref": "faqItem-produits-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-produits-en"
+              "_ref": "faqItem-produits-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8155,7 +8599,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.faqItem.faqItem-preparation",
+        "_id": "translation-faqItem-preparation",
         "_type": "translation.metadata",
         "schemaTypes": [
           "faqItem"
@@ -8163,16 +8607,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-preparation-fr"
+              "_ref": "faqItem-preparation-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "faqItem-preparation-en"
+              "_ref": "faqItem-preparation-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
             }
           }
         ]
@@ -8181,7 +8637,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.category.category-nuisibles",
+        "_id": "translation-category-nuisibles",
         "_type": "translation.metadata",
         "schemaTypes": [
           "category"
@@ -8189,16 +8645,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "category-nuisibles-fr"
+              "_ref": "category-nuisibles-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "category"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "category-nuisibles-en"
+              "_ref": "category-nuisibles-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "category"
+              }
             }
           }
         ]
@@ -8207,7 +8675,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.category.category-prevention",
+        "_id": "translation-category-prevention",
         "_type": "translation.metadata",
         "schemaTypes": [
           "category"
@@ -8215,16 +8683,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "category-prevention-fr"
+              "_ref": "category-prevention-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "category"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "category-prevention-en"
+              "_ref": "category-prevention-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "category"
+              }
             }
           }
         ]
@@ -8233,7 +8713,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.article.article-fourmis",
+        "_id": "translation-article-fourmis",
         "_type": "translation.metadata",
         "schemaTypes": [
           "article"
@@ -8241,16 +8721,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "article-fourmis-fr"
+              "_ref": "article-fourmis-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "article-fourmis-en"
+              "_ref": "article-fourmis-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           }
         ]
@@ -8259,7 +8751,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.article.article-punaises",
+        "_id": "translation-article-punaises",
         "_type": "translation.metadata",
         "schemaTypes": [
           "article"
@@ -8267,16 +8759,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "article-punaises-fr"
+              "_ref": "article-punaises-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "article-punaises-en"
+              "_ref": "article-punaises-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           }
         ]
@@ -8285,7 +8789,7 @@
     {
       "type": "translation.metadata",
       "content": {
-        "_id": "translation.article.article-souris",
+        "_id": "translation-article-souris",
         "_type": "translation.metadata",
         "schemaTypes": [
           "article"
@@ -8293,16 +8797,28 @@
         "translations": [
           {
             "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
             "value": {
               "_type": "reference",
-              "_ref": "article-souris-fr"
+              "_ref": "article-souris-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           },
           {
             "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
             "value": {
               "_type": "reference",
-              "_ref": "article-souris-en"
+              "_ref": "article-souris-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "article"
+              }
             }
           }
         ]
