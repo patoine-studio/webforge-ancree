@@ -30,6 +30,14 @@ const sanityProjectId = process.env.NUXT_PUBLIC_SANITY_PROJECT_ID || '5if00rwn'
 const sanityDataset = process.env.NUXT_PUBLIC_SANITY_DATASET || 'production'
 const sanityApiVersion = process.env.NUXT_PUBLIC_SANITY_API_VERSION || '2026-06-01'
 
+// Token de LECTURE au build/SSR seulement (jamais NUXT_PUBLIC_: reste cote serveur,
+// jamais dans le bundle statique). Requis car le type translation.metadata du plugin
+// document-internationalization n'est pas expose en lecture publique sur ce dataset:
+// sans token, references() renvoie vide et les alternates hreflang des pages a slug
+// traduit (services) cassent. Le site etant genere en statique, le token sert au
+// build puis le HTML produit ne le contient pas. Absent = lecture publique (degrade).
+const sanityReadToken = process.env.NUXT_SANITY_TOKEN || process.env.SANITY_API_READ_TOKEN || undefined
+
 // URL canonique: partagée site.url (@nuxtjs/seo) et i18n.baseUrl (hreflang
 // absolus). Posée par Worker sur Cloudflare (NUXT_PUBLIC_SITE_URL).
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://webforge-ancree.patoinestudio.ca'
@@ -43,7 +51,10 @@ const sanityBuildClient = createClient({
   projectId: sanityProjectId,
   dataset: sanityDataset,
   apiVersion: sanityApiVersion,
-  useCdn: true,
+  // CDN public sans token; avec token (lecture build de translation.metadata), on
+  // passe en lecture live authentifiee (le CDN ne sert que le public).
+  useCdn: !sanityReadToken,
+  token: sanityReadToken,
   perspective: 'published'
 })
 
@@ -339,10 +350,10 @@ export default defineNuxtConfig({
     dataset: sanityDataset,
     apiVersion: sanityApiVersion,
     useCdn: false,
-    // Lecture publique: perspective 'published' (le defaut 'raw' du client exige un
-    // token et renvoie 403 sur le dataset public). Aucune requete a l'execution: la
-    // lecture se fait au build (plugin 01.content, fetch serveur), jamais depuis le
-    // navigateur.
+    // PAS de token ici: l'option token du module @nuxtjs/sanity atterrit dans la
+    // config PUBLIQUE (embarquee dans chaque page). La lecture authentifiee de
+    // translation.metadata se fait server-only via un client dedie dans le plugin
+    // 01.content (token depuis runtimeConfig prive). Ici: lecture publique.
     perspective: 'published'
   },
 
@@ -483,6 +494,10 @@ export default defineNuxtConfig({
     turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY,
     contactToEmail: process.env.CONTACT_TO_EMAIL,
     contactFromEmail: process.env.CONTACT_FROM_EMAIL,
+    // Token de lecture Sanity, SERVER-ONLY (jamais dans public): lecture
+    // authentifiee de translation.metadata au build via le client dedie du plugin
+    // 01.content. Override possible par NUXT_SANITY_READ_TOKEN.
+    sanityReadToken,
     public: {
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
       contactDemo: true

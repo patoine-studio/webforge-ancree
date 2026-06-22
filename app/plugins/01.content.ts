@@ -78,8 +78,23 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   // Cote client il n'y a RIEN a faire: le graphe transforme arrive par le payload
   // de la route (inline en dev SSR, _payload.json au generate), usePayload() le lit.
   if (import.meta.server) {
-    const { useSanity } = await import('@nuxtjs/sanity/runtime/composables/useSanity.js')
-    const sanity = useSanity()
+    // Client Sanity dedie au build/SSR, importe dynamiquement (elimine du bundle
+    // client par la garde import.meta.server). Token de lecture server-only depuis
+    // la config PRIVEE: indispensable pour lire translation.metadata (non expose en
+    // lecture publique sur ce dataset) et resoudre les alternates hreflang. Sans
+    // token: lecture publique (degrade). projectId/dataset/apiVersion = config
+    // publique du module @nuxtjs/sanity.
+    const { createClient } = await import('@sanity/client')
+    const config = useRuntimeConfig()
+    const pub = config.public.sanity as { projectId: string; dataset: string; apiVersion: string }
+    const sanity = createClient({
+      projectId: pub.projectId,
+      dataset: pub.dataset,
+      apiVersion: pub.apiVersion,
+      useCdn: false,
+      perspective: 'published',
+      token: (config.sanityReadToken as string) || undefined
+    })
 
     const runFetch = (locale: WfLocale): Promise<SanityGraph> =>
       sanity.fetch<SanityGraph>(CONTENT_GRAPH_QUERY, { language: locale })
