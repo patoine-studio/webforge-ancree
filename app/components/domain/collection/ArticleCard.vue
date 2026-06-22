@@ -17,13 +17,11 @@ const { t } = useI18n()
 <template>
   <article class="acard">
     <div class="acard__media">
-      <NuxtImg
+      <Image
         :src="card.cover.src"
-        :alt="card.cover.alt || ''"
-        class="acard__img"
+        :alt="card.cover.alt"
         sizes="xs:100vw sm:100vw md:50vw lg:380px xl:420px xxl:420px"
-        format="webp"
-        loading="lazy"
+        tone="base"
       />
       <span v-if="card.category" class="acard__tag">{{ card.category.title }}</span>
     </div>
@@ -64,13 +62,6 @@ const { t } = useI18n()
 }
 .acard__media {
   position: relative;
-}
-.acard__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--ratio-landscape);
-  object-fit: cover;
 }
 .acard__tag {
   position: absolute;

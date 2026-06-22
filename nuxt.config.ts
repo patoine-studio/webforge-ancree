@@ -334,7 +334,12 @@ export default defineNuxtConfig({
   // <Header>, peu importe l'arborescence. Convention de la famille. On limite
   // le scan aux .vue: les block-map.ts ne sont pas des composants (importes
   // explicitement), sinon Nuxt les nomme tous deux « BlockMap » (collision).
-  components: [{ path: '~/components', pathPrefix: false, extensions: ['vue'] }],
+  // On IGNORE page-builder/** de l'auto-import: ces blocs (regular, article, leurs
+  // index PageBuilder/ArticleBuilder) sont consommes via les block-maps (imports
+  // EXPLICITES) et les pages. Sans ca, plusieurs fichiers « image.vue » / « article »
+  // produisent le meme nom auto et entrent en collision avec le fragment partage
+  // <Image> et le heros <Article>. Calque sur webforge-minimaliste.
+  components: [{ path: '~/components', pathPrefix: false, extensions: ['vue'], ignore: ['**/page-builder/**'] }],
 
   app: {
     head: {

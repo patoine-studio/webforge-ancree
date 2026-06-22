@@ -126,3 +126,34 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+/* Placeholder du fragment <Image> (figure sans image): cadre raye soigne, jamais
+ * une 404. Classes globales (le fragment les porte, leur style vit ici). Tokens
+ * Ancree; le `.wf-image` (image reelle) est, lui, scope dans le fragment. */
+.wf-ph {
+  position: relative;
+  width: 100%;
+  background: var(--bg-alt);
+  border: var(--line-soft);
+  overflow: hidden;
+  color: color-mix(in oklch, var(--text-base) 14%, transparent);
+}
+.wf-ph-base { background: var(--bg-base); }
+.wf-ph-stripes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.wf-ph-label {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+  background: var(--bg-base);
+  color: var(--text-muted);
+  padding: 0.4rem 0.8rem;
+  border: var(--line-hair);
+}

@@ -3,6 +3,9 @@
  * ambre qui signe le coin bas-gauche (ancrage au sol), legende sobre. */
 import type { BlockBase } from '~/types/blocks'
 import type { ArticleImageContent } from '~/content/article-blocks'
+// Ce fichier s'appelle image.vue: <Image> dans le template se resoudrait vers CE
+// composant (auto-reference). L'import nomme leve l'ambiguite (calque Minimaliste).
+import ImageFragment from '~/components/fragments/images/Image.vue'
 
 defineProps<BlockBase<'image'> & ArticleImageContent>()
 </script>
@@ -10,13 +13,12 @@ defineProps<BlockBase<'image'> & ArticleImageContent>()
 <template>
   <figure class="article-image">
     <div class="article-image__frame">
-      <NuxtImg
+      <ImageFragment
         :src="image.src"
-        :alt="image.alt || ''"
-        class="article-image__img"
+        :alt="image.alt"
+        :caption="image.caption"
         sizes="xs:100vw sm:100vw md:720px lg:760px xl:760px xxl:760px"
-        format="webp"
-        loading="lazy"
+        tone="base"
       />
       <span class="article-image__corner" aria-hidden="true" />
     </div>
@@ -33,13 +35,6 @@ defineProps<BlockBase<'image'> & ArticleImageContent>()
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--elev-mid);
-}
-.article-image__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--ratio-landscape);
-  object-fit: cover;
 }
 .article-image__corner {
   position: absolute;

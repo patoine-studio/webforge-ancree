@@ -12,13 +12,12 @@ defineProps<BlockBase<'gallery'> & ArticleGalleryContent>()
     <li v-for="(item, i) in images" :key="item.src + i" class="article-gallery__item">
       <figure class="article-gallery__figure">
         <div class="article-gallery__frame">
-          <NuxtImg
+          <Image
             :src="item.src"
-            :alt="item.alt || ''"
-            class="article-gallery__img"
+            :alt="item.alt"
+            :caption="item.caption"
             sizes="xs:100vw sm:100vw md:380px lg:380px xl:380px xxl:380px"
-            format="webp"
-            loading="lazy"
+            tone="base"
           />
         </div>
         <figcaption v-if="item.caption" class="article-gallery__caption">{{ item.caption }}</figcaption>
@@ -44,13 +43,6 @@ defineProps<BlockBase<'gallery'> & ArticleGalleryContent>()
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--elev-low);
-}
-.article-gallery__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--ratio-landscape);
-  object-fit: cover;
 }
 .article-gallery__caption {
   margin-top: 0.9rem;

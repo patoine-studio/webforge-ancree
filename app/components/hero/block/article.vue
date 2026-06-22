@@ -53,14 +53,15 @@ const metaItems = computed(() => {
     <figure v-if="cover?.src" class="article-hero__cover">
       <div class="wf-container">
         <div class="article-hero__cover-frame">
-          <NuxtImg
+          <Image
             :src="cover.src"
-            :alt="cover.alt || ''"
-            class="article-hero__cover-img"
+            :alt="cover.alt"
+            ratio="var(--ratio-wide)"
             sizes="xs:100vw sm:100vw md:100vw lg:1100px xl:1100px xxl:1100px"
-            format="webp"
             loading="eager"
             fetchpriority="high"
+            decoding="sync"
+            tone="base"
           />
           <span class="article-hero__cover-anchor" aria-hidden="true" />
         </div>
@@ -180,13 +181,6 @@ const metaItems = computed(() => {
   overflow: hidden;
   box-shadow: var(--elev-high);
 }
-.article-hero__cover-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--ratio-wide);
-  object-fit: cover;
-}
 .article-hero__cover-anchor {
   position: absolute;
   left: 0;
@@ -198,8 +192,10 @@ const metaItems = computed(() => {
 }
 
 @container site (min-width: 1024px) {
-  .article-hero__cover-img {
-    aspect-ratio: 21 / 9;
+  /* Le fragment <Image> rend .wf-image (aspect inline = prop ratio, --ratio-wide).
+   * On surclasse en cadrage cinematique au desktop (!important bat le style inline). */
+  .article-hero__cover-frame :deep(.wf-image) {
+    aspect-ratio: 21 / 9 !important;
   }
 }
 </style>

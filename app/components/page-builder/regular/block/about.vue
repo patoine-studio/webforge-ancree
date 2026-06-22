@@ -23,13 +23,11 @@ defineProps<AboutBlock>()
         <!-- Media: photo ancree, carte de chiffres en chevauchement. -->
         <div class="about__media" data-reveal>
           <figure class="about__figure">
-            <NuxtImg
+            <Image
               :src="photo.src"
-              :alt="photo.alt || ''"
-              class="about__img"
+              :alt="photo.alt"
               sizes="xs:100vw sm:100vw md:50vw lg:50vw xl:50vw xxl:50vw"
-              format="webp"
-              loading="lazy"
+              tone="base"
             />
             <span class="about__corner" aria-hidden="true" />
           </figure>
@@ -85,13 +83,6 @@ defineProps<AboutBlock>()
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--elev-high);
-}
-.about__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--ratio-landscape);
-  object-fit: cover;
 }
 /* Filet ambre qui signe le coin bas-gauche de la photo (ancrage au sol). */
 .about__corner {
