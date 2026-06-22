@@ -1,244 +1,279 @@
 <script setup lang="ts">
-/* Vitrine de la famille Ancree: guide de style (couleurs, typo, boutons) et
- * bibliotheque de blocs rendus EN VRAI a partir des fixtures de la home. Page
- * interne, non indexee. Calquee sur la structure de la vitrine Minimaliste, peau
- * Ancree. Chaque bloc est rendu dans sa propre scene .wf-site (contexte de
- * requete de conteneur), via le meme block-map que la page-builder de prod. */
-import { regularBlockMap } from '~/components/page-builder/regular/block-map'
-import { breadcrumbsFor } from '~/config/route-map'
-import type { HeroPageBlock, PageBlock } from '~/types/blocks'
+/* /showcase — guide interne de tout ce qu'un site de la famille Ancree comprend.
+ * Coquille reprise de Minimaliste, peau Ancree: une BARRE D'ONGLETS sombre en haut
+ * (heros, blocs, articles, formulaire, guide de style) et une BARRE LATERALE SgNav
+ * (ancres de la section active). Les onglets basculent la section affichee cote
+ * client -> une seule route bilingue, noindex, prerendue (zero routage). */
+import SgNav from '~/components/showcase/styleguide/nav.vue'
+import BlockShowcase from '~/components/showcase/styleguide/block-showcase.vue'
+import SgForms from '~/components/showcase/styleguide/forms.vue'
+import SgTypography from '~/components/showcase/styleguide/typography.vue'
+import SgTokens from '~/components/showcase/styleguide/tokens.vue'
+import SgAtoms from '~/components/showcase/styleguide/atoms.vue'
+import { navItemsFor } from '~/composables/useBlockCatalog'
+import { routePath, onePagerPath } from '~/config/route-map'
+
+const { t } = useI18n()
 
 definePageMeta({ layout: 'showcase' })
 
-const { t, locale } = useI18n()
-// Vitrine interne, NOINDEX (point niveau page + exclue du sitemap). Gabarit de
-// titre local « %s, WebForge Ancrée » (la marque de la famille, pas du demo).
 usePageSeo({
-  title: t('showcase.subtitle'),
-  description: t('showcase.lead'),
+  title: t('showcase.seo.title'),
+  description: t('showcase.seo.description'),
   titleTemplate: '%s, WebForge Ancrée',
   noindex: true
 })
 
-const heroSample = useHeroContent()
-const site = useContent('site')
+const catalog = useBlockCatalog()
+const heros = catalog.find((c) => c.id === 'heros')!
+const reguliers = catalog.find((c) => c.id === 'reguliers')!
+const articles = catalog.find((c) => c.id === 'articles')!
 
-// Masthead de page, echantillon de catalogue (fil d'Ariane reel, appel tel:
-// non crawle par le link checker).
-const heroPageSample = computed<HeroPageBlock>(() => ({
-  _type: 'hero-page',
-  _key: 'hero-page',
-  crumbs: breadcrumbsFor('services', undefined, locale.value as 'fr' | 'en'),
-  eyebrow: t('hero.kicker'),
-  title: t('pages.services_heading'),
-  lead: t('pages.services_lead'),
-  cta: { label: t('hero.cta_primary'), href: `tel:${site.value.contact.phoneE164}` }
-}))
+// Onglets primaires (barre sombre): icone + libelle i18n.
+const tabs = [
+  { id: 'styleguide', label: t('showcase.nav.styleguide'), icon: 'lucide:palette' },
+  { id: 'heros', label: t('showcase.nav.heros'), icon: 'lucide:panel-top' },
+  { id: 'reguliers', label: t('showcase.nav.reguliers'), icon: 'lucide:layout-grid' },
+  { id: 'articles', label: t('showcase.nav.articles'), icon: 'lucide:newspaper' },
+  { id: 'formulaire', label: t('showcase.nav.formulaire'), icon: 'lucide:text-cursor-input' }
+] as const
+type TabId = (typeof tabs)[number]['id']
 
-/* Echantillons = SNAPSHOT des blocs resolus de la home (useHomeBlocks().value:
- * vitrine interne, pas de preview live ici, une capture suffit). On neutralise les
- * liens du bloc services: les pages de detail par service ne sont pas crawlees par
- * le link checker du build statique. Les liens de villes (pages reelles) restent.
- * On reste type sur PageBlock: la branche services NARROW sur _type pour produire
- * un ServicesBlock valide (liens vides), les autres blocs passent inchanges. */
-const sampleBlocks: PageBlock[] = useHomeBlocks().value.map((b) =>
-  b._type === 'services'
-    ? {
-        ...b,
-        ctaHref: undefined,
-        items: b.items.map((it) => ({ ...it, href: undefined }))
-      }
-    : b
-)
-function blockComp(type: string) {
-  return regularBlockMap[type as keyof typeof regularBlockMap]
-}
+const activeTab = ref<TabId>('styleguide')
 
-const swatches = [
-  { token: '--navy', label: 'Bleu nuit' },
-  { token: '--blue', label: 'Bleu confiance' },
-  { token: '--amber', label: 'Ambre, l’appel' },
-  { token: '--slate', label: 'Ardoise' },
-  { token: '--paper', label: 'Papier, le fond' },
-  { token: '--bg-alt', label: 'Fond alterné' },
-  { token: '--bg-deep', label: 'Bande forte' }
+// Ancres de la barre laterale, par section active.
+const formSections = [
+  { id: 'champs', label: t('showcase.styleguide.forms.section_champs') },
+  { id: 'selection', label: t('showcase.styleguide.forms.section_selection') },
+  { id: 'retroaction', label: t('showcase.styleguide.forms.section_retroaction') },
+  { id: 'exemple', label: t('showcase.styleguide.forms.section_exemple') }
 ]
-const typeScale = ['wf-h1', 'wf-h2', 'wf-h3', 'wf-h4', 'wf-h5', 'wf-body-1', 'wf-body-2', 'wf-body-3', 'wf-caption']
-
-// Sections pour la navigation scroll-spy: le systeme visuel, le heros, puis chaque bloc.
-const sections = [
-  { id: 'sys', label: t('showcase.section_system') },
-  { id: 'hero-home', label: t('showcase.hero_home') },
-  { id: 'hero-page', label: t('showcase.hero_page') },
-  ...sampleBlocks.map((b) => ({ id: b._type as string, label: b._type as string }))
+const styleguideSections = [
+  { id: 'typographie', label: t('showcase.styleguide.sections.typography') },
+  { id: 'tokens', label: t('showcase.styleguide.sections.tokens') },
+  { id: 'composants', label: t('showcase.styleguide.sections.components') }
 ]
+
+const navItems = computed(() => {
+  switch (activeTab.value) {
+    case 'reguliers': return navItemsFor(reguliers.items)
+    case 'articles': return navItemsFor(articles.items)
+    case 'formulaire': return formSections
+    case 'styleguide': return styleguideSections
+    default: return navItemsFor(heros.items)
+  }
+})
+const navLabel = computed(() => tabs.find((tb) => tb.id === activeTab.value)?.label ?? '')
+
+// Liens vers les vrais sites de la demo (multipage + one-pager), localises.
+const locale = useWfLocale()
+const multipageHref = routePath('home', locale)
+const onepagerHref = onePagerPath('index', locale)
 </script>
 
 <template>
-  <article class="sg">
-    <ShowcaseNav :items="sections" />
-
-    <header class="sg-intro wf-container">
-      <p class="sg-intro__kicker wf-caption">{{ t('showcase.title') }}</p>
-      <h1 class="sg-intro__title wf-h1">{{ t('showcase.subtitle') }}</h1>
-      <p class="sg-intro__lead wf-body-1 wf-text-muted">{{ t('showcase.lead') }}</p>
+  <div class="wf-showcase">
+    <!-- Barre sombre: marque + onglets (clair sur navy, icones). -->
+    <header class="wf-showcase-bar">
+      <div class="wf-container wf-showcase-bar__inner">
+        <p class="wf-showcase-bar__brand">
+          <span class="wf-showcase-bar__brand-name">WebForge</span>
+          <span class="wf-showcase-bar__brand-dash">-</span>
+          <span class="wf-showcase-bar__brand-family">Ancrée</span>
+        </p>
+        <nav class="wf-showcase-tabs" :aria-label="t('showcase.subtitle')">
+          <button
+            v-for="tab in tabs"
+            :key="tab.id"
+            type="button"
+            class="wf-showcase-tabs__tab"
+            :class="{ 'is-active': activeTab === tab.id }"
+            :aria-pressed="activeTab === tab.id"
+            @click="activeTab = tab.id"
+          >
+            <Icon :name="tab.icon" class="wf-showcase-tabs__icon" aria-hidden="true" />
+            <span>{{ tab.label }}</span>
+          </button>
+        </nav>
+        <!-- Liens vers les vrais sites (a droite): on regarde le guide, puis on
+             clique pour voir le rendu reel. -->
+        <div class="wf-showcase-bar__links">
+          <NuxtLink :to="multipageHref" class="wf-showcase-bar__link">
+            <Icon name="lucide:layout-template" class="wf-showcase-bar__link-icon" aria-hidden="true" />
+            <span>{{ t('showcase.links.multipage') }}</span>
+          </NuxtLink>
+          <NuxtLink :to="onepagerHref" class="wf-showcase-bar__link">
+            <Icon name="lucide:file" class="wf-showcase-bar__link-icon" aria-hidden="true" />
+            <span>{{ t('showcase.links.onepager') }}</span>
+          </NuxtLink>
+        </div>
+      </div>
     </header>
 
-    <section id="sys" class="sg-sys wf-container">
-      <h2 class="sg-sys__title wf-h3">{{ t('showcase.section_system') }}</h2>
+    <!-- SgNav (ancres de la section active) + contenu. Les 5 panneaux coexistent en
+         v-show (rendus au build -> leurs images cuisent leurs variantes IPX; seul
+         l'onglet actif est visible). SgNav re-observe le scroll-spy au changement. -->
+    <SgNav :items="navItems" :label="navLabel">
+      <h1 class="wf-sr-only">{{ t('showcase.seo.title') }}</h1>
 
-      <h3 class="sg-sub wf-h5">{{ t('showcase.colors') }}</h3>
-      <ul class="sg-swatches">
-        <li v-for="c in swatches" :key="c.token" class="sg-swatch">
-          <span class="sg-swatch__chip" :style="{ background: `var(${c.token})` }" />
-          <span class="sg-swatch__label">{{ c.label }}</span>
-          <code class="sg-swatch__token">{{ c.token }}</code>
-        </li>
-      </ul>
-
-      <h3 class="sg-sub wf-h5">{{ t('showcase.typography') }}</h3>
-      <ul class="sg-type">
-        <li v-for="cls in typeScale" :key="cls" class="sg-type__row">
-          <span :class="cls">{{ t('showcase.type_sample') }}</span>
-          <code class="sg-type__meta">.{{ cls }}</code>
-        </li>
-      </ul>
-
-      <h3 class="sg-sub wf-h5">{{ t('showcase.buttons') }}</h3>
-      <div class="sg-btns">
-        <Button variant="call" icon="lucide:phone">{{ t('hero.cta_primary') }}</Button>
-        <Button variant="primary" icon="lucide:arrow-right">{{ t('ui.learn_more') }}</Button>
-        <Button variant="ghost" :icon="false">{{ t('nav.contact') }}</Button>
+      <div v-show="activeTab === 'heros'"><BlockShowcase :category="heros" /></div>
+      <div v-show="activeTab === 'reguliers'"><BlockShowcase :category="reguliers" /></div>
+      <div v-show="activeTab === 'articles'"><BlockShowcase :category="articles" /></div>
+      <div v-show="activeTab === 'formulaire'"><SgForms /></div>
+      <div v-show="activeTab === 'styleguide'" class="wf-showcase-styleguide">
+        <section id="typographie" class="wf-showcase-styleguide__section">
+          <div class="wf-container">
+            <h2 class="wf-h3 wf-showcase-styleguide__title">{{ t('showcase.styleguide.sections.typography') }}</h2>
+            <SgTypography />
+          </div>
+        </section>
+        <section id="tokens" class="wf-showcase-styleguide__section">
+          <div class="wf-container">
+            <h2 class="wf-h3 wf-showcase-styleguide__title">{{ t('showcase.styleguide.sections.tokens') }}</h2>
+            <SgTokens />
+          </div>
+        </section>
+        <section id="composants" class="wf-showcase-styleguide__section">
+          <div class="wf-container">
+            <h2 class="wf-h3 wf-showcase-styleguide__title">{{ t('showcase.styleguide.sections.components') }}</h2>
+            <SgAtoms />
+          </div>
+        </section>
       </div>
-      <div class="sg-btns sg-btns--dark">
-        <Button variant="call" icon="lucide:phone">{{ t('hero.cta_primary') }}</Button>
-        <Button variant="ghost" tone="ondark" :icon="false">{{ t('nav.contact') }}</Button>
-      </div>
-    </section>
-
-    <h2 class="sg-gallery-title wf-container wf-h3">{{ t('showcase.blocks') }}</h2>
-
-    <ShowcaseStage id="hero-home" :label="t('showcase.hero_home')" type="hero-home">
-      <Hero :hero="heroSample" />
-    </ShowcaseStage>
-
-    <ShowcaseStage id="hero-page" :label="t('showcase.hero_page')" type="hero-page">
-      <Hero :hero="heroPageSample" />
-    </ShowcaseStage>
-
-    <ShowcaseStage v-for="b in sampleBlocks" :id="(b._type as string)" :key="(b._key as string)" :label="(b._type as string)" :type="(b._type as string)">
-      <component :is="blockComp(b._type as string)" v-bind="b" />
-    </ShowcaseStage>
-  </article>
+    </SgNav>
+  </div>
 </template>
 
 <style scoped>
-.sg {
-  padding-bottom: 8rem;
-}
-
-/* Toute scene de la vitrine montre l'etat FINAL des blocs: on desamorce la
- * signature d'entree (qui se joue en prod) pour un guide lisible d'emblee. */
-.sg :deep([data-reveal]),
-.sg :deep([data-reveal] *),
-.sg :deep([data-reveal-stagger]),
-.sg :deep([data-reveal-stagger] *) {
+/* La vitrine montre l'etat FINAL: on desamorce la signature d'entree (data-reveal,
+ * jouee en prod via GSAP) sur TOUS les panneaux (blocs ET formulaire/confirmation)
+ * pour un guide lisible d'emblee et des captures stables. */
+.wf-showcase :deep([data-reveal]),
+.wf-showcase :deep([data-reveal] *),
+.wf-showcase :deep([data-reveal-stagger]),
+.wf-showcase :deep([data-reveal-stagger] *) {
   opacity: 1 !important;
   transform: none !important;
 }
 
-.sg-intro {
-  padding-block: 6rem 4rem;
+/* Barre sombre d'onglets: marque + onglets, clair sur navy (bande forte d'Ancree).
+ * Tokens seulement. */
+.wf-showcase-bar {
+  background: var(--bg-deep);
+  color: var(--text-ondeep);
 }
-.sg-intro__kicker {
-  color: var(--text-muted);
-}
-.sg-intro__title {
-  margin-top: 1.2rem;
-  max-width: 20ch;
-}
-.sg-intro__lead {
-  margin-top: var(--space-title-lead);
-  max-width: 60ch;
-}
-
-.sg-sys {
-  padding-block: 2rem 5rem;
-}
-.sg-sys__title {
-  padding-bottom: 2.4rem;
-  border-bottom: var(--line-hair);
-}
-.sg-sub {
-  margin: 4rem 0 1.8rem;
-  color: var(--text-muted);
-}
-
-.sg-swatches {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 2rem;
-}
-.sg-swatch {
+.wf-showcase-bar__inner {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 4);
+  padding-block: calc(var(--spacing-unit) * 1.5);
 }
-.sg-swatch__chip {
-  aspect-ratio: 3 / 2;
-  border-radius: var(--radius);
-  box-shadow: var(--elev-low);
-  border: var(--line-soft);
-}
-.sg-swatch__label {
+.wf-showcase-bar__brand {
+  margin: 0;
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 1.5rem;
-}
-.sg-swatch__token {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  color: var(--text-muted);
-}
-
-.sg-type {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.sg-type__row {
-  display: flex;
+  display: inline-flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 2.4rem;
-  padding-block: 1.8rem;
-  border-bottom: var(--line-hair);
+  gap: 0.5em;
 }
-.sg-type__meta {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  color: var(--text-muted);
+.wf-showcase-bar__brand-name,
+.wf-showcase-bar__brand-family {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.wf-showcase-bar__brand-dash {
+  color: color-mix(in oklch, var(--text-ondeep) 50%, transparent);
 }
 
-.sg-btns {
+/* Onglets: icone + libelle, mute sur navy; actif = clair + gras + filet ambre. */
+.wf-showcase-tabs {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 1.4rem;
-  margin-top: 1.6rem;
+  gap: calc(var(--spacing-unit) * 3);
 }
-.sg-btns--dark {
-  padding: 2.4rem;
-  background: var(--bg-deep);
-  border-radius: var(--radius);
+.wf-showcase-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.75);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: color-mix(in oklch, var(--text-ondeep) 62%, transparent);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: calc(var(--spacing-unit) * 1) 0;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.wf-showcase-tabs__icon {
+  font-size: 1.7rem;
+  flex-shrink: 0;
+}
+.wf-showcase-tabs__tab:hover {
+  color: var(--text-ondeep);
+}
+.wf-showcase-tabs__tab:focus-visible {
+  outline: 2px solid var(--text-ondeep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+.wf-showcase-tabs__tab.is-active {
+  color: var(--text-ondeep);
+  font-weight: 700;
+  border-bottom-color: var(--accent-call);
 }
 
-.sg-gallery-title {
-  margin-top: 5rem;
-  margin-bottom: 1rem;
+/* Liens vers les vrais sites, pousses a droite: petits boutons a filet. */
+.wf-showcase-bar__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1);
+  margin-left: auto;
+}
+.wf-showcase-bar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.6);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-ondeep);
+  text-decoration: none;
+  padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 1.2);
+  border: 1px solid color-mix(in oklch, var(--text-ondeep) 30%, transparent);
+  border-radius: var(--radius-sm);
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.wf-showcase-bar__link-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.wf-showcase-bar__link:hover {
+  background: color-mix(in oklch, var(--text-ondeep) 12%, transparent);
+  border-color: color-mix(in oklch, var(--text-ondeep) 50%, transparent);
+}
+.wf-showcase-bar__link:focus-visible {
+  outline: 2px solid var(--text-ondeep);
+  outline-offset: 2px;
+}
+
+/* Guide de style: chaque sous-section dans .wf-container (gouttiere), filet de
+ * separation. */
+.wf-showcase-styleguide {
+  padding-bottom: calc(var(--spacing-unit) * 4);
+}
+.wf-showcase-styleguide__section {
+  padding-block: calc(var(--spacing-unit) * 6);
+  border-bottom: var(--line-hair);
+  scroll-margin-top: 2rem;
+}
+.wf-showcase-styleguide__section:first-child {
+  padding-top: calc(var(--spacing-unit) * 4);
+}
+.wf-showcase-styleguide__section:last-child {
+  border-bottom: none;
+}
+.wf-showcase-styleguide__title {
+  margin-bottom: calc(var(--spacing-unit) * 4);
 }
 </style>

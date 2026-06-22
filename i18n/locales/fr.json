@@ -1,17 +1,100 @@
 {
   "showcase": {
-    "title": "Famille Ancrée",
     "subtitle": "Guide de style et bibliothèque de blocs",
-    "lead": "La peau, la grille à 16 colonnes et les blocs de la famille Ancrée, rendus en vrai. Page interne, non indexée.",
-    "section_system": "Système visuel",
-    "colors": "Couleurs",
-    "typography": "Typographie",
-    "buttons": "Boutons",
-    "hero": "Héros",
+    "seo": {
+      "title": "Guide des composants",
+      "description": "La peau, la grille à 16 colonnes, les héros, les blocs de page, les blocs d’article et le formulaire de la famille Ancrée, rendus en vrai. Page interne, non indexée."
+    },
+    "nav": {
+      "styleguide": "Guide de style",
+      "heros": "Héros",
+      "reguliers": "Blocs",
+      "articles": "Articles",
+      "formulaire": "Formulaire"
+    },
+    "links": {
+      "multipage": "Site multipage",
+      "onepager": "One-pager"
+    },
     "hero_home": "Héros d’accueil",
     "hero_page": "Héros de page",
-    "blocks": "Blocs de page",
-    "type_sample": "On reprend le contrôle, pour de bon"
+    "hero_article": "Héros d’article",
+    "unit": { "items": "items" },
+    "block": {
+      "trust_bar": "Barre de confiance",
+      "services": "Services",
+      "service_cities": "Villes desservies",
+      "about": "À propos",
+      "testimonials": "Témoignages",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "cta_band": "Bandeau d’appel",
+      "process": "Processus",
+      "lead": "Accroche",
+      "rich_text": "Texte riche",
+      "image": "Image",
+      "quote": "Citation",
+      "gallery": "Galerie",
+      "callout": "Encadré",
+      "inline_cta": "Appel intégré"
+    },
+    "styleguide": {
+      "sections": {
+        "typography": "Typographie",
+        "tokens": "Tokens",
+        "components": "Composants"
+      },
+      "typography": {
+        "families": "Familles",
+        "scale": "Échelle typographique",
+        "sample": "On reprend le contrôle, pour de bon.",
+        "display": "Titres — Bitter",
+        "body": "Corps — Source Sans 3",
+        "mono": "Mono — interface technique"
+      },
+      "tokens": {
+        "colors": "Couleurs",
+        "radius": "Rayons",
+        "rhythm": "Rythme vertical",
+        "color": {
+          "navy": "Bleu nuit",
+          "blue": "Bleu confiance",
+          "amber": "Ambre, l’appel",
+          "slate": "Ardoise",
+          "paper": "Papier, le fond",
+          "bg_alt": "Fond alterné",
+          "bg_deep": "Bande forte"
+        }
+      },
+      "atoms": {
+        "buttons": "Boutons",
+        "buttons_ondark": "Boutons sur fond sombre",
+        "icon": "Icônes",
+        "accordion": "Accordéon",
+        "sm": "Petit",
+        "disabled": "Désactivé",
+        "acc1_q": "Intervenez-vous en urgence ?",
+        "acc1_a": "Oui. Pour une infestation active, nous planifions une intervention rapide, souvent sous 24 à 48 heures selon la zone.",
+        "acc2_q": "Vos traitements sont-ils sécuritaires ?",
+        "acc2_a": "Nous utilisons des produits homologués, appliqués par des techniciens certifiés, avec des consignes claires pour votre famille et vos animaux."
+      },
+      "forms": {
+        "section_champs": "Champs",
+        "section_selection": "Sélection",
+        "section_retroaction": "Rétroaction",
+        "section_exemple": "Exemple",
+        "label_name": "Nom",
+        "label_email": "Courriel",
+        "label_message": "Message",
+        "field_error": "Entrez une adresse courriel valide.",
+        "consent": "J’accepte la politique de confidentialité.",
+        "optional": "facultatif",
+        "required": "requis",
+        "submit": "Envoyer la demande",
+        "success_title": "Message envoyé",
+        "success_body": "Merci. Nous vous revenons sous un jour ouvrable."
+      }
+    }
   },
   "a11y": {
     "skip_to_content": "Aller au contenu",

@@ -3,7 +3,7 @@
  * bibliotheque de blocs, sans le chrome marketing (en-tete collant, pied). Le
  * conteneur .wf-site fournit le contexte de requete de conteneur (name: site)
  * dont les sections du guide ont besoin (padding fluide de .wf-container). Chaque
- * scene de bloc re-declare son propre .wf-site (voir ShowcaseStage). */
+ * scene de bloc re-declare son propre .wf-site (voir block-showcase-item). */
 const { t } = useI18n()
 </script>
 

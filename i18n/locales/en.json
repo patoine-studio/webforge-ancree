@@ -1,17 +1,100 @@
 {
   "showcase": {
-    "title": "Ancrée family",
     "subtitle": "Style guide and block library",
-    "lead": "The skin, the 16-column grid and the blocks of the Ancrée family, rendered for real. Internal page, not indexed.",
-    "section_system": "Visual system",
-    "colors": "Colours",
-    "typography": "Typography",
-    "buttons": "Buttons",
-    "hero": "Hero",
+    "seo": {
+      "title": "Component guide",
+      "description": "The skin, the 16-column grid, heroes, page blocks, article blocks and the form of the Ancrée family, rendered for real. Internal page, not indexed."
+    },
+    "nav": {
+      "styleguide": "Style guide",
+      "heros": "Heroes",
+      "reguliers": "Blocks",
+      "articles": "Articles",
+      "formulaire": "Form"
+    },
+    "links": {
+      "multipage": "Multipage site",
+      "onepager": "One-pager"
+    },
     "hero_home": "Home hero",
     "hero_page": "Page hero",
-    "blocks": "Page blocks",
-    "type_sample": "We take back control, for good"
+    "hero_article": "Article hero",
+    "unit": { "items": "items" },
+    "block": {
+      "trust_bar": "Trust bar",
+      "services": "Services",
+      "service_cities": "Service areas",
+      "about": "About",
+      "testimonials": "Testimonials",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "cta_band": "CTA band",
+      "process": "Process",
+      "lead": "Lead",
+      "rich_text": "Rich text",
+      "image": "Image",
+      "quote": "Quote",
+      "gallery": "Gallery",
+      "callout": "Callout",
+      "inline_cta": "Inline CTA"
+    },
+    "styleguide": {
+      "sections": {
+        "typography": "Typography",
+        "tokens": "Tokens",
+        "components": "Components"
+      },
+      "typography": {
+        "families": "Families",
+        "scale": "Type scale",
+        "sample": "We take back control, for good.",
+        "display": "Headings — Bitter",
+        "body": "Body — Source Sans 3",
+        "mono": "Mono — technical UI"
+      },
+      "tokens": {
+        "colors": "Colours",
+        "radius": "Radii",
+        "rhythm": "Vertical rhythm",
+        "color": {
+          "navy": "Night blue",
+          "blue": "Trust blue",
+          "amber": "Amber, the call",
+          "slate": "Slate",
+          "paper": "Paper, the ground",
+          "bg_alt": "Alternate surface",
+          "bg_deep": "Strong band"
+        }
+      },
+      "atoms": {
+        "buttons": "Buttons",
+        "buttons_ondark": "Buttons on dark",
+        "icon": "Icons",
+        "accordion": "Accordion",
+        "sm": "Small",
+        "disabled": "Disabled",
+        "acc1_q": "Do you offer emergency service?",
+        "acc1_a": "Yes. For an active infestation we schedule a fast visit, often within 24 to 48 hours depending on the area.",
+        "acc2_q": "Are your treatments safe?",
+        "acc2_a": "We use approved products applied by certified technicians, with clear guidance for your family and pets."
+      },
+      "forms": {
+        "section_champs": "Fields",
+        "section_selection": "Selection",
+        "section_retroaction": "Feedback",
+        "section_exemple": "Example",
+        "label_name": "Name",
+        "label_email": "Email",
+        "label_message": "Message",
+        "field_error": "Enter a valid email address.",
+        "consent": "I accept the privacy policy.",
+        "optional": "optional",
+        "required": "required",
+        "submit": "Send request",
+        "success_title": "Message sent",
+        "success_body": "Thank you. We’ll get back to you within one business day."
+      }
+    }
   },
   "a11y": {
     "skip_to_content": "Skip to content",
