@@ -155,10 +155,13 @@ export function onePagerPath(key: keyof typeof ONE_PAGER_PAGES, locale: Locale):
 export type WfDocType =
   | 'homePage'
   | 'servicesPage'
+  | 'villesPage'
+  | 'aboutPage'
   | 'blogPage'
   | 'faqPage'
   | 'contactPage'
   | 'onePager'
+  | 'service'
   | 'serviceCity'
   | 'article'
   | 'category'
@@ -178,10 +181,21 @@ export interface DocRouteSpec {
 export const DOC_ROUTES: Record<WfDocType, DocRouteSpec> = {
   homePage: { pageName: null, urls: ROUTES.home.path, params: [] },
   servicesPage: { pageName: ROUTES.services.pageName, urls: ROUTES.services.path, params: [] },
+  villesPage: { pageName: ROUTES.villes.pageName, urls: ROUTES.villes.path, params: [] },
+  aboutPage: { pageName: ROUTES.about.pageName, urls: ROUTES.about.path, params: [] },
   blogPage: { pageName: ROUTES.blog.pageName, urls: ROUTES.blog.path, params: [] },
   faqPage: { pageName: ROUTES.faq.pageName, urls: ROUTES.faq.path, params: [] },
   contactPage: { pageName: ROUTES.contact.pageName, urls: ROUTES.contact.path, params: [] },
   onePager: { pageName: ONE_PAGER_PAGES.index.pageName, urls: ONE_PAGER_PAGES.index.path, params: [] },
+  // Collection service (les nuisibles): page detail /services/[slug], slug PARTAGE
+  // fr/en (exclude i18n au schema). Distinct du registre SERVICE_DETAILS code-keye
+  // (slugs riches traduits) que la page /services/[slug].vue consomme aujourd'hui:
+  // la reconciliation (page detail pilotee par Sanity vs fixtures) se fait au lot D.
+  service: {
+    pageName: 'services/[slug]',
+    urls: { fr: '/services/[slug]', en: '/services/[slug]' },
+    params: ['slug']
+  },
   // Route dynamique du metier Ancree (remplace le 'project' de Minimaliste): pages
   // service-ville, le « ou » du SEO local, sous le hub /villes (FR) / /service-areas
   // (EN). Le slug de ville est PARTAGE entre langues; seul le segment parent est
@@ -311,6 +325,138 @@ export function staticPagePaths(locale: Locale): string[] {
       (key) => onePagerPath(key, locale)
     )
   ]
+}
+
+// ── Builders Studio (Presentation tool, consommes par sanity.config.ts) ──────
+
+/** Pattern Nuxt (/villes/[slug]) -> pattern Studio (/villes/:slug). */
+export function nuxtToStudioPattern(pattern: string): string {
+  return pattern.replace(/\[(\w+)\]/g, ':$1')
+}
+
+/** Chemin complet (prefixe + pattern de locale) d'un DocRouteSpec, en notation
+ *  Studio. La home rend '/' (FR) ou '/en'. */
+function studioRoute(spec: DocRouteSpec, locale: Locale): string {
+  const pattern = nuxtToStudioPattern(spec.urls[locale])
+  const prefix = localePrefix(locale)
+  return pattern === '/' ? (prefix || '/') : `${prefix}${pattern}`
+}
+
+/**
+ * Entrees `mainDocuments` du Presentation tool: pour chaque doc-type et chaque
+ * langue, le pattern d'URL Studio + le filter GROQ qui retrouve le document.
+ * Ordre: singletons et patterns specifiques d'abord, /blog/:slug en dernier
+ * (categorie avant article sans categorie, miroir du resolveur front qui
+ * priorise la categorie). Aucun project: villesPage/serviceCity a la place.
+ */
+export function buildStudioMainDocuments(): Array<{ route: string; filter: string }> {
+  const result: Array<{ route: string; filter: string }> = []
+
+  const singletons: WfDocType[] = [
+    'homePage',
+    'servicesPage',
+    'villesPage',
+    'aboutPage',
+    'blogPage',
+    'faqPage',
+    'contactPage',
+    'onePager'
+  ]
+  for (const docType of singletons) {
+    for (const lang of SUPPORTED_LOCALES) {
+      result.push({
+        route: studioRoute(DOC_ROUTES[docType], lang),
+        filter: `_type == "${docType}" && language == "${lang}"`
+      })
+    }
+  }
+
+  // Pages legales: routage par _id deterministe du seed, une entree par document
+  // par langue (multipage; les vues one-pager des memes documents relevent des
+  // locations, pas des mainDocuments).
+  const legalKeys: Array<{ route: Extract<RouteKey, 'terms' | 'privacy'>; idKernel: string }> = [
+    { route: 'terms', idKernel: 'conditions' },
+    { route: 'privacy', idKernel: 'confidentialite' }
+  ]
+  for (const { route, idKernel } of legalKeys) {
+    for (const lang of SUPPORTED_LOCALES) {
+      result.push({
+        route: routePath(route, lang),
+        filter: `_id == "legalPage-${idKernel}-${lang}"`
+      })
+    }
+  }
+
+  // Details a slug: service (les nuisibles) et serviceCity (les villes).
+  for (const docType of ['service', 'serviceCity'] as const) {
+    for (const lang of SUPPORTED_LOCALES) {
+      result.push({
+        route: studioRoute(DOC_ROUTES[docType], lang),
+        filter: `_type == "${docType}" && language == "${lang}" && slug.current == $slug`
+      })
+    }
+  }
+
+  // Article avec categorie (2 segments, pattern specifique avant /blog/:slug).
+  for (const lang of SUPPORTED_LOCALES) {
+    result.push({
+      route: studioRoute(DOC_ROUTES.article, lang),
+      filter: `_type == "article" && language == "${lang}" && category->slug.current == $category && slug.current == $slug`
+    })
+  }
+
+  // /blog/:slug, ambigu: categorie d'abord, billet sans categorie ensuite.
+  for (const lang of SUPPORTED_LOCALES) {
+    result.push({
+      route: studioRoute(DOC_ROUTES.category, lang),
+      filter: `_type == "category" && language == "${lang}" && slug.current == $slug`
+    })
+  }
+  for (const lang of SUPPORTED_LOCALES) {
+    result.push({
+      route: studioRoute(DOC_ROUTES.category, lang),
+      filter: `_type == "article" && language == "${lang}" && !defined(category) && slug.current == $slug`
+    })
+  }
+
+  return result
+}
+
+/**
+ * URL canonique d'un document pour `defineLocations` du Studio. Retourne null si
+ * les parametres requis manquent (doc sans slug, page legale d'id inconnu).
+ * Article sans categorie: repli sur /blog/<slug> (1 segment, miroir du front).
+ */
+export function buildStudioLocationHref(
+  docType: WfDocType,
+  doc: { _id?: string; language?: Locale; slug?: string; catSlug?: string }
+): string | null {
+  const lang = doc.language ?? DEFAULT_LOCALE
+
+  if (docType === 'legalPage') {
+    if (!doc._id) return null
+    const key = legalRouteKeyForId(doc._id)
+    return key ? routePath(key, lang) : null
+  }
+
+  if (docType === 'article' && !doc.catSlug) {
+    if (!doc.slug) return null
+    return `${routePath('blog', lang)}/${doc.slug}`
+  }
+
+  const spec = DOC_ROUTES[docType]
+  let path = spec.urls[lang]
+  if (spec.params.includes('slug')) {
+    if (!doc.slug) return null
+    path = path.replace('[slug]', doc.slug)
+  }
+  if (spec.params.includes('category')) {
+    if (!doc.catSlug) return null
+    path = path.replace('[category]', doc.catSlug)
+  }
+
+  const prefix = localePrefix(lang)
+  return path === '/' ? (prefix || '/') : `${prefix}${path}`
 }
 
 // ── Fils d'Ariane ────────────────────────────────────────────────────────────
