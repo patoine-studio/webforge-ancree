@@ -46,7 +46,12 @@ const IMAGES = {
   'equipe-rempart': join(repoRoot, 'public', 'images', 'equipe-rempart.jpg'),
   'hero-technicien': join(repoRoot, 'public', 'images', 'hero-technicien.jpg'),
   'inspection-rempart': join(repoRoot, 'public', 'images', 'inspection-rempart.jpg'),
+  // Logo de marque (brand.logo des Globales): le SVG de la favicon sert de marque.
+  'logo-rempart': join(repoRoot, 'public', 'favicon.svg'),
 }
+
+// Extension de fichier d'un chemin (pour nommer l'asset uploade: jpg, svg, ...).
+const extOf = (path) => path.slice(path.lastIndexOf('.') + 1).toLowerCase()
 
 const seed = JSON.parse(readFileSync(join(studioDir, 'seed-content.json'), 'utf8'))
 const docs = seed.documents
@@ -90,15 +95,16 @@ async function main() {
   // 1. Upload des 4 images natives (idempotent: reutilise l'asset si deja present).
   const assetMap = {}
   for (const [key, path] of Object.entries(IMAGES)) {
+    const fn = `${key}.${extOf(path)}`
     const existing = await client.fetch(
       '*[_type == "sanity.imageAsset" && originalFilename == $fn][0]._id',
-      { fn: `${key}.jpg` },
+      { fn },
     )
     if (existing) {
       assetMap[key] = existing
       console.log(`  reutilise ${key} -> ${existing}`)
     } else {
-      const asset = await client.assets.upload('image', createReadStream(path), { filename: `${key}.jpg` })
+      const asset = await client.assets.upload('image', createReadStream(path), { filename: fn })
       assetMap[key] = asset._id
       console.log(`  uploade ${key} -> ${asset._id}`)
     }

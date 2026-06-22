@@ -9,24 +9,33 @@
           "name": "Rempart Extermination",
           "homeAriaLabel": "Rempart Extermination, retour à l'accueil",
           "tagline": "Extermination résidentielle et commerciale, ancrée sur la Rive-Nord de Montréal.",
-          "foundedYear": 2008
+          "foundedYear": 2008,
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_type": "reference",
+              "_ref": "IMG:logo-rempart"
+            }
+          }
         },
         "contact": {
-          "phoneDisplay": "450 555 0199",
-          "phoneHref": "tel:+14505550199",
-          "emailDisplay": "bonjour@rempart-extermination.ca",
-          "emailHref": "mailto:bonjour@rempart-extermination.ca",
-          "areaName": "Rive-Nord de Montréal et Laval",
-          "hours": [
-            "Du lundi au dimanche",
-            "De 7 h à 21 h"
-          ],
+          "phone": "450 555 0199",
+          "email": "bonjour@rempart-extermination.ca",
           "address": {
-            "streetAddress": "1450, boulevard Industriel",
-            "addressLocality": "Terrebonne",
-            "addressRegion": "QC",
-            "postalCode": "J6Y 1W8",
-            "addressCountry": "CA"
+            "line1": "1450, boulevard Industriel",
+            "cityProv": "Terrebonne, QC",
+            "city": "Terrebonne",
+            "region": "QC",
+            "country": "CA",
+            "postal": "J6Y 1W8"
+          },
+          "areaServed": [
+            "Rive-Nord de Montréal",
+            "Laval"
+          ],
+          "hours": {
+            "weekdays": "Lundi au vendredi, 7 h à 21 h",
+            "weekend": "Samedi et dimanche, 8 h à 17 h"
           }
         },
         "nav": {
@@ -282,24 +291,33 @@
           "name": "Rempart Extermination",
           "homeAriaLabel": "Rempart Extermination, back to home",
           "tagline": "Residential and commercial pest control, rooted on Montreal's North Shore.",
-          "foundedYear": 2008
+          "foundedYear": 2008,
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_type": "reference",
+              "_ref": "IMG:logo-rempart"
+            }
+          }
         },
         "contact": {
-          "phoneDisplay": "450 555 0199",
-          "phoneHref": "tel:+14505550199",
-          "emailDisplay": "bonjour@rempart-extermination.ca",
-          "emailHref": "mailto:bonjour@rempart-extermination.ca",
-          "areaName": "North Shore of Montreal and Laval",
-          "hours": [
-            "Monday to Sunday",
-            "7 a.m. to 9 p.m."
-          ],
+          "phone": "450 555 0199",
+          "email": "bonjour@rempart-extermination.ca",
           "address": {
-            "streetAddress": "1450, boulevard Industriel",
-            "addressLocality": "Terrebonne",
-            "addressRegion": "QC",
-            "postalCode": "J6Y 1W8",
-            "addressCountry": "CA"
+            "line1": "1450 Boulevard Industriel",
+            "cityProv": "Terrebonne, QC",
+            "city": "Terrebonne",
+            "region": "QC",
+            "country": "CA",
+            "postal": "J6Y 1W8"
+          },
+          "areaServed": [
+            "North Shore of Montreal",
+            "Laval"
+          ],
+          "hours": {
+            "weekdays": "Monday to Friday, 7 a.m. to 9 p.m.",
+            "weekend": "Saturday and Sunday, 8 a.m. to 5 p.m."
           }
         },
         "nav": {
@@ -1324,7 +1342,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -1565,7 +1626,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -1649,7 +1753,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -1733,7 +1880,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -1803,7 +1993,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -1873,7 +2106,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -1988,7 +2264,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -2103,7 +2422,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -2195,7 +2557,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -2287,7 +2692,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -2411,7 +2859,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -2535,7 +3026,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
@@ -2569,7 +3103,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           },
           {
             "_key": "b2",
@@ -2621,7 +3198,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           },
           {
             "_key": "b2",
@@ -2880,7 +3500,50 @@
             "_type": "contactBlock",
             "eyebrow": "Nous joindre",
             "heading": "Dites-nous ce qui vous tracasse",
-            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même."
+            "lead": "Décrivez la situation en quelques mots et on vous revient avec un plan clair et une estimation honnête, souvent le jour même.",
+            "metaLabels": {
+              "phone": "Nous appeler",
+              "email": "Nous écrire",
+              "address": "Notre adresse",
+              "hours": "Nos heures"
+            },
+            "form": {
+              "labels": {
+                "name": "Votre nom",
+                "email": "Votre courriel",
+                "phone": "Votre téléphone",
+                "message": "Qu’est-ce qui vous tracasse?"
+              },
+              "errors": {
+                "nameRequired": "Entrez votre nom.",
+                "emailInvalid": "Entrez un courriel valide.",
+                "privacyRequired": "Veuillez accepter la politique de confidentialité."
+              },
+              "submit": {
+                "idle": "Envoyer ma demande",
+                "loading": "Envoi en cours..."
+              },
+              "errorBanner": {
+                "title": "L’envoi n’a pas fonctionné.",
+                "body": "Réessayez dans un moment, ou écrivez-nous à {email}. On veut vraiment vous lire."
+              },
+              "privacy": {
+                "text": "J’accepte la",
+                "link": {
+                  "_type": "link",
+                  "label": "politique de confidentialité",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-fr"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message reçu, merci.",
+              "body": "Un technicien de Rempart vous revient sous peu pour fixer une visite. Pour une urgence, appelez-nous."
+            }
           }
         ],
         "seo": {
@@ -3121,7 +3784,50 @@
             "_type": "contactBlock",
             "eyebrow": "Get in touch",
             "heading": "Tell us what you are dealing with",
-            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day."
+            "lead": "Describe the situation in a few words and we will get back to you with a clear plan and an honest estimate, often the same day.",
+            "metaLabels": {
+              "phone": "Call us",
+              "email": "Write to us",
+              "address": "Our address",
+              "hours": "Our hours"
+            },
+            "form": {
+              "labels": {
+                "name": "Your name",
+                "email": "Your email",
+                "phone": "Your phone",
+                "message": "What’s going on?"
+              },
+              "errors": {
+                "nameRequired": "Please enter your name.",
+                "emailInvalid": "Please enter a valid email.",
+                "privacyRequired": "Please accept the privacy policy."
+              },
+              "submit": {
+                "idle": "Send my request",
+                "loading": "Sending..."
+              },
+              "errorBanner": {
+                "title": "Your message did not go through.",
+                "body": "Please try again in a moment, or write to us at {email}. We really do want to hear from you."
+              },
+              "privacy": {
+                "text": "I accept the",
+                "link": {
+                  "_type": "link",
+                  "label": "privacy policy",
+                  "type": "internal",
+                  "internalRef": {
+                    "_type": "reference",
+                    "_ref": "legalPage-confidentialite-en"
+                  }
+                }
+              }
+            },
+            "success": {
+              "title": "Message received, thank you.",
+              "body": "A Rempart technician will get back to you shortly to set up a visit. For anything urgent, call us."
+            }
           }
         ],
         "seo": {
