@@ -48,6 +48,11 @@ function onInput(event: Event): void {
   const target = event.target as HTMLInputElement | HTMLTextAreaElement
   emit('update:modelValue', target.value)
 }
+
+/* focus() expose: la vue replace le focus sur le premier champ en faute a la
+ * soumission (pattern bouton toujours actif). */
+const control = ref<HTMLInputElement | HTMLTextAreaElement | null>(null)
+defineExpose({ focus: () => control.value?.focus() })
 </script>
 
 <template>
@@ -67,6 +72,7 @@ function onInput(event: Event): void {
     <textarea
       v-if="multiline"
       :id="id"
+      ref="control"
       class="field__control field__control--area"
       :value="modelValue"
       :rows="rows"
@@ -81,6 +87,7 @@ function onInput(event: Event): void {
     <input
       v-else
       :id="id"
+      ref="control"
       class="field__control"
       :type="type"
       :value="modelValue"

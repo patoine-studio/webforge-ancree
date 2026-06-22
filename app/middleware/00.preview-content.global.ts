@@ -8,8 +8,8 @@
 // composables relisent la cle sans le savoir: aucune modification de la couche
 // composable ni de la prod statique.
 //
-// contactUi: les libelles d'interface du contactBlock viennent d'i18n (discipline
-// 2). On les resout pour la langue courante et on les passe a transformGraph.
+// Contact: le contactBlock porte ses propres libelles + message de succes au
+// Studio (1:1 Minimaliste); transformGraph ne prend que (graph, locale).
 //
 // Garde de compile __WF_PREVIEW__: false hors preview -> Rollup elimine tout le
 // corps (zero chunk visual-editing dans le build statique). Client-only.
@@ -17,7 +17,6 @@
 import { effectScope } from 'vue'
 import { resolvePreviewQuery } from '~/queries/route-query-map'
 import { transformGraph, type ContentPayload, type SanityGraph } from '~/sanity/transform'
-import { resolveContactUi } from '~/composables/useContactUi'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (!__WF_PREVIEW__ || !import.meta.client) return
@@ -42,7 +41,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     )
     const graph = result?.data?.value
     if (graph) {
-      nuxtApp.payload.data[payloadKey(locale)] = transformGraph(graph, locale, resolveContactUi(locale))
+      nuxtApp.payload.data[payloadKey(locale)] = transformGraph(graph, locale)
     }
   } finally {
     fetchScope.stop()

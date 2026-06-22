@@ -11,21 +11,16 @@
  * Aucune numerotation. */
 import type { BlockBase } from '~/types/blocks'
 import type { ContactContent } from '~/content/contact'
-import { useContactForm, type ContactField } from '~/composables/useContactForm'
+import { useContactForm } from '~/composables/useContactForm'
 
 type ContactBlock = BlockBase<'contact'> & ContactContent
 
-defineProps<ContactBlock>()
+const props = defineProps<ContactBlock>()
 const { t, locale } = useI18n()
 
-// Messages d'erreur (chrome i18n, pas du contenu): generiques et reutilisables.
-const errorMessages: Record<ContactField, string> = {
-  name: t('contact.error_name'),
-  contact: t('contact.error_contact'),
-  message: ''
-}
-
-const { status, values, errors, turnstileToken, honeypot, submit, validate } = useContactForm(errorMessages)
+// Transport + machine a etats delegues au composable reutilisable; la validation
+// des champs et ses messages restent ici (ils viennent du contenu du bloc).
+const { status, turnstileToken, honeypot, submit } = useContactForm()
 
 // Cle publique Turnstile: vide en demo -> le widget n'est pas rendu (le geste
 // anti-bot est TERRAIN, actif seulement sur un vrai site client). Le widget reste
@@ -33,27 +28,65 @@ const { status, values, errors, turnstileToken, honeypot, submit, validate } = u
 const { public: { turnstileSiteKey } } = useRuntimeConfig()
 const turnstile = ref<{ reset: () => void } | null>(null)
 
-// Identifiants stables des champs, pour l'association label / aria-describedby.
-const fieldId: Record<ContactField, string> = {
+// Identifiants stables des champs (association label / aria-describedby).
+const fieldId = {
   name: 'contact-name',
-  contact: 'contact-contact',
+  email: 'contact-email',
+  phone: 'contact-phone',
   message: 'contact-message'
 }
 
-const successPanel = ref<{ focus: () => void } | null>(null)
+const vals = reactive({ name: '', email: '', phone: '', message: '', privacy: false })
+const errors = reactive<{ name?: string; email?: string; privacy?: string }>({})
 
-async function onSubmit(): Promise<void> {
-  await submit((firstInvalid) => {
-    // Replace le focus sur le premier champ en faute (accessibilite).
-    const el = document.getElementById(fieldId[firstInvalid])
-    el?.focus()
-  })
+// Predicats de validite par champ requis. Le message est optionnel (aucun
+// predicat). Le telephone est optionnel.
+const isNameValid = computed(() => vals.name.trim().length > 0)
+const isEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email))
+
+// Validation par champ, declenchee au blur (pose le message d'erreur depuis le
+// contenu du bloc). validate() rejoue tout a la soumission, case politique incluse.
+function validateField(field: 'name' | 'email' | 'privacy'): void {
+  if (field === 'name') errors.name = isNameValid.value ? undefined : props.form.errors.nameRequired
+  else if (field === 'email') errors.email = isEmailValid.value ? undefined : props.form.errors.emailInvalid
+  else if (field === 'privacy') errors.privacy = vals.privacy ? undefined : props.form.errors.privacyRequired
 }
 
-// Au succes, on deplace le focus vers le panneau de confirmation pour que le
-// lecteur d'ecran annonce le changement d'etat. A l'echec, un nouveau jeton
-// Turnstile est requis pour reessayer: on vide le jeton et on reinitialise le
-// widget (la banniere d'erreur, elle, s'annonce via role="alert").
+function validate(): boolean {
+  validateField('name')
+  validateField('email')
+  validateField('privacy')
+  return !errors.name && !errors.email && !errors.privacy
+}
+
+// Cocher la case efface son erreur sans attendre la prochaine soumission.
+watch(() => vals.privacy, () => {
+  if (errors.privacy) validateField('privacy')
+})
+
+type Focusable = { focus: () => void }
+const nameField = ref<Focusable | null>(null)
+const emailField = ref<Focusable | null>(null)
+const privacyField = ref<Focusable | null>(null)
+const successPanel = ref<Focusable | null>(null)
+
+// A la soumission invalide, le focus se deplace sur le PREMIER champ en erreur
+// (ordre du DOM) pour que l'usager clavier ou lecteur d'ecran sache quoi corriger.
+function focusFirstError(): void {
+  const target = errors.name
+    ? nameField.value
+    : errors.email
+      ? emailField.value
+      : errors.privacy
+        ? privacyField.value
+        : null
+  target?.focus()
+}
+
+// Au succes, on deplace le focus vers le panneau de confirmation (le bouton
+// focuse vient de disparaitre du DOM). A l'echec, un nouveau jeton Turnstile est
+// requis: on vide le jeton et on reinitialise le widget (la banniere s'annonce
+// d'elle-meme via role="alert").
 watch(status, async (next) => {
   if (next === 'success') {
     await nextTick()
@@ -64,10 +97,15 @@ watch(status, async (next) => {
   }
 })
 
-// Revalide a la perte de focus seulement si le champ portait deja une erreur
-// (on ne harcele pas l'utilisateur en cours de frappe).
-function onBlur(field: ContactField): void {
-  if (errors[field]) validate()
+async function onSubmit(): Promise<void> {
+  // Double soumission bloquee par l'etat loading, jamais par un disabled.
+  if (status.value === 'loading') return
+  if (!validate()) {
+    await nextTick()
+    focusFirstError()
+    return
+  }
+  await submit({ name: vals.name, email: vals.email, phone: vals.phone, message: vals.message })
 }
 
 function metaKind(href: string): 'external' | 'anchor' | 'internal' {
@@ -125,8 +163,8 @@ const NuxtLink = resolveComponent('NuxtLink')
           <FormSuccess
             v-if="status === 'success'"
             ref="successPanel"
-            :title="form.success.title"
-            :body="form.success.body"
+            :title="success.title"
+            :body="success.body"
           />
           <form v-else class="contact__form" novalidate @submit.prevent="onSubmit">
             <!-- Honeypot anti-bot: hors ecran, ignore des humains, rempli par les
@@ -145,34 +183,54 @@ const NuxtLink = resolveComponent('NuxtLink')
 
             <Input
               :id="fieldId.name"
-              v-model="values.name"
+              ref="nameField"
+              v-model="vals.name"
               :label="form.fields.name.label"
               :required="form.fields.name.required"
               :error="errors.name"
               :required-label="t('contact.required')"
+              type="text"
               autocomplete="name"
-              @blur="onBlur('name')"
+              @blur="validateField('name')"
             />
             <Input
-              :id="fieldId.contact"
-              v-model="values.contact"
-              :label="form.fields.contact.label"
-              :required="form.fields.contact.required"
-              :error="errors.contact"
+              :id="fieldId.email"
+              ref="emailField"
+              v-model="vals.email"
+              :label="form.fields.email.label"
+              :required="form.fields.email.required"
+              :error="errors.email"
               :required-label="t('contact.required')"
+              type="email"
               autocomplete="email"
-              @blur="onBlur('contact')"
+              @blur="validateField('email')"
+            />
+            <Input
+              :id="fieldId.phone"
+              v-model="vals.phone"
+              :label="form.fields.phone.label"
+              :optional-label="t('contact.optional')"
+              type="tel"
+              autocomplete="tel"
             />
             <Input
               :id="fieldId.message"
-              v-model="values.message"
+              v-model="vals.message"
               :label="form.fields.message.label"
-              :required="form.fields.message.required"
               :optional-label="t('contact.optional')"
               multiline
               :rows="5"
-              @blur="onBlur('message')"
             />
+
+            <Checkbox
+              ref="privacyField"
+              v-model="vals.privacy"
+              required
+              :error="errors.privacy"
+            >
+              {{ form.privacy.text }}
+              <NuxtLink :to="form.privacy.href">{{ form.privacy.linkText }}</NuxtLink>
+            </Checkbox>
 
             <div class="contact__actions" :class="{ 'contact__actions--loading': status === 'loading' }">
               <Button
@@ -181,7 +239,7 @@ const NuxtLink = resolveComponent('NuxtLink')
                 :icon="status === 'loading' ? 'lucide:loader-circle' : 'lucide:send'"
                 :aria-busy="status === 'loading' ? 'true' : undefined"
               >
-                {{ status === 'loading' ? form.submitLoading : form.submitIdle }}
+                {{ status === 'loading' ? form.submit.loading : form.submit.idle }}
               </Button>
             </div>
 
@@ -211,11 +269,6 @@ const NuxtLink = resolveComponent('NuxtLink')
                 @error="() => (turnstileToken = '')"
               />
             </ClientOnly>
-
-            <p v-if="form.privacyNote" class="contact__privacy wf-body-3">
-              <Icon name="lucide:lock" class="contact__privacy-icon" aria-hidden="true" />
-              {{ form.privacyNote }}
-            </p>
           </form>
         </div>
       </div>

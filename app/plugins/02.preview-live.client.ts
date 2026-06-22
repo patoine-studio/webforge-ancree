@@ -8,9 +8,8 @@
 // livePayload. Les composables lisent usePayload() dans des computed -> mise a
 // jour in-place.
 //
-// contactUi: les libelles d'interface du contactBlock (NAP + formulaire) viennent
-// d'i18n (discipline 2). On les resout une fois (la langue ne change pas durant la
-// session) et on les passe a chaque transformGraph.
+// Contact: le contactBlock porte ses propres libelles + message de succes au
+// Studio (1:1 Minimaliste); transformGraph ne prend que (graph, locale).
 //
 // Purete statique: suffixe `.client` (jamais cote serveur) + garde __WF_PREVIEW__
 // (constante de compilation) en tete -> corps mort en build statique, elague par
@@ -19,7 +18,6 @@
 import { effectScope, watch, reactive } from 'vue'
 import { resolvePreviewQuery } from '~/queries/route-query-map'
 import { transformGraph, type ContentPayload, type SanityGraph } from '~/sanity/transform'
-import { resolveContactUi } from '~/composables/useContactUi'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   if (!__WF_PREVIEW__ || import.meta.server) return
@@ -34,7 +32,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const { useSanityQuery } = await import('@nuxtjs/sanity/runtime/composables/useSanityQuery.js')
 
   const locale = useWfLocale()
-  const contactUi = resolveContactUi(locale)
   const livePayload = useState<ContentPayload | null>(livePayloadKey(locale), () => null)
   const router = useRouter()
 
@@ -54,7 +51,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       watch(
         data,
         (graph) => {
-          if (graph) livePayload.value = transformGraph(graph, locale, contactUi)
+          if (graph) livePayload.value = transformGraph(graph, locale)
         },
         { immediate: true }
       )

@@ -17,10 +17,10 @@
 // une transformation qui echoue rend createError fatal. Un generate sans contenu
 // doit ECHOUER, jamais produire un site vide. Aucun repli fixtures runtime.
 //
-// contactUi: en famille Ancree, le contactBlock Sanity ne porte qu'eyebrow/
-// heading/lead. Les etiquettes de coordonnees et les libelles du formulaire sont
-// du chrome produit (discipline 2), tires d'i18n et injectes ici dans
-// transformGraph (3e parametre). resolveContactUi lit les messages de la langue.
+// Contact: depuis l'arrimage 1:1 Minimaliste, le contactBlock porte ses propres
+// libelles (etiquettes NAP, champs du formulaire, bouton, banniere, consentement)
+// et son message de succes, tous editables au Studio. Le transform les lit du bloc
+// (plus d'injection i18n): transformGraph ne prend que (raw, locale).
 //
 // Purete statique: AUCUN import statique des composables @nuxtjs/sanity ici (ils
 // trainent des marqueurs visual-editing dans le bundle client). Deux gardes de
@@ -33,7 +33,6 @@
 import { CONTENT_GRAPH_QUERY } from '~/queries/documents'
 import { resolvePreviewQuery } from '~/queries/route-query-map'
 import { transformGraph, type SanityGraph, type WfLocale } from '~/sanity/transform'
-import { resolveContactUi } from '~/composables/useContactUi'
 
 // Cache au niveau module: une promesse par langue, partagee entre toutes les
 // routes prerendues du meme process de generate.
@@ -70,7 +69,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         fatal: true
       })
     }
-    nuxtApp.payload.data[payloadKey(locale)] = transformGraph(data.value, locale, resolveContactUi(locale))
+    nuxtApp.payload.data[payloadKey(locale)] = transformGraph(data.value, locale)
     return
   }
 
@@ -110,13 +109,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
 
     const locale = useWfLocale()
-    const contactUi = resolveContactUi(locale)
     const { error } = await useAsyncData(
       payloadKey(locale),
       () => fetchGraph(locale),
       // Le transform ne tourne qu'au fetch serveur: le client recoit la forme
       // finale, une seule copie serialisee par route.
-      { transform: (raw: SanityGraph) => transformGraph(raw, locale, contactUi) }
+      { transform: (raw: SanityGraph) => transformGraph(raw, locale) }
     )
 
     // Un generate sans contenu doit ECHOUER, jamais produire un site vide:

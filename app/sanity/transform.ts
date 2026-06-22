@@ -40,7 +40,7 @@ import type { AboutContent } from '../content/about'
 import type { TestimonialsContent } from '../content/testimonials'
 import type { FaqContent } from '../content/faq'
 import type { CtaBandContent } from '../content/cta-band'
-import type { ContactContent, ContactForm, ContactMetaItem } from '../content/contact'
+import type { ContactContent } from '../content/contact'
 import type { ProcessContent } from '../content/process'
 import type { CategoryContent } from '../content/blog'
 import type { ArticleContent } from '../content/article'
@@ -209,9 +209,18 @@ interface SanityCtaBandBlock extends SanityCtaBand {
 interface SanityContactBlock {
   _type: 'contactBlock'
   _key: string
-  eyebrow?: Maybe<string>
+  eyebrow: string
   heading: string
   lead: string
+  metaLabels: { phone: string; email: string; address: string; hours: string }
+  form: {
+    labels: { name: string; email: string; phone: string; message: string }
+    errors: { nameRequired: string; emailInvalid: string; privacyRequired: string }
+    submit: { idle: string; loading: string }
+    errorBanner: { title: string; body: string }
+    privacy: { text: string; link: SanityLink }
+  }
+  success: { title: string; body: string }
 }
 type SanityRawBlock =
   | SanityTrustBarBlock
@@ -448,32 +457,6 @@ export interface SanityGraph {
   categories: SanityCategory[]
   testimonials: SanityTestimonial[]
   faqItems: SanityFaqItem[]
-}
-
-// ── Texte d'interface injecte (discipline 2: libelles hors Sanity) ────────────
-//
-// Le contactBlock ne porte que eyebrow/heading/lead au Studio. Les libelles du
-// FORMULAIRE (champs, etats du bouton, succes, banniere d'echec, confidentialite)
-// et les ETIQUETTES des coordonnees (NAP) sont de l'INTERFACE: ils vivent en i18n,
-// jamais dans Sanity (discipline 2) ni en dur dans cette couche pure. resolveBlocks
-// (couche composable, qui a acces a i18n) les injecte ici. Le transform JOINT la
-// NAP structuree de siteSettings.contact a ces etiquettes (jointure structuree, PAS
-// par sous-chaine de label comme l'ancien content.ts).
-
-/** Etiquettes des quatre coordonnees du panneau contact (du i18n). */
-export interface ContactMetaLabels {
-  phone: string
-  email: string
-  area: string
-  hours: string
-}
-
-/** Texte d'interface du contactBlock, injecte par resolveBlocks (i18n). */
-export interface ContactUiText {
-  /** Etiquettes des coordonnees jointes a la NAP de siteSettings. */
-  metaLabels: ContactMetaLabels
-  /** Libelles du formulaire (champs, bouton, succes, echec, confidentialite). */
-  form: ContactForm
 }
 
 // ── Modele du payload (sortie de transformGraph) ─────────────────────────────
@@ -1134,7 +1117,6 @@ function resolveSeo(
 function transformBlock(
   block: SanityRawBlock,
   site: SiteContent,
-  contactUi: ContactUiText,
   locale: WfLocale
 ): PayloadPageBlock {
   const key = ANCHOR_KEY[block._type] ?? block._key
@@ -1215,57 +1197,77 @@ function transformBlock(
     case 'ctaBand':
       return { _type: 'cta-band', _key: key, ...transformCtaBand(block, locale) }
     case 'contactBlock':
-      return transformContactBlock(block, site, contactUi, key)
+      return transformContactBlock(block, site, locale, key)
     default:
       return assertNever(block)
   }
 }
 
 /**
- * Compose le contactBlock final. Le bloc Sanity ne porte que eyebrow/heading/lead;
- * la NAP (telephone, courriel, zone, heures) est JOINTE depuis siteSettings.contact
- * de facon STRUCTUREE (chaque etiquette associee a son champ source, pas par
- * sous-chaine de label comme l'ancien content.ts), et les libelles du formulaire
- * viennent de l'interface (ContactUiText, i18n). C'est le point delicat: la fixture
- * disparait mais ContactContent.form/meta sont toujours produits.
+ * Compose le contactBlock final. Le bloc Sanity porte les LIBELLES (etiquettes NAP,
+ * champs du formulaire, bouton, banniere d'echec, consentement) ET le message de
+ * succes, tous editables au Studio (parite 1:1 Minimaliste). La NAP (telephone,
+ * courriel, adresse, heures) est JOINTE depuis siteSettings.contact: le format
+ * machine tel:/mailto: est DERIVE en code (phoneE164), jamais saisi. Le jeton
+ * {email} de la banniere d'echec est remplace par le courriel des Globales.
  */
 function transformContactBlock(
   block: SanityContactBlock,
   site: SiteContent,
-  contactUi: ContactUiText,
+  locale: WfLocale,
   key: string
 ): ContactBlock {
-  // NAP jointe depuis siteSettings.contact (12.4): le bloc Sanity ne porte que
-  // eyebrow/heading/lead; les valeurs (numero, courriel, zone, heures) ont un seul
-  // point d'edition. Le format machine tel:/mailto: est DERIVE en code (phoneE164),
-  // jamais saisi. Les libelles du panneau restent de l'interface (contactUi, i18n).
   const c = site.contact
-  const labels = contactUi.metaLabels
-  const meta: ContactMetaItem[] = [
-    { label: labels.phone, value: c.phone, href: `tel:${c.phoneE164}` },
-    { label: labels.email, value: c.email, href: `mailto:${c.email}` },
-    { label: labels.area, lines: c.areaServed },
-    { label: labels.hours, lines: [c.hours.weekdays, c.hours.weekend] }
+  const meta: ContactContent['meta'] = [
+    { label: block.metaLabels.phone, value: c.phone, href: `tel:${c.phoneE164}` },
+    { label: block.metaLabels.email, value: c.email, href: `mailto:${c.email}` },
+    {
+      label: block.metaLabels.address,
+      lines: [c.address.line1, `${c.address.cityProv}, ${c.address.postal}`]
+    },
+    { label: block.metaLabels.hours, lines: [c.hours.weekdays, c.hours.weekend] }
   ]
   return {
     _type: 'contact',
     _key: key,
-    eyebrow: opt(block.eyebrow),
+    eyebrow: block.eyebrow,
     heading: block.heading,
     lead: block.lead,
     meta,
-    // Libelles du formulaire: interface pure, injectee depuis i18n.
-    form: contactUi.form
+    form: {
+      // Les flags required restent du code (4.5), seuls les libelles viennent du Studio.
+      fields: {
+        name: { label: block.form.labels.name, required: true as const },
+        email: { label: block.form.labels.email, required: true as const },
+        phone: { label: block.form.labels.phone, required: false as const },
+        message: { label: block.form.labels.message, required: false as const }
+      },
+      errors: {
+        nameRequired: block.form.errors.nameRequired,
+        emailInvalid: block.form.errors.emailInvalid,
+        privacyRequired: block.form.errors.privacyRequired
+      },
+      submit: { idle: block.form.submit.idle, loading: block.form.submit.loading },
+      errorBanner: {
+        title: block.form.errorBanner.title,
+        body: block.form.errorBanner.body.replace('{email}', c.email)
+      },
+      privacy: {
+        text: block.form.privacy.text,
+        linkText: block.form.privacy.link.label,
+        href: resolveLink(block.form.privacy.link, locale)
+      }
+    },
+    success: { title: block.success.title, body: block.success.body }
   }
 }
 
 export function transformPageBuilder(
   blocks: Maybe<SanityRawBlock[]>,
   site: SiteContent,
-  contactUi: ContactUiText,
   locale: WfLocale
 ): PayloadPageBlock[] {
-  return (blocks ?? []).map((block) => transformBlock(block, site, contactUi, locale))
+  return (blocks ?? []).map((block) => transformBlock(block, site, locale))
 }
 
 // ── Corps d'article (7 blocs) ─────────────────────────────────────────────────
@@ -1606,11 +1608,8 @@ function transformFaqItem(raw: SanityFaqItem): FaqItemPayload {
  * manquante qui rendrait le site incomplet (singleton absent, hero manquant, page
  * legale manquante, lien brise) interrompt la transformation avec un message clair.
  * Un generate sans contenu doit echouer, jamais produire un site vide.
- *
- * `contactUi` injecte les libelles d'interface du contactBlock (formulaire +
- * etiquettes NAP) depuis i18n (discipline 2): la couche pure ne code aucun libelle.
  */
-export function transformGraph(raw: SanityGraph, locale: WfLocale, contactUi: ContactUiText): ContentPayload {
+export function transformGraph(raw: SanityGraph, locale: WfLocale): ContentPayload {
   const siteSettings = requireDoc(raw.siteSettings, 'siteSettings')
   const homePage = requireDoc(raw.homePage, 'homePage')
   const servicesPage = requireDoc(raw.servicesPage, 'servicesPage')
@@ -1627,7 +1626,7 @@ export function transformGraph(raw: SanityGraph, locale: WfLocale, contactUi: Co
   const site = transformSiteSettings(siteSettings, locale)
   const seoDefaults = site.seo
   const builder = (blocks: Maybe<SanityRawBlock[]>): PayloadPageBlock[] =>
-    transformPageBuilder(blocks, site, contactUi, locale)
+    transformPageBuilder(blocks, site, locale)
 
   const heroes = {
     home: asHomeHero(homePage.hero, 'homePage', locale),
