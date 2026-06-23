@@ -64,12 +64,14 @@ defineProps<TrustBarBlock>()
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 1.15;
+  text-wrap: balance;
 }
 .trust__label {
   margin: 0;
   font-size: 1.4rem;
   line-height: 1.3;
   color: color-mix(in oklch, var(--text-ondeep) 74%, transparent);
+  text-wrap: balance;
 }
 
 @container site (min-width: 1024px) {
