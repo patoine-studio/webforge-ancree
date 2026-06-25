@@ -15,8 +15,11 @@
   font-optical-sizing: auto;
 }
 .wf-h1 {
-  font-size: clamp(4.2rem, calc(2.5rem + 4.8vw), 8.6rem);
-  line-height: 1.0;
+  font-size: clamp(4.2rem, calc(2.5rem + 4.8vw), 7.2rem);
+  /* 1.1, pas 1.0: en francais accentue, a 1.0 le circonflexe d'une ligne (ô, ê)
+   * percute la descendante de la ligne du dessus (p, q). Garde le serre du
+   * display tout en degageant ~0.1em entre les lignes. */
+  line-height: 1.1;
   letter-spacing: -0.025em;
   font-weight: 800;
 }

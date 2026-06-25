@@ -60,44 +60,46 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
     <div class="hero__scrim" aria-hidden="true" />
 
     <div class="wf-container hero__inner">
-      <div class="hero__content" data-reveal-stagger>
-        <p v-if="kicker" class="hero__kicker wf-caption">
-          <Icon name="lucide:map-pin" class="hero__kicker-icon" aria-hidden="true" />
-          {{ kicker }}
-        </p>
-        <h1 class="hero__title wf-h1">{{ title }}</h1>
-        <p class="hero__lead wf-body-1">{{ lead }}</p>
-        <div class="hero__ctas">
-          <Button
-            :href="primaryCta.href"
-            :kind="ctaKind(primaryCta.href)"
-            variant="call"
-            icon="lucide:phone"
-            :pulse="true"
-          >
-            {{ primaryCta.label }}
-          </Button>
-          <Button
-            :href="secondaryCta.href"
-            :kind="ctaKind(secondaryCta.href)"
-            variant="ghost"
-            tone="ondark"
-            icon="lucide:arrow-right"
-          >
-            {{ secondaryCta.label }}
-          </Button>
-        </div>
-      </div>
-
-      <dl class="hero__proofs" data-reveal>
-        <div v-for="proof in meta" :key="proof.value" class="hero__proof">
-          <Icon v-if="proof.icon" :name="proof.icon" class="hero__proof-icon" aria-hidden="true" />
-          <div class="hero__proof-text">
-            <dt class="hero__proof-value">{{ proof.value }}</dt>
-            <dd class="hero__proof-label">{{ proof.label }}</dd>
+      <div class="hero__grid section-grid">
+        <div class="hero__content" data-reveal-stagger>
+          <p v-if="kicker" class="hero__kicker wf-caption">
+            <Icon name="lucide:map-pin" class="hero__kicker-icon" aria-hidden="true" />
+            {{ kicker }}
+          </p>
+          <h1 class="hero__title wf-h1">{{ title }}</h1>
+          <p class="hero__lead wf-body-1">{{ lead }}</p>
+          <div class="hero__ctas">
+            <Button
+              :href="primaryCta.href"
+              :kind="ctaKind(primaryCta.href)"
+              variant="call"
+              icon="lucide:phone"
+              :pulse="true"
+            >
+              {{ primaryCta.label }}
+            </Button>
+            <Button
+              :href="secondaryCta.href"
+              :kind="ctaKind(secondaryCta.href)"
+              variant="ghost"
+              tone="ondark"
+              icon="lucide:arrow-right"
+            >
+              {{ secondaryCta.label }}
+            </Button>
           </div>
         </div>
-      </dl>
+
+        <dl class="hero__proofs" data-reveal>
+          <div v-for="proof in meta" :key="proof.value" class="hero__proof">
+            <Icon v-if="proof.icon" :name="proof.icon" class="hero__proof-icon" aria-hidden="true" />
+            <div class="hero__proof-text">
+              <dt class="hero__proof-label">{{ proof.label }}</dt>
+              <dd class="hero__proof-value">{{ proof.value }}</dd>
+            </div>
+          </div>
+        </dl>
+      </div>
     </div>
   </section>
 </template>
@@ -174,12 +176,26 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
 
 .hero__inner {
   position: relative;
-  min-height: clamp(56rem, 92vh, 88rem);
+  /* svh (pas vh/dvh): plein ecran stable, sans saut quand la barre d'URL mobile
+   * se retracte. min-height (pas height): un contenu empile plus grand grandit
+   * au lieu d'etre coupe. */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: clamp(3rem, 5vh, 4.4rem);
   padding-block: calc(var(--header-height) + 3rem) clamp(4rem, 6vh, 7rem);
+}
+
+/* Contenu et corniche de preuves se calent sur les 16 pistes de la page, comme
+ * toutes les autres sections (.section-grid niche dans .wf-container). Le col-gap
+ * (gouttiere) vient de la grille; le row-gap separe le bloc de titre de la
+ * corniche au sol. */
+.hero__grid {
+  row-gap: clamp(3rem, 5vh, 4.4rem);
+}
+.hero__content,
+.hero__proofs {
+  grid-column: 1 / -1;
 }
 
 .hero__content {
@@ -234,8 +250,15 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
 }
 .hero__proof {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
+}
+/* Liste de description: <dt> = libelle (terme), <dd> = valeur. column-reverse
+ * garde la valeur visuellement au-dessus du libelle (ordre semantique inverse de
+ * l'ordre visuel, sans changer l'apparence). */
+.hero__proof-text {
+  display: flex;
+  flex-direction: column-reverse;
 }
 .hero__proof-icon {
   width: 2.4rem;
@@ -257,11 +280,14 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   color: color-mix(in oklch, var(--text-ondeep) 74%, transparent);
 }
 
-/* Desktop: le contenu garde une mesure confortable a gauche, l'image respire a
- * droite (le sujet reste visible). */
+/* Desktop: le titre, le lead et les CTA tiennent une large mesure a gauche
+ * (cols 1-10, asymetrie posee ~60/40, meme calage que SectionHead); l'image
+ * respire a droite, le sujet reste visible. La corniche de preuves reste pleine
+ * largeur (ligne de sol bord a bord). Les mesures 18ch/46ch du titre et du lead
+ * bornent la longueur de ligne a l'interieur de la colonne. */
 @container site (min-width: 1024px) {
   .hero__content {
-    max-width: 64rem;
+    grid-column: 1 / span 10;
   }
   .hero__proofs {
     gap: 1.6rem 4rem;
