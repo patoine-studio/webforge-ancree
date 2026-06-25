@@ -17,7 +17,7 @@ const props = withDefaults(
 )
 const emit = defineEmits<{ close: [] }>()
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 // Marque et numero d'appel depuis siteSettings (discipline 3): rien en dur.
 const site = useContent('site')
 const brandWords = computed(() => {
@@ -134,7 +134,7 @@ onBeforeUnmount(() => {
             {{ t('hero.cta_primary') }}
           </Button>
           <a class="mm__phone" :href="phoneHref">{{ site.contact.phone }}</a>
-          <SwitchLocalePathLink class="mm__lang" :locale="locale === 'fr' ? 'en' : 'fr'" @click="close">{{ t('home.switch') }}</SwitchLocalePathLink>
+          <LangSwitcher class="mm__lang" @click="close" />
         </div>
       </div>
     </div>

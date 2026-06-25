@@ -34,11 +34,9 @@ const brandWords = computed(() => {
 })
 // Coordonnees d'appel depuis la NAP Sanity (tel: derive de phoneE164).
 const phoneHref = computed(() => `tel:${site.value.contact.phoneE164}`)
-// Bascule de langue via <SwitchLocalePathLink>: ses routes sont resolues AVANT
-// l'envoi, en honorant setI18nParams (slug TRADUIT par langue des pages nuisible).
-// L'imperatif switchLocalePath garderait le slug brut au prerendu -> lien croise
-// casse (et pages fantomes via crawlLinks).
-const otherLocale = computed<'fr' | 'en'>(() => (locale.value === 'fr' ? 'en' : 'fr'))
+// Bascule de langue: deleguee a <LangSwitcher>, lien <a> en plein chargement (le
+// payload Sanity est fetche par langue cote serveur, une nav client cross-locale
+// laisserait le contenu de la langue de depart). Voir LangSwitcher.vue.
 
 // Liens du menu mobile, normalises {label, href} selon le mode. En landing, les
 // ancres sont qualifiees par la racine du one-pager (landingHref).
@@ -172,7 +170,7 @@ watch(() => route.fullPath, () => {
       </nav>
 
       <div class="header__actions">
-        <SwitchLocalePathLink class="header__lang" :locale="otherLocale">{{ t('home.switch') }}</SwitchLocalePathLink>
+        <LangSwitcher class="header__lang" />
         <!-- CTA d'urgence: un seul geste d'appel. Le libelle EST le numero (confiance
              + clic-pour-appeler), precede d'une icone cercle-alerte (alerte douce) de la
              meme couleur que le texte. Bouton ambre, langage d'appel de la famille.
