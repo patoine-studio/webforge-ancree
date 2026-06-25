@@ -12,6 +12,19 @@ defineProps<ServiceCitiesBlock>()
 
 const { t, locale } = useI18n()
 const route = useRoute()
+const NuxtLink = resolveComponent('NuxtLink')
+
+// Tag + bindings derives du type de lien (calque le pattern du Button): interne
+// = NuxtLink avec :to; externe = <a href> focusable avec target/rel. Evite le
+// <a> sans href (non focusable) du cas externe quand :to vaut undefined.
+function cityTag(href: string) {
+  return cityKind(href) === 'internal' ? NuxtLink : 'a'
+}
+function cityBindings(href: string) {
+  return cityKind(href) === 'internal'
+    ? { to: href }
+    : { href, target: '_blank', rel: 'noopener noreferrer' }
+}
 
 // Geste « voir toutes les villes » vers le hub /villes (symetrie avec le bloc
 // services -> /services). Supprime sur le hub lui-meme pour eviter l'auto-lien.
@@ -33,12 +46,7 @@ function cityKind(href: string): 'internal' | 'external' {
 
       <div class="cities__layout section-grid">
         <aside class="cities__area" data-reveal>
-          <svg class="cities__rings" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-            <circle cx="100" cy="100" r="92" />
-            <circle cx="100" cy="100" r="66" />
-            <circle cx="100" cy="100" r="40" />
-            <circle cx="100" cy="100" r="16" />
-          </svg>
+          <CoverageRings class="cities__rings" />
           <div class="cities__area-body">
             <span class="cities__pin" aria-hidden="true">
               <Icon name="lucide:map-pin" />
@@ -56,14 +64,14 @@ function cityKind(href: string): 'internal' | 'external' {
             class="cities__item"
             :class="{ 'cities__item--featured': city.featured }"
           >
-            <NuxtLink :to="cityKind(city.href) === 'internal' ? city.href : undefined" class="cities__link">
+            <component :is="cityTag(city.href)" v-bind="cityBindings(city.href)" class="cities__link">
               <Icon name="lucide:map-pin" class="cities__item-pin" aria-hidden="true" />
               <span class="cities__item-text">
                 <span class="cities__item-name wf-h5">{{ city.name }}</span>
                 <span v-if="city.note" class="cities__item-note">{{ city.note }}</span>
               </span>
               <Icon name="lucide:arrow-up-right" class="cities__item-arrow" aria-hidden="true" />
-            </NuxtLink>
+            </component>
           </li>
         </ul>
       </div>
@@ -77,7 +85,7 @@ function cityKind(href: string): 'internal' | 'external' {
   background: var(--bg-alt);
 }
 .cities__layout {
-  margin-top: 4.8rem;
+  margin-top: var(--space-head-content);
   align-items: start;
 }
 
@@ -99,11 +107,7 @@ function cityKind(href: string): 'internal' | 'external' {
   width: 22rem;
   height: 22rem;
   opacity: 0.5;
-}
-.cities__rings circle {
-  fill: none;
-  stroke: color-mix(in oklch, var(--accent-call) 55%, transparent);
-  stroke-width: 1;
+  color: color-mix(in oklch, var(--accent-call) 55%, transparent);
 }
 .cities__area-body {
   position: relative;
@@ -156,13 +160,12 @@ function cityKind(href: string): 'internal' | 'external' {
   box-shadow: var(--elev-low);
   color: var(--text-base);
   text-decoration: none;
-  transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+  /* Meme geste que les tuiles de service: au survol le fond se teinte d'ambre
+   * doux, pas de lift, courbe ease-out DOUCE a 240ms (graduelle). */
+  transition: background-color var(--motion-duration-line) var(--motion-ease-out);
 }
 .cities__link:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--elev-mid);
+  background: var(--accent-call-soft);
 }
 .cities__item-pin {
   width: 2.2rem;
@@ -188,7 +191,7 @@ function cityKind(href: string): 'internal' | 'external' {
   height: 1.9rem;
   flex: none;
   color: var(--text-muted);
-  transition: transform var(--motion-duration-hover) var(--motion-ease-settle);
+  transition: transform var(--motion-duration-line) var(--motion-ease-out);
 }
 .cities__link:hover .cities__item-arrow {
   transform: translate(3px, -3px);

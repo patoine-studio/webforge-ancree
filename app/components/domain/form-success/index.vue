@@ -34,7 +34,7 @@ void props
     <span class="success__mark" aria-hidden="true">
       <Icon name="lucide:check" />
     </span>
-    <p class="success__title wf-h4">{{ title }}</p>
+    <h3 class="success__title wf-h4">{{ title }}</h3>
     <p class="success__body wf-body-2">{{ body }}</p>
   </div>
 </template>

@@ -43,7 +43,7 @@
     :aria-label="label || caption || undefined"
     :aria-hidden="label || caption ? undefined : 'true'"
   >
-    <svg class="wf-ph-stripes" aria-hidden="true" preserveAspectRatio="none">
+    <svg class="wf-ph-stripes" aria-hidden="true" focusable="false" preserveAspectRatio="none">
       <defs>
         <pattern
           :id="patternId"

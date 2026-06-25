@@ -76,7 +76,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   max-width: 46ch;
 }
 .shead__ctas {
-  margin-top: 2.4rem;
+  margin-top: var(--space-lead-cta);
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;

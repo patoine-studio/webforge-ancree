@@ -85,6 +85,8 @@ const hasNext = computed(() => props.page < props.totalPages)
   grid-column: 2;
   justify-self: center;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 0.8rem;
   margin: 0;
@@ -205,6 +207,16 @@ a.pagination__num:active {
   }
   .pagination__edge {
     padding-inline: 1rem;
+  }
+}
+
+/* Tactile: garde-fou de cible >= 44px (rem peuvent tomber sous le seuil si la
+ * racine est < 16px). Ne touche pas le desktop (pointer fin). */
+@media (pointer: coarse) {
+  .pagination__num,
+  .pagination__edge {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 </style>

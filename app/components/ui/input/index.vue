@@ -151,7 +151,7 @@ defineExpose({ focus: () => control.value?.focus() })
   min-height: 12rem;
 }
 .field__control::placeholder {
-  color: color-mix(in oklch, var(--text-muted) 70%, transparent);
+  color: color-mix(in oklch, var(--text-muted) 85%, transparent);
 }
 .field__control:hover {
   border-color: color-mix(in oklch, var(--text-base) 24%, transparent);

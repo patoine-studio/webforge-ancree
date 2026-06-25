@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /* A propos: media-texte en ZIGZAG, signature Ancree. Une grande photo d'equipe
- * ancree a gauche (cols 1-6), le recit a droite (cols 7-12), asymetrie posee,
- * empile au mobile. La photo n'est pas un rectangle sage de plus: une carte de
+ * ancree a gauche (cols 1-9, large), le recit a droite (cols 11-16, mesure plus
+ * etroite), col 10 en gouttiere: asymetrie posee, jamais un 6/6 sage. Empile au
+ * mobile. La photo n'est pas un rectangle sage de plus: une carte de
  * chiffres de confiance en bleu nuit la CHEVAUCHE par le bas, comme une plaque
  * posee au sol, et un filet ambre signe le coin. Les grands chiffres deviennent
  * des elements graphiques (valeur ambre en display lourd, qualificatif sobre).
@@ -34,8 +35,11 @@ defineProps<AboutBlock>()
 
           <dl class="about__stats" data-reveal-stagger>
             <div v-for="stat in stats" :key="stat.label" class="about__stat">
-              <dt class="about__stat-value">{{ stat.value }}</dt>
-              <dd class="about__stat-label">{{ stat.label }}</dd>
+              <!-- Semantique correcte: le qualificatif est le terme (dt), la valeur
+                   sa description (dd). L'ordre visuel (valeur au-dessus du libelle)
+                   est retabli par CSS (order), pas par l'ordre du markup. -->
+              <dt class="about__stat-label wf-body-3">{{ stat.label }}</dt>
+              <dd class="about__stat-value">{{ stat.value }}</dd>
             </div>
           </dl>
         </div>
@@ -65,7 +69,7 @@ defineProps<AboutBlock>()
   row-gap: 4.8rem;
 }
 /* Mobile et tablette: la photo et le recit prennent toute la largeur, empiles.
- * Le zigzag 6/6 ne s'active qu'au desktop (la section-grid a 4 colonnes en
+ * L'asymetrie 9/6 ne s'active qu'au desktop (la section-grid a 4 colonnes en
  * dessous, donc sans cette regle les enfants se coinceraient dans une colonne). */
 .about__media,
 .about__copy {
@@ -113,6 +117,29 @@ defineProps<AboutBlock>()
 .about__stat {
   position: relative;
   padding-left: 1.6rem;
+  /* Markup dt(libelle) -> dd(valeur) pour la semantique; on retablit l'ordre
+   * visuel (valeur en haut, libelle en bas) sans toucher au DOM. */
+  display: flex;
+  flex-direction: column;
+}
+/* Valeur: gros chiffre graphique signature (DESIGN.md: « display lourd »). Echelle
+ * propre, plus marquee que wf-h3, assumee comme element graphique (pas un titre de
+ * corps). order: 0 la garde en haut de l'empilement. */
+.about__stat-value {
+  order: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, calc(2.4rem + 1.4vw), 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent-call);
+}
+/* Libelle: echelle de corps portee par wf-body-3 (sur l'element). On garde la
+ * couleur sur fond sombre (differe du wf-body-3 de base) et l'ecart a la valeur. */
+.about__stat-label {
+  order: 1;
+  margin: 0.8rem 0 0;
+  color: color-mix(in oklch, var(--text-ondeep) 78%, transparent);
 }
 /* Petit trait ambre vertical devant chaque chiffre (rappel de la signature). */
 .about__stat::before {
@@ -124,21 +151,6 @@ defineProps<AboutBlock>()
   width: 3px;
   border-radius: 2px;
   background: var(--accent-call);
-}
-.about__stat-value {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(3rem, calc(2.4rem + 1.4vw), 4rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--accent-call);
-}
-.about__stat-label {
-  margin: 0.8rem 0 0;
-  font-family: var(--font-body);
-  font-size: 1.5rem;
-  line-height: 1.35;
-  color: color-mix(in oklch, var(--text-ondeep) 78%, transparent);
 }
 
 /* Recit. */

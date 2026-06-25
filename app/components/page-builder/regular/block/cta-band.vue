@@ -23,19 +23,16 @@ function linkKind(href: string): 'internal' | 'external' | 'anchor' {
 <template>
   <section class="ctaband">
     <div class="wf-container">
-      <div class="ctaband__panel">
-        <svg class="ctaband__rings" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-          <circle cx="100" cy="100" r="92" />
-          <circle cx="100" cy="100" r="66" />
-          <circle cx="100" cy="100" r="40" />
-          <circle cx="100" cy="100" r="16" />
-        </svg>
+      <div class="ctaband__panel" data-reveal>
+        <CoverageRings class="ctaband__rings" />
 
-        <div class="ctaband__layout" data-reveal-stagger>
+        <div class="ctaband__layout section-grid" data-reveal-stagger>
           <div class="ctaband__lede">
-            <p class="ctaband__eyebrow wf-caption">
-              <span class="ctaband__tick" aria-hidden="true" />
-              <Icon name="lucide:shield-check" class="ctaband__eyebrow-icon" aria-hidden="true" />
+            <!-- Liseré décoratif (filet ambre + bouclier): sans texte, masqué aux
+                 lecteurs d'écran. Le sens porte sur le h2 ci-dessous. -->
+            <p class="ctaband__eyebrow wf-caption" aria-hidden="true">
+              <span class="ctaband__tick" />
+              <Icon name="lucide:shield-check" class="ctaband__eyebrow-icon" />
             </p>
             <h2 class="ctaband__title wf-h2">{{ title }}</h2>
             <p v-if="subtitle" class="ctaband__subtitle wf-body-1">{{ subtitle }}</p>
@@ -94,17 +91,19 @@ function linkKind(href: string): 'internal' | 'external' | 'anchor' {
   height: 34rem;
   opacity: 0.45;
   pointer-events: none;
-}
-.ctaband__rings circle {
-  fill: none;
-  stroke: color-mix(in oklch, var(--accent-call) 55%, transparent);
-  stroke-width: 1;
+  color: color-mix(in oklch, var(--accent-call) 55%, transparent);
 }
 
+/* La disposition reprend les 16 pistes de la page (.section-grid) DANS le panneau:
+ * une seule source de largeur, asymétrie posée au desktop. Empilé en dessous (les
+ * deux enfants prennent toute la largeur), avec une respiration verticale. */
 .ctaband__layout {
   position: relative;
-  display: grid;
-  gap: 3.2rem;
+  row-gap: 3.2rem;
+}
+.ctaband__lede,
+.ctaband__actions {
+  grid-column: 1 / -1;
 }
 
 .ctaband__eyebrow {
@@ -159,15 +158,16 @@ function linkKind(href: string): 'internal' | 'external' | 'anchor' {
     padding: 6.4rem 7.2rem;
   }
   .ctaband__layout {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
     align-items: end;
-    gap: 4rem;
   }
+  /* Asymétrie posée sur 16 pistes: le titre et la rassurance prennent la majeure
+   * partie (cols 1-10), le panneau d'action se cale à droite (cols 12-16), col 11
+   * en gouttière. Les pieds au sol (align-items: end). */
   .ctaband__lede {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 10;
   }
   .ctaband__actions {
-    grid-column: 8 / -1;
+    grid-column: 12 / -1;
     flex-direction: column;
     align-items: flex-start;
   }

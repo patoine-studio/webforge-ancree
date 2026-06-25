@@ -36,17 +36,19 @@ const metaItems = computed(() => {
         </ol>
       </nav>
 
-      <div class="article-hero__head">
-        <NuxtLink v-if="category" :to="category.href" class="article-hero__chip">{{ category.label }}</NuxtLink>
-        <h1 class="article-hero__title wf-h1">{{ title }}</h1>
-        <p v-if="excerpt" class="article-hero__excerpt wf-body-1 wf-text-muted">{{ excerpt }}</p>
+      <div class="article-hero__head section-grid">
+        <div class="article-hero__head-col">
+          <NuxtLink v-if="category" :to="category.href" class="article-hero__chip wf-caption">{{ category.label }}</NuxtLink>
+          <h1 class="article-hero__title wf-h1">{{ title }}</h1>
+          <p v-if="excerpt" class="article-hero__excerpt wf-body-1 wf-text-muted">{{ excerpt }}</p>
 
-        <p class="article-hero__meta">
-          <template v-for="(item, i) in metaItems" :key="item">
-            <span v-if="i > 0" class="article-hero__meta-sep" aria-hidden="true" />
-            <span class="article-hero__meta-item">{{ item }}</span>
-          </template>
-        </p>
+          <p class="article-hero__meta">
+            <template v-for="(item, i) in metaItems" :key="item">
+              <span v-if="i > 0" class="article-hero__meta-sep" aria-hidden="true" />
+              <span class="article-hero__meta-item">{{ item }}</span>
+            </template>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -122,9 +124,17 @@ const metaItems = computed(() => {
   color: color-mix(in oklch, var(--text-muted) 52%, transparent);
 }
 
-/* Tete: puce categorie, titre, accroche, meta. Axe gauche, mesure contenue. */
+/* Tete: puce categorie, titre, accroche, meta. Axe gauche, mesure contenue. La
+ * grille (16 pistes desktop / 4 mobile) vient de .section-grid, calee sur
+ * .wf-container; ici on ne pose que l'espacement vertical (gap fil d'Ariane ->
+ * tete). */
 .article-hero__head {
-  margin-top: 2.6rem;
+  margin-top: var(--space-crumbs-head);
+}
+/* Base mobile (la section-grid a 4 pistes en dessous du seuil): la tete prend
+ * toute la largeur. L'asymetrie posee ne s'active qu'au desktop. */
+.article-hero__head-col {
+  grid-column: 1 / -1;
   max-width: 60rem;
 }
 .article-hero__chip {
@@ -134,9 +144,6 @@ const metaItems = computed(() => {
   border-radius: var(--radius-pill);
   background: var(--accent-call-soft);
   color: var(--text-base);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.4rem;
   text-decoration: none;
   box-shadow: var(--elev-flush);
   transition: background-color var(--motion-duration-hover) var(--motion-ease-settle);
@@ -192,6 +199,12 @@ const metaItems = computed(() => {
 }
 
 @container site (min-width: 1024px) {
+  /* Asymetrie posee: la tete tient une large mesure a l'axe gauche (cols 1-11),
+   * cols 12-16 en respiration. Les pistes viennent de .section-grid, pas d'une
+   * grille de tete a la main; la mesure de ligne reste bornee par max-width. */
+  .article-hero__head-col {
+    grid-column: 1 / span 11;
+  }
   /* Le fragment <Image> rend .wf-image (aspect inline = prop ratio, --ratio-wide).
    * On surclasse en cadrage cinematique au desktop (!important bat le style inline). */
   .article-hero__cover-frame :deep(.wf-image) {

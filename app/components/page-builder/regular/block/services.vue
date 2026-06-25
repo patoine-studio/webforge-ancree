@@ -20,7 +20,7 @@ const ctas = computed<SectionCta[]>(() =>
     <div class="wf-container">
       <SectionHead :eyebrow="eyebrow" :heading="heading" :lead="lead" :ctas="ctas" />
 
-      <ul class="services__grid" data-reveal-stagger>
+      <ul class="services__grid section-grid" data-reveal-stagger>
         <li
           v-for="item in items"
           :key="item.title"
@@ -54,14 +54,13 @@ const ctas = computed<SectionCta[]>(() =>
   background: var(--bg-base);
 }
 .services__grid {
-  margin: 4.8rem 0 0;
+  margin: var(--space-head-content) 0 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.6rem;
 }
 .services__card {
+  /* Mobile (4 pistes de la section-grid): chaque carte prend toute la largeur. */
+  grid-column: 1 / -1;
   border-radius: var(--radius-lg);
 }
 .services__card-inner {
@@ -75,13 +74,34 @@ const ctas = computed<SectionCta[]>(() =>
   box-shadow: var(--elev-mid);
   color: var(--text-base);
   text-decoration: none;
-  transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+  /* Ancre au sol: au survol, la carte se RECHAUFFE simplement (le fond chauffe,
+   * la pastille d'icone s'allume en ambre plein, l'icone passe au navy). Le texte
+   * ne bascule PAS: ni brusque, ni illisible, ni un lift. Vitesse moyenne (line,
+   * 240ms), courbe ease-out DOUCE et graduelle (pas le settle front-loaded). */
+  transition: background-color var(--motion-duration-line) var(--motion-ease-out);
 }
-a.services__card-inner:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--elev-high);
+.services__icon-wrap,
+.services__icon {
+  transition:
+    background-color var(--motion-duration-line) var(--motion-ease-out),
+    color var(--motion-duration-line) var(--motion-ease-out);
+}
+
+/* Carte blanche: le fond se teinte d'ambre doux (texte navy intact, lisible). */
+.services__card:not(.services__card--featured) a.services__card-inner:hover {
+  background: var(--accent-call-soft);
+}
+/* Carte vedette navy: le fond se rechauffe legerement (reste sombre, texte clair
+ * intact). */
+.services__card--featured a.services__card-inner:hover {
+  background: color-mix(in oklch, var(--bg-deep) 86%, var(--accent-call));
+}
+/* Les deux: la pastille d'icone s'allume en ambre plein, l'icone passe au navy. */
+a.services__card-inner:hover .services__icon-wrap {
+  background: var(--accent-call);
+}
+a.services__card-inner:hover .services__icon {
+  color: var(--navy);
 }
 .services__icon-wrap {
   display: grid;
@@ -101,7 +121,7 @@ a.services__card-inner:hover {
   margin: 0;
 }
 .services__body {
-  margin-top: 1.2rem;
+  margin-top: var(--space-card-title-body);
   color: var(--text-muted);
 }
 .services__more {
@@ -117,7 +137,7 @@ a.services__card-inner:hover {
 .services__more svg {
   width: 1.7rem;
   height: 1.7rem;
-  transition: transform var(--motion-duration-hover) var(--motion-ease-settle);
+  transition: transform var(--motion-duration-line) var(--motion-ease-out);
 }
 a.services__card-inner:hover .services__more svg {
   transform: translateX(4px);
@@ -126,7 +146,6 @@ a.services__card-inner:hover .services__more svg {
 /* Carte vedette: bleu nuit, plus large. Le moment fort de la grille. */
 .services__card--featured .services__card-inner {
   background: var(--bg-deep);
-  border-color: transparent;
   color: var(--text-ondeep);
   box-shadow: var(--elev-mid);
 }
@@ -146,18 +165,20 @@ a.services__card-inner:hover .services__more svg {
   color: var(--accent-call);
 }
 
+/* Tablette: 2 cartes par rangee, calees sur 2 des 4 pistes de la section-grid
+ * (la source unique reste la grille de page; pas de grid-template-columns redeclare). */
 @container site (min-width: 640px) {
-  .services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .services__card {
+    grid-column: span 2;
   }
 }
 /* Desktop: mosaique calee sur les 16 pistes de la page. Rangee 1 = vedette (8) +
  * paire etroite (4 + 4); rangee 2 = paire mediane (8 + 8). Largeurs qui varient
  * (DESIGN.md), hauteurs egales par rangee via align-items: stretch. */
 @container site (min-width: 1024px) {
+  /* Les 16 pistes et la gouttiere 2rem viennent de .section-grid (source unique).
+   * Ici on ne pilote que l'egalite de hauteur par rangee et le placement. */
   .services__grid {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    gap: 2rem;
     align-items: stretch;
   }
   .services__card {

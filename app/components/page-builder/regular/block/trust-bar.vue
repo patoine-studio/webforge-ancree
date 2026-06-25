@@ -11,14 +11,14 @@ defineProps<TrustBarBlock>()
 <template>
   <section class="trust">
     <div class="wf-container">
-      <dl class="trust__row">
+      <dl class="trust__row section-grid" data-reveal-stagger>
         <div v-for="item in items" :key="item.value" class="trust__item">
           <span class="trust__chip" aria-hidden="true">
             <Icon :name="item.icon" class="trust__icon" />
           </span>
           <div class="trust__text">
-            <dt class="trust__value">{{ item.value }}</dt>
-            <dd class="trust__label">{{ item.label }}</dd>
+            <dt class="trust__value wf-h5">{{ item.value }}</dt>
+            <dd class="trust__label wf-caption">{{ item.label }}</dd>
           </div>
         </div>
       </dl>
@@ -30,15 +30,17 @@ defineProps<TrustBarBlock>()
 .trust {
   background: var(--bg-deep);
   color: var(--text-ondeep);
-  padding-block: clamp(2.6rem, 4vh, 3.6rem);
+  padding-block: var(--space-block-band);
 }
+/* La rangee se cale sur les pistes de page (.section-grid): 4 colonnes au mobile,
+ * 16 au desktop. Les signaux tombent sur les pistes, pas sur une grille a part. */
 .trust__row {
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.4rem 2rem;
+  row-gap: 2.4rem;
 }
+/* Mobile: 4 pistes, deux signaux par rangee (span 2 chacun). */
 .trust__item {
+  grid-column: span 2;
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -59,25 +61,24 @@ defineProps<TrustBarBlock>()
   height: 2.4rem;
   color: var(--accent-call);
 }
+/* Echelle reprise de wf-h5 (display) sur le <dt>. On reimpose seulement la
+ * couleur claire: wf-h5 force --text-base (illisible sur fond sombre). */
 .trust__value {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 1.15;
+  color: var(--text-ondeep);
   text-wrap: balance;
 }
+/* Echelle reprise de wf-caption (1.4rem) sur le <dd>. On garde l'opacite
+ * tokenisee du qualificatif sur fond sombre et la remise a zero de marge. */
 .trust__label {
   margin: 0;
-  font-size: 1.4rem;
-  line-height: 1.3;
   color: color-mix(in oklch, var(--text-ondeep) 74%, transparent);
   text-wrap: balance;
 }
 
 @container site (min-width: 1024px) {
-  .trust__row {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 3rem;
+  /* 16 pistes, quatre signaux d'egale largeur (span 4 chacun) sur une rangee. */
+  .trust__item {
+    grid-column: span 4;
   }
   .trust__item + .trust__item {
     padding-left: 3rem;

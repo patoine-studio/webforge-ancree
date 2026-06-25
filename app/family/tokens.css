@@ -39,8 +39,13 @@
   --space-block-tight:   5rem;  /* palier de section serre */
   --space-block-default: 10rem; /* palier standard, genereux (la chaleur vient de l'air) */
   --space-block-loose:   13rem; /* palier ample, moments signatures (conversion) */
+  --space-block-band: clamp(2.6rem, 4vh, 3.6rem); /* bande mince (barre de confiance) sous le heros */
+  --space-block-open: clamp(3.2rem, 5vh, 4.8rem); /* ouverture de corps de page sous un masthead clair */
   --space-title-lead: 20px; /* titre vers texte, px fixe assume */
-  --space-lead-cta:   36px; /* texte vers bouton */
+  --space-lead-cta:   36px; /* texte vers bouton (couple unique site-wide: heros ET tetes de section) */
+  --space-head-content: 4.8rem; /* en-tete de section -> contenu du bloc (uniforme site-wide) */
+  --space-crumbs-head:  2.6rem; /* fil d'Ariane -> tete du masthead (heros internes/article) */
+  --space-card-title-body: 1.2rem; /* titre de carte -> texte (cartes services/process/villes) */
 
   /* Filets, resolus a l'usage contre la couleur de texte de marque. */
   --line-width: 1px;
@@ -68,4 +73,8 @@
   --motion-duration-spin:   900ms;
   --motion-duration-pulse: 2600ms; /* respiration calme du bouton d'appel */
   --motion-ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Ease-out doux et GRADUEL pour les fondus de survol (couleur, fond): contraire
+   * du settle qui est front-loaded (change presque tout d'emblee, d'ou un effet
+   * brusque). Ici la transition se repartit sur toute la duree, douce a l'oeil. */
+  --motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 }

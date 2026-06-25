@@ -40,7 +40,7 @@ defineProps<ProcessBlock>()
 /* Liste des temps. Mobile: empiles. La ligne d'horizon n'apparait qu'au desktop,
  * la ou les pastilles s'alignent sur une meme rangee. */
 .process__steps {
-  margin: 4.8rem 0 0;
+  margin: var(--space-head-content) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
@@ -77,12 +77,12 @@ defineProps<ProcessBlock>()
   margin: 0;
 }
 .process__body {
-  margin-top: 1.2rem;
+  margin-top: var(--space-card-title-body);
   max-width: 42ch;
   color: var(--text-muted);
 }
 
-@container site (min-width: 768px) {
+@container site (min-width: 1024px) {
   .process__steps {
     position: relative;
     grid-template-columns: repeat(3, minmax(0, 1fr));

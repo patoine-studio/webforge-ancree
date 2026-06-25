@@ -217,6 +217,24 @@ watch(() => route.fullPath, () => {
     color var(--motion-duration-line) var(--motion-ease-settle),
     box-shadow var(--motion-duration-line) var(--motion-ease-settle);
 }
+/* Garde de contraste, etat transparent UNIQUEMENT: un degrade navy ancre en haut
+   garantit la lisibilite de la nav et de la marque claires par-dessus n'importe
+   quelle image de heros. Le scrim du heros renforce le BAS (contenu pose au sol),
+   pas le haut ou vit l'en-tete. Se retire au dock (solide): le fond blanc prend
+   le relais. */
+.header:not(.header--solid)::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--header-height-open) + 2.4rem);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--navy) 52%, transparent),
+    transparent
+  );
+  pointer-events: none;
+  z-index: -1;
+}
 /* Auto-masquage: l'en-tete se retire vers le haut (il deborde hors viewport).
    Le focus clavier le rappelle: une cible focalisee ne doit jamais rester
    hors-champ (miroir du garde onHeaderFocusIn). */
@@ -351,6 +369,14 @@ watch(() => route.fullPath, () => {
 .header__burger svg {
   width: 2.6rem;
   height: 2.6rem;
+}
+/* Cible tactile: plancher physique 44px sur ecran tactile (le moteur rem plancher
+ * 1rem sous 375px rapetisserait le burger sous le seuil WCAG 2.5.5). */
+@media (pointer: coarse) {
+  .header__burger {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 @container site (min-width: 1024px) {

@@ -56,7 +56,7 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
 /* Mur en masonry par colonnes: les cartes coulent en hauteurs inegales, jamais
  * une grille reguliere. Une colonne au mobile, puis deux, puis trois. */
 .tm__wall {
-  margin: 4.8rem 0 0;
+  margin: var(--space-head-content) 0 0;
   padding: 0;
   list-style: none;
   column-count: 1;
@@ -77,13 +77,6 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
   border-radius: var(--radius-lg);
   box-shadow: var(--elev-low);
   color: var(--text-base);
-  transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
-}
-.tm__card:hover .tm__figure {
-  transform: translateY(-4px);
-  box-shadow: var(--elev-high);
 }
 
 /* Le grand guillemet, marqueur ambre pose en tete de la citation (la citation
@@ -140,7 +133,7 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
   color: var(--text-ondeep);
 }
 .tm__card--anchor .tm__cite {
-  border-top-color: color-mix(in oklch, white 18%, transparent);
+  border-top: var(--line-ondeep);
 }
 .tm__card--anchor .tm__name {
   color: var(--text-ondeep);

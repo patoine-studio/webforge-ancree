@@ -136,7 +136,7 @@ function onClick(event: MouseEvent, id: string) {
   top: 0;
   flex: 0 0 auto;
   width: 26rem;
-  height: 100vh;
+  height: 100svh;
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;

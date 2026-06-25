@@ -68,13 +68,25 @@ const classes = computed(() => [
   font-size: 1.7rem;
   font-weight: 700;
   line-height: 1;
+  max-width: 100%;
   white-space: nowrap;
+  overflow-wrap: anywhere;
   text-decoration: none;
   cursor: pointer;
   transition:
     background-color var(--motion-duration-hover) var(--motion-ease-settle),
     box-shadow var(--motion-duration-hover) var(--motion-ease-settle),
     color var(--motion-duration-hover) var(--motion-ease-settle);
+}
+
+/* Cible tactile (WCAG 2.5.5): sur ecrans tactiles, le moteur rem plancher 1rem a
+ * 8.533px sous 375px peut faire tomber le bouton sous 44px. Plancher applique
+ * UNIQUEMENT au pointeur grossier (tactile), sans toucher le rendu desktop ni le
+ * padding/police. */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
 }
 
 /* Focus clavier dedie: l'anneau epouse le rayon du bouton (l'outline suit le

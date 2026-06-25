@@ -47,7 +47,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
         </ol>
       </nav>
 
-      <div class="page-hero__head">
+      <div class="page-hero__head section-grid">
         <div class="page-hero__title-col">
           <p v-if="eyebrow" class="page-hero__eyebrow wf-caption">
             <span class="page-hero__tick" aria-hidden="true" />{{ eyebrow }}
@@ -137,11 +137,20 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   color: color-mix(in oklch, var(--text-muted) 52%, transparent);
 }
 
-/* Tête: titre à l'axe gauche, accroche + appel à droite. Mobile: empilé. */
+/* Tête: titre à l'axe gauche, accroche + appel à droite. La grille (16 pistes
+ * desktop / 4 mobile) vient de .section-grid, calée sur .wf-container; ici on ne
+ * pose que l'espacement vertical (gap fil d'Ariane -> tête) et le row-gap qui
+ * sépare le bloc de titre de l'aside quand ils s'empilent au mobile. */
 .page-hero__head {
-  margin-top: 2.6rem;
-  display: grid;
-  gap: 2.4rem;
+  margin-top: var(--space-crumbs-head);
+  row-gap: 2.4rem;
+}
+/* Base mobile (la section-grid a 4 pistes en dessous du seuil): titre et aside
+ * prennent toute la largeur, empilés. L'asymétrie 10/12-16 ne s'active qu'au
+ * desktop. Sans ces spans, les enfants se coinceraient dans une seule piste. */
+.page-hero__title-col,
+.page-hero__aside {
+  grid-column: 1 / -1;
 }
 .page-hero__eyebrow {
   display: inline-flex;
@@ -165,7 +174,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   max-width: 46ch;
 }
 .page-hero__cta {
-  margin-top: 2.6rem;
+  margin-top: var(--space-lead-cta);
 }
 
 /* Horizon: le masthead repose au sol. */
@@ -181,12 +190,11 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   box-shadow: var(--elev-low);
 }
 
-/* Desktop: calage sur 16 pistes. Titre cols 1-10 (large mesure), accroche+appel
- * cols 12-16 (mesure étroite), calés en bas du titre. Col 11 en gouttière. */
+/* Desktop: calage sur les 16 pistes de .section-grid (pas une grille de tête à la
+ * main). Asymétrie posée: titre sur une large mesure (cols 1-10), accroche + appel
+ * sur une mesure étroite (cols 12-16), calés en bas du titre. Col 11 en gouttière. */
 @container site (min-width: 1024px) {
   .page-hero__head {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 2rem;
     align-items: end;
   }
   .page-hero__title-col {

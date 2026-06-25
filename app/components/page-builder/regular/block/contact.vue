@@ -125,12 +125,7 @@ const NuxtLink = resolveComponent('NuxtLink')
       <div class="contact__layout section-grid">
         <!-- Coordonnees + zone de service: panneau bleu nuit, motif radial local. -->
         <aside class="contact__aside" data-reveal>
-          <svg class="contact__rings" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-            <circle cx="100" cy="100" r="92" />
-            <circle cx="100" cy="100" r="66" />
-            <circle cx="100" cy="100" r="40" />
-            <circle cx="100" cy="100" r="16" />
-          </svg>
+          <CoverageRings class="contact__rings" />
           <div class="contact__aside-body">
             <span class="contact__pin" aria-hidden="true">
               <Icon name="lucide:map-pin" />
@@ -282,7 +277,7 @@ const NuxtLink = resolveComponent('NuxtLink')
   background: var(--bg-base);
 }
 .contact__layout {
-  margin-top: 4.8rem;
+  margin-top: var(--space-head-content);
   align-items: start;
 }
 
@@ -304,11 +299,7 @@ const NuxtLink = resolveComponent('NuxtLink')
   width: 22rem;
   height: 22rem;
   opacity: 0.5;
-}
-.contact__rings circle {
-  fill: none;
-  stroke: color-mix(in oklch, var(--accent-call) 55%, transparent);
-  stroke-width: 1;
+  color: color-mix(in oklch, var(--accent-call) 55%, transparent);
 }
 .contact__aside-body {
   position: relative;
@@ -428,19 +419,6 @@ const NuxtLink = resolveComponent('NuxtLink')
 .contact__error-body {
   margin: 0;
   color: var(--text-muted);
-}
-.contact__privacy {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  margin: 0;
-}
-.contact__privacy-icon {
-  width: 1.7rem;
-  height: 1.7rem;
-  flex: none;
-  margin-top: 0.2rem;
-  color: var(--accent-trust);
 }
 
 @container site (min-width: 1024px) {

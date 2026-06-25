@@ -49,8 +49,9 @@ function href(slug: string): string {
 .sg__card {
   border-radius: var(--radius-lg);
 }
-/* Carte cliquable: meme materiau que le bloc services de l'accueil (ombre chaude,
- * coins doux, soulevement au survol). Mene a la page detail du nuisible. */
+/* Carte cliquable: meme materiau ET meme survol que le bloc services (ombre
+ * chaude, coins doux; au survol le fond se rechauffe, pas de soulevement). Mene a
+ * la page detail du nuisible. */
 .sg__inner {
   display: flex;
   flex-direction: column;
@@ -63,13 +64,32 @@ function href(slug: string): string {
   box-shadow: var(--elev-low);
   color: var(--text-base);
   text-decoration: none;
-  transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+  /* Meme survol que le bloc services: le fond se rechauffe, la pastille d'icone
+   * s'allume en ambre plein (icone au navy). Le texte ne bascule pas; aucun lift
+   * ni ombre qui grossit. 240ms, courbe ease-out douce. */
+  transition: background-color var(--motion-duration-line) var(--motion-ease-out);
 }
-.sg__inner:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--elev-high);
+.sg__icon-wrap,
+.sg__icon {
+  transition:
+    background-color var(--motion-duration-line) var(--motion-ease-out),
+    color var(--motion-duration-line) var(--motion-ease-out);
+}
+/* Carte blanche: le fond se teinte d'ambre doux (texte navy intact). */
+.sg__card:not(.sg__card--featured) .sg__inner:hover {
+  background: var(--accent-call-soft);
+}
+/* Carte vedette navy: le fond se rechauffe legerement (reste sombre, texte clair
+ * intact). */
+.sg__card--featured .sg__inner:hover {
+  background: color-mix(in oklch, var(--bg-deep) 86%, var(--accent-call));
+}
+/* Les deux: pastille d'icone allumee en ambre, icone au navy. */
+.sg__inner:hover .sg__icon-wrap {
+  background: var(--accent-call);
+}
+.sg__inner:hover .sg__icon {
+  color: var(--navy);
 }
 .sg__card--featured .sg__inner {
   background: var(--bg-deep);
@@ -124,7 +144,7 @@ function href(slug: string): string {
 .sg__more svg {
   width: 1.7rem;
   height: 1.7rem;
-  transition: transform var(--motion-duration-hover) var(--motion-ease-settle);
+  transition: transform var(--motion-duration-line) var(--motion-ease-out);
 }
 .sg__inner:hover .sg__more svg {
   transform: translateX(4px);

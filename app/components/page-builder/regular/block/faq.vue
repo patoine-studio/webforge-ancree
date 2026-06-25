@@ -88,7 +88,7 @@ const accordionItems = computed(() =>
   display: flex;
   align-items: center;
   gap: 1.6rem;
-  margin-top: 3.6rem;
+  margin-top: var(--space-head-content);
   padding: 2.2rem;
   background: var(--bg-deep);
   border-radius: var(--radius);
@@ -117,7 +117,7 @@ const accordionItems = computed(() =>
 }
 
 .faq__panel {
-  margin-top: 3.6rem;
+  margin-top: var(--space-head-content);
 }
 
 /* Mobile et tablette: tete et accordeon pleine largeur, empiles (la section-grid
