@@ -73,8 +73,8 @@ function legalHref(href: string): string {
     <CoverageRings class="footer__rings" />
 
     <div class="wf-container footer__inner">
-      <div class="footer__top">
-        <div class="footer__identity">
+      <div class="footer__top wf-grid-cols">
+        <div class="footer__identity wf-col-full wf-span-7">
           <NuxtLink :to="brandTo" class="footer__brand" :aria-label="site.brand.homeAriaLabel">
             <span class="footer__mark" aria-hidden="true"><Icon name="lucide:shield-check" /></span>
             <span class="footer__word"><strong>{{ brandWords.lead }}</strong><span v-if="brandWords.rest">{{ brandWords.rest }}</span></span>
@@ -89,7 +89,7 @@ function legalHref(href: string): string {
           </ul>
         </div>
 
-        <div class="footer__aside">
+        <div class="footer__aside wf-col-full wf-from-9 wf-to-end">
           <!-- Plan du site, en haut a droite (pas de titre generique au-dessus). -->
           <nav class="footer__nav" :aria-label="t('footer.nav_heading')">
             <template v-if="mode === 'multipage'">
@@ -169,9 +169,7 @@ function legalHref(href: string): string {
 }
 
 .footer__top {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
+  row-gap: 4rem;
 }
 .footer__brand {
   display: inline-flex;
@@ -354,20 +352,15 @@ function legalHref(href: string): string {
   gap: 0.6rem;
 }
 
-@container site (min-width: 640px) {
-  /* Deux zones posees: identite a gauche, plan du site + contact a droite. */
-  .footer__top {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 4rem;
-  }
-}
 @container site (min-width: 1024px) {
   .footer {
     padding-block: clamp(6rem, 9vh, 8rem) 4rem;
   }
+  /* Calage sur la grille de page (16 pistes) via les utilitaires de placement
+   * (.wf-grid-cols sur le conteneur, .wf-span-7 / .wf-from-9 .wf-to-end sur les
+   * enfants): identite a gauche (cols 1-7), plan du site + contact a droite (col
+   * 9 a -1). Reste seulement l'alignement vertical en haut. */
   .footer__top {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 6rem;
     align-items: start;
   }
   /* Plan du site et liens du bas: rangee horizontale au desktop. */

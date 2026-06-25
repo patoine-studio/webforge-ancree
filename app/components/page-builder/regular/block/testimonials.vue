@@ -1,11 +1,13 @@
 <script setup lang="ts">
-/* Temoignages: un MUR asymetrique, pas une grille reguliere (DESIGN.md: facon
- * mosaique legere). Vrai masonry par colonnes CSS, les cartes coulent en hauteurs
- * inegales avec des decalages poses a la main au desktop. Une carte d'ancrage en
- * bleu nuit casse le champ blanc (le moment fort du mur). Chaque carte: cinq
- * etoiles ambre, la citation, puis le nom et la VILLE du client (renforce le
- * local). Distinct du mur de citations uniforme de Minimaliste. Aucune
- * numerotation. La section peint son fond tout de suite; seul le mur est anime. */
+/* Temoignages: un MUR asymetrique en mosaique legere (DESIGN.md), CALE sur la
+ * grille de page (16 pistes): des rangees de trois cartes en largeurs INEGALES
+ * (5/6/5, la carte du centre plus large), cartes de MEME hauteur par rangee
+ * (align-items: stretch) avec la signature ancree en bas, jamais une grille
+ * parfaitement reguliere. La carte
+ * d'ancrage en bleu nuit (au centre de la premiere rangee, donc la plus large)
+ * casse le champ blanc: le moment fort du mur. Chaque carte: le grand guillemet
+ * ambre, la citation, puis le nom et la VILLE du client (renforce le local).
+ * Aucune numerotation. La section peint son fond tout de suite; seul le mur est anime. */
 import type { BlockBase } from '~/types/blocks'
 import type { TestimonialsContent } from '~/content/testimonials'
 
@@ -13,8 +15,8 @@ type TestimonialsBlock = BlockBase<'testimonials'> & TestimonialsContent
 
 const props = defineProps<TestimonialsBlock>()
 
-/* La carte d'ancrage (bleu nuit) est posee en deuxieme position: assez tot pour
- * ancrer le haut du mur, decalee de la premiere colonne (asymetrie posee). */
+/* La carte d'ancrage (bleu nuit) est posee en deuxieme position: au centre de la
+ * premiere rangee (la piste la plus large, 6 colonnes), le moment fort du mur. */
 const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
 </script>
 
@@ -23,7 +25,7 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
     <div class="wf-container">
       <SectionHead :eyebrow="eyebrow" :heading="heading" />
 
-      <ul class="tm__wall" data-reveal-stagger>
+      <ul class="tm__wall section-grid" data-reveal-stagger>
         <li
           v-for="(item, i) in items"
           :key="item.name + item.city"
@@ -53,22 +55,24 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
   background: var(--bg-alt);
 }
 
-/* Mur en masonry par colonnes: les cartes coulent en hauteurs inegales, jamais
- * une grille reguliere. Une colonne au mobile, puis deux, puis trois. */
+/* Mur en mosaique calee sur la grille de page: une carte par rangee au mobile,
+ * deux en tablette, trois au desktop (5/6/5). Cartes de meme hauteur par rangee,
+ * jamais une grille reguliere. */
 .tm__wall {
   margin: var(--space-head-content) 0 0;
   padding: 0;
   list-style: none;
-  column-count: 1;
-  column-gap: 2rem;
+  /* section-grid pose 1.6rem au mobile; le mur veut 2rem a tous les paliers. */
+  gap: 2rem;
 }
 .tm__card {
-  break-inside: avoid;
-  margin-bottom: 2rem;
+  /* Mobile (4 pistes de la page): pleine largeur. */
+  grid-column: 1 / -1;
 }
 
 .tm__figure {
   margin: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -88,6 +92,9 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
 }
 .tm__quote {
   margin-top: 1rem;
+  /* Pousse la signature en bas: la citation occupe l'espace libre quand la carte
+   * est etiree a la hauteur de sa rangee, l'ecart cite reste constant. */
+  flex: 1;
   text-wrap: pretty;
 }
 .tm__cite {
@@ -146,26 +153,23 @@ const anchorIndex = computed(() => (props.items.length > 2 ? 1 : 0))
 }
 
 @container site (min-width: 640px) {
-  .tm__wall {
-    column-count: 2;
+  /* Deux par rangee, calees sur 2 des 4 pistes de la page. */
+  .tm__card {
+    grid-column: span 2;
   }
 }
 @container site (min-width: 1024px) {
+  /* Trois par rangee sur les 16 pistes, en largeurs INEGALES (5/6/5): la carte du
+   * centre de chaque rangee est plus large (mosaique legere, DESIGN.md). Les bords
+   * tombent sur les lignes 5/6, 11/12 et 16. */
   .tm__wall {
-    column-count: 3;
-    column-gap: 2.4rem;
+    row-gap: 2.4rem;
   }
   .tm__card {
-    margin-bottom: 2.4rem;
+    grid-column: span 5;
   }
-  /* Decalages poses a la main: le haut des colonnes respire en escalier
-   * (asymetrie posee), sans toucher au contenu. La premiere carte de chaque
-   * colonne porte le decalage; les suivantes coulent dessous. */
-  .tm__card:nth-child(2) {
-    margin-top: 4rem;
-  }
-  .tm__card:nth-child(3) {
-    margin-top: 8rem;
+  .tm__card:nth-child(3n + 2) {
+    grid-column: span 6;
   }
 }
 </style>
