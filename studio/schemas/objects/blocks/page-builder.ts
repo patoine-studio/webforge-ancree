@@ -43,5 +43,8 @@ export const pageBuilderField = defineField({
     defineArrayMember({ type: 'faq' }),
     defineArrayMember({ type: 'ctaBand' }),
     defineArrayMember({ type: 'contact' }),
+    defineArrayMember({ type: 'editorial' }),
+    defineArrayMember({ type: 'highlights' }),
+    defineArrayMember({ type: 'process' }),
   ],
 })

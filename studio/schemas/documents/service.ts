@@ -1,5 +1,9 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { BugIcon } from '@sanity/icons'
+import { maxItemsInput } from '../../components/maxItemsInput'
+import { LucideIconInput } from '../../components/lucideIconInput'
+import { pageBuilderField } from '../objects/blocks/page-builder'
+import { isUniqueAcrossLocale } from '../lib/localized-slug'
 
 /**
  * Service: une prestation de la collection, rendue en carte sur la page Services
@@ -9,9 +13,10 @@ import { BugIcon } from '@sanity/icons'
  * langue, champ `language` géré par le plugin (lecture seule, masqué), slug
  * PARTAGÉ entre les langues via documentInternationalization: { exclude: true }.
  *
- * Champs métier hérités du monolithe (icon, title, summary, featured, order),
- * enrichis vers le patron de collection riche: résumé, repère, image, intro,
- * bénéfices, page de détail composée et services par ville reliés.
+ * Édition alignée sur les singletons: deux onglets seulement. Contenu porte
+ * l'identité de carte (icône, titre, résumé, image, tri) + un masthead verrouillé
+ * (hero[1]) + un pageBuilder de sections. Référencement porte le SEO. La page de
+ * détail se compose donc en blocs, comme l'accueil ou À propos.
  */
 export const service = defineType({
   name: 'service',
@@ -20,8 +25,7 @@ export const service = defineType({
   icon: BugIcon,
   groups: [
     { name: 'content', title: 'Contenu', default: true },
-    { name: 'detail', title: 'Page de détail' },
-    { name: 'relations', title: 'Relations et tri' },
+    { name: 'seo', title: 'Référencement' },
   ],
   fields: [
     defineField({
@@ -34,9 +38,10 @@ export const service = defineType({
     defineField({
       name: 'icon',
       title: 'Icône (Iconify lucide)',
-      description: 'Nom Iconify, ex. lucide:bug. Affichée sur la carte du service.',
+      description: 'Affichée sur la carte du service.',
       type: 'string',
       group: 'content',
+      components: { input: LucideIconInput },
     }),
     defineField({
       name: 'title',
@@ -48,13 +53,14 @@ export const service = defineType({
     defineField({
       name: 'slug',
       title: 'Slug (URL)',
-      description: 'Accessible à /services/<slug>. Partagé entre les langues.',
+      description: 'Accessible à /services/<slug>. Traduit par langue.',
       type: 'slug',
       group: 'content',
       options: {
         source: 'title',
         maxLength: 96,
         documentInternationalization: { exclude: true },
+        isUnique: isUniqueAcrossLocale,
       },
       validation: (R) => R.required(),
     }),
@@ -71,253 +77,12 @@ export const service = defineType({
       ],
     }),
     defineField({
-      name: 'meta',
-      title: 'Repère',
-      description: 'Mention courte affichée sur la carte et le héros de détail, ex. Traitement et suivi.',
-      type: 'string',
-      group: 'content',
-      validation: (R) => R.required(),
-    }),
-    defineField({
       name: 'image',
       title: 'Image',
-      description: 'Ratio 4:3 dans la grille et le détail.',
+      description: 'Ratio 4:3 sur la carte de la grille.',
       type: 'figure',
       group: 'content',
       validation: (R) => R.required(),
-    }),
-    defineField({
-      name: 'intro',
-      title: 'Paragraphes d\'introduction',
-      description: 'Rendus dans le bloc texte et image de la page de détail.',
-      type: 'array',
-      group: 'content',
-      of: [defineArrayMember({ type: 'text', rows: 4 })],
-      validation: (R) => R.required().min(1),
-    }),
-    defineField({
-      name: 'benefits',
-      title: 'Bénéfices',
-      description: 'Rendus en points forts sur la page de détail.',
-      type: 'array',
-      group: 'content',
-      of: [
-        defineArrayMember({
-          type: 'object',
-          name: 'serviceBenefit',
-          title: 'Bénéfice',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Titre',
-              type: 'string',
-              validation: (R) => R.required(),
-            }),
-            defineField({
-              name: 'body',
-              title: 'Texte',
-              type: 'text',
-              rows: 3,
-              validation: (R) => R.required(),
-            }),
-          ],
-          preview: {
-            select: { title: 'title' },
-          },
-        }),
-      ],
-      validation: (R) => R.required().min(1),
-    }),
-    // La copie de la page de détail vit sur CHAQUE service: composée section par
-    // section. Requise (fail-fast): en prod statique, chaque service porte sa copie.
-    defineField({
-      name: 'detail',
-      title: 'Page de détail',
-      description:
-        'Copie de la page /services/<slug> de ce service, composée section par section.',
-      type: 'object',
-      group: 'detail',
-      validation: (R) => R.required(),
-      fields: [
-        defineField({
-          name: 'benefits',
-          title: 'Section bénéfices',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'heading',
-              title: 'Titre',
-              type: 'string',
-              initialValue: 'Ce que vous obtenez',
-            }),
-            defineField({
-              name: 'cta',
-              title: 'Bouton',
-              type: 'link',
-            }),
-          ],
-        }),
-        defineField({
-          name: 'included',
-          title: 'Section inclusions',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'heading',
-              title: 'Titre',
-              type: 'string',
-              initialValue: 'Inclus dans chaque mandat',
-            }),
-          ],
-        }),
-        // Processus modélisé en place: Ancrée n'a pas de type process partagé.
-        // Le numéro d'étape est dérivé de la position au rendu (zéro numérotation
-        // saisie à la main).
-        defineField({
-          name: 'process',
-          title: 'Section processus',
-          description:
-            'Déroulement affiché sur la page de détail de ce service.',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'eyebrow',
-              title: 'Surtitre',
-              type: 'string',
-            }),
-            defineField({
-              name: 'heading',
-              title: 'Titre',
-              type: 'string',
-            }),
-            defineField({
-              name: 'lead',
-              title: 'Texte d\'amorce',
-              type: 'text',
-              rows: 3,
-            }),
-            defineField({
-              name: 'cta',
-              title: 'Bouton (optionnel)',
-              type: 'link',
-            }),
-            defineField({
-              name: 'steps',
-              title: 'Étapes',
-              description: 'Le numéro d\'étape est dérivé de la position au rendu.',
-              type: 'array',
-              of: [
-                defineArrayMember({
-                  type: 'object',
-                  name: 'processStep',
-                  title: 'Étape',
-                  fields: [
-                    defineField({
-                      name: 'title',
-                      title: 'Titre',
-                      type: 'string',
-                      validation: (R) => R.required(),
-                    }),
-                    defineField({
-                      name: 'body',
-                      title: 'Texte',
-                      type: 'text',
-                      rows: 3,
-                      validation: (R) => R.required(),
-                    }),
-                  ],
-                  preview: {
-                    select: { title: 'title' },
-                  },
-                }),
-              ],
-            }),
-          ],
-        }),
-        defineField({
-          name: 'serviceCities',
-          title: 'Section villes reliées',
-          description: 'Les items viennent des services par ville reliés.',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'eyebrow',
-              title: 'Surtitre',
-              type: 'string',
-            }),
-            defineField({
-              name: 'heading',
-              title: 'Titre',
-              type: 'string',
-              initialValue: 'Ce service, près de chez vous',
-            }),
-            defineField({
-              name: 'lead',
-              title: 'Texte d\'amorce',
-              type: 'text',
-              rows: 2,
-            }),
-            defineField({
-              name: 'cta',
-              title: 'Bouton (optionnel)',
-              type: 'link',
-            }),
-          ],
-        }),
-        defineField({
-          name: 'testimonials',
-          title: 'Section témoignages',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'eyebrow',
-              title: 'Surtitre',
-              type: 'string',
-            }),
-            defineField({
-              name: 'heading',
-              title: 'Titre',
-              type: 'string',
-              initialValue: 'Ce qu\'en disent nos clients',
-            }),
-          ],
-        }),
-        // Réutilise le bloc ctaBand tel quel pour le bandeau de fin de page.
-        defineField({
-          name: 'cta',
-          title: 'Bandeau d\'appel de fin',
-          type: 'ctaBand',
-        }),
-      ],
-    }),
-    defineField({
-      name: 'related',
-      title: 'Villes reliées',
-      description: 'Services par ville mis en avant sur la page de détail.',
-      type: 'array',
-      group: 'relations',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'serviceCity' }],
-          options: {
-            filter: ({ document }) => ({
-              filter: 'language == $language',
-              params: { language: (document as { language?: string })?.language ?? 'fr' },
-            }),
-            documentInternationalization: { exclude: true },
-          },
-        }),
-      ],
-      validation: (R) => R.unique(),
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Mis en vedette',
-      description: 'Met le service en avant sur la page d\'accueil et la grille.',
-      type: 'boolean',
-      group: 'relations',
-      initialValue: false,
     }),
     defineField({
       name: 'order',
@@ -325,8 +90,33 @@ export const service = defineType({
       description:
         'Position dans la collection (1 = premier). Détermine l\'ordre d\'affichage de la grille.',
       type: 'number',
-      group: 'relations',
+      group: 'content',
       validation: (R) => R.required().integer().positive(),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Mis en vedette',
+      description: 'Met le service en avant sur la page d\'accueil et la grille.',
+      type: 'boolean',
+      group: 'content',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'hero',
+      title: 'En-tête de page',
+      type: 'array',
+      group: 'content',
+      of: [defineArrayMember({ type: 'detailHero' })],
+      // Verrouillé à un seul masthead (mini-builder), comme le héros des singletons.
+      validation: (R) => R.required().length(1),
+      components: { input: maxItemsInput(1) },
+    }),
+    pageBuilderField,
+    defineField({
+      name: 'seo',
+      title: 'SEO de la page',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [

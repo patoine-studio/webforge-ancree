@@ -1,4 +1,4 @@
-// Registre des 43 types du Studio: 11 objets partagés, 8 blocs réguliers,
+// Registre des 48 types du Studio: 13 objets partagés, 11 blocs réguliers,
 // 7 blocs article, 9 singletons, 4 collections, 4 banques. Deux définitions ne
 // sont PAS enregistrées car ce sont des helpers de champ réutilisés, pas des
 // types autonomes: pageBuilderField (objects/blocks/page-builder.ts) et
@@ -11,6 +11,7 @@ import { link } from './objects/link'
 import { seo } from './objects/seo'
 import { heroHome } from './objects/hero-home'
 import { pageHero } from './objects/page-hero'
+import { detailHero } from './objects/detail-hero'
 import { legalSection } from './objects/legal-section'
 import { legalParagraph } from './objects/legal-paragraph'
 import { legalList } from './objects/legal-list'
@@ -27,6 +28,9 @@ import { testimonials } from './objects/blocks/testimonials'
 import { faq } from './objects/blocks/faq'
 import { ctaBand } from './objects/blocks/cta-band'
 import { contact } from './objects/blocks/contact'
+import { editorial } from './objects/blocks/editorial'
+import { highlights } from './objects/blocks/highlights'
+import { process } from './objects/blocks/process'
 
 // Blocs article (union ArticleBlock côté Vue)
 import { articleLead } from './objects/article-blocks/article-lead'
@@ -68,6 +72,7 @@ export const schemaTypes = [
   seo,
   heroHome,
   pageHero,
+  detailHero,
   legalSection,
   legalParagraph,
   legalList,
@@ -84,6 +89,9 @@ export const schemaTypes = [
   faq,
   ctaBand,
   contact,
+  editorial,
+  highlights,
+  process,
 
   // Blocs article
   articleLead,

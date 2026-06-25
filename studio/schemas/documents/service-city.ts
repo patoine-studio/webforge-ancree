@@ -1,6 +1,22 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { PinIcon } from '@sanity/icons'
+import { maxItemsInput } from '../../components/maxItemsInput'
+import { pageBuilderField } from '../objects/blocks/page-builder'
+import { isUniqueAcrossLocale } from '../lib/localized-slug'
 
+/**
+ * Service par ville: le moteur du SEO local, rendu en page de détail à
+ * /villes/<slug> (fr) et /service-areas/<slug> (en).
+ *
+ * i18n document-level: un document par langue, slug PARTAGÉ entre les langues
+ * (documentInternationalization: { exclude: true }; seul le segment parent est
+ * localisé). L'unicité du slug est scopée par langue (isUniqueAcrossLocale): la
+ * traduction jumelle au même slug n'est pas un conflit.
+ *
+ * Édition alignée sur les singletons et les services: deux onglets seulement.
+ * Contenu porte l'identité de carte (ville, région, note, tri) + un masthead
+ * verrouillé (hero[1]) + un pageBuilder de sections. Référencement porte le SEO.
+ */
 export const serviceCity = defineType({
   name: 'serviceCity',
   title: 'Service par ville',
@@ -8,9 +24,7 @@ export const serviceCity = defineType({
   icon: PinIcon,
   groups: [
     { name: 'content', title: 'Contenu', default: true },
-    { name: 'page', title: 'Page de détail' },
     { name: 'seo', title: 'Référencement' },
-    { name: 'relations', title: 'Relations et tri' },
   ],
   fields: [
     defineField({
@@ -30,13 +44,14 @@ export const serviceCity = defineType({
     defineField({
       name: 'slug',
       title: 'Slug (URL)',
-      description: 'Accessible à /villes/<slug>.',
+      description: 'Accessible à /villes/<slug>. Partagé entre les langues.',
       type: 'slug',
       group: 'content',
       options: {
         source: 'city',
         maxLength: 96,
         documentInternationalization: { exclude: true },
+        isUnique: isUniqueAcrossLocale,
       },
       validation: (R) => R.required(),
     }),
@@ -54,46 +69,37 @@ export const serviceCity = defineType({
       group: 'content',
     }),
     defineField({
-      name: 'heading',
-      title: 'Titre de la page',
-      type: 'string',
-      group: 'page',
-    }),
-    defineField({
-      name: 'lead',
-      title: 'Accroche de la page',
-      type: 'text',
-      rows: 3,
-      group: 'page',
-    }),
-    defineField({
-      name: 'body',
-      title: 'Contenu',
-      type: 'array',
-      group: 'page',
-      of: [defineArrayMember({ type: 'text' })],
-    }),
-    defineField({
-      name: 'seo',
-      title: 'Référencement',
-      type: 'seo',
-      group: 'seo',
+      name: 'order',
+      title: 'Ordre',
+      description: 'Position dans la grille des villes (1 = premier).',
+      type: 'number',
+      group: 'content',
+      validation: (R) => R.required().integer().positive(),
     }),
     defineField({
       name: 'featured',
       title: 'Mise en vedette',
       description: 'Sélectionnée par les blocs aperçu de villes en mode vedettes.',
       type: 'boolean',
-      group: 'relations',
+      group: 'content',
       initialValue: false,
     }),
     defineField({
-      name: 'order',
-      title: 'Ordre',
-      description: 'Position dans la grille des villes (1 = premier).',
-      type: 'number',
-      group: 'relations',
-      validation: (R) => R.required().integer().positive(),
+      name: 'hero',
+      title: 'En-tête de page',
+      type: 'array',
+      group: 'content',
+      of: [defineArrayMember({ type: 'detailHero' })],
+      // Verrouillé à un seul masthead (mini-builder), comme le héros des singletons.
+      validation: (R) => R.required().length(1),
+      components: { input: maxItemsInput(1) },
+    }),
+    pageBuilderField,
+    defineField({
+      name: 'seo',
+      title: 'SEO de la page',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [
