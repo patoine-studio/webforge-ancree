@@ -1782,6 +1782,135 @@
             ]
           },
           {
+            "_key": "sv-editorial",
+            "_type": "editorial",
+            "eyebrow": "Pourquoi Rempart",
+            "heading": "Des techniciens d'ici, sur la Rive-Nord depuis 2008",
+            "lead": "Le bâti, les saisons et les nuisibles diffèrent d'un secteur à l'autre. Nos techniciens connaissent la Rive-Nord parce qu'ils la couvrent depuis 2008.",
+            "segments": [
+              {
+                "_key": "sv-ed-seg1",
+                "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
+                "body": [
+                  {
+                    "_key": "sv-ed-b1",
+                    "_type": "block",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "ttr",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "serviceCity-terrebonne-fr",
+                          "_type": "reference"
+                        }
+                      },
+                      {
+                        "_key": "lvl",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "serviceCity-laval-fr",
+                          "_type": "reference"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_key": "b1a",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Partis de "
+                      },
+                      {
+                        "_key": "b1b",
+                        "_type": "span",
+                        "marks": [
+                          "ttr"
+                        ],
+                        "text": "Terrebonne"
+                      },
+                      {
+                        "_key": "b1c",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ", on couvre aujourd'hui "
+                      },
+                      {
+                        "_key": "b1d",
+                        "_type": "span",
+                        "marks": [
+                          "lvl"
+                        ],
+                        "text": "Laval"
+                      },
+                      {
+                        "_key": "b1e",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ", Repentigny, Blainville et toute la couronne nord. D'une année à l'autre, ce sont les mêmes cycles: fourmis charpentières au printemps, guêpes l'été, souris qui cherchent la chaleur à l'automne. On sait quoi chercher, et où."
+                      }
+                    ]
+                  },
+                  {
+                    "_key": "sv-ed-b2",
+                    "_type": "block",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "abt",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "aboutPage-fr",
+                          "_type": "reference"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_key": "b2a",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Quand vous appelez, une vraie personne répond et c'est un technicien certifié qui se déplace, "
+                      },
+                      {
+                        "_key": "b2b",
+                        "_type": "span",
+                        "marks": [
+                          "abt"
+                        ],
+                        "text": "pas un centre d'appels"
+                      },
+                      {
+                        "_key": "b2c",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ". La même équipe d'un bout à l'autre du mandat, partout sur la Rive-Nord."
+                      }
+                    ]
+                  }
+                ],
+                "media": [
+                  {
+                    "_key": "sv-ed-m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:hero-techVan",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "_key": "sv-highlights",
             "_type": "highlights",
             "eyebrow": "Nos engagements",
@@ -1972,6 +2101,135 @@
                 "_type": "processStep",
                 "title": "Follow-up and guarantee",
                 "body": "We seal the entry points, come back if needed, and the written guarantee holds."
+              }
+            ]
+          },
+          {
+            "_key": "sv-editorial",
+            "_type": "editorial",
+            "eyebrow": "Why Rempart",
+            "heading": "Local technicians, on the North Shore since 2008",
+            "lead": "The building stock, the seasons and the pests differ from one area to the next. Our technicians know the North Shore because they have worked it since 2008.",
+            "segments": [
+              {
+                "_key": "sv-ed-seg1",
+                "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
+                "body": [
+                  {
+                    "_key": "sv-ed-b1",
+                    "_type": "block",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "ttr",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "serviceCity-terrebonne-en",
+                          "_type": "reference"
+                        }
+                      },
+                      {
+                        "_key": "lvl",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "serviceCity-laval-en",
+                          "_type": "reference"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_key": "b1a",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We started in "
+                      },
+                      {
+                        "_key": "b1b",
+                        "_type": "span",
+                        "marks": [
+                          "ttr"
+                        ],
+                        "text": "Terrebonne"
+                      },
+                      {
+                        "_key": "b1c",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " and now cover "
+                      },
+                      {
+                        "_key": "b1d",
+                        "_type": "span",
+                        "marks": [
+                          "lvl"
+                        ],
+                        "text": "Laval"
+                      },
+                      {
+                        "_key": "b1e",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ", Repentigny, Blainville and the whole north crown. Year after year it is the same cycles: carpenter ants in spring, wasps in summer, mice looking for warmth in fall. We know what to look for, and where."
+                      }
+                    ]
+                  },
+                  {
+                    "_key": "sv-ed-b2",
+                    "_type": "block",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "abt",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_ref": "aboutPage-en",
+                          "_type": "reference"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_key": "b2a",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "When you call, a real person answers and a certified technician comes out, "
+                      },
+                      {
+                        "_key": "b2b",
+                        "_type": "span",
+                        "marks": [
+                          "abt"
+                        ],
+                        "text": "not a call centre"
+                      },
+                      {
+                        "_key": "b2c",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ". The same team from start to finish, everywhere on the North Shore."
+                      }
+                    ]
+                  }
+                ],
+                "media": [
+                  {
+                    "_key": "sv-ed-m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:hero-techVan",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
