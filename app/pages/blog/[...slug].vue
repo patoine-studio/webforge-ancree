@@ -170,7 +170,7 @@ if (seoMatch?.type === 'article') {
     <section v-if="related.length" class="article-related">
       <div class="wf-container">
         <h2 class="article-related__heading wf-h3">{{ blogContent.related.heading }}</h2>
-        <ArticleGrid :cards="related" heading-level="h3" class="article-related__grid" />
+        <ArticleGrid :cards="related" :columns="related.length" heading-level="h3" class="article-related__grid" />
       </div>
     </section>
 
