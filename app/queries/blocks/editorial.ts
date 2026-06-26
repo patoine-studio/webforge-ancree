@@ -28,6 +28,7 @@ export const EDITORIAL_FIELDS = /* groq */ `{
       "markDefs": ${PT_LINK_MARKDEFS}
     },
     "media": media[] ${FIGURE_PROJECTION},
-    mediaSide
+    mediaSide,
+    disposition
   }
 }`

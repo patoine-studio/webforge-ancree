@@ -43,7 +43,7 @@ import type { FaqContent } from '../content/faq'
 import type { CtaBandContent } from '../content/cta-band'
 import type { ContactContent } from '../content/contact'
 import type { ProcessContent } from '../content/process'
-import type { EditorialContent, EditorialMediaSide } from '../content/editorial'
+import type { EditorialContent, EditorialMediaSide, EditorialDisposition } from '../content/editorial'
 import type { Category } from '../content/categories'
 import type { Article } from '../content/articles'
 import type {
@@ -646,6 +646,12 @@ function transformEditorial(
       mediaSide: ((): EditorialMediaSide => {
         const side = cleanLogic(s.mediaSide)
         return side === 'left' || side === 'right' ? side : 'auto'
+      })(),
+      disposition: ((): EditorialDisposition => {
+        const d = cleanLogic(s.disposition)
+        return d === 'text' || d === 'aside' || d === 'overhang' || d === 'band' || d === 'nested' || d === 'duo'
+          ? d
+          : 'auto'
       })()
     }))
   }

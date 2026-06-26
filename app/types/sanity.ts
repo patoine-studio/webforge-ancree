@@ -261,6 +261,7 @@ export interface SanityEditorialSegment {
   body?: Maybe<SanityRawLinkedPortableBlock[]>
   media?: Maybe<SanityFigure[]>
   mediaSide?: Maybe<'auto' | 'left' | 'right'>
+  disposition?: Maybe<'auto' | 'text' | 'aside' | 'overhang' | 'band' | 'nested' | 'duo'>
 }
 // Champs du bloc editorial (EDITORIAL_FIELDS): partages par le bloc de page-builder
 // (avec _type/_key) ET par service.detail.editorial (sans _type/_key).

@@ -65,8 +65,30 @@ export const editorial = defineType({
               validation: (R) => R.max(2).warning('Deux images maximum par segment'),
             }),
             defineField({
+              name: 'disposition',
+              title: 'Disposition',
+              description:
+                'Comment le visuel se pose. « Auto » suit le nombre d\'images. Une image: à côté, en débord ou en bandeau pleine mesure. Deux images: emboîtées ou en diptyque décalé. Sans image: texte pleine mesure.',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Auto (selon le nombre d\'images)', value: 'auto' },
+                  { title: 'Texte pleine mesure', value: 'text' },
+                  { title: 'Image à côté', value: 'aside' },
+                  { title: 'Image en débord', value: 'overhang' },
+                  { title: 'Bandeau pleine mesure', value: 'band' },
+                  { title: 'Paire emboîtée', value: 'nested' },
+                  { title: 'Diptyque décalé', value: 'duo' },
+                ],
+                layout: 'dropdown',
+              },
+              initialValue: 'auto',
+            }),
+            defineField({
               name: 'mediaSide',
               title: 'Côté de l\'image',
+              description:
+                'Côté du visuel au desktop (ignoré par « texte » et « bandeau », qui prennent la pleine mesure).',
               type: 'string',
               options: {
                 list: [
