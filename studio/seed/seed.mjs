@@ -54,6 +54,7 @@ const IMAGES = {
   'hero-wasp': img('hero-wasp.jpg'),
   'hero-bedbug': img('hero-bedbug.jpg'),
   'hero-roach': img('hero-roach.jpg'),
+  'hero-coquerelle': img('hero-coquerelle.jpg'),
   'hero-team': img('hero-team.jpg'),
   'hero-techVan': img('hero-techVan.jpg'),
   'hero-techAction': img('hero-techAction.jpg'),
@@ -118,6 +119,10 @@ const ALT_TEXT = {
   'hero-roach': {
     fr: 'Coquerelle sur fond blanc',
     en: 'Cockroach on a white background',
+  },
+  'hero-coquerelle': {
+    fr: 'Coquerelle germanique en gros plan sur fond blanc',
+    en: 'German cockroach in close-up on a white background',
   },
   'hero-team': {
     fr: 'L\'équipe de techniciens de Rempart devant la camionnette de service',

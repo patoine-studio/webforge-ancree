@@ -5774,7 +5774,7 @@
               "image": {
                 "_type": "image",
                 "asset": {
-                  "_ref": "IMG:hero-roach",
+                  "_ref": "IMG:hero-techVan",
                   "_type": "reference"
                 }
               }
@@ -7321,7 +7321,7 @@
               "image": {
                 "_type": "image",
                 "asset": {
-                  "_ref": "IMG:hero-roach",
+                  "_ref": "IMG:hero-techVan",
                   "_type": "reference"
                 }
               }
@@ -15403,6 +15403,1318 @@
             "value": {
               "_type": "reference",
               "_ref": "faqItem-commercial-zone-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "service",
+      "content": {
+        "_id": "service-coquerelles-fr",
+        "_type": "service",
+        "language": "fr",
+        "icon": "lucide:utensils",
+        "title": "Coquerelles",
+        "slug": {
+          "_type": "slug",
+          "current": "extermination-coquerelles"
+        },
+        "summary": "Elles envahissent la cuisine la nuit et se reproduisent vite. On traite les refuges à la source avec des appâts homologués, pas un nuage d'aérosol.",
+        "image": {
+          "_type": "figure",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "IMG:hero-technicien",
+              "_type": "reference"
+            }
+          }
+        },
+        "order": 6,
+        "featured": false,
+        "hero": [
+          {
+            "_key": "hero-coquerelle",
+            "_type": "detailHero",
+            "eyebrow": "Service d’extermination",
+            "title": "Coquerelles",
+            "lead": "Elles se cachent le jour et envahissent la cuisine la nuit. On traite les refuges à la source.",
+            "image": {
+              "_type": "figure",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "IMG:hero-coquerelle",
+                  "_type": "reference"
+                }
+              }
+            }
+          }
+        ],
+        "pageBuilder": [
+          {
+            "_key": "pb-trust",
+            "_type": "trustBar",
+            "items": [
+              {
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "Membre ASTTQ",
+                "label": "gestion parasitaire du Québec"
+              },
+              {
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Produits homologués",
+                "label": "Santé Canada, sûrs pour la famille"
+              },
+              {
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Sous 24 à 48 h",
+                "label": "intervention 7 jours sur 7"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Garantie écrite",
+                "label": "retour sans frais"
+              }
+            ]
+          },
+          {
+            "_key": "pb-editorial",
+            "_type": "editorial",
+            "eyebrow": "Le nuisible en détail",
+            "heading": "Comprendre une infestation de coquerelles",
+            "lead": "Elles se cachent le jour et envahissent la cuisine la nuit. Une coquerelle vue, c'est souvent des dizaines cachées. On traite les refuges, pas seulement ce qui se voit.",
+            "segments": [
+              {
+                "_key": "seg0",
+                "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
+                "body": [
+                  {
+                    "_type": "block",
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e1s",
+                        "text": "La coquerelle germanique aime la chaleur, l'humidité et la nourriture: derrière les électroménagers, sous l'évier, dans les fissures de la cuisine et de la salle de bain. Elle est nocturne; en voir une le jour annonce souvent une population déjà installée. Elle se reproduit vite, ce qui la rend tenace.",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2hs",
+                        "text": "Des appâts ciblés, pas un nuage d'aérosol",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2s",
+                        "text": "Les aérosols du commerce dispersent les coquerelles sans toucher les refuges, et la population repart. On utilise des appâts professionnels homologués placés aux points stratégiques, on traite à la source, puis on revient confirmer qu'il n'en reste pas.",
+                        "marks": []
+                      }
+                    ]
+                  }
+                ],
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce que comprend l'intervention",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si les coquerelles reviennent dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Appâts professionnels, sûrs pour la famille",
+                "body": "Des appâts homologués Santé Canada placés hors de portée, sans nuage d'aérosol dans la cuisine."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Intervention sous 24 à 48 h",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vers vous rapidement."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Traitement des refuges, rapport écrit",
+                "body": "On traite là où elles se cachent et on note les points à corriger pour éviter une récidive."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Avant d'appeler",
+            "heading": "Vos questions sur les coquerelles",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-cuisine-fr",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-sante-fr",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-soi-meme-fr",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-recidive-fr",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-zone-fr",
+                "_key": "fq4"
+              }
+            ]
+          },
+          {
+            "_key": "pb-proc",
+            "_type": "process",
+            "eyebrow": "Comment on intervient",
+            "heading": "Comment on traite une infestation de coquerelles",
+            "lead": "On vise les refuges et la reproduction, pas seulement les coquerelles visibles.",
+            "steps": [
+              {
+                "_key": "s1",
+                "_type": "processStep",
+                "title": "Inspection des refuges",
+                "body": "On repère les foyers chauds et humides: électroménagers, plomberie, fissures, là où elles se cachent et se reproduisent."
+              },
+              {
+                "_key": "s2",
+                "_type": "processStep",
+                "title": "Appâts ciblés et traitement à la source",
+                "body": "Des appâts professionnels homologués placés aux points stratégiques, sans aérosol qui les disperse."
+              },
+              {
+                "_key": "s3",
+                "_type": "processStep",
+                "title": "Contrôle de suivi et garantie écrite",
+                "body": "On revient confirmer qu'il n'en reste pas; la garantie tient jusqu'à ce que ce soit réglé."
+              }
+            ]
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Ce qu’on dit de nous",
+            "heading": "Ce qu’en disent nos clients",
+            "limit": 3,
+            "mode": "service",
+            "service": {
+              "_type": "reference",
+              "_ref": "service-coquerelles-fr"
+            }
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Des coquerelles dans la cuisine? On les sort pour de bon.",
+            "subtitle": "Un appel, un technicien certifié traite à la source, souvent sous 24 à 48 h. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonial",
+      "content": {
+        "_id": "testimonial-rousseau-fr",
+        "_type": "testimonial",
+        "language": "fr",
+        "quote": "Coquerelles dans la cuisine d'un triplex. Ils ont trouvé les foyers derrière les électroménagers, posé des appâts et sont revenus vérifier. Trois semaines plus tard, plus rien.",
+        "name": "Daniel Rousseau",
+        "context": "Propriétaire à Laval",
+        "service": {
+          "_type": "reference",
+          "_ref": "service-coquerelles-fr"
+        },
+        "city": {
+          "_type": "reference",
+          "_ref": "serviceCity-laval-fr"
+        },
+        "featured": true,
+        "order": 7
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-coquerelles-fr",
+        "_type": "faqTheme",
+        "language": "fr",
+        "title": "Coquerelles",
+        "slug": {
+          "_type": "slug",
+          "current": "coquerelles"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-cuisine-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Pourquoi toujours dans la cuisine?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "La coquerelle germanique cherche la chaleur, l'humidité et la nourriture: derrière les électroménagers, sous l'évier, dans la plomberie. Elle se cache le jour et sort la nuit. C'est là qu'on cible le traitement."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-sante-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Est-ce un risque pour la santé?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Oui. Les coquerelles contaminent la nourriture et leurs déjections peuvent déclencher allergies et asthme, surtout chez les enfants. On les traite à la source avec des produits homologués Santé Canada."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-soi-meme-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Les produits du commerce suffisent-ils?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Rarement. Les coquerelles se reproduisent vite et résistent à plusieurs aérosols; sans traiter les refuges cachés, la population repart. On utilise des appâts professionnels placés aux bons endroits."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-recidive-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Comment éviter qu'elles reviennent?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "En traitant les refuges, en scellant les fissures et en gardant les surfaces sèches et propres. On revient confirmer le résultat, et la garantie écrite couvre un retour."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-zone-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Desservez-vous mon secteur sur la Rive-Nord?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-laval-fr"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Oui, de "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Laval"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " à "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " et toute la couronne nord. Un technicien d'ici se déplace, souvent sous 24 à 48 h."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-fr"
+        }
+      }
+    },
+    {
+      "type": "service",
+      "content": {
+        "_id": "service-coquerelles-en",
+        "_type": "service",
+        "language": "en",
+        "icon": "lucide:utensils",
+        "title": "Cockroaches",
+        "slug": {
+          "_type": "slug",
+          "current": "cockroach-extermination"
+        },
+        "summary": "They invade the kitchen at night and breed fast. We treat the harbourages at the source with approved baits, not a cloud of spray.",
+        "image": {
+          "_type": "figure",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "IMG:hero-technicien",
+              "_type": "reference"
+            }
+          }
+        },
+        "order": 6,
+        "featured": false,
+        "hero": [
+          {
+            "_key": "hero-coquerelle",
+            "_type": "detailHero",
+            "eyebrow": "Pest control service",
+            "title": "Cockroaches",
+            "lead": "They hide by day and invade the kitchen at night. We treat the harbourages at the source.",
+            "image": {
+              "_type": "figure",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "IMG:hero-coquerelle",
+                  "_type": "reference"
+                }
+              }
+            }
+          }
+        ],
+        "pageBuilder": [
+          {
+            "_key": "pb-trust",
+            "_type": "trustBar",
+            "items": [
+              {
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "ASTTQ member",
+                "label": "Quebec pest management"
+              },
+              {
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Approved products",
+                "label": "Health Canada, family-safe"
+              },
+              {
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Within 24 to 48 h",
+                "label": "service seven days a week"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Written guarantee",
+                "label": "free return visit"
+              }
+            ]
+          },
+          {
+            "_key": "pb-editorial",
+            "_type": "editorial",
+            "eyebrow": "The pest in detail",
+            "heading": "Understanding a cockroach infestation",
+            "lead": "They hide by day and take over the kitchen at night. One cockroach in sight often means dozens out of sight. We treat the harbourages, not just what you can see.",
+            "segments": [
+              {
+                "_key": "seg0",
+                "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
+                "body": [
+                  {
+                    "_type": "block",
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e1s",
+                        "text": "The German cockroach likes warmth, moisture and food: behind appliances, under the sink, in the cracks of the kitchen and bathroom. It is nocturnal; seeing one in daylight often signals a population already settled in. It breeds fast, which makes it stubborn.",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2hs",
+                        "text": "Targeted baits, not a cloud of spray",
+                        "marks": []
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2s",
+                        "text": "Store-bought sprays scatter cockroaches without reaching the harbourages, and the population bounces back. We use approved professional baits placed at the key points, treat at the source, then come back to confirm none are left.",
+                        "marks": []
+                      }
+                    ]
+                  }
+                ],
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What the service includes",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the cockroaches come back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Professional baits, family-safe",
+                "body": "Health Canada approved baits placed out of reach, with no cloud of spray in the kitchen."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "On site within 24 to 48 h",
+                "body": "A real person answers seven days a week and a local technician heads your way quickly."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Harbourage treatment, written report",
+                "body": "We treat where they hide and note the points to fix to avoid a return."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Before you call",
+            "heading": "Your questions about cockroaches",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-cuisine-en",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-sante-en",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-soi-meme-en",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-recidive-en",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-coquerelles-zone-en",
+                "_key": "fq4"
+              }
+            ]
+          },
+          {
+            "_key": "pb-proc",
+            "_type": "process",
+            "eyebrow": "How we work",
+            "heading": "How we treat a cockroach infestation",
+            "lead": "We target the harbourages and the breeding, not just the cockroaches in sight.",
+            "steps": [
+              {
+                "_key": "s1",
+                "_type": "processStep",
+                "title": "Harbourage inspection",
+                "body": "We find the warm, humid hot spots: appliances, plumbing, cracks, where they hide and breed."
+              },
+              {
+                "_key": "s2",
+                "_type": "processStep",
+                "title": "Targeted baits and source treatment",
+                "body": "Approved professional baits placed at the key points, without spray that scatters them."
+              },
+              {
+                "_key": "s3",
+                "_type": "processStep",
+                "title": "Follow-up check and written guarantee",
+                "body": "We come back to confirm none are left; the guarantee holds until it is solved."
+              }
+            ]
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "What clients say",
+            "heading": "What our clients say",
+            "limit": 3,
+            "mode": "service",
+            "service": {
+              "_type": "reference",
+              "_ref": "service-coquerelles-en"
+            }
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Cockroaches in the kitchen? We get them out for good.",
+            "subtitle": "One call and a certified technician treats at the source, often within 24 to 48 hours. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonial",
+      "content": {
+        "_id": "testimonial-rousseau-en",
+        "_type": "testimonial",
+        "language": "en",
+        "quote": "Cockroaches in the kitchen of a triplex. They found the hot spots behind the appliances, set baits and came back to check. Three weeks later, nothing left.",
+        "name": "Daniel Rousseau",
+        "context": "Homeowner in Laval",
+        "service": {
+          "_type": "reference",
+          "_ref": "service-coquerelles-en"
+        },
+        "city": {
+          "_type": "reference",
+          "_ref": "serviceCity-laval-en"
+        },
+        "featured": true,
+        "order": 7
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-coquerelles-en",
+        "_type": "faqTheme",
+        "language": "en",
+        "title": "Cockroaches",
+        "slug": {
+          "_type": "slug",
+          "current": "cockroaches"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-cuisine-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Why always in the kitchen?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "The German cockroach seeks warmth, moisture and food: behind appliances, under the sink, in the plumbing. It hides by day and comes out at night. That is where we target the treatment."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-sante-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Is it a health risk?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Yes. Cockroaches contaminate food and their droppings can trigger allergies and asthma, especially in children. We treat them at the source with Health Canada approved products."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-soi-meme-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Are store-bought products enough?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Rarely. Cockroaches breed fast and resist many sprays; without treating the hidden harbourages, the population bounces back. We use professional baits placed in the right spots."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-recidive-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How do I keep them from coming back?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "By treating the harbourages, sealing cracks and keeping surfaces dry and clean. We come back to confirm the result, and the written guarantee covers a return."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-coquerelles-zone-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you serve my area on the North Shore?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-laval-en"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Yes, from "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Laval"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " to "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " and the whole north crown. A local technician heads out, often within 24 to 48 hours."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-coquerelles-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-service-coquerelles",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "service"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "service-coquerelles-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "service-coquerelles-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "service"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-testimonial-rousseau",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "testimonial"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "testimonial-rousseau-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "testimonial-rousseau-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-coquerelles",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-coquerelles-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-coquerelles-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-coquerelles-cuisine",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-cuisine-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-cuisine-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-coquerelles-sante",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-sante-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-sante-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-coquerelles-soi-meme",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-soi-meme-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-soi-meme-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-coquerelles-recidive",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-recidive-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-recidive-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-coquerelles-zone",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-zone-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-coquerelles-zone-en",
               "_weak": true,
               "_strengthenOnPublish": {
                 "type": "faqItem"
