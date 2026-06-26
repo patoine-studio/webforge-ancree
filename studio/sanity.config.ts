@@ -1,10 +1,11 @@
 import { defineConfig } from 'sanity'
 import { structureTool, type StructureBuilder } from 'sanity/structure'
-import { presentationTool, defineDocuments, defineLocations } from 'sanity/presentation'
+import { presentationTool, defineDocuments, type DocumentLocationResolver } from 'sanity/presentation'
 import { visionTool } from '@sanity/vision'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { frFRLocale } from '@sanity/locale-fr-fr'
 import { media } from 'sanity-plugin-media'
+import { map } from 'rxjs'
 import {
   BookIcon,
   CogIcon,
@@ -127,37 +128,33 @@ const LOCATION_TITLE_FALLBACKS: Record<WfDocType, string> = {
   legalPage: 'Page légale',
 }
 
-// Singletons de page: le titre humain vit dans hero.title. Les types de
-// collection ont un title (ou city pour serviceCity) racine.
-const HERO_TITLE_TYPES = new Set<WfDocType>([
-  'homePage', 'servicesPage', 'villesPage', 'aboutPage',
-  'blogPage', 'faqPage', 'contactPage', 'onePager',
-])
-
-const SLUG_TYPES = new Set<WfDocType>(['service', 'serviceCity', 'article', 'category'])
-
 /**
- * Genere la config `locations` du presentationTool: une boucle defineLocations
- * par doc-type routable, qui delegue l'URL a buildStudioLocationHref (un seul
- * switch lang/slug/catSlug dans le route-map). legalPage: routee par _id
- * deterministe du seed, avec sa vue one-pager en second emplacement.
+ * Resolver de locations du presentationTool. Une VRAIE requete GROQ par document
+ * (documentStore.listenQuery) plutot que le `select` simple de defineLocations: le
+ * `select` simple ne DEREFERENCE pas les references (->), or l'article a besoin du
+ * slug de sa CATEGORIE (category->slug.current) pour composer /blog/<categorie>/<slug>.
+ * Avec un select deref, la resolution des locations d'article restait bloquee
+ * (« Resolving locations… » a l'infini); une vraie query GROQ supporte le deref.
+ * buildStudioLocationHref (route-map partage) compose l'URL par type; legalPage
+ * ajoute sa vue one-pager en second emplacement. Perspective drafts: le brouillon
+ * en cours d'edition resout.
  */
-const buildLocationsConfig = () => {
-  const locations: Record<string, ReturnType<typeof defineLocations>> = {}
+const resolveDocumentLocations: DocumentLocationResolver = (params, context) => {
+  const docType = params.type as WfDocType
+  if (!(docType in LOCATION_TITLE_FALLBACKS)) return null
 
-  for (const docType of Object.keys(LOCATION_TITLE_FALLBACKS) as WfDocType[]) {
-    const select: Record<string, string> = {
-      title: HERO_TITLE_TYPES.has(docType) ? 'hero.title' : 'title',
-      language: 'language',
-    }
-    if (SLUG_TYPES.has(docType)) select.slug = 'slug.current'
-    if (docType === 'serviceCity') select.title = 'city'
-    if (docType === 'article') select.catSlug = 'category->slug.current'
-    if (docType === 'legalPage') select.id = '_id'
+  const query = /* groq */ `*[_id == $id][0]{
+    "language": language,
+    "title": coalesce(hero[0].title, title, city),
+    "slug": slug.current,
+    "catSlug": category->slug.current,
+    "id": _id
+  }`
 
-    locations[docType] = defineLocations({
-      select,
-      resolve: (doc) => {
+  return context.documentStore
+    .listenQuery(query, { id: params.id }, { perspective: 'drafts' })
+    .pipe(
+      map((doc) => {
         const language = doc?.language as Locale | undefined
         const href = buildStudioLocationHref(docType, {
           _id: doc?.id as string | undefined,
@@ -183,11 +180,8 @@ const buildLocationsConfig = () => {
         }
 
         return { locations: entries }
-      },
-    })
-  }
-
-  return locations
+      }),
+    )
 }
 
 // Desk structure: ordre de navigation du site, pas ordre des types. Groupe
@@ -298,7 +292,7 @@ export default defineConfig({
         mainDocuments: defineDocuments(buildStudioMainDocuments()),
         // locations: doc -> URL(s) publiques, ou amener l'iframe au clic sur
         // « Open preview ». Tout derive de buildStudioLocationHref.
-        locations: buildLocationsConfig(),
+        locations: resolveDocumentLocations,
       },
     }),
 
