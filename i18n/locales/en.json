@@ -30,6 +30,8 @@
       "contact": "Contact",
       "cta_band": "CTA band",
       "process": "Process",
+      "editorial": "Editorial",
+      "highlights": "Highlights",
       "lead": "Lead",
       "rich_text": "Rich text",
       "image": "Image",
@@ -37,6 +39,21 @@
       "gallery": "Gallery",
       "callout": "Callout",
       "inline_cta": "Inline CTA"
+    },
+    "editorial": {
+      "as_is": "As is",
+      "text": "Text",
+      "aside": "Beside",
+      "overhang": "Overhang",
+      "band": "Band",
+      "nested": "Nested",
+      "duo": "Diptych"
+    },
+    "hero": {
+      "with_image": "With image",
+      "text_only": "Text only",
+      "detail_service": "Service detail",
+      "detail_city": "City detail"
     },
     "styleguide": {
       "sections": {
@@ -148,23 +165,6 @@
   },
   "callbar": {
     "estimate": "Free estimate"
-  },
-  "pages": {
-    "services_heading": "Our pest control services",
-    "services_lead": "Residential and commercial, handled by certified technicians with products safe for family and pets.",
-    "villes_heading": "The cities we serve",
-    "villes_lead": "We work across the North Shore of Montreal and Laval. Find your city and see how we can help, often the same day.",
-    "city_services": "Our services in {city}",
-    "faq_heading": "Straight answers, before you call",
-    "faq_lead": "Price, timing, safety for your family and pets, the guarantee. We answer straight.",
-    "contact_heading": "Talk to someone local",
-    "contact_lead": "Phone, email or the form, whichever you prefer. We answer fast.",
-    "about_heading": "Rooted on the North Shore",
-    "about_lead": "A neighbourhood company, born on the North Shore, that still answers its own phone.",
-    "blog_heading": "The Rempart blog",
-    "blog_lead": "Clear advice to keep your home healthy: prevention, signs to watch for, and the right reflexes before you call.",
-    "privacy_heading": "Privacy policy",
-    "terms_heading": "Terms of use"
   },
   "legal": {
     "effective": "In effect since {date}.",

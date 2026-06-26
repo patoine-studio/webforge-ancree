@@ -18,8 +18,9 @@ import type { Component } from 'vue'
 import { regularBlockMap } from '~/components/page-builder/regular/block-map'
 import { articleBlockMap } from '~/components/page-builder/article/block-map'
 import Hero from '~/components/hero/index.vue'
-import type { PageBlock, HeroBlock } from '~/types/blocks'
+import type { PageBlock, HeroBlock, HeroPageBlock } from '~/types/blocks'
 import { breadcrumbsFor, routePath } from '~/config/route-map'
+import type { EditorialDisposition, EditorialImage } from '~/content/editorial'
 
 /** Une variante commutable d'un bloc dans la vitrine (compte d'items, style…). */
 export interface BlockVariant {
@@ -129,6 +130,27 @@ export function useBlockCatalog(): CatalogCategory[] {
     ? useServiceBlocks(serviceWithProcess).find((b) => b._type === 'process')
     : undefined
 
+  // Bloc editorial: idem, il vit dans le pageBuilder des pages de detail. On cherche
+  // le 1er service dont un editorial porte au moins deux images (de quoi batir TOUTES
+  // les compositions de la vitrine: bandeau, diptyque, emboitee...).
+  let editorialBlock: Extract<PageBlock, { _type: 'editorial' }> | undefined
+  for (const s of useServices()) {
+    const found = useServiceBlocks(s).find(
+      (b): b is Extract<PageBlock, { _type: 'editorial' }> =>
+        b._type === 'editorial' && b.segments.some((seg) => seg.media.length >= 2)
+    )
+    if (found) {
+      editorialBlock = found
+      break
+    }
+  }
+
+  // Bloc highlights (« points forts »): vit aussi sur le detail d'un service.
+  const serviceWithHighlights = useServices().find((s) => s.pageBuilder?.some((b) => b._type === 'highlights'))
+  const highlightsBlock = serviceWithHighlights
+    ? useServiceBlocks(serviceWithHighlights).find((b) => b._type === 'highlights')
+    : undefined
+
   // Variantes de compte du bloc services, derivees de la grille de prod tranchee au
   // compte voulu. Liens neutralises (les pages de detail par service ne sont pas
   // crawlees par le link-checker du build statique; les villes, pages reelles, le
@@ -161,20 +183,64 @@ export function useBlockCatalog(): CatalogCategory[] {
   // prod. Un objet bloc par type (home/page/article).
   const site = useContent('site')
   const heroHome = useHeroContent().value as unknown as HeroBlock
-  const heroPage: HeroBlock = {
+
+  // Masthead (hero-page): SOURCE REELLE, comme les vraies pages (fini le masthead
+  // synthetise depuis l'i18n, deconnecte du contenu Studio). Le masthead de page
+  // (usePageHero) et de detail (useService/useServiceCity .hero) portent leur titre,
+  // accroche, appel ET image du Studio; on les enrichit du fil d'Ariane exactement
+  // comme les pages le font. Quatre onglets: avec image (reel), texte seul (image
+  // retiree, montre la disposition dormante), detail service, detail ville. CTA en
+  // tel: (non crawle par le link-checker du build statique).
+  const fallbackCta = { label: t('hero.cta_primary'), href: `tel:${site.value.contact.phoneE164}` }
+
+  const pageHero = usePageHero('services').value
+  const mastheadPage: HeroPageBlock = {
+    ...pageHero,
     _type: 'hero-page',
     _key: 'showcase-hero-page',
     crumbs: breadcrumbsFor('services', undefined, locale),
-    eyebrow: t('hero.kicker'),
-    title: t('pages.services_heading'),
-    lead: t('pages.services_lead'),
-    // tel: (non crawle par le link-checker du build statique), comme l'ancienne vitrine.
-    cta: { label: t('hero.cta_primary'), href: `tel:${site.value.contact.phoneE164}` }
-  } as unknown as HeroBlock
+    eyebrow: pageHero.eyebrow ?? t('hero.kicker')
+  }
+  const mastheadText: HeroPageBlock = { ...mastheadPage, _key: 'showcase-hero-page-text', image: undefined }
+
+  const svcList = useServices()
+  const svc = svcList[0] ? useService(svcList[0].slug) : undefined
+  const svcHero = svc?.hero
+  const mastheadService: HeroPageBlock | undefined =
+    svc && svcHero
+      ? {
+          ...svcHero,
+          _type: 'hero-page',
+          _key: 'showcase-hero-detail-service',
+          crumbs: breadcrumbsFor('services', { label: svc.title }, locale),
+          cta: svcHero.cta ?? fallbackCta
+        }
+      : undefined
+
+  const cityList = useServiceCities()
+  const cityDetail = cityList[0] ? useServiceCity(cityList[0].slug) : undefined
+  const cityHero = cityDetail?.hero
+  const mastheadCity: HeroPageBlock | undefined =
+    cityDetail && cityHero
+      ? {
+          ...cityHero,
+          _type: 'hero-page',
+          _key: 'showcase-hero-detail-city',
+          crumbs: breadcrumbsFor('villes', { label: cityDetail.city }, locale),
+          cta: cityHero.cta ?? fallbackCta
+        }
+      : undefined
+
+  const mastheadVariants: BlockVariant[] = [
+    { label: t('showcase.hero.with_image'), props: { hero: mastheadPage }, isDefault: true },
+    { label: t('showcase.hero.text_only'), props: { hero: mastheadText } }
+  ]
+  if (mastheadService) mastheadVariants.push({ label: t('showcase.hero.detail_service'), props: { hero: mastheadService } })
+  if (mastheadCity) mastheadVariants.push({ label: t('showcase.hero.detail_city'), props: { hero: mastheadCity } })
 
   const heroItems: CatalogItem[] = [
     { label: t('showcase.hero_home'), type: 'hero', variant: 'home', component: Hero, props: { hero: heroHome } },
-    { label: t('showcase.hero_page'), type: 'hero', variant: 'page', component: Hero, props: { hero: heroPage } }
+    { label: t('showcase.hero_page'), type: 'hero', component: Hero, props: { hero: mastheadPage }, variants: mastheadVariants }
   ]
   if (sampleArticle) {
     const heroArticle: HeroBlock = {
@@ -211,6 +277,57 @@ export function useBlockCatalog(): CatalogCategory[] {
       type: 'process',
       component: regularBlockMap.process,
       props: showcaseProps(processBlock, 'process')
+    })
+  }
+
+  // Editorial: range avec les blocs de contenu long, juste apres « A propos ». Source
+  // reelle (comme process) + variantes commutables (onglets) qui exhibent CHAQUE
+  // disposition avec les vraies images live. Aucun editorial ne montre tout a la fois;
+  // les onglets couvrent l'ensemble du vocabulaire (cote alterne pour exposer le
+  // zigzag gauche/droite sans doubler les onglets).
+  if (editorialBlock) {
+    const eBlock = editorialBlock
+    const eImages: EditorialImage[] = eBlock.segments.flatMap((seg) => seg.media)
+    const eBody = eBlock.segments.find((seg) => seg.body.length)?.body ?? []
+    const eVariant = (
+      disposition: EditorialDisposition,
+      images: EditorialImage[],
+      key: string,
+      side: 'left' | 'right' = 'right'
+    ): Record<string, unknown> => ({
+      ...eBlock,
+      _key: `showcase-editorial-${key}`,
+      eyebrow: undefined,
+      heading: undefined,
+      lead: undefined,
+      segments: [{ body: eBody, media: images, mediaSide: side, disposition }]
+    })
+    const aboutIdx = reguliers.findIndex((it) => it.type === 'about')
+    reguliers.splice(aboutIdx === -1 ? reguliers.length : aboutIdx + 1, 0, {
+      label: t('showcase.block.editorial'),
+      type: 'editorial',
+      component: regularBlockMap.editorial,
+      props: showcaseProps(eBlock, 'editorial'),
+      variants: [
+        { label: t('showcase.editorial.as_is'), props: showcaseProps(eBlock, 'editorial-asis'), isDefault: true },
+        { label: t('showcase.editorial.aside'), props: eVariant('aside', eImages.slice(0, 1), 'aside', 'right') },
+        { label: t('showcase.editorial.overhang'), props: eVariant('overhang', eImages.slice(0, 1), 'overhang', 'left') },
+        { label: t('showcase.editorial.band'), props: eVariant('band', eImages.slice(0, 1), 'band') },
+        { label: t('showcase.editorial.nested'), props: eVariant('nested', eImages.slice(0, 2), 'nested', 'right') },
+        { label: t('showcase.editorial.duo'), props: eVariant('duo', eImages.slice(0, 2), 'duo', 'left') },
+        { label: t('showcase.editorial.text'), props: eVariant('text', [], 'text') }
+      ]
+    })
+  }
+
+  // Highlights: range juste apres l'editorial (blocs de contenu long du detail service).
+  if (highlightsBlock) {
+    const hIdx = reguliers.findIndex((it) => it.type === 'editorial')
+    reguliers.splice(hIdx === -1 ? reguliers.length : hIdx + 1, 0, {
+      label: t('showcase.block.highlights'),
+      type: 'highlights',
+      component: regularBlockMap.highlights,
+      props: showcaseProps(highlightsBlock, 'highlights')
     })
   }
 

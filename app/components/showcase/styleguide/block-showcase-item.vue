@@ -105,6 +105,7 @@ const hasControl = computed(() => variants.value.length > 1)
   margin-left: auto;
   align-self: center;
   display: flex;
+  flex-wrap: wrap;
   border: var(--line-hair);
   border-radius: var(--radius-sm);
   overflow: hidden;
