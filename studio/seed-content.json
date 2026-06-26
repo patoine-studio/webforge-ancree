@@ -4533,69 +4533,36 @@
         "order": 1,
         "pageBuilder": [
           {
-            "_key": "pb-intro-vp0826c2",
-            "_type": "editorial",
-            "segments": [
-              {
-                "_key": "seg-cuvtxut8",
-                "_type": "editorialSegment",
-                "body": [
-                  {
-                    "_key": "b-3vpuyflr",
-                    "_type": "block",
-                    "children": [
-                      {
-                        "_key": "s-duw9h72n",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Contrairement aux fourmis de jardin, les charpentières creusent des galeries dans le bois humide ou abîmé pour y loger leur colonie. On les remarque souvent près des fenêtres, des cadres de porte ou de la solive de rive, surtout au printemps."
-                      }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
-                  },
-                  {
-                    "_key": "b-mpz713a9",
-                    "_type": "block",
-                    "children": [
-                      {
-                        "_key": "s-8ab0fqyj",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Pulvériser ce qu’on voit ne règle rien: la reine et le nid principal restent intacts. On localise le nid, on traite la colonie au complet et on s’occupe des conditions qui les ont attirées."
-                      }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
-                  }
-                ],
-                "media": [],
-                "mediaSide": "auto"
-              }
-            ]
-          },
-          {
-            "_key": "pb-hl-x8q8l2x9",
-            "_type": "highlights",
-            "heading": "Ce que vous obtenez",
+            "_key": "pb-trust",
+            "_type": "trustBar",
             "items": [
               {
-                "_key": "benefit-0",
-                "_type": "highlight",
-                "body": "Fine sciure de bois près des boiseries, grattement dans les murs, grosses fourmis noires parfois ailées à l’intérieur.",
-                "title": "Les signes"
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "Membre ASTTQ",
+                "label": "gestion parasitaire du Québec"
               },
               {
-                "_key": "benefit-1",
-                "_type": "highlight",
-                "body": "Repérage du nid principal et des satellites, traitement ciblé en appât et en barrière, sûr pour la famille et les animaux.",
-                "title": "Le traitement"
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Produits homologués",
+                "label": "Santé Canada, sûrs pour la famille"
               },
               {
-                "_key": "benefit-2",
-                "_type": "highlight",
-                "body": "On revient si elles reviennent. Le résultat est garanti par écrit.",
-                "title": "La garantie"
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Sous 24 à 48 h",
+                "label": "intervention 7 jours sur 7"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Garantie écrite",
+                "label": "retour sans frais"
               }
             ]
           },
@@ -4839,29 +4806,93 @@
             ]
           },
           {
+            "_key": "pb-hl-x8q8l2x9",
+            "_type": "highlights",
+            "heading": "Ce que comprend l'intervention",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si les fourmis charpentières reviennent dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués Santé Canada",
+                "body": "Ciblés sur le nid, appliqués par un technicien certifié, sûrs pour les enfants et les animaux une fois secs."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Intervention sous 24 à 48 h",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vers vous rapidement."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Rapport d'inspection écrit",
+                "body": "Ce qu'on a trouvé, traité, et les zones humides à surveiller pour éviter une récidive."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Avant d'appeler",
+            "heading": "Vos questions sur les fourmis charpentières",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-bois-fr",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-securite-fr",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-delai-fr",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-recidive-fr",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-zone-fr",
+                "_key": "fq4"
+              }
+            ]
+          },
+          {
             "_key": "pb-proc-vnf9bcxv",
             "_type": "process",
             "eyebrow": "Comment on intervient",
-            "heading": "Une méthode claire, du premier appel à la garantie",
-            "lead": "Pas de mystère ni de pression. On regarde d’abord, on traite ce qu’il faut, et on reste là tant que le problème n’est pas réglé pour de bon.",
+            "heading": "Comment on règle une colonie de fourmis charpentières",
+            "lead": "Pas de mystère: on traite la source, pas seulement ce que vous voyez.",
             "steps": [
               {
-                "_key": "step-0",
+                "_key": "s1",
                 "_type": "processStep",
-                "body": "On identifie le nuisible, l’ampleur et les points d’entrée. Vous savez exactement à quoi vous faites face avant qu’on touche à quoi que ce soit.",
-                "title": "On inspecte"
+                "title": "Repérage du nid principal et des satellites",
+                "body": "On suit les galeries jusqu'à la colonie mère et aux nids satellites, dans les zones humides du bâti."
               },
               {
-                "_key": "step-1",
+                "_key": "s2",
                 "_type": "processStep",
-                "body": "Un traitement ciblé, sûr pour la famille et les animaux, appliqué par un technicien certifié. Rien de plus que ce que la situation demande.",
-                "title": "On traite"
+                "title": "Traitement appât et barrière",
+                "body": "Appât ciblé rapporté au nid par les ouvrières, plus une barrière sur les points d'entrée."
               },
               {
-                "_key": "step-2",
+                "_key": "s3",
                 "_type": "processStep",
-                "body": "On revient au besoin et le résultat est garanti par écrit. Le problème reste réglé, pas seulement repoussé.",
-                "title": "On garantit"
+                "title": "Suivi et garantie écrite",
+                "body": "On revient confirmer que la colonie est éteinte; la garantie tient si elles reviennent."
               }
             ]
           },
@@ -4895,8 +4926,8 @@
               "label": "Obtenir une estimation",
               "type": "anchor"
             },
-            "subtitle": "Un appel et un technicien licencié part vers vous. Pas de longue attente, pas de surprise sur la facture, une garantie écrite.",
-            "title": "Un nuisible à régler? On peut être chez vous aujourd’hui."
+            "subtitle": "Un appel, un technicien licencié se déplace, souvent sous 24 à 48 h. Garantie écrite sur la colonie.",
+            "title": "Des fourmis charpentières dans le bois? On s'en occupe."
           }
         ],
         "slug": {
@@ -5648,69 +5679,36 @@
         "order": 1,
         "pageBuilder": [
           {
-            "_key": "pb-intro-zxx9dgwa",
-            "_type": "editorial",
-            "segments": [
-              {
-                "_key": "seg-wa9adoma",
-                "_type": "editorialSegment",
-                "body": [
-                  {
-                    "_key": "b-bjtrhcue",
-                    "_type": "block",
-                    "children": [
-                      {
-                        "_key": "s-hhhp3s5r",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Unlike garden ants, carpenter ants tunnel through damp or damaged wood to house their colony. You often spot them near windows, door frames or the rim joist, especially in spring."
-                      }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
-                  },
-                  {
-                    "_key": "b-7xnqknin",
-                    "_type": "block",
-                    "children": [
-                      {
-                        "_key": "s-e1edzkqc",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Spraying what you see solves nothing: the queen and the main nest stay intact. We locate the nest, treat the whole colony, and address the conditions that drew them in."
-                      }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
-                  }
-                ],
-                "media": [],
-                "mediaSide": "auto"
-              }
-            ]
-          },
-          {
-            "_key": "pb-hl-lrw6la77",
-            "_type": "highlights",
-            "heading": "What you get",
+            "_key": "pb-trust",
+            "_type": "trustBar",
             "items": [
               {
-                "_key": "benefit-0",
-                "_type": "highlight",
-                "body": "Fine sawdust near woodwork, scratching inside walls, large black ants, sometimes winged, showing up indoors.",
-                "title": "The signs"
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "ASTTQ member",
+                "label": "Quebec pest management"
               },
               {
-                "_key": "benefit-1",
-                "_type": "highlight",
-                "body": "We find the main and satellite nests, treat with targeted bait and a barrier, safe for your family and pets.",
-                "title": "The treatment"
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Approved products",
+                "label": "Health Canada, family-safe"
               },
               {
-                "_key": "benefit-2",
-                "_type": "highlight",
-                "body": "If they come back, so do we. The result is guaranteed in writing.",
-                "title": "The guarantee"
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Within 24 to 48 h",
+                "label": "service seven days a week"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Written guarantee",
+                "label": "free return visit"
               }
             ]
           },
@@ -5954,29 +5952,93 @@
             ]
           },
           {
+            "_key": "pb-hl-lrw6la77",
+            "_type": "highlights",
+            "heading": "What the service includes",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the carpenter ants come back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Health Canada approved products",
+                "body": "Targeted at the nest, applied by a certified technician, safe for children and pets once dry."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "On site within 24 to 48 h",
+                "body": "A real person answers seven days a week and a local technician heads your way quickly."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Written inspection report",
+                "body": "What we found, treated, and the damp areas to watch to avoid a return."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Before you call",
+            "heading": "Your questions about carpenter ants",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-bois-en",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-securite-en",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-delai-en",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-recidive-en",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-fourmis-zone-en",
+                "_key": "fq4"
+              }
+            ]
+          },
+          {
             "_key": "pb-proc-xzfae3v4",
             "_type": "process",
             "eyebrow": "How we work",
-            "heading": "A clear method, from the first call to the guarantee",
-            "lead": "No mystery, no pressure. We look first, we treat what needs treating, and we stay on it until the problem is gone for good.",
+            "heading": "How we clear a carpenter ant colony",
+            "lead": "No mystery: we treat the source, not just what you can see.",
             "steps": [
               {
-                "_key": "step-0",
+                "_key": "s1",
                 "_type": "processStep",
-                "body": "We identify the pest, how far it has spread and where it gets in. You know exactly what you are dealing with before we touch anything.",
-                "title": "We inspect"
+                "title": "Locating the main nest and satellites",
+                "body": "We follow the galleries to the parent colony and the satellite nests, in the damp areas of the structure."
               },
               {
-                "_key": "step-1",
+                "_key": "s2",
                 "_type": "processStep",
-                "body": "A targeted treatment, safe for your family and pets, applied by a certified technician. Nothing more than what the situation calls for.",
-                "title": "We treat"
+                "title": "Bait and barrier treatment",
+                "body": "Targeted bait carried back to the nest by the workers, plus a barrier on the entry points."
               },
               {
-                "_key": "step-2",
+                "_key": "s3",
                 "_type": "processStep",
-                "body": "We come back if needed and the result is guaranteed in writing. The problem stays solved, not just pushed down the road.",
-                "title": "We guarantee"
+                "title": "Follow-up and written guarantee",
+                "body": "We return to confirm the colony is gone; the guarantee holds if they come back."
               }
             ]
           },
@@ -6010,8 +6072,8 @@
               "label": "Get an estimate",
               "type": "anchor"
             },
-            "subtitle": "One call and a licensed technician is on the way. No long wait, no surprise on the bill, a guarantee in writing.",
-            "title": "A pest to deal with? We can be at your place today."
+            "subtitle": "One call and a licensed technician heads out, often within 24 to 48 hours. Written guarantee on the colony.",
+            "title": "Carpenter ants in the woodwork? We handle it."
           }
         ],
         "slug": {
@@ -11352,6 +11414,644 @@
               "_weak": true,
               "_strengthenOnPublish": {
                 "type": "article"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-fourmis-fr",
+        "_type": "faqTheme",
+        "language": "fr",
+        "title": "Fourmis charpentières",
+        "slug": {
+          "_type": "slug",
+          "current": "fourmis-charpentieres"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-bois-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Les fourmis charpentières mangent-elles le bois?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Non. Contrairement aux termites, elles n'avalent pas le bois: elles le creusent pour y loger la colonie. Le vrai risque, c'est l'affaiblissement de la structure avec le temps, pas une digestion du bois."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-securite-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Le traitement est-il sûr pour les enfants et les animaux?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Oui. On applique des produits homologués Santé Canada, ciblés sur le nid et les points d'entrée, posés par un technicien certifié. Une fois secs, ils ne présentent pas de risque pour la maisonnée."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-delai-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Combien de temps avant que les fourmis disparaissent?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "L'activité chute souvent en une à deux semaines, le temps que l'appât soit rapporté au nid par les ouvrières. On revient confirmer que la colonie est éteinte; si elle persiste, la garantie écrite tient."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-recidive-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Vais-je devoir retraiter chaque année?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Pas si la source est traitée et les accès scellés. On vise le nid principal ET les nids satellites, puis on bloque les points d'entrée liés à l'humidité. La garantie couvre un retour si elles reviennent dans la période."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-zone-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Desservez-vous mon secteur sur la Rive-Nord?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-fr"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-laval-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Oui, de "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " à "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Laval"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " et toute la couronne nord. Un technicien d'ici se déplace, souvent sous 24 à 48 h."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-fr"
+        }
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-fourmis-en",
+        "_type": "faqTheme",
+        "language": "en",
+        "title": "Carpenter ants",
+        "slug": {
+          "_type": "slug",
+          "current": "carpenter-ants"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-bois-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do carpenter ants eat the wood?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "No. Unlike termites, they do not eat the wood: they hollow it out to house the colony. The real risk is the structure weakening over time, not the wood being digested."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-securite-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Is the treatment safe for children and pets?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Yes. We apply Health Canada approved products, targeted at the nest and the entry points, by a certified technician. Once dry, they pose no risk to the household."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-delai-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How long before the ants are gone?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Activity usually drops within one to two weeks, the time it takes the workers to carry the bait back to the nest. We return to confirm the colony is gone; if it persists, the written guarantee holds."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-recidive-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Will I have to re-treat every year?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Not if the source is treated and the access points sealed. We target the main nest AND the satellite nests, then block the moisture-related entry points. The guarantee covers a return visit if they come back within the period."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-fourmis-zone-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you serve my area on the North Shore?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-en"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-laval-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Yes, from "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " to "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Laval"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " and the whole north crown. A local technician heads out, often within 24 to 48 hours."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-fourmis-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-fourmis",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-fourmis-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-fourmis-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-fourmis-bois",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-bois-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-bois-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-fourmis-securite",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-securite-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-securite-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-fourmis-delai",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-delai-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-delai-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-fourmis-recidive",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-recidive-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-recidive-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-fourmis-zone",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-zone-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-fourmis-zone-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
               }
             }
           }
