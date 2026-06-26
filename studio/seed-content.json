@@ -4576,7 +4576,7 @@
               {
                 "_key": "seg1",
                 "_type": "editorialSegment",
-                "disposition": "duo",
+                "disposition": "aside",
                 "body": [
                   {
                     "_key": "s1b1",
@@ -4644,17 +4644,6 @@
                 ],
                 "media": [
                   {
-                    "_key": "s1m1",
-                    "_type": "figure",
-                    "image": {
-                      "_type": "image",
-                      "asset": {
-                        "_ref": "IMG:hero-rempart",
-                        "_type": "reference"
-                      }
-                    }
-                  },
-                  {
                     "_key": "s1m2",
                     "_type": "figure",
                     "image": {
@@ -4666,7 +4655,7 @@
                     }
                   }
                 ],
-                "mediaSide": "auto"
+                "mediaSide": "right"
               },
               {
                 "_key": "seg2",
@@ -5036,28 +5025,7 @@
                         "marks": []
                       }
                     ]
-                  }
-                ],
-                "media": [
-                  {
-                    "_key": "m1",
-                    "_type": "figure",
-                    "image": {
-                      "_type": "image",
-                      "asset": {
-                        "_ref": "IMG:inspection-rempart",
-                        "_type": "reference"
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "_key": "seg2",
-                "_type": "editorialSegment",
-                "disposition": "text",
-                "mediaSide": "auto",
-                "body": [
+                  },
                   {
                     "_type": "block",
                     "_key": "e2h",
@@ -5087,7 +5055,19 @@
                     ]
                   }
                 ],
-                "media": []
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -5834,7 +5814,7 @@
               {
                 "_key": "seg1",
                 "_type": "editorialSegment",
-                "disposition": "duo",
+                "disposition": "aside",
                 "body": [
                   {
                     "_key": "s1b1",
@@ -5902,17 +5882,6 @@
                 ],
                 "media": [
                   {
-                    "_key": "s1m1",
-                    "_type": "figure",
-                    "image": {
-                      "_type": "image",
-                      "asset": {
-                        "_ref": "IMG:hero-rempart",
-                        "_type": "reference"
-                      }
-                    }
-                  },
-                  {
                     "_key": "s1m2",
                     "_type": "figure",
                     "image": {
@@ -5924,7 +5893,7 @@
                     }
                   }
                 ],
-                "mediaSide": "auto"
+                "mediaSide": "right"
               },
               {
                 "_key": "seg2",
@@ -6294,28 +6263,7 @@
                         "marks": []
                       }
                     ]
-                  }
-                ],
-                "media": [
-                  {
-                    "_key": "m1",
-                    "_type": "figure",
-                    "image": {
-                      "_type": "image",
-                      "asset": {
-                        "_ref": "IMG:inspection-rempart",
-                        "_type": "reference"
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "_key": "seg2",
-                "_type": "editorialSegment",
-                "disposition": "text",
-                "mediaSide": "auto",
-                "body": [
+                  },
                   {
                     "_type": "block",
                     "_key": "e2h",
@@ -6345,7 +6293,19 @@
                     ]
                   }
                 ],
-                "media": []
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
