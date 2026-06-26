@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import PageBuilder from '~/components/page-builder/regular/index.vue'
-/* Index des services = hub des pages par nuisible. La grille liste les services
- * (collection Sanity) en cartes CLIQUABLES vers /services/<slug>. Masthead = bloc
- * hero-page (document servicesPage), le fil d'Ariane vient du route-map. Sous la
- * grille, le corps de page vient du pageBuilder du document servicesPage
- * (processus, maillage local, bandeau d'appel), resolu par useServicesPageBlocks. */
+/* Index des services = hub des pages par nuisible. Masthead = bloc hero-page
+ * (document servicesPage), le fil d'Ariane vient du route-map. Le corps de page,
+ * dont l'UNIQUE grille de services (bloc `services` en tete du pageBuilder, cartes
+ * CLIQUABLES vers /services/<slug>), vient du pageBuilder du document servicesPage,
+ * resolu par useServicesPageBlocks. */
 import { breadcrumbsFor } from '~/config/route-map'
 import type { HeroPageBlock } from '~/types/blocks'
 
@@ -25,9 +25,10 @@ const heroBlock = computed<HeroPageBlock>(() => ({
   eyebrow: pageHero.value.eyebrow ?? t('hero.kicker')
 }))
 
-// La grille des cartes service (cliquables) vit dans <ServicesGrid>, reutilisee par
-// les pages ville. Corps de page sous la grille: pageBuilder du document servicesPage
-// (processus + maillage villes + bandeau d'appel), resolu contre les collections.
+// Corps de page: pageBuilder du document servicesPage (grille de services en tete,
+// puis differenciateur, maillage villes, bandeau d'appel), resolu contre les
+// collections. La grille de cartes vit DANS le bloc `services` (plus de doublon avec
+// un <ServicesGrid> code en dur dans la page).
 const blocks = useServicesPageBlocks()
 
 // SEO du document servicesPage (payload, par locale). Fil d'Ariane = route-map.
@@ -41,19 +42,8 @@ usePageSeo({
 </script>
 
 <template>
-  <div class="svc">
+  <div>
     <Hero :hero="heroBlock" />
-
-    <div class="wf-container svc__body">
-      <ServicesGrid heading-level="h2" />
-    </div>
-
     <PageBuilder :blocks="blocks" reveal />
   </div>
 </template>
-
-<style scoped>
-.svc__body {
-  padding-block: var(--space-block-default);
-}
-</style>
