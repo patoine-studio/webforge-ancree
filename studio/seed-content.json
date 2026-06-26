@@ -1765,22 +1765,16 @@
                 "_key": "p1",
                 "_type": "processStep",
                 "title": "Inspection et identification",
-                "body": "On confirme l'espèce et on trouve la source, du sous-sol au toit, avant d'agir."
+                "body": "On confirme l'espèce et on trouve la source, du sous-sol au toit, puis on explique le plan et le prix avant d'agir."
               },
               {
                 "_key": "p2",
-                "_type": "processStep",
-                "title": "Plan et estimation claire",
-                "body": "On explique le plan et le prix avant de commencer, sans vente sous pression."
-              },
-              {
-                "_key": "p3",
                 "_type": "processStep",
                 "title": "Traitement ciblé",
                 "body": "Un technicien certifié applique des produits homologués Santé Canada, sûrs pour la famille et les animaux."
               },
               {
-                "_key": "p4",
+                "_key": "p3",
                 "_type": "processStep",
                 "title": "Suivi et garantie",
                 "body": "On scelle les points d'entrée, on revient au besoin, et la garantie écrite tient."
@@ -1965,22 +1959,16 @@
                 "_key": "p1",
                 "_type": "processStep",
                 "title": "Inspection and identification",
-                "body": "We confirm the species and find the source, basement to roof, before acting."
+                "body": "We confirm the species and find the source, basement to roof, then explain the plan and the price before acting."
               },
               {
                 "_key": "p2",
-                "_type": "processStep",
-                "title": "Plan and clear estimate",
-                "body": "We explain the plan and the price before starting, no pressure selling."
-              },
-              {
-                "_key": "p3",
                 "_type": "processStep",
                 "title": "Targeted treatment",
                 "body": "A certified technician applies Health Canada approved products, safe for family and pets."
               },
               {
-                "_key": "p4",
+                "_key": "p3",
                 "_type": "processStep",
                 "title": "Follow-up and guarantee",
                 "body": "We seal the entry points, come back if needed, and the written guarantee holds."
