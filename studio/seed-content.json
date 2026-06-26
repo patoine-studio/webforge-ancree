@@ -5520,69 +5520,172 @@
         "order": 4,
         "pageBuilder": [
           {
-            "_key": "pb-intro-22ta5lzz",
+            "_key": "pb-trust",
+            "_type": "trustBar",
+            "items": [
+              {
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "Membre ASTTQ",
+                "label": "gestion parasitaire du Québec"
+              },
+              {
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Produits homologués",
+                "label": "Santé Canada, sûrs pour la famille"
+              },
+              {
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Sous 24 à 48 h",
+                "label": "intervention 7 jours sur 7"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Garantie écrite",
+                "label": "retour sans frais"
+              }
+            ]
+          },
+          {
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Le nuisible en détail",
+            "heading": "Comprendre un nid de guêpes ou de frelons",
+            "lead": "Un nid grossit tout l'été et devient agressif quand on s'en approche. On le repère, on le traite en sécurité, puis on ferme la porte aux suivants, sans que vous ayez à vous y risquer.",
             "segments": [
               {
-                "_key": "seg-5bw78ncg",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "b-vrwx1tlc",
                     "_type": "block",
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-8e3p6wtw",
                         "_type": "span",
-                        "marks": [],
-                        "text": "Guêpes, frelons et nids de papier deviennent agressifs quand on s’en approche. Tenter de les déloger soi-même finit souvent en piqûres multiples, parfois en réaction sévère."
+                        "_key": "e1s",
+                        "text": "Une poignée de guêpes au printemps devient une colonie de centaines en août. Le nid se cache souvent dans un soffite, une fissure de revêtement ou sous une galerie; le signe le plus clair, c'est un va-et-vient constant à un point fixe. De près, les guêpes défendent le nid, et une réaction allergique peut être grave.",
+                        "marks": []
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "b-jky83yml",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-kdkdp6xp",
                         "_type": "span",
-                        "marks": [],
-                        "text": "On intervient avec l’équipement de protection qu’il faut, on traite et on retire le nid à la source. Pas de produit laissé à traîner, pas de risque pour vos proches."
+                        "_key": "e2hs",
+                        "text": "On traite à la source avant de sceller, jamais l'inverse",
+                        "marks": []
                       }
-                    ],
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2",
+                    "style": "normal",
                     "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2s",
+                        "text": "Boucher l'entrée d'un nid actif force les guêpes à chercher une autre sortie, souvent vers l'intérieur. On traite d'abord le nid à la source avec un produit homologué et l'équipement de protection, puis on scelle les points de nidification une fois la colonie neutralisée.",
+                        "marks": []
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
             "_key": "pb-hl-yv407sd6",
             "_type": "highlights",
-            "heading": "Ce que vous obtenez",
+            "heading": "Ce que comprend l'intervention",
             "items": [
               {
                 "_key": "benefit-0",
                 "_type": "highlight",
-                "body": "Nid sous un avant-toit, dans un arbuste ou dans le sol, va-et-vient soutenu d’insectes près de la maison.",
-                "title": "La situation"
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si un nid revient au même endroit dans la période couverte, on retraite sans vous refacturer."
               },
               {
                 "_key": "benefit-1",
                 "_type": "highlight",
-                "body": "Retrait sécuritaire en hauteur ou au sol, traitement ciblé, zone laissée propre et sûre.",
-                "title": "Le traitement"
+                "title": "Retrait en sécurité, équipement de protection",
+                "body": "On traite le nid à la source avec l'équipement requis, sans vous exposer aux piqûres."
               },
               {
                 "_key": "benefit-2",
                 "_type": "highlight",
-                "body": "Si un nid se reforme au même endroit dans la saison, on revient sans frais.",
-                "title": "La garantie"
+                "title": "Intervention sous 24 à 48 h",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vers vous rapidement."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Points de nidification scellés",
+                "body": "On ferme les soffites et les fissures par où ils s'installent, avec un rapport des points à surveiller."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Avant d'appeler",
+            "heading": "Vos questions sur les guêpes et les frelons",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-danger-fr",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-soi-meme-fr",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-delai-fr",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-saison-fr",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-zone-fr",
+                "_key": "fq4"
               }
             ]
           },
@@ -5590,26 +5693,26 @@
             "_key": "pb-proc-t6q9m2gs",
             "_type": "process",
             "eyebrow": "Comment on intervient",
-            "heading": "Une méthode claire, du premier appel à la garantie",
-            "lead": "Pas de mystère ni de pression. On regarde d’abord, on traite ce qu’il faut, et on reste là tant que le problème n’est pas réglé pour de bon.",
+            "heading": "Comment on retire un nid de guêpes ou de frelons",
+            "lead": "On vise le nid à la source, pas seulement les guêpes qui volent.",
             "steps": [
               {
-                "_key": "step-0",
+                "_key": "s1",
                 "_type": "processStep",
-                "body": "On identifie le nuisible, l’ampleur et les points d’entrée. Vous savez exactement à quoi vous faites face avant qu’on touche à quoi que ce soit.",
-                "title": "On inspecte"
+                "title": "Repérage du nid",
+                "body": "On suit le va-et-vient jusqu'au point d'entrée pour trouver le nid, pas seulement les guêpes visibles."
               },
               {
-                "_key": "step-1",
+                "_key": "s2",
                 "_type": "processStep",
-                "body": "Un traitement ciblé, sûr pour la famille et les animaux, appliqué par un technicien certifié. Rien de plus que ce que la situation demande.",
-                "title": "On traite"
+                "title": "Retrait sécuritaire",
+                "body": "On traite le nid à la source avec un produit homologué et l'équipement de protection, puis on le retire quand c'est possible."
               },
               {
-                "_key": "step-2",
+                "_key": "s3",
                 "_type": "processStep",
-                "body": "On revient au besoin et le résultat est garanti par écrit. Le problème reste réglé, pas seulement repoussé.",
-                "title": "On garantit"
+                "title": "Prévention des points de nidification",
+                "body": "On scelle les soffites et les fissures par où ils s'installent, pour éviter qu'un nid revienne."
               }
             ]
           },
@@ -5643,8 +5746,8 @@
               "label": "Obtenir une estimation",
               "type": "anchor"
             },
-            "subtitle": "Un appel et un technicien licencié part vers vous. Pas de longue attente, pas de surprise sur la facture, une garantie écrite.",
-            "title": "Un nuisible à régler? On peut être chez vous aujourd’hui."
+            "subtitle": "Un appel, un technicien certifié retire le nid en sécurité, souvent sous 24 à 48 h. Garantie écrite.",
+            "title": "Un nid de guêpes ou de frelons? On s'en occupe, pas vous."
           }
         ],
         "slug": {
@@ -6861,69 +6964,172 @@
         "order": 4,
         "pageBuilder": [
           {
-            "_key": "pb-intro-vbn83lr8",
+            "_key": "pb-trust",
+            "_type": "trustBar",
+            "items": [
+              {
+                "_key": "t1",
+                "_type": "proof",
+                "icon": "lucide:award",
+                "value": "ASTTQ member",
+                "label": "Quebec pest management"
+              },
+              {
+                "_key": "t2",
+                "_type": "proof",
+                "icon": "lucide:leaf",
+                "value": "Approved products",
+                "label": "Health Canada, family-safe"
+              },
+              {
+                "_key": "t3",
+                "_type": "proof",
+                "icon": "lucide:clock",
+                "value": "Within 24 to 48 h",
+                "label": "service seven days a week"
+              },
+              {
+                "_key": "t4",
+                "_type": "proof",
+                "icon": "lucide:badge-check",
+                "value": "Written guarantee",
+                "label": "free return visit"
+              }
+            ]
+          },
+          {
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "The pest in detail",
+            "heading": "Understanding a wasp or hornet nest",
+            "lead": "A nest grows all summer and turns aggressive when you get close. We locate it, treat it safely, then close the door to the next ones, without you taking the risk.",
             "segments": [
               {
-                "_key": "seg-4907q41k",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "b-lts89vyb",
                     "_type": "block",
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-z71ndjo6",
                         "_type": "span",
-                        "marks": [],
-                        "text": "Wasps, hornets and paper nests turn aggressive when you get close. Trying to knock one down yourself often ends in multiple stings, sometimes a serious reaction."
+                        "_key": "e1s",
+                        "text": "A handful of wasps in spring becomes a colony of hundreds by August. The nest often hides in a soffit, a siding crack or under a deck; the clearest sign is steady traffic at one fixed point. Up close, wasps defend the nest, and an allergic reaction can be serious.",
+                        "marks": []
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "b-movos0gt",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-mdvbelg2",
                         "_type": "span",
-                        "marks": [],
-                        "text": "We come in with the right protective gear, treat the nest and remove it at the source. No product left lying around, no risk to your loved ones."
+                        "_key": "e2hs",
+                        "text": "We treat at the source before we seal, never the other way around",
+                        "marks": []
                       }
-                    ],
+                    ]
+                  },
+                  {
+                    "_type": "block",
+                    "_key": "e2",
+                    "style": "normal",
                     "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "e2s",
+                        "text": "Blocking the entrance of an active nest forces the wasps to find another way out, often indoors. We treat the nest at the source first with an approved product and protective gear, then seal the nesting points once the colony is neutralized.",
+                        "marks": []
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
             "_key": "pb-hl-fuo7mo9u",
             "_type": "highlights",
-            "heading": "What you get",
+            "heading": "What the service includes",
             "items": [
               {
                 "_key": "benefit-0",
                 "_type": "highlight",
-                "body": "A nest under an eave, in a shrub or in the ground, steady insect traffic near the house.",
-                "title": "The situation"
+                "title": "Written guarantee, free return visit",
+                "body": "If a nest comes back in the same spot within the covered period, we re-treat at no extra charge."
               },
               {
                 "_key": "benefit-1",
                 "_type": "highlight",
-                "body": "Safe removal up high or at ground level, targeted treatment, the area left clean and safe.",
-                "title": "The treatment"
+                "title": "Safe removal, protective equipment",
+                "body": "We treat the nest at the source with the right gear, without exposing you to stings."
               },
               {
                 "_key": "benefit-2",
                 "_type": "highlight",
-                "body": "If a nest rebuilds in the same spot during the season, we come back at no charge.",
-                "title": "The guarantee"
+                "title": "On site within 24 to 48 h",
+                "body": "A real person answers seven days a week and a local technician heads your way quickly."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Nesting points sealed",
+                "body": "We close the soffits and cracks where they settle, with a report of the points to watch."
+              }
+            ]
+          },
+          {
+            "_key": "pb-faq",
+            "_type": "faq",
+            "eyebrow": "Before you call",
+            "heading": "Your questions about wasps and hornets",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-danger-en",
+                "_key": "fq0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-soi-meme-en",
+                "_key": "fq1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-delai-en",
+                "_key": "fq2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-saison-en",
+                "_key": "fq3"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-guepes-frelons-zone-en",
+                "_key": "fq4"
               }
             ]
           },
@@ -6931,26 +7137,26 @@
             "_key": "pb-proc-94ilc78c",
             "_type": "process",
             "eyebrow": "How we work",
-            "heading": "A clear method, from the first call to the guarantee",
-            "lead": "No mystery, no pressure. We look first, we treat what needs treating, and we stay on it until the problem is gone for good.",
+            "heading": "How we remove a wasp or hornet nest",
+            "lead": "We target the nest at the source, not just the wasps in the air.",
             "steps": [
               {
-                "_key": "step-0",
+                "_key": "s1",
                 "_type": "processStep",
-                "body": "We identify the pest, how far it has spread and where it gets in. You know exactly what you are dealing with before we touch anything.",
-                "title": "We inspect"
+                "title": "Locating the nest",
+                "body": "We follow the traffic to the entry point to find the nest, not just the wasps you can see."
               },
               {
-                "_key": "step-1",
+                "_key": "s2",
                 "_type": "processStep",
-                "body": "A targeted treatment, safe for your family and pets, applied by a certified technician. Nothing more than what the situation calls for.",
-                "title": "We treat"
+                "title": "Safe removal",
+                "body": "We treat the nest at the source with an approved product and protective gear, then remove it when possible."
               },
               {
-                "_key": "step-2",
+                "_key": "s3",
                 "_type": "processStep",
-                "body": "We come back if needed and the result is guaranteed in writing. The problem stays solved, not just pushed down the road.",
-                "title": "We guarantee"
+                "title": "Preventing nesting points",
+                "body": "We seal the soffits and cracks where they settle, to keep a nest from coming back."
               }
             ]
           },
@@ -6984,8 +7190,8 @@
               "label": "Get an estimate",
               "type": "anchor"
             },
-            "subtitle": "One call and a licensed technician is on the way. No long wait, no surprise on the bill, a guarantee in writing.",
-            "title": "A pest to deal with? We can be at your place today."
+            "subtitle": "One call and a certified technician removes the nest safely, often within 24 to 48 hours. Written guarantee.",
+            "title": "A wasp or hornet nest? We handle it, not you."
           }
         ],
         "slug": {
@@ -13715,6 +13921,644 @@
             "value": {
               "_type": "reference",
               "_ref": "faqItem-punaises-de-lit-zone-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-guepes-frelons-fr",
+        "_type": "faqTheme",
+        "language": "fr",
+        "title": "Guêpes et frelons",
+        "slug": {
+          "_type": "slug",
+          "current": "guepes-frelons"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-danger-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "C'est risqué d'attendre?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Un nid grossit et devient plus agressif avec l'été. Si quelqu'un est allergique ou si le nid est près d'une porte, mieux vaut ne pas attendre. On intervient souvent sous 24 à 48 h."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-soi-meme-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Puis-je retirer le nid moi-même?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Ce n'est pas conseillé: un nid dérangé devient agressif et les piqûres multiples sont dangereuses. Un technicien certifié a le produit homologué et l'équipement pour le faire en sécurité."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-delai-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Combien de temps avant que ce soit réglé?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Le nid est neutralisé dès le traitement et l'activité tombe en quelques heures. On revient au besoin, et la garantie écrite couvre un retour au même endroit."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-saison-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "À quel moment de l'année intervenez-vous?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Surtout de la fin du printemps à l'automne, quand les nids sont actifs. Plus on agit tôt dans la saison, plus le nid est petit et simple à retirer."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-zone-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Desservez-vous mon secteur sur la Rive-Nord?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-blainville-fr"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Oui, de "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Blainville"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " à "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " et toute la couronne nord. Un technicien d'ici se déplace, souvent sous 24 à 48 h."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-fr"
+        }
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-guepes-frelons-en",
+        "_type": "faqTheme",
+        "language": "en",
+        "title": "Wasps and hornets",
+        "slug": {
+          "_type": "slug",
+          "current": "wasps-and-hornets"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-danger-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Is it risky to wait?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "A nest grows and turns more aggressive as summer goes on. If someone is allergic or the nest is near a door, it is better not to wait. We often come within 24 to 48 hours."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-soi-meme-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Can I remove the nest myself?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "It is not advised: a disturbed nest turns aggressive and multiple stings are dangerous. A certified technician has the approved product and the gear to do it safely."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-delai-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How long before it is solved?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "The nest is neutralized as soon as it is treated and activity drops within hours. We come back if needed, and the written guarantee covers a return to the same spot."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-saison-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "What time of year do you come out?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Mostly from late spring to fall, when nests are active. The earlier in the season we act, the smaller and simpler the nest is to remove."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-en"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-guepes-frelons-zone-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you serve my area on the North Shore?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-blainville-en"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "serviceCity-terrebonne-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_key": "a0s0",
+                "_type": "span",
+                "marks": [],
+                "text": "Yes, from "
+              },
+              {
+                "_key": "a0s1",
+                "_type": "span",
+                "marks": [
+                  "l1"
+                ],
+                "text": "Blainville"
+              },
+              {
+                "_key": "a0s2",
+                "_type": "span",
+                "marks": [],
+                "text": " to "
+              },
+              {
+                "_key": "a0s3",
+                "_type": "span",
+                "marks": [
+                  "l3"
+                ],
+                "text": "Terrebonne"
+              },
+              {
+                "_key": "a0s4",
+                "_type": "span",
+                "marks": [],
+                "text": " and the whole north crown. A local technician heads out, often within 24 to 48 hours."
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-guepes-frelons-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-guepes-frelons",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-guepes-frelons-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-guepes-frelons-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-guepes-frelons-danger",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-danger-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-danger-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-guepes-frelons-soi-meme",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-soi-meme-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-soi-meme-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-guepes-frelons-delai",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-delai-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-delai-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-guepes-frelons-saison",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-saison-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-saison-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-guepes-frelons-zone",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-zone-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-guepes-frelons-zone-en",
               "_weak": true,
               "_strengthenOnPublish": {
                 "type": "faqItem"
