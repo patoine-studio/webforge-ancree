@@ -1160,11 +1160,6 @@
                 "_type": "reference",
                 "_ref": "service-guepes-frelons-fr",
                 "_key": "sv3"
-              },
-              {
-                "_type": "reference",
-                "_ref": "service-punaises-de-lit-fr",
-                "_key": "sv4"
               }
             ]
           },
@@ -1490,11 +1485,6 @@
                 "_type": "reference",
                 "_ref": "service-guepes-frelons-en",
                 "_key": "sv3"
-              },
-              {
-                "_type": "reference",
-                "_ref": "service-punaises-de-lit-en",
-                "_key": "sv4"
               }
             ]
           },
