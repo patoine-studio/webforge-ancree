@@ -1,10 +1,13 @@
-import { defineField } from 'sanity'
+import { portableLinkAnnotation } from '../portable-link'
 
 /**
- * Configuration Portable Text des articles (patron simpleBlock de la
- * reference, etendu aux titres et aux listes). Ce n'est PAS un type
- * enregistre: la valeur est reutilisee dans les of: [...] des blocs riches
- * et reste absente du registre index.ts.
+ * Configuration Portable Text des articles (patron simpleBlock de la reference,
+ * etendu aux titres et aux listes). L'annotation `link` est PARTAGÉE avec le bloc
+ * éditorial (objets/portable-link): lien interne (référence), URL externe ou ancre,
+ * résolu au transform (resolveLink, localisé par langue) et rendu par PortableText.vue.
+ *
+ * Ce n'est PAS un type enregistre: la valeur est reutilisee dans les of: [...] des
+ * blocs riches et reste absente du registre index.ts (comme editorialPortableText).
  */
 export const articlePortableText = {
   type: 'block' as const,
@@ -22,23 +25,6 @@ export const articlePortableText = {
       { title: 'Gras', value: 'strong' },
       { title: 'Italique', value: 'em' },
     ],
-    annotations: [
-      {
-        name: 'link',
-        type: 'object' as const,
-        title: 'Lien',
-        fields: [
-          defineField({
-            name: 'href',
-            title: 'URL',
-            type: 'url',
-            // Pas de scheme 'tel': aucun numero saisi a la main, meme dans le corps
-            // d'article. Un appel passe par un bloc CTA en type « Appel (téléphone) ».
-            validation: (R) =>
-              R.required().uri({ scheme: ['http', 'https', 'mailto'] }),
-          }),
-        ],
-      },
-    ],
+    annotations: [portableLinkAnnotation],
   },
 }
