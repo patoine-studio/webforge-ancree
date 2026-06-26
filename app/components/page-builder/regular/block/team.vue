@@ -88,29 +88,32 @@ const hasHead = computed(() => Boolean(props.heading || props.eyebrow))
 }
 
 .team__body {
-  margin-top: 1.8rem;
+  margin-top: 2rem;
 }
 .team__name {
   margin: 0;
   color: var(--text-base);
 }
+/* Rôle: réserve deux lignes pour que ce qui suit s'aligne d'une carte à l'autre,
+ * que le rôle tienne sur une ou deux lignes. */
 .team__role {
-  margin: 0.4rem 0 0;
+  margin: 0.6rem 0 0;
+  min-height: 2lh;
   color: var(--accent-trust);
   font-weight: 600;
 }
-/* Certifications: micro-libellé sobre (capitales espacées), lu comme une mention,
- * sans tiret ni pastille. */
+/* Certifications: mention lisible (pas un micro-libellé), sans tiret ni pastille.
+ * Réserve aussi deux lignes pour aligner les bios sur toute la rangée. */
 .team__credentials {
-  margin: 1rem 0 0;
-  font-size: 0.78rem;
-  line-height: 1.4;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  margin: 1.1rem 0 0;
+  min-height: 2lh;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
   color: var(--text-muted);
 }
 .team__bio {
-  margin: 1.2rem 0 0;
+  margin: 1.3rem 0 0;
   max-width: 42ch;
 }
 </style>
