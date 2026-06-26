@@ -1,5 +1,6 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons'
+import { isUniqueAcrossLocale } from '../lib/localized-slug'
 
 export const article = defineType({
   name: 'article',
@@ -8,7 +9,7 @@ export const article = defineType({
   icon: DocumentTextIcon,
   groups: [
     { name: 'content', title: 'Contenu', default: true },
-    { name: 'meta', title: 'Métadonnées' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     defineField({
@@ -39,6 +40,7 @@ export const article = defineType({
         source: 'title',
         maxLength: 96,
         documentInternationalization: { exclude: true },
+        isUnique: isUniqueAcrossLocale,
       },
       validation: (R) =>
         R.required().custom((slug) =>
@@ -82,6 +84,29 @@ export const article = defineType({
       },
     }),
     defineField({
+      name: 'author',
+      title: 'Auteur',
+      type: 'string',
+      group: 'content',
+      validation: (R) => R.required(),
+    }),
+    defineField({
+      name: 'date',
+      title: 'Date de publication',
+      type: 'date',
+      group: 'content',
+      initialValue: () => new Date().toISOString().slice(0, 10),
+      validation: (R) => R.required(),
+    }),
+    defineField({
+      name: 'readingTime',
+      title: 'Durée de lecture (min)',
+      description: 'Affichée au héros d\'article.',
+      type: 'number',
+      group: 'content',
+      validation: (R) => R.required().integer().positive(),
+    }),
+    defineField({
       name: 'body',
       title: 'Corps de l\'article',
       type: 'array',
@@ -107,27 +132,10 @@ export const article = defineType({
       validation: (R) => R.required().min(1),
     }),
     defineField({
-      name: 'date',
-      title: 'Date de publication',
-      type: 'date',
-      group: 'meta',
-      initialValue: () => new Date().toISOString().slice(0, 10),
-      validation: (R) => R.required(),
-    }),
-    defineField({
-      name: 'author',
-      title: 'Auteur',
-      type: 'string',
-      group: 'meta',
-      validation: (R) => R.required(),
-    }),
-    defineField({
-      name: 'readingTime',
-      title: 'Durée de lecture (min)',
-      description: 'Affichée au héros d\'article.',
-      type: 'number',
-      group: 'meta',
-      validation: (R) => R.required().integer().positive(),
+      name: 'seo',
+      title: 'SEO de la page',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [

@@ -2,9 +2,12 @@ import { defineType, defineField } from 'sanity'
 import { SearchIcon } from '@sanity/icons'
 
 /**
- * SEO de page, présent UNIQUEMENT sur les pages fixes et onePager. Les
- * collections (service, serviceCity, article, catégorie) dérivent leur SEO de
- * leurs champs via usePageSeo: pas d'objet seo dessus, zéro orphelin.
+ * SEO de page, posé sur CHAQUE document qui rend une page indexable: les pages
+ * fixes et le one-pager, les collections service et serviceCity, et désormais
+ * article, catégorie et legalPage (modèle d'édition uniforme « Contenu + SEO »).
+ * Les banques qui n'ont pas de page propre (testimonial, faqItem, faqTheme) n'en
+ * portent pas. Chaque champ vide retombe par dérivation au transform/usePageSeo
+ * (titre du héros, accroche, image de couverture), donc zéro orphelin.
  *
  * Sémantique spéciale homePage et onePager: le code y neutralise le gabarit
  * de marque (titleTemplate: null), le champ `title` y porte donc le titre

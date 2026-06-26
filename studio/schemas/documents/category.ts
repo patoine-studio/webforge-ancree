@@ -1,22 +1,29 @@
 import { defineType, defineField } from 'sanity'
 import { TagIcon } from '@sanity/icons'
+import { isUniqueAcrossLocale } from '../lib/localized-slug'
 
 export const category = defineType({
   name: 'category',
   title: 'Catégorie',
   type: 'document',
   icon: TagIcon,
+  groups: [
+    { name: 'content', title: 'Contenu', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'language',
       type: 'string',
       readOnly: true,
       hidden: true,
+      group: 'content',
     }),
     defineField({
       name: 'title',
       title: 'Titre',
       type: 'string',
+      group: 'content',
       validation: (R) => R.required(),
     }),
     defineField({
@@ -24,10 +31,12 @@ export const category = defineType({
       title: 'Slug (URL)',
       description: 'Archive accessible à /blog/<slug>.',
       type: 'slug',
+      group: 'content',
       options: {
         source: 'title',
         maxLength: 96,
         documentInternationalization: { exclude: true },
+        isUnique: isUniqueAcrossLocale,
       },
       validation: (R) =>
         R.required().custom((slug) =>
@@ -42,6 +51,7 @@ export const category = defineType({
       description: 'Texte d\'amorce de l\'archive de catégorie.',
       type: 'text',
       rows: 3,
+      group: 'content',
       validation: (R) => R.required(),
     }),
     defineField({
@@ -49,7 +59,14 @@ export const category = defineType({
       title: 'Ordre',
       description: 'Position dans le filtre de catégories du blogue (1 = premier).',
       type: 'number',
+      group: 'content',
       validation: (R) => R.required().integer().positive(),
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO de la page',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [

@@ -15,7 +15,7 @@ import { isUniqueAcrossLocale } from '../lib/localized-slug'
  *
  * Édition alignée sur les singletons: deux onglets seulement. Contenu porte
  * l'identité de carte (icône, titre, résumé, image, tri) + un masthead verrouillé
- * (hero[1]) + un pageBuilder de sections. Référencement porte le SEO. La page de
+ * (hero[1]) + un pageBuilder de sections. L'onglet SEO porte le référencement. La page de
  * détail se compose donc en blocs, comme l'accueil ou À propos.
  */
 export const service = defineType({
@@ -25,7 +25,7 @@ export const service = defineType({
   icon: BugIcon,
   groups: [
     { name: 'content', title: 'Contenu', default: true },
-    { name: 'seo', title: 'Référencement' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     defineField({

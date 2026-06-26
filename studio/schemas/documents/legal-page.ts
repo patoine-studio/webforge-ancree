@@ -9,17 +9,23 @@ export const legalPage = defineType({
   title: 'Page légale',
   type: 'document',
   icon: ClipboardIcon,
+  groups: [
+    { name: 'content', title: 'Contenu', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'language',
       type: 'string',
       readOnly: true,
       hidden: true,
+      group: 'content',
     }),
     defineField({
       name: 'title',
       title: 'Titre',
       type: 'string',
+      group: 'content',
       validation: (R) => R.required(),
     }),
     defineField({
@@ -28,6 +34,7 @@ export const legalPage = defineType({
       description:
         'À fournir par le client. Vide: le site affiche une zone à compléter encadrée à la place de la date.',
       type: 'date',
+      group: 'content',
     }),
     defineField({
       name: 'updated',
@@ -35,13 +42,21 @@ export const legalPage = defineType({
       description:
         'À fournir par le client. Vide: le site affiche une zone à compléter encadrée à la place de la date.',
       type: 'date',
+      group: 'content',
     }),
     defineField({
       name: 'sections',
       title: 'Sections',
       type: 'array',
+      group: 'content',
       of: [defineArrayMember({ type: 'legalSection' })],
       validation: (R) => R.required().min(1),
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO de la page',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
