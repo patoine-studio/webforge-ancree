@@ -69,7 +69,9 @@ const classes = computed(() => [
   font-weight: 700;
   line-height: 1;
   max-width: 100%;
-  white-space: nowrap;
+  /* Libellés longs (pilotés par le CMS): le texte revient à la ligne dans le bouton
+   * au lieu de déborder du fond. En dernier recours (mesure très étroite) un mot trop
+   * large se coupe. Plus de white-space:nowrap, qui faisait déborder le texte. */
   overflow-wrap: anywhere;
   text-decoration: none;
   cursor: pointer;
@@ -104,6 +106,14 @@ const classes = computed(() => [
   width: 1.9rem;
   height: 1.9rem;
   flex: none;
+}
+/* Le libellé peut se réduire sous sa taille de contenu (donc revenir à la ligne); les
+ * lignes restent centrées et respirent (line-height > 1 dégage les accents au passage
+ * à deux lignes). L'icône, flex:none, reste centrée à l'aplomb du bloc texte. */
+.btn__label {
+  min-width: 0;
+  text-align: center;
+  line-height: 1.2;
 }
 
 /* Appel: ambre, le geste de conversion. Texte bleu nuit (contraste fort). */
