@@ -4,7 +4,7 @@
  * dans motion-gsap.ts (import dynamique). Miroir CSS dans family/tokens.css (meme
  * courbe settle). Discipline 1: les composants lisent MOTION.*, jamais de litteraux. */
 export const MOTION = {
-  duration: { reveal: 0.8, drawer: 0.46 }, // secondes (unite GSAP)
+  duration: { reveal: 0.8, drawer: 0.2 }, // secondes (unite GSAP)
   // settle = CustomEase enregistre dans motion-gsap.ts. drawer = ease in-out built-in
   // (depart ET fin doux): l'ouverture d'un tiroir d'accordeon se pose sans a-coup.
   ease: { settle: 'settle', drawer: 'power2.inOut' },
