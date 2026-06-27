@@ -46,7 +46,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
         </ol>
       </nav>
 
-      <div class="page-hero__head section-grid">
+      <div class="page-hero__head wf-grid-cols">
         <div class="page-hero__text">
           <p v-if="eyebrow" class="page-hero__eyebrow wf-caption">
             <span class="page-hero__tick" aria-hidden="true" />{{ eyebrow }}
@@ -64,7 +64,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
           </template>
         </div>
 
-        <!-- Carte image: posée au sol, cadre arrondi, ombre chaude, languette ambre. -->
+        <!-- Carte image: posée au sol, cadre arrondi, ombre chaude. -->
         <figure v-if="image" class="page-hero__media">
           <div class="page-hero__frame">
             <Image
@@ -74,7 +74,6 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
               sizes="xs:100vw sm:100vw md:50vw lg:45vw xl:45vw xxl:45vw"
             />
           </div>
-          <span class="page-hero__media-anchor" aria-hidden="true" />
         </figure>
 
         <!-- Sans image: accroche + appel sur une mesure étroite à droite (d'origine). -->
@@ -86,14 +85,6 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
             </Button>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Ligne d'horizon: le masthead se pose au sol. Languette ambre à l'axe
-         gauche (où le contenu touche le sol), filet pleine largeur en dessous. -->
-    <div class="page-hero__horizon" aria-hidden="true">
-      <div class="wf-container">
-        <span class="page-hero__anchor" />
       </div>
     </div>
   </section>
@@ -110,9 +101,11 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
     var(--bg-base) 70%
   );
 }
-/* Réserve la hauteur de l'en-tête collant (qui chevauche), puis respire. */
+/* Réserve la hauteur de l'en-tête collant (qui chevauche) en haut; en bas, le palier
+ * de section standard pour que l'espace héros -> 1re section égale section -> section
+ * (rythme uniforme avec le page-builder). */
 .page-hero__inner {
-  padding-block: calc(var(--header-height) + clamp(3.5rem, 7vh, 6rem)) clamp(3.2rem, 5vh, 4.8rem);
+  padding-block: calc(var(--header-height) + clamp(3.5rem, 7vh, 6rem)) var(--space-block-default);
 }
 
 /* Fil d'Ariane: maillons slab, séparateur chevron discret, page courante sobre. */
@@ -154,11 +147,22 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   color: color-mix(in oklch, var(--text-muted) 52%, transparent);
 }
 
-/* Tête: la grille (16 pistes desktop / 4 mobile) vient de .section-grid, calée sur
- * .wf-container; ici on pose l'espacement vertical et le placement des colonnes. */
+/* Tête: .wf-grid-cols EMPILE les zones en une colonne sous 1024px (le titre, l'accroche
+ * et l'image se posent l'un sous l'autre, pleine mesure) puis passe à 16 pistes au desktop
+ * où le placement des colonnes ci-dessous s'applique. Calée sur .wf-container; ici on pose
+ * l'espacement vertical. row-gap = écart entre zones empilées au mobile (sans effet au
+ * desktop, où les zones tiennent sur une seule rangée). */
 .page-hero__head {
   margin-top: var(--space-crumbs-head);
   row-gap: 3.2rem;
+}
+/* Les zones se réduisent à leur piste de grille. Sans min-width:0, un titre slab
+ * dont un mot dépasse la colonne élargirait sa zone au-delà de la piste et pousserait
+ * l'image (débordement) au lieu de se couper. */
+.page-hero__text,
+.page-hero__aside,
+.page-hero__media {
+  min-width: 0;
 }
 .page-hero__eyebrow {
   display: inline-flex;
@@ -177,6 +181,11 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
 .page-hero__title {
   max-width: 17ch;
   color: var(--text-base);
+  /* Garde-fou: un mot unique plus long que sa colonne (« d'extermination ») se coupe
+   * proprement (césure selon lang sur <html>, repli sans tiret) au lieu de déborder. */
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 .page-hero__lead {
   max-width: 46ch;
@@ -200,32 +209,8 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   overflow: hidden;
   box-shadow: var(--elev-mid);
 }
-/* Languette ambre sous la carte: le geste « ancré au sol », à l'aplomb gauche. */
-.page-hero__media-anchor {
-  position: absolute;
-  left: 2.4rem;
-  bottom: -0.3rem;
-  width: clamp(4rem, 8vw, 6rem);
-  height: 4px;
-  border-radius: 0 0 2px 2px;
-  background: var(--accent-call);
-  box-shadow: var(--elev-low);
-}
 
-/* Horizon: le masthead repose au sol. */
-.page-hero__horizon {
-  border-top: var(--line-hair);
-}
-.page-hero__anchor {
-  display: block;
-  width: clamp(6rem, 12vw, 9rem);
-  height: 4px;
-  border-radius: 0 0 2px 2px;
-  background: var(--accent-call);
-  box-shadow: var(--elev-low);
-}
-
-/* Desktop: calage sur les 16 pistes de .section-grid. */
+/* Desktop: calage sur les 16 pistes de la grille (.wf-grid-cols). */
 @container site (min-width: 1024px) {
   .page-hero__head {
     align-items: end;
@@ -240,16 +225,35 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   .page-hero__lead {
     max-width: 38ch;
   }
-  /* Split: texte (cols 1-7) et image (cols 9-16), hauts alignés. */
+  /* Avec image, 1024-1280: le masthead reste EMPILÉ. Le grand titre slab garde sa
+   * pleine mesure (un titre long tient sans se couper) et l'image se pose dessous en
+   * carte. Une scission n'a pas la place de loger ce titre à côté d'une image avant
+   * le desktop large. */
   .page-hero--media .page-hero__head {
     align-items: start;
   }
   .page-hero--media .page-hero__text {
-    grid-column: 1 / span 7;
+    grid-column: 1 / -1;
+  }
+  .page-hero--media .page-hero__media {
+    grid-column: 1 / span 11;
+  }
+}
+
+/* Avec image, desktop large: scission posée. Titre à l'axe gauche (cols 1-9), image à
+ * droite (cols 11-16), hauts alignés. Le titre passe à une mesure d'affiche contenue
+ * pour tenir net dans sa colonne à côté de l'image (un cran sous le grand slab plein
+ * écran, dont la longueur d'« extermination » ne loge pas en demi-largeur). */
+@container site (min-width: 1280px) {
+  .page-hero--media .page-hero__text {
+    grid-column: 1 / span 9;
     align-self: center;
   }
   .page-hero--media .page-hero__media {
-    grid-column: 9 / -1;
+    grid-column: 11 / -1;
+  }
+  .page-hero--media .page-hero__title {
+    font-size: clamp(4.6rem, calc(2.2rem + 2.6vw), 5.6rem);
   }
 }
 </style>
