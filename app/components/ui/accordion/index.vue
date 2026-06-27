@@ -102,6 +102,14 @@ function panelId(i: number): string {
 .acc {
   display: grid;
   gap: 1.6rem;
+  /* Mouvement du tiroir, propre a l'accordeon. Courbe in-out DELICATE: depart ET
+   * fin doux (contraire de settle/ease-out qui chargent tout d'emblee et donnent
+   * le « ouvre d'un coup »), duree posee. La douceur PERCUE est portee par le
+   * mouvement compositeur du corps (transform + opacite), pose par-dessus la
+   * hauteur. Variable locale tant que la couche famille n'expose pas de token
+   * in-out (family/tokens.css). */
+  --acc-drawer-dur: 460ms;
+  --acc-drawer-ease: cubic-bezier(0.45, 0, 0.15, 1);
 }
 
 /* Chaque entree: une carte chaude, arrondie, posee (ombre douce). */
@@ -111,10 +119,12 @@ function panelId(i: number): string {
   border-radius: var(--radius);
   box-shadow: var(--elev-low);
   overflow: hidden;
+  /* Bordure et fond ambre fondent au RYTHME du tiroir (ils naissent a l'ouverture),
+   * l'ombre suit le tempo rapide du survol. */
   transition:
     box-shadow var(--motion-duration-hover) var(--motion-ease-out),
-    border-color var(--motion-duration-hover) var(--motion-ease-out),
-    background-color var(--motion-duration-expand) var(--motion-ease-out);
+    border-color var(--acc-drawer-dur) var(--acc-drawer-ease),
+    background-color var(--acc-drawer-dur) var(--acc-drawer-ease);
 }
 .acc__item:hover {
   box-shadow: var(--elev-mid);
@@ -175,7 +185,7 @@ function panelId(i: number): string {
   background: color-mix(in oklch, var(--text-base) 5%, transparent);
   color: var(--text-muted);
   transition:
-    transform var(--motion-duration-expand) var(--motion-ease-out),
+    transform var(--acc-drawer-dur) var(--acc-drawer-ease),
     background-color var(--motion-duration-hover) var(--motion-ease-out),
     color var(--motion-duration-hover) var(--motion-ease-out);
 }
@@ -198,7 +208,7 @@ function panelId(i: number): string {
 .acc__panel {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows var(--motion-duration-expand) var(--motion-ease-out);
+  transition: grid-template-rows var(--acc-drawer-dur) var(--acc-drawer-ease);
 }
 .acc__panel[hidden] {
   display: grid;
@@ -212,13 +222,19 @@ function panelId(i: number): string {
 .acc__content {
   padding: 0 2.4rem 2.4rem;
   max-width: 64ch;
-  /* Le corps se pose en fondu pendant que la rangee se deploie: l'ouverture
-   * respire au lieu de surgir d'un coup. */
+  /* Le corps porte la douceur PERCUE: il se pose en montant (transform) et en
+   * fondu (opacite), deux proprietes compositeur, pendant que la rangee se
+   * deploie. Le geste « s'ancre en montant » de la famille, a l'echelle du tiroir.
+   * Couple a la meme courbe in-out, l'ouverture lit comme un seul mouvement doux. */
   opacity: 1;
-  transition: opacity var(--motion-duration-expand) var(--motion-ease-out);
+  transform: translateY(0);
+  transition:
+    opacity var(--acc-drawer-dur) var(--acc-drawer-ease),
+    transform var(--acc-drawer-dur) var(--acc-drawer-ease);
 }
 .acc__panel[hidden] .acc__content {
   opacity: 0;
+  transform: translateY(0.8rem);
 }
 
 /* Kill-switch local: les utilisateurs sensibles au mouvement obtiennent une
