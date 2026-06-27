@@ -185,6 +185,14 @@ export function useFaqPageBlocks(): ComputedRef<PageBlock[]> {
   return computed(() => resolveBlocks(useFixedPage('faq').pageBuilder))
 }
 
+// Blog (/blog): la page rend la liste d'articles ELLE-MEME (composant), et le
+// pageBuilder l'encadre. Convention: les blocs `editorial` en TETE sont l'intro
+// (rendue avant la liste), tout le reste est rendu apres (temoignages, ctaBand,
+// contact). Le decoupage se fait dans la page.
+export function useBlogPageBlocks(): ComputedRef<PageBlock[]> {
+  return computed(() => resolveBlocks(useFixedPage('blog').pageBuilder))
+}
+
 // Pages de detail (service, ville): le pageBuilder vit sur le DOCUMENT de collection
 // lui-meme (service.pageBuilder / city.pageBuilder), compose comme un singleton. Les
 // memes 4 blocs intelligents y resolvent leurs items via resolveBlocks. pageBuilder

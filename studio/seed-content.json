@@ -3742,6 +3742,177 @@
         },
         "pageBuilder": [
           {
+            "_key": "bl-editorial",
+            "_type": "editorial",
+            "eyebrow": "Le carnet de Rempart",
+            "heading": "Des conseils de terrain, pas de la théorie",
+            "lead": "Depuis 2008, on traite les nuisibles de la Rive-Nord au quotidien. Ce qu'on voit sur le terrain, on le partage ici: reconnaître un problème tôt, quoi faire avant notre visite, et comment éviter que ça revienne.",
+            "segments": [
+              {
+                "_key": "seg0",
+                "_type": "editorialSegment",
+                "disposition": "text",
+                "media": [],
+                "body": [
+                  {
+                    "_type": "block",
+                    "_key": "a0",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "a0l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
+                      },
+                      {
+                        "_key": "a0l2",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-punaises-de-lit-fr"
+                        }
+                      },
+                      {
+                        "_key": "a0l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
+                      },
+                      {
+                        "_key": "a0l4",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "serviceCity-laval-fr"
+                        }
+                      },
+                      {
+                        "_key": "a0l5",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "serviceCity-repentigny-fr"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "a0s0",
+                        "text": "Nos articles vont droit au but, écrits par les techniciens qui font le travail. Les signes d'une infestation de ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s1",
+                        "text": "souris",
+                        "marks": [
+                          "a0l1"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s2",
+                        "text": ", les bons réflexes contre les ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s3",
+                        "text": "punaises de lit",
+                        "marks": [
+                          "a0l2"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s4",
+                        "text": ", la prévention des ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s5",
+                        "text": "fourmis charpentières",
+                        "marks": [
+                          "a0l3"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s6",
+                        "text": ": de quoi agir avant même d'avoir à nous appeler. Et quand il faut intervenir, on est déjà dans votre coin, de ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s7",
+                        "text": "Laval",
+                        "marks": [
+                          "a0l4"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s8",
+                        "text": " à ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s9",
+                        "text": "Repentigny",
+                        "marks": [
+                          "a0l5"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s10",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "bl-tm",
+            "_type": "testimonials",
+            "mode": "featured",
+            "eyebrow": "Au-delà du conseil",
+            "heading": "Quand le conseil ne suffit plus"
+          },
+          {
+            "_key": "bl-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible n'attend pas que vous finissiez l'article.",
+            "subtitle": "Appelez, une vraie personne répond 7 jours sur 7.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "label": "Obtenir une estimation",
+              "type": "anchor",
+              "anchor": "contact"
+            }
+          },
+          {
             "_key": "b1",
             "_type": "contact",
             "eyebrow": "Nous joindre",
@@ -3881,6 +4052,177 @@
           "heading": "Read next"
         },
         "pageBuilder": [
+          {
+            "_key": "bl-editorial",
+            "_type": "editorial",
+            "eyebrow": "The Rempart field notes",
+            "heading": "Field advice, not theory",
+            "lead": "Since 2008 we have treated North Shore pests every day. What we see in the field, we share here: spotting a problem early, what to do before our visit, and how to keep it from coming back.",
+            "segments": [
+              {
+                "_key": "seg0",
+                "_type": "editorialSegment",
+                "disposition": "text",
+                "media": [],
+                "body": [
+                  {
+                    "_type": "block",
+                    "_key": "a0",
+                    "style": "normal",
+                    "markDefs": [
+                      {
+                        "_key": "a0l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
+                      },
+                      {
+                        "_key": "a0l2",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-punaises-de-lit-en"
+                        }
+                      },
+                      {
+                        "_key": "a0l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
+                      },
+                      {
+                        "_key": "a0l4",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "serviceCity-laval-en"
+                        }
+                      },
+                      {
+                        "_key": "a0l5",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "serviceCity-repentigny-en"
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "_type": "span",
+                        "_key": "a0s0",
+                        "text": "Our articles get straight to the point, written by the technicians who do the work. The signs of a ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s1",
+                        "text": "mouse",
+                        "marks": [
+                          "a0l1"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s2",
+                        "text": " infestation, the right reflexes against ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s3",
+                        "text": "bed bugs",
+                        "marks": [
+                          "a0l2"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s4",
+                        "text": ", preventing ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s5",
+                        "text": "carpenter ants",
+                        "marks": [
+                          "a0l3"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s6",
+                        "text": ": enough to act before you even have to call us. And when treatment is needed, we are already in your area, from ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s7",
+                        "text": "Laval",
+                        "marks": [
+                          "a0l4"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s8",
+                        "text": " to ",
+                        "marks": []
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s9",
+                        "text": "Repentigny",
+                        "marks": [
+                          "a0l5"
+                        ]
+                      },
+                      {
+                        "_type": "span",
+                        "_key": "a0s10",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "bl-tm",
+            "_type": "testimonials",
+            "mode": "featured",
+            "eyebrow": "Beyond the advice",
+            "heading": "When advice is not enough"
+          },
+          {
+            "_key": "bl-cta",
+            "_type": "ctaBand",
+            "title": "A pest will not wait for you to finish the article.",
+            "subtitle": "Call us, a real person answers seven days a week.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "label": "Get an estimate",
+              "type": "anchor",
+              "anchor": "contact"
+            }
+          },
           {
             "_key": "b1",
             "_type": "contact",
