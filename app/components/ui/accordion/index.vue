@@ -112,8 +112,9 @@ function panelId(i: number): string {
   box-shadow: var(--elev-low);
   overflow: hidden;
   transition:
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle),
-    border-color var(--motion-duration-hover) var(--motion-ease-settle);
+    box-shadow var(--motion-duration-hover) var(--motion-ease-out),
+    border-color var(--motion-duration-hover) var(--motion-ease-out),
+    background-color var(--motion-duration-expand) var(--motion-ease-out);
 }
 .acc__item:hover {
   box-shadow: var(--elev-mid);
@@ -144,7 +145,7 @@ function panelId(i: number): string {
   text-align: left;
   cursor: pointer;
   color: var(--text-base);
-  transition: color var(--motion-duration-hover) var(--motion-ease-settle);
+  transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .acc__trigger:hover {
   color: var(--accent-trust);
@@ -174,9 +175,9 @@ function panelId(i: number): string {
   background: color-mix(in oklch, var(--text-base) 5%, transparent);
   color: var(--text-muted);
   transition:
-    transform var(--motion-duration-expand) var(--motion-ease-settle),
-    background-color var(--motion-duration-hover) var(--motion-ease-settle),
-    color var(--motion-duration-hover) var(--motion-ease-settle);
+    transform var(--motion-duration-expand) var(--motion-ease-out),
+    background-color var(--motion-duration-hover) var(--motion-ease-out),
+    color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .acc__chevron svg {
   width: 2rem;
@@ -197,7 +198,7 @@ function panelId(i: number): string {
 .acc__panel {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows var(--motion-duration-expand) var(--motion-ease-settle);
+  transition: grid-template-rows var(--motion-duration-expand) var(--motion-ease-out);
 }
 .acc__panel[hidden] {
   display: grid;
@@ -211,12 +212,20 @@ function panelId(i: number): string {
 .acc__content {
   padding: 0 2.4rem 2.4rem;
   max-width: 64ch;
+  /* Le corps se pose en fondu pendant que la rangee se deploie: l'ouverture
+   * respire au lieu de surgir d'un coup. */
+  opacity: 1;
+  transition: opacity var(--motion-duration-expand) var(--motion-ease-out);
+}
+.acc__panel[hidden] .acc__content {
+  opacity: 0;
 }
 
 /* Kill-switch local: les utilisateurs sensibles au mouvement obtiennent une
  * bascule instantanee (pas d'animation de hauteur ni de chevron). */
 @media (prefers-reduced-motion: reduce) {
   .acc__panel,
+  .acc__content,
   .acc__chevron {
     transition: none;
   }
