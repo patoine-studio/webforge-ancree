@@ -212,18 +212,14 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
 
 /* Desktop: calage sur les 16 pistes de la grille (.wf-grid-cols). */
 @container site (min-width: 1024px) {
-  .page-hero__head {
-    align-items: end;
-  }
-  /* Sans image: titre large (cols 1-10), aside étroit (cols 12-16) calé en bas. */
+  /* Sans image: masthead classique EMPILÉ à l'axe gauche. Le titre tient la rangée
+   * (borné par sa propre mesure), puis l'accroche et l'appel se posent DESSOUS sur une
+   * mesure de lecture. Fini le couple « titre à gauche, accroche décollée à droite ». */
   .page-hero__text {
-    grid-column: 1 / span 10;
+    grid-column: 1 / -1;
   }
   .page-hero__aside {
-    grid-column: 12 / -1;
-  }
-  .page-hero__lead {
-    max-width: 38ch;
+    grid-column: 1 / span 8;
   }
   /* Avec image, 1024-1280: le masthead reste EMPILÉ. Le grand titre slab garde sa
    * pleine mesure (un titre long tient sans se couper) et l'image se pose dessous en
@@ -240,20 +236,21 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   }
 }
 
-/* Avec image, desktop large: scission posée. Titre à l'axe gauche (cols 1-9), image à
- * droite (cols 11-16), hauts alignés. Le titre passe à une mesure d'affiche contenue
- * pour tenir net dans sa colonne à côté de l'image (un cran sous le grand slab plein
- * écran, dont la longueur d'« extermination » ne loge pas en demi-largeur). */
+/* Avec image, desktop large: scission posée. Texte (cols 1-8) et image (cols 9-16)
+ * SE TOUCHENT (pas de piste vide entre eux): plus de trou au centre, chacun ancré à
+ * son bord. L'image gagne en présence (8 pistes). Le titre est FLUIDE et REMPLIT sa
+ * colonne (mesure d'affiche au seuil de scission, grand slab plein écran au large) au
+ * lieu de flotter petit avec du vide à sa droite. */
 @container site (min-width: 1280px) {
   .page-hero--media .page-hero__text {
-    grid-column: 1 / span 9;
+    grid-column: 1 / span 8;
     align-self: center;
   }
   .page-hero--media .page-hero__media {
-    grid-column: 11 / -1;
+    grid-column: 9 / -1;
   }
   .page-hero--media .page-hero__title {
-    font-size: clamp(4.6rem, calc(2.2rem + 2.6vw), 5.6rem);
+    font-size: clamp(5.2rem, calc(1.2rem + 3.1vw), 7.2rem);
   }
 }
 </style>
