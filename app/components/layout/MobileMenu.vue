@@ -26,6 +26,8 @@ const brandWords = computed(() => {
   return i === -1 ? { lead: name, rest: '' } : { lead: name.slice(0, i), rest: name.slice(i + 1) }
 })
 const phoneHref = computed(() => `tel:${site.value.contact.phoneE164}`)
+const mailtoHref = computed(() => `mailto:${site.value.contact.email}`)
+const brand = computed(() => site.value.brand)
 const panelRef = ref<HTMLElement | null>(null)
 // Element focalise avant l'ouverture (le burger): on lui rend le focus a la
 // fermeture, pour ne pas perdre l'utilisateur clavier au milieu de la page.
@@ -100,7 +102,8 @@ onBeforeUnmount(() => {
       <div class="mm__backdrop" @click="close" />
       <div ref="panelRef" class="mm__panel">
         <div class="mm__bar">
-          <span class="mm__brand" aria-hidden="true">
+          <img v-if="brand.logo.src" class="mm__logo" :src="brand.logo.src" :alt="brand.name" />
+          <span v-else class="mm__brand" aria-hidden="true">
             <strong>{{ brandWords.lead }}</strong> {{ brandWords.rest }}
           </span>
           <button type="button" class="mm__close" :aria-label="t('a11y.close_menu')" @click="close">
@@ -124,6 +127,8 @@ onBeforeUnmount(() => {
         </nav>
 
         <div class="mm__actions">
+          <!-- Un seul geste d'appel: le libelle EST le numero (clic-pour-appeler), plus
+               de numero repete dessous. Le courriel offre la seconde voie de contact. -->
           <Button
             :href="phoneHref"
             kind="anchor"
@@ -131,9 +136,9 @@ onBeforeUnmount(() => {
             icon="lucide:phone"
             @click="close"
           >
-            {{ t('hero.cta_primary') }}
+            {{ site.contact.phone }}
           </Button>
-          <a class="mm__phone" :href="phoneHref">{{ site.contact.phone }}</a>
+          <a class="mm__email" :href="mailtoHref">{{ site.contact.email }}</a>
           <LangSwitcher class="mm__lang" @click="close" />
         </div>
       </div>
@@ -176,6 +181,12 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   min-height: var(--header-height);
+}
+/* Vrai logo de marque (SVG Sanity). Repli sur le logotype texte si absent. */
+.mm__logo {
+  height: 3.2rem;
+  width: auto;
+  display: block;
 }
 .mm__brand {
   font-family: var(--font-display);
@@ -227,13 +238,17 @@ onBeforeUnmount(() => {
   gap: 1.4rem;
   padding-top: 2.4rem;
 }
-.mm__phone {
+.mm__email {
   text-align: center;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.8rem;
+  font-weight: 600;
+  font-size: 1.6rem;
   color: var(--text-base);
   text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.mm__email:hover {
+  color: var(--accent-trust);
 }
 .mm__lang {
   text-align: center;
@@ -247,28 +262,19 @@ onBeforeUnmount(() => {
   color: var(--accent-trust);
 }
 
-/* Apparition: le panneau glisse, le fond se fond. Coupe en reduced-motion. */
+/* Ouverture/fermeture: TRANSLATE seul, le menu entier (fond + panneau) glisse depuis
+   et vers la droite. Aucune opacite. Coupe en reduced-motion. */
 .mm-enter-active,
 .mm-leave-active {
-  transition: opacity var(--motion-duration-line) var(--motion-ease-settle);
-}
-.mm-enter-active .mm__panel,
-.mm-leave-active .mm__panel {
   transition: transform var(--motion-duration-expand) var(--motion-ease-settle);
 }
 .mm-enter-from,
 .mm-leave-to {
-  opacity: 0;
-}
-.mm-enter-from .mm__panel,
-.mm-leave-to .mm__panel {
   transform: translateX(100%);
 }
 @media (prefers-reduced-motion: reduce) {
   .mm-enter-active,
-  .mm-leave-active,
-  .mm-enter-active .mm__panel,
-  .mm-leave-active .mm__panel {
+  .mm-leave-active {
     transition: none;
   }
 }
