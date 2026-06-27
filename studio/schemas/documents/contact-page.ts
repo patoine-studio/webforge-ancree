@@ -1,6 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { EnvelopeIcon } from '@sanity/icons'
 import { maxItemsInput } from '../../components/maxItemsInput'
+import { pageBuilderField } from '../objects/blocks/page-builder'
 
 /**
  * Page Contact (singleton de niveau 2, un document par langue).
@@ -42,31 +43,7 @@ export const contactPage = defineType({
       validation: (R) => R.required().length(1),
       components: { input: maxItemsInput(1) },
     }),
-    defineField({
-      name: 'pageBuilder',
-      title: 'Sections de la page',
-      type: 'array',
-      group: 'content',
-      options: {
-        insertMenu: {
-          views: [
-            { name: 'grid', previewImageUrl: (typeName) => `/static/block-previews/${typeName}.svg` },
-            { name: 'list' },
-          ],
-          filter: true,
-        },
-      },
-      of: [
-        defineArrayMember({ type: 'trustBar' }),
-        defineArrayMember({ type: 'services' }),
-        defineArrayMember({ type: 'serviceCities' }),
-        defineArrayMember({ type: 'about' }),
-        defineArrayMember({ type: 'testimonials' }),
-        defineArrayMember({ type: 'faq' }),
-        defineArrayMember({ type: 'ctaBand' }),
-        defineArrayMember({ type: 'contact' }),
-      ],
-    }),
+    pageBuilderField,
     defineField({
       name: 'seo',
       title: 'SEO de la page',

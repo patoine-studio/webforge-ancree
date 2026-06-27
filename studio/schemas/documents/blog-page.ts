@@ -1,6 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { BookIcon } from '@sanity/icons'
 import { maxItemsInput } from '../../components/maxItemsInput'
+import { pageBuilderField } from '../objects/blocks/page-builder'
 
 // Le listing, les filtres et la pagination sont rendus par le code.
 // Les trois bandeaux CTA sont des champs dédiés parce qu'ils servent trois
@@ -69,31 +70,7 @@ export const blogPage = defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'pageBuilder',
-      title: 'Sections de la page',
-      type: 'array',
-      group: 'content',
-      options: {
-        insertMenu: {
-          views: [
-            { name: 'grid', previewImageUrl: (typeName) => `/static/block-previews/${typeName}.svg` },
-            { name: 'list' },
-          ],
-          filter: true,
-        },
-      },
-      of: [
-        defineArrayMember({ type: 'trustBar' }),
-        defineArrayMember({ type: 'services' }),
-        defineArrayMember({ type: 'serviceCities' }),
-        defineArrayMember({ type: 'about' }),
-        defineArrayMember({ type: 'testimonials' }),
-        defineArrayMember({ type: 'faq' }),
-        defineArrayMember({ type: 'ctaBand' }),
-        defineArrayMember({ type: 'contact' }),
-      ],
-    }),
+    pageBuilderField,
     defineField({
       name: 'seo',
       title: 'SEO de la page',

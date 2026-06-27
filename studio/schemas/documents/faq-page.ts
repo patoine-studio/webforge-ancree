@@ -1,6 +1,7 @@
 import { defineType, defineField, defineArrayMember, type Path } from 'sanity'
 import { HelpCircleIcon } from '@sanity/icons'
 import { maxItemsInput } from '../../components/maxItemsInput'
+import { pageBuilderField } from '../objects/blocks/page-builder'
 
 /**
  * Résout la valeur portée par `document` à un chemin Sanity (segments string,
@@ -164,31 +165,7 @@ export const faqPage = defineType({
               : 'Deux sections ne peuvent pas pointer le même thème'
           }),
     }),
-    defineField({
-      name: 'pageBuilder',
-      title: 'Sections de la page',
-      type: 'array',
-      group: 'content',
-      options: {
-        insertMenu: {
-          views: [
-            { name: 'grid', previewImageUrl: (typeName) => `/static/block-previews/${typeName}.svg` },
-            { name: 'list' },
-          ],
-          filter: true,
-        },
-      },
-      of: [
-        defineArrayMember({ type: 'trustBar' }),
-        defineArrayMember({ type: 'services' }),
-        defineArrayMember({ type: 'serviceCities' }),
-        defineArrayMember({ type: 'about' }),
-        defineArrayMember({ type: 'testimonials' }),
-        defineArrayMember({ type: 'faq' }),
-        defineArrayMember({ type: 'ctaBand' }),
-        defineArrayMember({ type: 'contact' }),
-      ],
-    }),
+    pageBuilderField,
     defineField({
       name: 'seo',
       title: 'SEO de la page',
