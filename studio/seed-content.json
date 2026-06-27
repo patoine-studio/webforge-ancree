@@ -13916,28 +13916,105 @@
           "_ref": "category-prevention-fr"
         },
         "date": "2026-03-02",
-        "author": "L'équipe Rempart",
-        "readingTime": 4,
+        "author": "Julie Caron, technicienne punaises de lit et détection",
+        "readingTime": 7,
         "body": [
           {
             "_key": "b1",
             "_type": "articleLead",
-            "text": "La punaise de lit fait de l'auto-stop. Elle n'apparaît presque jamais de nulle part: elle arrive dans une valise, un divan d'occasion, le sac d'un invité. La bonne nouvelle, c'est qu'une habitude soignée à la porte en arrête la plupart."
+            "text": "La punaise de lit fait de l'auto-stop. Elle n'apparaît presque jamais de nulle part: elle arrive dans une valise, un divan d'occasion, le sac d'un invité. La bonne nouvelle, c'est qu'une habitude soignée à la porte en arrête la plupart, et qu'un problème pris tôt se règle vite."
           },
           {
             "_key": "b2",
             "_type": "articleRichText",
             "body": [
               {
-                "_key": "r1",
                 "_type": "block",
-                "style": "normal",
+                "_key": "b2a",
+                "style": "h2",
+                "markDefs": [],
                 "children": [
                   {
-                    "_key": "s1",
                     "_type": "span",
-                    "marks": [],
-                    "text": "Au retour d'un voyage, défaites les bagages dans la salle de bain ou le garage, pas sur le lit. Passez ce qui se lave à la sécheuse à cycle chaud, et gardez la valise loin de la chambre quelques jours."
+                    "_key": "b2as0",
+                    "text": "Reconnaître les premiers signes",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b2b",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2bs0",
+                    "text": "Les punaises se cachent le jour et sortent la nuit. On les voit rarement directement, mais leurs traces, oui. Trois indices reviennent souvent:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b2c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2cs0",
+                    "text": "des piqûres en ligne ou en grappe, souvent sur les bras et les jambes au réveil;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2ds0",
+                    "text": "de petites taches sombres sur les draps, les coutures du matelas ou le sommier;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2es0",
+                    "text": "des mues translucides ou de minuscules points blancs, les œufs, dans les recoins du lit.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2f",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2fs0",
+                    "text": "Au moindre doute, inspectez les coutures du matelas et le tour du sommier à la lampe de poche. Plus c'est pris tôt, plus c'est simple.",
+                    "marks": []
                   }
                 ]
               }
@@ -13945,9 +14022,271 @@
           },
           {
             "_key": "b3",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b3a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3as0",
+                    "text": "Au retour de voyage, les bons réflexes",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b3b",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3bs0",
+                    "text": "C'est là que la plupart des infestations commencent. Quelques minutes à la porte évitent bien des mois d'ennuis:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b3c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3cs0",
+                    "text": "défaites les bagages dans la salle de bain ou le garage, jamais sur le lit;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b3d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3ds0",
+                    "text": "passez tout ce qui se lave à la sécheuse à cycle chaud, au moins trente minutes;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b3e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3es0",
+                    "text": "gardez la valise loin de la chambre quelques jours, idéalement dans un sac fermé.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              }
+            ]
+          },
+          {
+            "_key": "b4",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b4a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4as0",
+                    "text": "Quoi faire avant notre visite",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b4b",
+                "style": "normal",
+                "markDefs": [
+                  {
+                    "_key": "b4bl1",
+                    "_type": "link",
+                    "type": "internal",
+                    "internalRef": {
+                      "_type": "reference",
+                      "_ref": "service-punaises-de-lit-fr"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4bs0",
+                    "text": "Si vous nous appelez pour un ",
+                    "marks": []
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b4bs1",
+                    "text": "traitement contre les punaises",
+                    "marks": [
+                      "b4bl1"
+                    ]
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b4bs2",
+                    "text": ", une bonne préparation rend l'intervention plus efficace. Votre technicien vous remet une liste précise, mais en gros:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b4c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4cs0",
+                    "text": "lavez et séchez la literie et les vêtements près du lit, puis rangez-les dans des sacs fermés;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4ds0",
+                    "text": "dégagez le tour du lit et les plinthes pour qu'on accède aux cachettes;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4es0",
+                    "text": "ne déplacez pas vos affaires d'une pièce à l'autre: ça disperse les punaises au lieu de les contenir;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4f",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4fs0",
+                    "text": "surtout, ne jetez pas le matelas: un meuble sorti sans précaution contamine le couloir et tout l'immeuble.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              }
+            ]
+          },
+          {
+            "_key": "b5",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b5a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b5as0",
+                    "text": "Pourquoi le traitement maison ne suffit pas",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b5b",
+                "style": "normal",
+                "markDefs": [
+                  {
+                    "_key": "b5bl1",
+                    "_type": "link",
+                    "type": "internal",
+                    "internalRef": {
+                      "_type": "reference",
+                      "_ref": "service-punaises-de-lit-fr"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b5bs0",
+                    "text": "Les aérosols de quincaillerie font fuir les punaises sans les éliminer: elles se déplacent et l'infestation s'étale. Un ",
+                    "marks": []
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b5bs1",
+                    "text": "traitement professionnel",
+                    "marks": [
+                      "b5bl1"
+                    ]
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b5bs2",
+                    "text": " combine une chaleur ciblée, un produit résiduel homologué et une visite de contrôle pour casser le cycle au complet. C'est ce suivi, plus que le produit, qui fait la différence.",
+                    "marks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "b6",
             "_type": "articleQuote",
-            "attribution": "Un technicien de Rempart",
-            "quote": "Prise dès la première semaine, une intervention contre les punaises est discrète et rapide. Laissée des mois, c'est une autre histoire."
+            "quote": "Prise dès la première semaine, une intervention contre les punaises est discrète et rapide. Laissée des mois, c'est une autre histoire.",
+            "attribution": "Julie Caron, technicienne punaises de lit"
           }
         ]
       }
@@ -13978,28 +14317,105 @@
           "_ref": "category-prevention-en"
         },
         "date": "2026-03-02",
-        "author": "The Rempart team",
-        "readingTime": 4,
+        "author": "Julie Caron, bed bug and detection technician",
+        "readingTime": 7,
         "body": [
           {
             "_key": "b1",
             "_type": "articleLead",
-            "text": "Bed bugs are hitchhikers. They almost never appear out of nowhere: they arrive in luggage, a second-hand couch, a guest's bag. The good news is that a careful habit at the door stops most of them."
+            "text": "Bed bugs hitchhike. They almost never appear out of nowhere: they arrive in a suitcase, a second-hand couch, a guest's bag. The good news is that a careful habit at the door stops most of them, and a problem caught early is quick to fix."
           },
           {
             "_key": "b2",
             "_type": "articleRichText",
             "body": [
               {
-                "_key": "r1",
                 "_type": "block",
-                "style": "normal",
+                "_key": "b2a",
+                "style": "h2",
+                "markDefs": [],
                 "children": [
                   {
-                    "_key": "s1",
                     "_type": "span",
-                    "marks": [],
-                    "text": "When you come back from a trip, unpack in the bathroom or the garage, not on the bed. Run washable items through a hot dryer cycle, and keep the suitcase away from the bedroom for a few days."
+                    "_key": "b2as0",
+                    "text": "Spotting the first signs",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b2b",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2bs0",
+                    "text": "Bed bugs hide by day and come out at night. You rarely see them directly, but you do see their traces. Three clues come up often:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b2c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2cs0",
+                    "text": "bites in a line or cluster, often on arms and legs when you wake up;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2ds0",
+                    "text": "small dark specks on the sheets, the mattress seams or the box spring;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2es0",
+                    "text": "translucent shed skins or tiny white dots, the eggs, in the nooks of the bed.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b2f",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b2fs0",
+                    "text": "At the first doubt, inspect the mattress seams and the box spring with a flashlight. The earlier it is caught, the simpler it is.",
+                    "marks": []
                   }
                 ]
               }
@@ -14007,9 +14423,271 @@
           },
           {
             "_key": "b3",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b3a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3as0",
+                    "text": "Coming home from a trip",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b3b",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3bs0",
+                    "text": "This is where most infestations start. A few minutes at the door save months of trouble:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b3c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3cs0",
+                    "text": "unpack in the bathroom or the garage, never on the bed;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b3d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3ds0",
+                    "text": "run everything washable through the dryer on a hot cycle, at least thirty minutes;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b3e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b3es0",
+                    "text": "keep the suitcase away from the bedroom for a few days, ideally in a sealed bag.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              }
+            ]
+          },
+          {
+            "_key": "b4",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b4a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4as0",
+                    "text": "What to do before our visit",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b4b",
+                "style": "normal",
+                "markDefs": [
+                  {
+                    "_key": "b4bl1",
+                    "_type": "link",
+                    "type": "internal",
+                    "internalRef": {
+                      "_type": "reference",
+                      "_ref": "service-punaises-de-lit-en"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4bs0",
+                    "text": "If you call us for a ",
+                    "marks": []
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b4bs1",
+                    "text": "bed bug treatment",
+                    "marks": [
+                      "b4bl1"
+                    ]
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b4bs2",
+                    "text": ", good preparation makes the visit more effective. Your technician gives you a precise list, but in short:",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b4c",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4cs0",
+                    "text": "wash and dry the bedding and the clothes near the bed, then store them in sealed bags;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4d",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4ds0",
+                    "text": "clear the area around the bed and the baseboards so we can reach the hiding spots;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4e",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4es0",
+                    "text": "do not move your things from room to room: it spreads the bugs instead of containing them;",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              },
+              {
+                "_type": "block",
+                "_key": "b4f",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b4fs0",
+                    "text": "above all, do not throw out the mattress: furniture taken out carelessly contaminates the hallway and the whole building.",
+                    "marks": []
+                  }
+                ],
+                "listItem": "bullet",
+                "level": 1
+              }
+            ]
+          },
+          {
+            "_key": "b5",
+            "_type": "articleRichText",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "b5a",
+                "style": "h2",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b5as0",
+                    "text": "Why a do-it-yourself treatment is not enough",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "b5b",
+                "style": "normal",
+                "markDefs": [
+                  {
+                    "_key": "b5bl1",
+                    "_type": "link",
+                    "type": "internal",
+                    "internalRef": {
+                      "_type": "reference",
+                      "_ref": "service-punaises-de-lit-en"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "b5bs0",
+                    "text": "Hardware-store sprays drive bed bugs away without killing them: they move and the infestation spreads. A ",
+                    "marks": []
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b5bs1",
+                    "text": "professional treatment",
+                    "marks": [
+                      "b5bl1"
+                    ]
+                  },
+                  {
+                    "_type": "span",
+                    "_key": "b5bs2",
+                    "text": " combines targeted heat, an approved residual product and a follow-up visit to break the whole cycle. It is that follow-up, more than the product, that makes the difference.",
+                    "marks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_key": "b6",
             "_type": "articleQuote",
-            "attribution": "A Rempart technician",
-            "quote": "Caught in the first week, a bed bug treatment is discreet and quick. Left for months, it is a different story."
+            "quote": "Caught in the first week, a bed bug treatment is quiet and quick. Left for months, it is a different story.",
+            "attribution": "Julie Caron, bed bug and detection technician"
           }
         ]
       }
