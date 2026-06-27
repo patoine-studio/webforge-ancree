@@ -8085,66 +8085,250 @@
         "order": 1,
         "pageBuilder": [
           {
-            "_key": "pb-body-m6m3p0xb",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Laval, du condo au triplex",
+            "lead": "Laval, c'est de la densité: triplex, condos, restaurants. Les nuisibles s'y déplacent d'un logement à l'autre, et un problème de voisin devient vite le vôtre.",
             "segments": [
               {
-                "_key": "seg-rhiqfa1i",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-swf00v1k",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Laval pose ses propres défis: vieilles maisons de Pont-Viau, bungalows de Chomedey, condos neufs près de l'autoroute 440. Chaque secteur attire ses nuisibles, et on connaît les habitudes du coin parce qu'on y travaille toutes les semaines."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-coquerelles-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-commercial-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Dans les immeubles et les triplex, les "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "coquerelles"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " passent par la plomberie et les murs mitoyens: une seule cuisine infestée touche tout le bâtiment. Restaurants et commerces ont besoin d'un "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "programme préventif"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " documenté pour l'inspection."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-8l784il5",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Fourmis charpentières dans les terrasses, souris qui remontent des sous-sols à l'automne, coquerelles dans les blocs à logements: on inspecte, on cible la source et on scelle les points d'entrée pour que le problème ne revienne pas au prochain changement de saison."
+                        "text": "Traiter le bâtiment, pas juste un logement"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-98pc94ts",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Une seule ville à traverser le pont nous sépare de vous, alors on arrive vite, souvent le jour même. Estimation gratuite, garantie écrite, et un technicien qui prend le temps de tout vous expliquer."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On coordonne l'intervention entre les unités, on traite les refuges à la source et on documente chaque visite. Pour les "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "souris"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " qui suivent les conduits, on scelle les accès communs."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-3z4biadv",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Laval",
-            "mode": "auto"
+            "lead": "Du résidentiel à l'immeuble et au commerce, partout sur l'île.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-coquerelles-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-commercial-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv3"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Laval",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-laval-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Laval? On traite tout le bâtiment.",
+            "subtitle": "Un appel, un technicien certifié évalue et planifie, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -8189,66 +8373,250 @@
         "order": 1,
         "pageBuilder": [
           {
-            "_key": "pb-body-8k3uf8dl",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Laval, from condo to triplex",
+            "lead": "Laval is density: triplexes, condos, restaurants. Pests move from one unit to the next, and a neighbour's problem quickly becomes yours.",
             "segments": [
               {
-                "_key": "seg-4naeff4k",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-5iwtu50m",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Laval brings its own challenges: older homes in Pont-Viau, bungalows in Chomedey, new condos near Highway 440. Each district draws its own pests, and we know the local patterns because we work here every week."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-coquerelles-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-commercial-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "In buildings and triplexes, "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "cockroaches"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " travel through the plumbing and shared walls: one infested kitchen affects the whole building. Restaurants and shops need a documented "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "preventive program"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " for inspection."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-p9h61gla",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Carpenter ants in decks, mice coming up from basements in the fall, cockroaches in apartment blocks: we inspect, target the source and seal entry points so the problem does not return with the next change of season."
+                        "text": "Treating the building, not just one unit"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-ztp25tl8",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Only a bridge separates us from you, so we get there fast, often the same day. Free estimate, written guarantee, and a technician who takes the time to explain everything."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We coordinate the work across units, treat the harbourages at the source and document every visit. For "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "mice"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " that follow the ducts, we seal the shared access points."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-dixblbhq",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Laval",
-            "mode": "auto"
+            "lead": "From homes to buildings and businesses, across the island.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-coquerelles-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-commercial-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv3"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Laval",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-laval-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Laval? We treat the whole building.",
+            "subtitle": "One call and a certified technician assesses and plans, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -8867,66 +9235,250 @@
         "order": 3,
         "pageBuilder": [
           {
-            "_key": "pb-body-p1htgtl4",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Repentigny, au bord de l'eau",
+            "lead": "Repentigny longe le fleuve et la rivière L'Assomption. L'humidité et les terrains matures font le bonheur des nuisibles.",
             "segments": [
               {
-                "_key": "seg-2yb69cm6",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-ny9rr4d4",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "À Repentigny, la proximité du fleuve Saint-Laurent change la donne: humidité tenace, sous-sols frais, et des rongeurs qui cherchent un abri dès l'automne. On adapte chaque traitement à votre type de maison."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-coquerelles-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Les arbres matures des quartiers établis amènent les "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "fourmis charpentières"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " vers le bois des maisons; l'humidité du bord de l'eau attire les "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "coquerelles"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " dans les cuisines."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-k2aijbm0",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Les secteurs résidentiels matures comme Le Gardeur ont leurs habitués: fourmis charpentières dans les arbres matures, guêpes sous les corniches. On retire les nids en sécurité et on protège les points sensibles."
+                        "text": "On trouve le nid, pas juste les ouvrières"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-1qbvq95w",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "On dessert Repentigny chaque semaine, alors un appel suffit pour fixer une visite rapide. Estimation gratuite, prix clair par écrit, et aucune surprise sur la facture."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On repère le nid principal et les satellites, on traite à la source et on scelle les points d'entrée. Pour les "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "souris"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " à l'automne, on ferme la maison avant l'hiver."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-fuxxcd34",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Repentigny",
-            "mode": "auto"
+            "lead": "Les nuisibles qu'on traite le plus souvent au bord de l'eau.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-fr",
+                "_key": "sv2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-coquerelles-fr",
+                "_key": "sv3"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Repentigny",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-repentigny-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Repentigny? On trouve la source.",
+            "subtitle": "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -8971,66 +9523,250 @@
         "order": 3,
         "pageBuilder": [
           {
-            "_key": "pb-body-xqo6n95r",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Repentigny, along the water",
+            "lead": "Repentigny runs along the river and the L'Assomption. The damp and the mature lots are a pest's delight.",
             "segments": [
               {
-                "_key": "seg-kva44sor",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-m8fufhhp",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "In Repentigny, being close to the St. Lawrence changes things: stubborn humidity, cool basements, and rodents looking for shelter as soon as fall arrives. We tailor every treatment to your type of home."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-coquerelles-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "The mature trees of established neighbourhoods bring "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "carpenter ants"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " to the wood of homes; the waterfront damp draws "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "cockroaches"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " into kitchens."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-nh66rg5q",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Mature residential areas like Le Gardeur have their regulars: carpenter ants in old trees, wasps under the eaves. We remove nests safely and protect the vulnerable spots."
+                        "text": "We find the nest, not just the workers"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-p60vnjl7",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "We cover Repentigny every week, so one call is enough to set up a quick visit. Free estimate, a clear written price, and no surprise on the bill."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We locate the main and satellite nests, treat at the source and seal the entry points. For "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "mice"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " in the fall, we close the house before winter."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-w9rn141b",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Repentigny",
-            "mode": "auto"
+            "lead": "The pests we treat most often along the water.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-en",
+                "_key": "sv2"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-coquerelles-en",
+                "_key": "sv3"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Repentigny",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-repentigny-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Repentigny? We find the source.",
+            "subtitle": "One call and a local technician heads out, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -9075,66 +9811,245 @@
         "order": 4,
         "pageBuilder": [
           {
-            "_key": "pb-body-tsjctw5p",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Blainville, près des boisés",
+            "lead": "Blainville, ce sont des développements récents adossés aux boisés. Du bois neuf et des arbres tout près: un aimant à fourmis charpentières et à guêpes.",
             "segments": [
               {
-                "_key": "seg-v2sedpec",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-32i5blmk",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Blainville pousse vite, et les nouveaux développements bordés de boisés attirent leur lot de fourmis charpentières et de guêpes. On inspecte le pourtour de la fondation avant qu'une colonie s'installe pour de bon."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Les nouveaux quartiers bordés d'arbres poussent les "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "fourmis charpentières"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " vers les terrasses et les fondations; l'été, les "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "guêpes et frelons"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " nichent sous les galeries et dans les soffites neufs."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-d9woj2fs",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Côté commercial, la 117 et ses restaurants demandent un programme préventif rigoureux et bien documenté. On le monte, on le tient à jour, et vos inspections passent sans accroc."
+                        "text": "On traite à la source, on prévient le retour"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-abxfs001",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Une équipe locale qui connaît Blainville, ça veut dire une intervention rapide et un suivi sérieux. Estimation gratuite et garantie écrite sur chaque traitement résidentiel."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On localise le nid, on retire en sécurité et on scelle les points de nidification. Dès les premiers froids, les "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "souris"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " cherchent la chaleur: on ferme les accès avant."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-8g0slcyx",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Blainville",
-            "mode": "auto"
+            "lead": "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Blainville",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-blainville-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Blainville? On traite et on prévient.",
+            "subtitle": "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -9179,66 +10094,245 @@
         "order": 4,
         "pageBuilder": [
           {
-            "_key": "pb-body-079r1yjf",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Blainville, near the woodlots",
+            "lead": "Blainville is recent developments backing onto woodlots. New wood and trees close by: a magnet for carpenter ants and wasps.",
             "segments": [
               {
-                "_key": "seg-7jgnn6bc",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-7vagnywa",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Blainville is growing fast, and the new developments bordered by woods attract their share of carpenter ants and wasps. We inspect the perimeter of the foundation before a colony settles in for good."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "The tree-lined new neighbourhoods push "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "carpenter ants"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " toward decks and foundations; in summer, "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "wasps and hornets"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " nest under decks and in fresh soffits."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-9bumb8ot",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "On the commercial side, Route 117 and its restaurants call for a rigorous, well-documented preventive program. We set it up, keep it current, and your inspections go through without a hitch."
+                        "text": "We treat at the source, we prevent the return"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-md2y6vc4",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "A local team that knows Blainville means a fast response and serious follow-up. Free estimate and a written guarantee on every residential treatment."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We locate the nest, remove it safely and seal the nesting points. At the first cold snap, "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "mice"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " seek the warmth: we close the access points first."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-kxnrhfll",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Blainville",
-            "mode": "auto"
+            "lead": "The pests we treat most often in the area.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Blainville",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-blainville-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Blainville? We treat and prevent.",
+            "subtitle": "One call and a local technician heads out, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -9283,66 +10377,245 @@
         "order": 5,
         "pageBuilder": [
           {
-            "_key": "pb-body-crjejgs0",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Mascouche, entre boisés et champs",
+            "lead": "Mascouche, ce sont de grands terrains, des boisés et des dépendances. Les rongeurs et les fourmis y trouvent abris et chemins faciles.",
             "segments": [
               {
-                "_key": "seg-y8la3ais",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-jmetk9il",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "À Mascouche, la campagne n'est jamais loin, et ça se voit: mulots, souris des champs et rats qui cherchent un toit chaud dès que les nuits fraîchissent. On scelle les points d'entrée plutôt que de simplement poser des trappes."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Granges, cabanons et grands terrains offrent aux "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "souris et rats"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " mille abris d'où ils gagnent la maison dès l'automne; les boisés amènent les "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "fourmis charpentières"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " vers le bois des bâtiments."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-qhx57rb2",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Les garages et les remises attirent les guêpes l'été et les rongeurs l'hiver. On inspecte ces zones oubliées, on traite, et on vous montre comment garder ces espaces fermés aux intrus."
+                        "text": "Fermer la maison, pas juste piéger"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-1w5gxo2b",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "On connaît les rangs comme les nouveaux développements de Mascouche. Intervention rapide, estimation gratuite et garantie écrite, sans vente sous pression."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On inspecte de la cave au grenier, on scelle les accès et on pose un contrôle adapté. L'été, on retire aussi les "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "nids de guêpes"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " des dépendances."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-wcu38bg3",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Mascouche",
-            "mode": "auto"
+            "lead": "Les nuisibles qu'on traite le plus souvent sur les grands terrains.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-fr",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Mascouche",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-mascouche-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Mascouche? On ferme la maison.",
+            "subtitle": "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -9387,66 +10660,245 @@
         "order": 5,
         "pageBuilder": [
           {
-            "_key": "pb-body-gh9heh7b",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Mascouche, between woodlots and fields",
+            "lead": "Mascouche is large lots, woodlots and outbuildings. Rodents and ants find shelter and easy paths there.",
             "segments": [
               {
-                "_key": "seg-72y73dhj",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-5r41qrd9",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "In Mascouche, the countryside is never far, and it shows: voles, field mice and rats looking for a warm roof as soon as the nights turn cool. We seal entry points rather than just laying traps."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Barns, sheds and large lots give "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "mice and rats"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " countless shelters from which they reach the house in the fall; the woodlots bring "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "carpenter ants"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " to the wood of buildings."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-14vpyzeh",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Garages and sheds attract wasps in summer and rodents in winter. We inspect these forgotten zones, treat them, and show you how to keep these spaces closed to intruders."
+                        "text": "Closing the house, not just trapping"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-h8jd8fqa",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "We know the rural roads as well as the new developments in Mascouche. Fast response, free estimate and a written guarantee, with no high-pressure selling."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We inspect from basement to attic, seal the access points and set up the right control. In summer, we also remove "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "wasp nests"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " from outbuildings."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-16e94zp3",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Mascouche",
-            "mode": "auto"
+            "lead": "The pests we treat most often on large lots.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-en",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Mascouche",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-mascouche-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Mascouche? We close the house.",
+            "subtitle": "One call and a local technician heads out, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -9491,66 +10943,245 @@
         "order": 6,
         "pageBuilder": [
           {
-            "_key": "pb-body-patqfcpn",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Boisbriand, en banlieue établie",
+            "lead": "Boisbriand mêle quartiers matures et secteurs récents. Arbres établis et sous-sols finis: le terrain idéal pour les fourmis et les rongeurs.",
             "segments": [
               {
-                "_key": "seg-2uw73b7g",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-j0k4lt07",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Boisbriand mêle vieux secteurs boisés et zones commerciales animées. Les maisons près de la rivière des Mille Îles voient revenir les fourmis charpentières chaque printemps; on trouve le nid et on le traite à la source."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Les arbres matures amènent les "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "fourmis charpentières"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " vers les terrasses et le bois des maisons; les sous-sols finis cachent les "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "souris"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " qui s'installent dès les premiers froids."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-98ct0fnk",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Les commerces du Faubourg Boisbriand exigent un programme préventif conforme et bien tenu. On documente chaque visite pour que tout soit en règle quand l'inspecteur passe."
+                        "text": "On traite la source, on scelle les accès"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-4hwjp9r0",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "On passe par Boisbriand chaque semaine, alors un appel suffit. Estimation gratuite, garantie écrite, et un suivi pour confirmer que le problème est bel et bien réglé."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On trouve le nid ou les points d'entrée, on traite et on revient vérifier. L'été, on s'occupe aussi des "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "guêpes"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " sous les galeries."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-3fbfc9uy",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Boisbriand",
-            "mode": "auto"
+            "lead": "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-fr",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Boisbriand",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-boisbriand-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Boisbriand? On part vite vers vous.",
+            "subtitle": "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -9595,66 +11226,245 @@
         "order": 6,
         "pageBuilder": [
           {
-            "_key": "pb-body-j6lrn6ya",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Boisbriand, in an established suburb",
+            "lead": "Boisbriand blends mature neighbourhoods and recent areas. Established trees and finished basements: ideal ground for ants and rodents.",
             "segments": [
               {
-                "_key": "seg-kcc569e9",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-i6rff17l",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Boisbriand blends older wooded areas with busy commercial zones. Homes near the Mille Îles river see carpenter ants return every spring; we find the nest and treat it at the source."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "The mature trees bring "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "carpenter ants"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " to decks and the wood of homes; finished basements hide the "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "mice"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " that move in at the first cold snap."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-989h9ddf",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "The businesses at Faubourg Boisbriand need a compliant, well-kept preventive program. We document every visit so everything is in order when the inspector comes by."
+                        "text": "We treat the source, we seal the access points"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-yf3vyjgi",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "We pass through Boisbriand every week, so one call is enough. Free estimate, written guarantee, and a follow-up to confirm the problem is truly solved."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We find the nest or the entry points, treat them and come back to check. In summer, we also handle "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "wasps"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " under decks."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-d7xd6i9q",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Boisbriand",
-            "mode": "auto"
+            "lead": "The pests we treat most often in the area.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-en",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Boisbriand",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-boisbriand-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Boisbriand? We head your way fast.",
+            "subtitle": "One call and a local technician heads out, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -9699,66 +11509,245 @@
         "order": 7,
         "pageBuilder": [
           {
-            "_key": "pb-body-wdg5267s",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Notre territoire",
+            "heading": "L'extermination à Saint-Eustache, du vieux bâti aux champs",
+            "lead": "Saint-Eustache mêle vieux bâti, fermes et nouveaux quartiers. Les rongeurs y trouvent de vieilles fondations à explorer.",
             "segments": [
               {
-                "_key": "seg-exeygpfd",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-oxhf52s2",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Saint-Eustache a son lot de maisons patrimoniales et de terrains bordés d'eau. Les bâtiments anciens cachent souvent des points d'entrée discrets pour les souris et les coquerelles; on les repère et on les ferme."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-fr"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Les vieilles fondations de pierre et les dépendances ouvrent la voie aux "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "souris et rats"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " surtout à l'automne; les boisés amènent les "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "fourmis charpentières"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " vers le bois des maisons."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-7mc5kt9i",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Près de la rivière du Chêne et des Mille Îles, l'humidité favorise les nuisibles. On privilégie des produits ciblés, sûrs pour la famille et les animaux, appliqués exactement là où se trouve le problème."
+                        "text": "Fermer la maison pour de bon"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-6ptp7gtw",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "On dessert Saint-Eustache chaque semaine, dans le respect des maisons anciennes comme des constructions récentes. Estimation gratuite, garantie écrite, intervention souvent le jour même."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-fr"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "On inspecte de la cave au grenier, on scelle chaque accès et on pose un contrôle sécurisé. L'été, on retire les "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "nids de guêpes"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " des bâtiments."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-3vgz7iqz",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "Ce qu'on vous garantit",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Garantie écrite, retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on retraite sans vous refacturer."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Produits homologués, sûrs pour la famille",
+                "body": "Des produits homologués Santé Canada, appliqués par un technicien certifié."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Souvent le jour même",
+                "body": "Une vraie personne répond 7 jours sur 7 et un technicien d'ici part vite vers vous."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Estimation gratuite, rapport écrit",
+                "body": "On évalue sans frais et on remet un rapport de ce qui a été traité."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Nos interventions",
             "heading": "Nos services à Saint-Eustache",
-            "mode": "auto"
+            "lead": "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-fr",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-fr",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-fr",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "Voir tous les services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-fr"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "Sur le terrain",
+            "heading": "Des clients satisfaits à Saint-Eustache",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-saint-eustache-fr"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "Un nuisible à Saint-Eustache? On ferme la maison.",
+            "subtitle": "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Appeler maintenant",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-fr"
+              },
+              "label": "Obtenir une estimation",
+              "type": "anchor"
+            }
           }
         ],
         "region": "Rive-Nord",
@@ -9803,66 +11792,245 @@
         "order": 7,
         "pageBuilder": [
           {
-            "_key": "pb-body-zhpm98u9",
+            "_key": "pb-editorial",
             "_type": "editorial",
+            "eyebrow": "Our territory",
+            "heading": "Pest control in Saint-Eustache, from old buildings to fields",
+            "lead": "Saint-Eustache blends old buildings, farms and new neighbourhoods. Rodents find old foundations to explore there.",
             "segments": [
               {
-                "_key": "seg-chpcikrs",
+                "_key": "seg0",
                 "_type": "editorialSegment",
+                "disposition": "aside",
+                "mediaSide": "right",
                 "body": [
                   {
-                    "_key": "c1",
                     "_type": "block",
-                    "children": [
+                    "_key": "e1",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-dbd56s0n",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "Saint-Eustache has its share of heritage homes and waterfront lots. Older buildings often hide discreet entry points for mice and cockroaches; we find them and close them up."
+                        "_key": "e1l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-souris-rats-en"
+                        }
+                      },
+                      {
+                        "_key": "e1l3",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-fourmis-charpentieres-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e1s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "Old stone foundations and outbuildings open the way for "
+                      },
+                      {
+                        "_key": "e1s1",
+                        "_type": "span",
+                        "marks": [
+                          "e1l1"
+                        ],
+                        "text": "mice and rats"
+                      },
+                      {
+                        "_key": "e1s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": ", especially in the fall; the woodlots bring "
+                      },
+                      {
+                        "_key": "e1s3",
+                        "_type": "span",
+                        "marks": [
+                          "e1l3"
+                        ],
+                        "text": "carpenter ants"
+                      },
+                      {
+                        "_key": "e1s4",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " to the wood of homes."
+                      }
+                    ]
                   },
                   {
-                    "_key": "c2",
                     "_type": "block",
+                    "_key": "e2h",
+                    "style": "h3",
+                    "markDefs": [],
                     "children": [
                       {
-                        "_key": "s-pxv1lwqu",
+                        "_key": "e2hs0",
                         "_type": "span",
                         "marks": [],
-                        "text": "Near the Chêne and Mille Îles rivers, humidity favours pests. We favour targeted products, safe for family and pets, applied exactly where the problem is."
+                        "text": "Closing the house for good"
                       }
-                    ],
-                    "markDefs": [],
-                    "style": "normal"
+                    ]
                   },
                   {
-                    "_key": "c3",
                     "_type": "block",
-                    "children": [
+                    "_key": "e2",
+                    "style": "normal",
+                    "markDefs": [
                       {
-                        "_key": "s-mwnw5by2",
-                        "_type": "span",
-                        "marks": [],
-                        "text": "We cover Saint-Eustache every week, with respect for both older homes and recent builds. Free estimate, written guarantee, service often the same day."
+                        "_key": "e2l1",
+                        "_type": "link",
+                        "type": "internal",
+                        "internalRef": {
+                          "_type": "reference",
+                          "_ref": "service-guepes-frelons-en"
+                        }
                       }
                     ],
-                    "markDefs": [],
-                    "style": "normal"
+                    "children": [
+                      {
+                        "_key": "e2s0",
+                        "_type": "span",
+                        "marks": [],
+                        "text": "We inspect from basement to attic, seal every access point and set up secure control. In summer, we remove "
+                      },
+                      {
+                        "_key": "e2s1",
+                        "_type": "span",
+                        "marks": [
+                          "e2l1"
+                        ],
+                        "text": "wasp nests"
+                      },
+                      {
+                        "_key": "e2s2",
+                        "_type": "span",
+                        "marks": [],
+                        "text": " from buildings."
+                      }
+                    ]
                   }
                 ],
-                "media": [],
-                "mediaSide": "auto"
+                "media": [
+                  {
+                    "_key": "m1",
+                    "_type": "figure",
+                    "image": {
+                      "_type": "image",
+                      "asset": {
+                        "_ref": "IMG:inspection-rempart",
+                        "_type": "reference"
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
           {
-            "_key": "pb-svc-ku1h3rel",
+            "_key": "pb-hl",
+            "_type": "highlights",
+            "heading": "What we guarantee",
+            "items": [
+              {
+                "_key": "benefit-0",
+                "_type": "highlight",
+                "title": "Written guarantee, free return visit",
+                "body": "If the pest comes back within the covered period, we re-treat at no extra charge."
+              },
+              {
+                "_key": "benefit-1",
+                "_type": "highlight",
+                "title": "Approved products, family-safe",
+                "body": "Health Canada approved products, applied by a certified technician."
+              },
+              {
+                "_key": "benefit-2",
+                "_type": "highlight",
+                "title": "Often the same day",
+                "body": "A real person answers seven days a week and a local technician heads your way fast."
+              },
+              {
+                "_key": "benefit-3",
+                "_type": "highlight",
+                "title": "Free estimate, written report",
+                "body": "We assess at no charge and provide a report of what was treated."
+              }
+            ]
+          },
+          {
+            "_key": "pb-svc",
             "_type": "services",
+            "eyebrow": "Our work",
             "heading": "Our services in Saint-Eustache",
-            "mode": "auto"
+            "lead": "The pests we treat most often in the area.",
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "service-souris-rats-en",
+                "_key": "sv0"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-fourmis-charpentieres-en",
+                "_key": "sv1"
+              },
+              {
+                "_type": "reference",
+                "_ref": "service-guepes-frelons-en",
+                "_key": "sv2"
+              }
+            ],
+            "cta": {
+              "_type": "link",
+              "type": "internal",
+              "label": "See all services",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "servicesPage-en"
+              }
+            }
+          },
+          {
+            "_key": "pb-tm",
+            "_type": "testimonials",
+            "eyebrow": "On the ground",
+            "heading": "Happy clients in Saint-Eustache",
+            "mode": "city",
+            "city": {
+              "_type": "reference",
+              "_ref": "serviceCity-saint-eustache-en"
+            },
+            "limit": 3
+          },
+          {
+            "_key": "pb-cta",
+            "_type": "ctaBand",
+            "title": "A pest in Saint-Eustache? We close the house.",
+            "subtitle": "One call and a local technician heads out, often the same day. Written guarantee.",
+            "primaryCta": {
+              "_type": "link",
+              "label": "Call now",
+              "type": "tel"
+            },
+            "secondaryCta": {
+              "_type": "link",
+              "anchor": "contact",
+              "internalRef": {
+                "_type": "reference",
+                "_ref": "contactPage-en"
+              },
+              "label": "Get an estimate",
+              "type": "anchor"
+            }
           }
         ],
         "region": "North Shore",
@@ -18376,6 +20544,86 @@
               "_weak": true,
               "_strengthenOnPublish": {
                 "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonial",
+      "content": {
+        "_id": "testimonial-gagnon-fr",
+        "_type": "testimonial",
+        "language": "fr",
+        "quote": "Des souris dans le sous-sol d'une vieille maison. Ils ont trouvé tous les accès, scellé, et posé des stations. Un automne plus tard, toujours rien.",
+        "name": "Lucie Gagnon",
+        "context": "Propriétaire à Saint-Eustache",
+        "service": {
+          "_type": "reference",
+          "_ref": "service-souris-rats-fr"
+        },
+        "city": {
+          "_type": "reference",
+          "_ref": "serviceCity-saint-eustache-fr"
+        },
+        "featured": false,
+        "order": 8
+      }
+    },
+    {
+      "type": "testimonial",
+      "content": {
+        "_id": "testimonial-gagnon-en",
+        "_type": "testimonial",
+        "language": "en",
+        "quote": "Mice in the basement of an old house. They found every access point, sealed them and set stations. A fall later, still nothing.",
+        "name": "Lucie Gagnon",
+        "context": "Homeowner in Saint-Eustache",
+        "service": {
+          "_type": "reference",
+          "_ref": "service-souris-rats-en"
+        },
+        "city": {
+          "_type": "reference",
+          "_ref": "serviceCity-saint-eustache-en"
+        },
+        "featured": false,
+        "order": 8
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-testimonial-gagnon",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "testimonial"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "testimonial-gagnon-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "testimonial-gagnon-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "testimonial"
               }
             }
           }

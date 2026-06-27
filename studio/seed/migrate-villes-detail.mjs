@@ -104,6 +104,168 @@ const CITIES = {
       ctaTitle: 'A pest in Terrebonne? We are based here.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
     },
   },
+  laval: {
+    items: ['coquerelles', 'commercial', 'souris-rats', 'fourmis-charpentieres'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Laval, du condo au triplex",
+      edLead: "Laval, c'est de la densité: triplex, condos, restaurants. Les nuisibles s'y déplacent d'un logement à l'autre, et un problème de voisin devient vite le vôtre.",
+      edBody: [
+        block('e1', [{ text: 'Dans les immeubles et les triplex, les ' }, { text: 'coquerelles', ref: 'service-coquerelles-fr' }, { text: ' passent par la plomberie et les murs mitoyens: une seule cuisine infestée touche tout le bâtiment. Restaurants et commerces ont besoin d\'un ' }, { text: 'programme préventif', ref: 'service-commercial-fr' }, { text: ' documenté pour l\'inspection.' }]),
+        block('e2h', [{ text: 'Traiter le bâtiment, pas juste un logement' }], 'h3'),
+        block('e2', [{ text: "On coordonne l'intervention entre les unités, on traite les refuges à la source et on documente chaque visite. Pour les " }, { text: 'souris', ref: 'service-souris-rats-fr' }, { text: ' qui suivent les conduits, on scelle les accès communs.' }]),
+      ],
+      svcHeading: 'Nos services à Laval', svcLead: "Du résidentiel à l'immeuble et au commerce, partout sur l'île.",
+      tmHeading: 'Des clients satisfaits à Laval',
+      ctaTitle: 'Un nuisible à Laval? On traite tout le bâtiment.', ctaSubtitle: "Un appel, un technicien certifié évalue et planifie, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Laval, from condo to triplex',
+      edLead: "Laval is density: triplexes, condos, restaurants. Pests move from one unit to the next, and a neighbour's problem quickly becomes yours.",
+      edBody: [
+        block('e1', [{ text: 'In buildings and triplexes, ' }, { text: 'cockroaches', ref: 'service-coquerelles-en' }, { text: ' travel through the plumbing and shared walls: one infested kitchen affects the whole building. Restaurants and shops need a documented ' }, { text: 'preventive program', ref: 'service-commercial-en' }, { text: ' for inspection.' }]),
+        block('e2h', [{ text: 'Treating the building, not just one unit' }], 'h3'),
+        block('e2', [{ text: 'We coordinate the work across units, treat the harbourages at the source and document every visit. For ' }, { text: 'mice', ref: 'service-souris-rats-en' }, { text: ' that follow the ducts, we seal the shared access points.' }]),
+      ],
+      svcHeading: 'Our services in Laval', svcLead: 'From homes to buildings and businesses, across the island.',
+      tmHeading: 'Happy clients in Laval',
+      ctaTitle: 'A pest in Laval? We treat the whole building.', ctaSubtitle: 'One call and a certified technician assesses and plans, often the same day. Written guarantee.',
+    },
+  },
+  repentigny: {
+    items: ['fourmis-charpentieres', 'souris-rats', 'guepes-frelons', 'coquerelles'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Repentigny, au bord de l'eau",
+      edLead: "Repentigny longe le fleuve et la rivière L'Assomption. L'humidité et les terrains matures font le bonheur des nuisibles.",
+      edBody: [
+        block('e1', [{ text: 'Les arbres matures des quartiers établis amènent les ' }, { text: 'fourmis charpentières', ref: 'service-fourmis-charpentieres-fr' }, { text: " vers le bois des maisons; l'humidité du bord de l'eau attire les " }, { text: 'coquerelles', ref: 'service-coquerelles-fr' }, { text: ' dans les cuisines.' }]),
+        block('e2h', [{ text: 'On trouve le nid, pas juste les ouvrières' }], 'h3'),
+        block('e2', [{ text: "On repère le nid principal et les satellites, on traite à la source et on scelle les points d'entrée. Pour les " }, { text: 'souris', ref: 'service-souris-rats-fr' }, { text: " à l'automne, on ferme la maison avant l'hiver." }]),
+      ],
+      svcHeading: 'Nos services à Repentigny', svcLead: "Les nuisibles qu'on traite le plus souvent au bord de l'eau.",
+      tmHeading: 'Des clients satisfaits à Repentigny',
+      ctaTitle: 'Un nuisible à Repentigny? On trouve la source.', ctaSubtitle: "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Repentigny, along the water',
+      edLead: "Repentigny runs along the river and the L'Assomption. The damp and the mature lots are a pest's delight.",
+      edBody: [
+        block('e1', [{ text: 'The mature trees of established neighbourhoods bring ' }, { text: 'carpenter ants', ref: 'service-fourmis-charpentieres-en' }, { text: ' to the wood of homes; the waterfront damp draws ' }, { text: 'cockroaches', ref: 'service-coquerelles-en' }, { text: ' into kitchens.' }]),
+        block('e2h', [{ text: 'We find the nest, not just the workers' }], 'h3'),
+        block('e2', [{ text: 'We locate the main and satellite nests, treat at the source and seal the entry points. For ' }, { text: 'mice', ref: 'service-souris-rats-en' }, { text: ' in the fall, we close the house before winter.' }]),
+      ],
+      svcHeading: 'Our services in Repentigny', svcLead: 'The pests we treat most often along the water.',
+      tmHeading: 'Happy clients in Repentigny',
+      ctaTitle: 'A pest in Repentigny? We find the source.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
+    },
+  },
+  blainville: {
+    items: ['fourmis-charpentieres', 'guepes-frelons', 'souris-rats'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Blainville, près des boisés",
+      edLead: "Blainville, ce sont des développements récents adossés aux boisés. Du bois neuf et des arbres tout près: un aimant à fourmis charpentières et à guêpes.",
+      edBody: [
+        block('e1', [{ text: 'Les nouveaux quartiers bordés d\'arbres poussent les ' }, { text: 'fourmis charpentières', ref: 'service-fourmis-charpentieres-fr' }, { text: " vers les terrasses et les fondations; l'été, les " }, { text: 'guêpes et frelons', ref: 'service-guepes-frelons-fr' }, { text: ' nichent sous les galeries et dans les soffites neufs.' }]),
+        block('e2h', [{ text: 'On traite à la source, on prévient le retour' }], 'h3'),
+        block('e2', [{ text: 'On localise le nid, on retire en sécurité et on scelle les points de nidification. Dès les premiers froids, les ' }, { text: 'souris', ref: 'service-souris-rats-fr' }, { text: ' cherchent la chaleur: on ferme les accès avant.' }]),
+      ],
+      svcHeading: 'Nos services à Blainville', svcLead: "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+      tmHeading: 'Des clients satisfaits à Blainville',
+      ctaTitle: 'Un nuisible à Blainville? On traite et on prévient.', ctaSubtitle: "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Blainville, near the woodlots',
+      edLead: "Blainville is recent developments backing onto woodlots. New wood and trees close by: a magnet for carpenter ants and wasps.",
+      edBody: [
+        block('e1', [{ text: 'The tree-lined new neighbourhoods push ' }, { text: 'carpenter ants', ref: 'service-fourmis-charpentieres-en' }, { text: ' toward decks and foundations; in summer, ' }, { text: 'wasps and hornets', ref: 'service-guepes-frelons-en' }, { text: ' nest under decks and in fresh soffits.' }]),
+        block('e2h', [{ text: 'We treat at the source, we prevent the return' }], 'h3'),
+        block('e2', [{ text: 'We locate the nest, remove it safely and seal the nesting points. At the first cold snap, ' }, { text: 'mice', ref: 'service-souris-rats-en' }, { text: ' seek the warmth: we close the access points first.' }]),
+      ],
+      svcHeading: 'Our services in Blainville', svcLead: 'The pests we treat most often in the area.',
+      tmHeading: 'Happy clients in Blainville',
+      ctaTitle: 'A pest in Blainville? We treat and prevent.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
+    },
+  },
+  mascouche: {
+    items: ['souris-rats', 'fourmis-charpentieres', 'guepes-frelons'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Mascouche, entre boisés et champs",
+      edLead: "Mascouche, ce sont de grands terrains, des boisés et des dépendances. Les rongeurs et les fourmis y trouvent abris et chemins faciles.",
+      edBody: [
+        block('e1', [{ text: 'Granges, cabanons et grands terrains offrent aux ' }, { text: 'souris et rats', ref: 'service-souris-rats-fr' }, { text: " mille abris d'où ils gagnent la maison dès l'automne; les boisés amènent les " }, { text: 'fourmis charpentières', ref: 'service-fourmis-charpentieres-fr' }, { text: ' vers le bois des bâtiments.' }]),
+        block('e2h', [{ text: 'Fermer la maison, pas juste piéger' }], 'h3'),
+        block('e2', [{ text: "On inspecte de la cave au grenier, on scelle les accès et on pose un contrôle adapté. L'été, on retire aussi les " }, { text: 'nids de guêpes', ref: 'service-guepes-frelons-fr' }, { text: ' des dépendances.' }]),
+      ],
+      svcHeading: 'Nos services à Mascouche', svcLead: "Les nuisibles qu'on traite le plus souvent sur les grands terrains.",
+      tmHeading: 'Des clients satisfaits à Mascouche',
+      ctaTitle: 'Un nuisible à Mascouche? On ferme la maison.', ctaSubtitle: "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Mascouche, between woodlots and fields',
+      edLead: "Mascouche is large lots, woodlots and outbuildings. Rodents and ants find shelter and easy paths there.",
+      edBody: [
+        block('e1', [{ text: 'Barns, sheds and large lots give ' }, { text: 'mice and rats', ref: 'service-souris-rats-en' }, { text: ' countless shelters from which they reach the house in the fall; the woodlots bring ' }, { text: 'carpenter ants', ref: 'service-fourmis-charpentieres-en' }, { text: ' to the wood of buildings.' }]),
+        block('e2h', [{ text: 'Closing the house, not just trapping' }], 'h3'),
+        block('e2', [{ text: 'We inspect from basement to attic, seal the access points and set up the right control. In summer, we also remove ' }, { text: 'wasp nests', ref: 'service-guepes-frelons-en' }, { text: ' from outbuildings.' }]),
+      ],
+      svcHeading: 'Our services in Mascouche', svcLead: 'The pests we treat most often on large lots.',
+      tmHeading: 'Happy clients in Mascouche',
+      ctaTitle: 'A pest in Mascouche? We close the house.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
+    },
+  },
+  boisbriand: {
+    items: ['fourmis-charpentieres', 'souris-rats', 'guepes-frelons'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Boisbriand, en banlieue établie",
+      edLead: "Boisbriand mêle quartiers matures et secteurs récents. Arbres établis et sous-sols finis: le terrain idéal pour les fourmis et les rongeurs.",
+      edBody: [
+        block('e1', [{ text: 'Les arbres matures amènent les ' }, { text: 'fourmis charpentières', ref: 'service-fourmis-charpentieres-fr' }, { text: ' vers les terrasses et le bois des maisons; les sous-sols finis cachent les ' }, { text: 'souris', ref: 'service-souris-rats-fr' }, { text: " qui s'installent dès les premiers froids." }]),
+        block('e2h', [{ text: 'On traite la source, on scelle les accès' }], 'h3'),
+        block('e2', [{ text: "On trouve le nid ou les points d'entrée, on traite et on revient vérifier. L'été, on s'occupe aussi des " }, { text: 'guêpes', ref: 'service-guepes-frelons-fr' }, { text: ' sous les galeries.' }]),
+      ],
+      svcHeading: 'Nos services à Boisbriand', svcLead: "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+      tmHeading: 'Des clients satisfaits à Boisbriand',
+      ctaTitle: 'Un nuisible à Boisbriand? On part vite vers vous.', ctaSubtitle: "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Boisbriand, in an established suburb',
+      edLead: "Boisbriand blends mature neighbourhoods and recent areas. Established trees and finished basements: ideal ground for ants and rodents.",
+      edBody: [
+        block('e1', [{ text: 'The mature trees bring ' }, { text: 'carpenter ants', ref: 'service-fourmis-charpentieres-en' }, { text: ' to decks and the wood of homes; finished basements hide the ' }, { text: 'mice', ref: 'service-souris-rats-en' }, { text: ' that move in at the first cold snap.' }]),
+        block('e2h', [{ text: 'We treat the source, we seal the access points' }], 'h3'),
+        block('e2', [{ text: 'We find the nest or the entry points, treat them and come back to check. In summer, we also handle ' }, { text: 'wasps', ref: 'service-guepes-frelons-en' }, { text: ' under decks.' }]),
+      ],
+      svcHeading: 'Our services in Boisbriand', svcLead: 'The pests we treat most often in the area.',
+      tmHeading: 'Happy clients in Boisbriand',
+      ctaTitle: 'A pest in Boisbriand? We head your way fast.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
+    },
+  },
+  'saint-eustache': {
+    items: ['souris-rats', 'fourmis-charpentieres', 'guepes-frelons'],
+    fr: {
+      edEyebrow: 'Notre territoire', edHeading: "L'extermination à Saint-Eustache, du vieux bâti aux champs",
+      edLead: "Saint-Eustache mêle vieux bâti, fermes et nouveaux quartiers. Les rongeurs y trouvent de vieilles fondations à explorer.",
+      edBody: [
+        block('e1', [{ text: 'Les vieilles fondations de pierre et les dépendances ouvrent la voie aux ' }, { text: 'souris et rats', ref: 'service-souris-rats-fr' }, { text: " surtout à l'automne; les boisés amènent les " }, { text: 'fourmis charpentières', ref: 'service-fourmis-charpentieres-fr' }, { text: ' vers le bois des maisons.' }]),
+        block('e2h', [{ text: 'Fermer la maison pour de bon' }], 'h3'),
+        block('e2', [{ text: "On inspecte de la cave au grenier, on scelle chaque accès et on pose un contrôle sécurisé. L'été, on retire les " }, { text: 'nids de guêpes', ref: 'service-guepes-frelons-fr' }, { text: ' des bâtiments.' }]),
+      ],
+      svcHeading: 'Nos services à Saint-Eustache', svcLead: "Les nuisibles qu'on traite le plus souvent dans le secteur.",
+      tmHeading: 'Des clients satisfaits à Saint-Eustache',
+      ctaTitle: 'Un nuisible à Saint-Eustache? On ferme la maison.', ctaSubtitle: "Un appel, un technicien d'ici se déplace, souvent le jour même. Garantie écrite.",
+    },
+    en: {
+      edEyebrow: 'Our territory', edHeading: 'Pest control in Saint-Eustache, from old buildings to fields',
+      edLead: "Saint-Eustache blends old buildings, farms and new neighbourhoods. Rodents find old foundations to explore there.",
+      edBody: [
+        block('e1', [{ text: 'Old stone foundations and outbuildings open the way for ' }, { text: 'mice and rats', ref: 'service-souris-rats-en' }, { text: ', especially in the fall; the woodlots bring ' }, { text: 'carpenter ants', ref: 'service-fourmis-charpentieres-en' }, { text: ' to the wood of homes.' }]),
+        block('e2h', [{ text: 'Closing the house for good' }], 'h3'),
+        block('e2', [{ text: 'We inspect from basement to attic, seal every access point and set up secure control. In summer, we remove ' }, { text: 'wasp nests', ref: 'service-guepes-frelons-en' }, { text: ' from buildings.' }]),
+      ],
+      svcHeading: 'Our services in Saint-Eustache', svcLead: 'The pests we treat most often in the area.',
+      tmHeading: 'Happy clients in Saint-Eustache',
+      ctaTitle: 'A pest in Saint-Eustache? We close the house.', ctaSubtitle: 'One call and a local technician heads out, often the same day. Written guarantee.',
+    },
+  },
 }
 
 function editorialBlock(city, lang, assetRef) {
@@ -129,7 +291,30 @@ function rebuild(city, lang, assetRef) {
 const LANGS = ['fr', 'en']
 const TARGET = Object.keys(CITIES)
 
+// Saint-Eustache est la seule ville sans témoignage tagué: on en crée un (rongeurs)
+// pour que son bloc testimonials mode city ne soit pas vide.
+const SE_TESTI = {
+  fr: { quote: "Des souris dans le sous-sol d'une vieille maison. Ils ont trouvé tous les accès, scellé, et posé des stations. Un automne plus tard, toujours rien.", name: 'Lucie Gagnon', context: 'Propriétaire à Saint-Eustache' },
+  en: { quote: "Mice in the basement of an old house. They found every access point, sealed them and set stations. A fall later, still nothing.", name: 'Lucie Gagnon', context: 'Homeowner in Saint-Eustache' },
+}
+function tmDoc(id, schemaType, frId, enId) {
+  const tval = (lang, vid) => ({ _key: lang, _type: 'internationalizedArrayReferenceValue', language: lang, value: { _type: 'reference', _ref: vid, _weak: true, _strengthenOnPublish: { type: schemaType } } })
+  return { _id: id, _type: 'translation.metadata', schemaTypes: [schemaType], translations: [tval('fr', frId), tval('en', enId)] }
+}
+function extraDocs() {
+  if (!TARGET.includes('saint-eustache')) return []
+  const out = []
+  for (const lang of LANGS) { const t = SE_TESTI[lang]; out.push({ _id: `testimonial-gagnon-${lang}`, _type: 'testimonial', language: lang, quote: t.quote, name: t.name, context: t.context, service: ref(`service-souris-rats-${lang}`), city: ref(`serviceCity-saint-eustache-${lang}`), featured: false, order: 8 }) }
+  out.push(tmDoc('translation-testimonial-gagnon', 'testimonial', 'testimonial-gagnon-fr', 'testimonial-gagnon-en'))
+  return out
+}
+
 async function migrateLive() {
+  const extra = extraDocs()
+  if (extra.length) {
+    if (DRY) console.log(`  live: ${extra.length} doc(s) témoignage Saint-Eustache (DRY).`)
+    else { let tx = client.transaction(); for (const d of extra) tx = tx.createOrReplace(d); await tx.commit({ visibility: 'sync' }); console.log(`  live: ${extra.length} doc(s) témoignage Saint-Eustache.`) }
+  }
   for (const city of TARGET) {
     for (const lang of LANGS) {
       const id = `serviceCity-${city}-${lang}`
@@ -146,6 +331,9 @@ async function migrateLive() {
 
 function migrateSeed() {
   const seed = JSON.parse(readFileSync(seedPath, 'utf8'))
+  const have = new Set(seed.documents.map((d) => d.content?._id).filter(Boolean))
+  let added = 0
+  for (const c of extraDocs()) { if (have.has(c._id)) continue; seed.documents.push({ type: c._id.startsWith('translation-') ? 'translation.metadata' : 'testimonial', content: c }); have.add(c._id); added++ }
   let rebuilt = 0
   for (const d of seed.documents) {
     if (d.type !== 'serviceCity') continue
@@ -155,9 +343,9 @@ function migrateSeed() {
     d.content.pageBuilder = rebuild(m[1], m[2], IMG_INSPECTION_SEED)
     rebuilt++
   }
-  if (DRY) { console.log(`  seed: ${rebuilt} pageBuilder(s) (DRY).`); return }
+  if (DRY) { console.log(`  seed: +${added} doc(s), ${rebuilt} pageBuilder(s) (DRY).`); return }
   writeFileSync(seedPath, JSON.stringify(seed, null, 2) + '\n')
-  console.log(`  seed-content.json: ${rebuilt} pageBuilder(s).`)
+  console.log(`  seed-content.json: +${added} doc(s), ${rebuilt} pageBuilder(s).`)
 }
 
 async function main() {
