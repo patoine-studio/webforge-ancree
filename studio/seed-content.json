@@ -525,10 +525,10 @@
       "content": {
         "_id": "faqTheme-tarification-fr",
         "language": "fr",
-        "title": "Tarification et garantie",
+        "title": "Prix et estimation",
         "slug": {
           "_type": "slug",
-          "current": "tarification"
+          "current": "prix-estimation"
         }
       }
     },
@@ -537,10 +537,10 @@
       "content": {
         "_id": "faqTheme-tarification-en",
         "language": "en",
-        "title": "Pricing and guarantee",
+        "title": "Pricing and estimates",
         "slug": {
           "_type": "slug",
-          "current": "tarification"
+          "current": "pricing-estimates"
         }
       }
     },
@@ -549,10 +549,10 @@
       "content": {
         "_id": "faqTheme-intervention-fr",
         "language": "fr",
-        "title": "Intervention et sécurité",
+        "title": "Délais et urgence",
         "slug": {
           "_type": "slug",
-          "current": "intervention"
+          "current": "delais-urgence"
         }
       }
     },
@@ -561,10 +561,10 @@
       "content": {
         "_id": "faqTheme-intervention-en",
         "language": "en",
-        "title": "Service and safety",
+        "title": "Timing and urgency",
         "slug": {
           "_type": "slug",
-          "current": "intervention"
+          "current": "timing-urgency"
         }
       }
     },
@@ -573,10 +573,10 @@
       "content": {
         "_id": "faqTheme-traitement-fr",
         "language": "fr",
-        "title": "Traitement et préparation",
+        "title": "Produits utilisés",
         "slug": {
           "_type": "slug",
-          "current": "traitement"
+          "current": "produits-utilises"
         }
       }
     },
@@ -585,10 +585,10 @@
       "content": {
         "_id": "faqTheme-traitement-en",
         "language": "en",
-        "title": "Treatment and preparation",
+        "title": "Products we use",
         "slug": {
           "_type": "slug",
-          "current": "traitement"
+          "current": "products-used"
         }
       }
     },
@@ -3962,50 +3962,37 @@
         ],
         "sections": [
           {
-            "_key": "sec-tarification",
-            "_type": "faqSection",
+            "_key": "faqTheme-securite",
             "theme": {
               "_type": "reference",
-              "_ref": "faqTheme-tarification-fr"
+              "_ref": "faqTheme-securite-fr"
             },
             "mode": "manual",
             "items": [
               {
-                "_key": "fi1",
                 "_type": "reference",
-                "_ref": "faqItem-prix-fr"
+                "_ref": "faqItem-securite-fr",
+                "_key": "faqItem-securite"
               },
               {
-                "_key": "fi2",
                 "_type": "reference",
-                "_ref": "faqItem-garantie-fr"
+                "_ref": "faqItem-securite-ecart-fr",
+                "_key": "faqItem-securite-ecart"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-securite-animaux-fr",
+                "_key": "faqItem-securite-animaux"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-securite-odeur-fr",
+                "_key": "faqItem-securite-odeur"
               }
             ]
           },
           {
-            "_key": "sec-intervention",
-            "_type": "faqSection",
-            "theme": {
-              "_type": "reference",
-              "_ref": "faqTheme-intervention-fr"
-            },
-            "mode": "manual",
-            "items": [
-              {
-                "_key": "fi3",
-                "_type": "reference",
-                "_ref": "faqItem-delai-fr"
-              },
-              {
-                "_key": "fi4",
-                "_type": "reference",
-                "_ref": "faqItem-securite-fr"
-              }
-            ]
-          },
-          {
-            "_key": "sec-traitement",
-            "_type": "faqSection",
+            "_key": "faqTheme-traitement",
             "theme": {
               "_type": "reference",
               "_ref": "faqTheme-traitement-fr"
@@ -4013,14 +4000,134 @@
             "mode": "manual",
             "items": [
               {
-                "_key": "fi5",
                 "_type": "reference",
-                "_ref": "faqItem-produits-fr"
+                "_ref": "faqItem-produits-fr",
+                "_key": "faqItem-produits"
               },
               {
-                "_key": "fi6",
                 "_type": "reference",
-                "_ref": "faqItem-preparation-fr"
+                "_ref": "faqItem-produits-homologues-fr",
+                "_key": "faqItem-produits-homologues"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-produits-cible-fr",
+                "_key": "faqItem-produits-cible"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-produits-ipm-fr",
+                "_key": "faqItem-produits-ipm"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-intervention",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-intervention-fr"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-fr",
+                "_key": "faqItem-delai"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-horaire-fr",
+                "_key": "faqItem-delai-horaire"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-resultats-fr",
+                "_key": "faqItem-delai-resultats"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-tarification",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-tarification-fr"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-fr",
+                "_key": "faqItem-prix"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-inspection-fr",
+                "_key": "faqItem-prix-inspection"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-retour-fr",
+                "_key": "faqItem-prix-retour"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-forfaits-fr",
+                "_key": "faqItem-prix-forfaits"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-garantie",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-garantie-fr"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-fr",
+                "_key": "faqItem-garantie"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-duree-fr",
+                "_key": "faqItem-garantie-duree"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-couvre-fr",
+                "_key": "faqItem-garantie-couvre"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-prevention",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-prevention-fr"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-souris-fr",
+                "_key": "faqItem-prevention-souris"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-fourmis-fr",
+                "_key": "faqItem-prevention-fourmis"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-punaises-fr",
+                "_key": "faqItem-prevention-punaises"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-programme-fr",
+                "_key": "faqItem-prevention-programme"
               }
             ]
           }
@@ -4136,50 +4243,37 @@
         ],
         "sections": [
           {
-            "_key": "sec-tarification",
-            "_type": "faqSection",
+            "_key": "faqTheme-securite",
             "theme": {
               "_type": "reference",
-              "_ref": "faqTheme-tarification-en"
+              "_ref": "faqTheme-securite-en"
             },
             "mode": "manual",
             "items": [
               {
-                "_key": "fi1",
                 "_type": "reference",
-                "_ref": "faqItem-prix-en"
+                "_ref": "faqItem-securite-en",
+                "_key": "faqItem-securite"
               },
               {
-                "_key": "fi2",
                 "_type": "reference",
-                "_ref": "faqItem-garantie-en"
+                "_ref": "faqItem-securite-ecart-en",
+                "_key": "faqItem-securite-ecart"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-securite-animaux-en",
+                "_key": "faqItem-securite-animaux"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-securite-odeur-en",
+                "_key": "faqItem-securite-odeur"
               }
             ]
           },
           {
-            "_key": "sec-intervention",
-            "_type": "faqSection",
-            "theme": {
-              "_type": "reference",
-              "_ref": "faqTheme-intervention-en"
-            },
-            "mode": "manual",
-            "items": [
-              {
-                "_key": "fi3",
-                "_type": "reference",
-                "_ref": "faqItem-delai-en"
-              },
-              {
-                "_key": "fi4",
-                "_type": "reference",
-                "_ref": "faqItem-securite-en"
-              }
-            ]
-          },
-          {
-            "_key": "sec-traitement",
-            "_type": "faqSection",
+            "_key": "faqTheme-traitement",
             "theme": {
               "_type": "reference",
               "_ref": "faqTheme-traitement-en"
@@ -4187,14 +4281,134 @@
             "mode": "manual",
             "items": [
               {
-                "_key": "fi5",
                 "_type": "reference",
-                "_ref": "faqItem-produits-en"
+                "_ref": "faqItem-produits-en",
+                "_key": "faqItem-produits"
               },
               {
-                "_key": "fi6",
                 "_type": "reference",
-                "_ref": "faqItem-preparation-en"
+                "_ref": "faqItem-produits-homologues-en",
+                "_key": "faqItem-produits-homologues"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-produits-cible-en",
+                "_key": "faqItem-produits-cible"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-produits-ipm-en",
+                "_key": "faqItem-produits-ipm"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-intervention",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-intervention-en"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-en",
+                "_key": "faqItem-delai"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-horaire-en",
+                "_key": "faqItem-delai-horaire"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-delai-resultats-en",
+                "_key": "faqItem-delai-resultats"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-tarification",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-tarification-en"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-en",
+                "_key": "faqItem-prix"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-inspection-en",
+                "_key": "faqItem-prix-inspection"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-retour-en",
+                "_key": "faqItem-prix-retour"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prix-forfaits-en",
+                "_key": "faqItem-prix-forfaits"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-garantie",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-garantie-en"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-en",
+                "_key": "faqItem-garantie"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-duree-en",
+                "_key": "faqItem-garantie-duree"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-garantie-couvre-en",
+                "_key": "faqItem-garantie-couvre"
+              }
+            ]
+          },
+          {
+            "_key": "faqTheme-prevention",
+            "theme": {
+              "_type": "reference",
+              "_ref": "faqTheme-prevention-en"
+            },
+            "mode": "manual",
+            "items": [
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-souris-en",
+                "_key": "faqItem-prevention-souris"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-fourmis-en",
+                "_key": "faqItem-prevention-fourmis"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-punaises-en",
+                "_key": "faqItem-prevention-punaises"
+              },
+              {
+                "_type": "reference",
+                "_ref": "faqItem-prevention-programme-en",
+                "_key": "faqItem-prevention-programme"
               }
             ]
           }
@@ -12436,7 +12650,7 @@
         ],
         "theme": {
           "_type": "reference",
-          "_ref": "faqTheme-intervention-fr"
+          "_ref": "faqTheme-securite-fr"
         }
       }
     },
@@ -12464,7 +12678,7 @@
         ],
         "theme": {
           "_type": "reference",
-          "_ref": "faqTheme-intervention-en"
+          "_ref": "faqTheme-securite-en"
         }
       }
     },
@@ -12492,7 +12706,7 @@
         ],
         "theme": {
           "_type": "reference",
-          "_ref": "faqTheme-tarification-fr"
+          "_ref": "faqTheme-garantie-fr"
         }
       }
     },
@@ -12520,7 +12734,7 @@
         ],
         "theme": {
           "_type": "reference",
-          "_ref": "faqTheme-tarification-en"
+          "_ref": "faqTheme-garantie-en"
         }
       }
     },
@@ -20640,6 +20854,2532 @@
               "_weak": true,
               "_strengthenOnPublish": {
                 "type": "testimonial"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-securite-fr",
+        "language": "fr",
+        "title": "Sécurité enfants et animaux",
+        "slug": {
+          "_type": "slug",
+          "current": "securite-enfants-animaux"
+        }
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-securite-en",
+        "language": "en",
+        "title": "Children and pet safety",
+        "slug": {
+          "_type": "slug",
+          "current": "children-pet-safety"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-securite",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-securite-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-securite-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-garantie-fr",
+        "language": "fr",
+        "title": "Garantie",
+        "slug": {
+          "_type": "slug",
+          "current": "garantie"
+        }
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-garantie-en",
+        "language": "en",
+        "title": "Guarantee",
+        "slug": {
+          "_type": "slug",
+          "current": "guarantee"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-garantie",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-garantie-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-garantie-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-prevention-fr",
+        "language": "fr",
+        "title": "Prévention",
+        "slug": {
+          "_type": "slug",
+          "current": "prevention"
+        }
+      }
+    },
+    {
+      "type": "faqTheme",
+      "content": {
+        "_id": "faqTheme-prevention-en",
+        "language": "en",
+        "title": "Prevention",
+        "slug": {
+          "_type": "slug",
+          "current": "prevention"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqTheme-prevention",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqTheme"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-prevention-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqTheme-prevention-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqTheme"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-ecart-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Combien de temps faut-il rester à l'écart de la pièce traitée?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "En général, deux à quatre heures, le temps que le produit sèche. Votre technicien vous donne le délai exact selon le traitement et la pièce. Pour un traitement de ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "punaises de lit",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", où la préparation est plus exigeante, on vous remet des consignes écrites avant de partir.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-ecart-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How long do we need to stay out of the treated room?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Usually two to four hours, the time it takes for the product to dry. Your technician gives you the exact window for the treatment and the room. For a ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "bed bug",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " treatment, where the prep is more demanding, we leave you written instructions before we go.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-securite-ecart",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-ecart-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-ecart-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-animaux-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Dois-je sortir mes animaux pendant l'intervention?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Idéalement, oui. Chiens, chats et oiseaux restent à l'écart de la zone traitée, et on porte une attention particulière aux poissons et aux reptiles, plus sensibles. On vous dit exactement quoi faire selon votre situation. Une fois le séchage terminé, tout le monde reprend sa place.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-animaux-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do I need to take my pets out during the visit?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Ideally, yes. Dogs, cats and birds stay clear of the treated area, and we pay special attention to fish and reptiles, which are more sensitive. We tell you exactly what to do for your situation. Once everything has dried, everyone settles back in.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-securite-animaux",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-animaux-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-animaux-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-odeur-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Les produits laissent-ils une odeur ou des résidus?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Très peu. Les produits homologués qu'on emploie sont faits pour être discrets une fois secs: pas d'odeur tenace, pas de film sur vos surfaces de vie. On cible les endroits où se cachent les bestioles plutôt que d'asperger toute la maison.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-securite-odeur-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do the products leave a smell or residue?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Very little. The approved products we use are made to be discreet once dry: no lingering smell, no film on your living surfaces. We target the spots where pests hide rather than spraying the whole house.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-securite-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-securite-odeur",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-odeur-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-securite-odeur-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-homologues-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Vos produits sont-ils homologués par Santé Canada?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Oui, sans exception. Tout ce qu'on applique est homologué par Santé Canada et utilisé selon les doses prévues. C'est la base d'un travail fait correctement, et c'est aussi ce qui rend le traitement sûr pour votre famille une fois sec. On vous laisse toujours le détail de ce qui a été utilisé.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-homologues-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Are your products approved by Health Canada?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Yes, without exception. Everything we apply is approved by Health Canada and used at the intended doses. That is the foundation of work done right, and it is also what makes the treatment safe for your family once dry. We always leave you the details of what was used.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-produits-homologues",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-homologues-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-homologues-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-cible-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Utilisez-vous le même produit pour tous les nuisibles?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-fr"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-fourmis-charpentieres-fr"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Non, et c'est voulu. Une ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "souris",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " ne se traite pas comme une ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "fourmi charpentière",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " ou une ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s5",
+                "text": "punaise de lit",
+                "marks": [
+                  "l3"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s6",
+                "text": ": chaque espèce a son comportement, ses cachettes et sa biologie. On choisit la méthode et le produit selon ce qu'on trouve à l'inspection, pas une recette unique pour tout.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-cible-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you use the same product for every pest?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-en"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-fourmis-charpentieres-en"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "No, by design. A ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "mouse",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " is not treated like a ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "carpenter ant",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " or a ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s5",
+                "text": "bed bug",
+                "marks": [
+                  "l3"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s6",
+                "text": ": each species has its own behaviour, hiding spots and biology. We choose the method and the product based on what we find during the inspection, not one recipe for everything.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-produits-cible",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-cible-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-cible-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-ipm-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "C'est quoi, la gestion parasitaire intégrée?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "C'est notre façon de travailler: traiter le problème, mais aussi sa cause. Plutôt que d'appliquer un produit et de partir, on identifie l'espèce, on trouve les points d'entrée, on scelle ce qui doit l'être et on vous conseille sur les conditions qui attirent les nuisibles. Moins de produit, des résultats qui durent. C'est l'approche qu'on applique partout, du résidentiel au ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commercial",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ".",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-produits-ipm-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "What is integrated pest management?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "It is how we work: treat the problem, but also its cause. Rather than applying a product and leaving, we identify the species, find the entry points, seal what needs sealing and advise you on the conditions that attract pests. Less product, results that last. It is the approach we use everywhere, from homes to ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commercial",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " sites.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-traitement-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-produits-ipm",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-ipm-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-produits-ipm-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-delai-horaire-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Travaillez-vous les soirs et les fins de semaine?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Oui. Nos heures vont de 7 h à 21 h en semaine, et de 8 h à 17 h le samedi et le dimanche. Les nuisibles ne prennent pas de congé, et une infestation qui vous empêche de dormir ne devrait pas attendre lundi. Une vraie personne répond au téléphone pendant ces heures.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-intervention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-delai-horaire-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you work evenings and weekends?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Yes. Our hours run from 7 a.m. to 9 p.m. on weekdays, and 8 a.m. to 5 p.m. on Saturdays and Sundays. Pests do not take days off, and an infestation keeping you up at night should not have to wait until Monday. A real person answers the phone during those hours.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-intervention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-delai-horaire",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-delai-horaire-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-delai-horaire-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-delai-resultats-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Combien de temps avant de voir des résultats?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-guepes-frelons-fr"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-fr"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Ça dépend du nuisible. Pour des ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "guêpes",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", c'est souvent réglé en une visite. Pour des ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "souris",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " ou des ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s5",
+                "text": "punaises de lit",
+                "marks": [
+                  "l3"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s6",
+                "text": ", la population s'éteint sur quelques jours à quelques semaines, le temps que le traitement agisse sur tout le cycle. Votre technicien vous dit à quoi vous attendre, sans rien vous promettre d'impossible.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-intervention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-delai-resultats-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How long before I see results?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-guepes-frelons-en"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-en"
+                }
+              },
+              {
+                "_key": "l3",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-punaises-de-lit-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "It depends on the pest. For ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "wasps",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", it is often handled in a single visit. For ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "mice",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " or ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s5",
+                "text": "bed bugs",
+                "marks": [
+                  "l3"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s6",
+                "text": ", the population dies off over a few days to a few weeks, the time it takes for the treatment to work through the whole cycle. Your technician tells you what to expect, without promising the impossible.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-intervention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-delai-resultats",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-delai-resultats-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-delai-resultats-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-inspection-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Le prix peut-il augmenter après l'inspection?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Non. L'inspection sert justement à vous donner un prix juste et ferme avant qu'on commence. Le montant que vous acceptez est celui que vous payez, sans extra ajouté en cours de route. Si une situation imprévue change la donne, on vous en parle avant de faire quoi que ce soit, jamais après.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-inspection-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Can the price go up after the inspection?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "No. The inspection is exactly what lets us give you a fair, firm price before we start. The amount you accept is the amount you pay, with no extras added along the way. If something unexpected changes the picture, we talk to you before doing anything, never after.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prix-inspection",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-inspection-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-inspection-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-retour-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Faut-il payer pour un retour sous garantie?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Jamais. Si l'activité réapparaît pendant la période couverte, le retour est inclus, sans frais. C'est le principe même de la garantie: vous payez pour un résultat, pas pour un nombre de visites.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-retour-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do I pay for a return visit under guarantee?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Never. If activity returns during the covered period, the follow-up is included, at no charge. That is the whole point of the guarantee: you pay for a result, not for a number of visits.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prix-retour",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-retour-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-retour-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-forfaits-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Proposez-vous des forfaits pour les immeubles ou les commerces?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Oui. Pour les propriétaires d'immeubles et les ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commerces",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", on met en place des programmes d'entretien avec des visites planifiées et des rapports de suivi, à un tarif pensé pour le long terme plutôt que coup par coup. On bâtit le forfait selon votre réalité après une première visite.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prix-forfaits-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you offer packages for buildings or businesses?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Yes. For building owners and ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commercial",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " clients, we set up maintenance programs with scheduled visits and follow-up reports, priced for the long term rather than one-off calls. We build the package around your situation after a first visit.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-tarification-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prix-forfaits",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-forfaits-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prix-forfaits-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-garantie-duree-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Combien de temps dure la garantie?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "La période dépend du nuisible et du traitement, et elle est écrite noir sur blanc sur votre devis avant qu'on commence. Pour la plupart des interventions résidentielles, elle couvre largement le temps nécessaire pour confirmer que le problème est réglé. Vous n'avez jamais à deviner: c'est sur papier.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-garantie-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-garantie-duree-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How long does the guarantee last?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "The period depends on the pest and the treatment, and it is spelled out in writing on your quote before we start. For most residential jobs, it comfortably covers the time needed to confirm the problem is gone. You never have to guess: it is on paper.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-garantie-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-garantie-duree",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-garantie-duree-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-garantie-duree-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-garantie-couvre-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Qu'est-ce que la garantie couvre exactement?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Le retour de l'activité qu'on a traitée. Si l'espèce visée réapparaît pendant la période couverte, on revient l'inspecter et la traiter sans frais. La garantie suppose qu'on a pu faire le travail au complet et que les conseils de prévention ont été suivis: votre technicien vous explique tout ça clairement, sans petits caractères.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-garantie-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-garantie-couvre-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "What exactly does the guarantee cover?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "The return of the activity we treated. If the targeted species comes back during the covered period, we return to inspect and treat it at no charge. The guarantee assumes we were able to do the full job and that the prevention advice was followed: your technician explains all of it clearly, with no fine print.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-garantie-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-garantie-couvre",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-garantie-couvre-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-garantie-couvre-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-souris-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Comment éviter que les souris reviennent à l'automne?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-souris-fr"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Les souris cherchent la chaleur dès les premiers froids. Le plus efficace, c'est de leur fermer la porte: sceller les ouvertures de la taille d'un crayon autour des tuyaux, des fondations et des portes de garage, et ne pas laisser de nourriture accessible. On couvre les réflexes saisonniers dans notre ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "guide sur les souris",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", et on s'occupe du scellement quand on traite une ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "infestation de souris",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": ".",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-souris-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How do I keep mice from coming back in the fall?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-souris-en"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-souris-rats-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Mice look for warmth as soon as the cold sets in. The most effective move is to shut the door on them: seal pencil-sized openings around pipes, foundations and garage doors, and leave no food within reach. We cover the seasonal reflexes in our ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "guide on mice",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ", and we handle the sealing when we treat a ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "mouse infestation",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": ".",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prevention-souris",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-souris-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-souris-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-fourmis-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Comment prévenir les fourmis charpentières?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-fourmis-fr"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-fourmis-charpentieres-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Elles sont attirées par le bois humide. Gardez le bois de chauffage loin de la maison, réglez les fuites et les gouttières qui mouillent les murs, et taillez les branches qui touchent la toiture. On détaille tout ça dans notre ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "article sur les fourmis charpentières",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": "; si elles sont déjà installées, c'est notre ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "service de fourmis charpentières",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " qui prend le relais.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-fourmis-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How do I prevent carpenter ants?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-fourmis-en"
+                }
+              },
+              {
+                "_key": "l2",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-fourmis-charpentieres-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "They are drawn to damp wood. Keep firewood away from the house, fix the leaks and gutters that wet the walls, and trim branches that touch the roof. We lay it all out in our ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "article on carpenter ants",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": "; if they are already settled in, our ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s3",
+                "text": "carpenter ant service",
+                "marks": [
+                  "l2"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s4",
+                "text": " takes over.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prevention-fourmis",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-fourmis-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-fourmis-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-punaises-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Comment éviter de rapporter des punaises de lit en voyage?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-punaises-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Au retour de voyage, inspectez vos bagages avant de les rentrer, passez les vêtements à la sécheuse à haute température et gardez la valise loin du lit. Quelques réflexes simples évitent bien des soucis: on les a rassemblés dans notre ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "guide sur les punaises de lit",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ". Et si le doute s'installe, mieux vaut faire vérifier que d'attendre.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-punaises-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "How do I avoid bringing bed bugs home from a trip?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "article-punaises-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Back from a trip, inspect your luggage before bringing it inside, run clothes through the dryer on high heat and keep the suitcase away from the bed. A few simple reflexes save a lot of trouble: we have gathered them in our ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "guide on bed bugs",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": ". And if doubt sets in, better to have it checked than to wait.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prevention-punaises",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-punaises-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-punaises-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-programme-fr",
+        "_type": "faqItem",
+        "language": "fr",
+        "question": "Offrez-vous un programme d'entretien préventif?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-fr"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Oui. Pour les gens qui préfèrent prévenir, on met en place des visites planifiées qui gardent les nuisibles à distance avant qu'ils s'installent. C'est surtout demandé par les ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commerces",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " et les immeubles, mais c'est offert au résidentiel aussi. On bâtit le calendrier selon votre bâtiment et votre secteur.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-fr"
+        }
+      }
+    },
+    {
+      "type": "faqItem",
+      "content": {
+        "_id": "faqItem-prevention-programme-en",
+        "_type": "faqItem",
+        "language": "en",
+        "question": "Do you offer a preventive maintenance program?",
+        "answer": [
+          {
+            "_type": "block",
+            "_key": "a0",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "l1",
+                "_type": "link",
+                "type": "internal",
+                "internalRef": {
+                  "_type": "reference",
+                  "_ref": "service-commercial-en"
+                }
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "a0s0",
+                "text": "Yes. For people who would rather prevent than react, we set up scheduled visits that keep pests at bay before they settle in. It is mostly asked for by ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "a0s1",
+                "text": "commercial",
+                "marks": [
+                  "l1"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "a0s2",
+                "text": " clients and buildings, but it is available for homes too. We build the schedule around your property and your area.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "_type": "reference",
+          "_ref": "faqTheme-prevention-en"
+        }
+      }
+    },
+    {
+      "type": "translation.metadata",
+      "content": {
+        "_id": "translation-faqItem-prevention-programme",
+        "_type": "translation.metadata",
+        "schemaTypes": [
+          "faqItem"
+        ],
+        "translations": [
+          {
+            "_key": "fr",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "fr",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-programme-fr",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
+              }
+            }
+          },
+          {
+            "_key": "en",
+            "_type": "internationalizedArrayReferenceValue",
+            "language": "en",
+            "value": {
+              "_type": "reference",
+              "_ref": "faqItem-prevention-programme-en",
+              "_weak": true,
+              "_strengthenOnPublish": {
+                "type": "faqItem"
               }
             }
           }
