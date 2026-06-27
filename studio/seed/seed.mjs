@@ -95,8 +95,8 @@ const ALT_TEXT = {
     en: 'The Rempart Extermination technicians standing together beside their service van',
   },
   'hero-technicien': {
-    fr: 'Un technicien de Rempart Extermination en intervention devant une maison de la Rive-Nord',
-    en: 'A Rempart Extermination technician on a job in front of a North Shore home',
+    fr: 'Un technicien de Rempart Extermination devant sa camionnette de service dans un quartier de la Rive-Nord',
+    en: 'A Rempart Extermination technician by the service van in a North Shore neighbourhood',
   },
   'inspection-rempart': {
     fr: 'Un technicien vérifie les points d\'entrée le long d\'une fondation',
