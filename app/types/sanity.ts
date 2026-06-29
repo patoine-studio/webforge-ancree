@@ -508,12 +508,13 @@ export interface SanityGraph {
 // par langue (slugByLang suit translation.metadata pour l'alternate hreflang).
 
 export interface SlugRef { slug: string }
-export interface ArticleSlugRef extends SlugRef { category: string | null }
 export interface SlugByLang { lang: Locale; slug: string | null }
+export interface ArticleSlugRef extends SlugRef { category: string | null; slugByLang: SlugByLang[] | null }
+export interface CategorySlugRef extends SlugRef { slugByLang: SlugByLang[] | null }
 export interface ServiceSlugRef extends SlugRef { slugByLang: SlugByLang[] | null }
 export interface RouteSlugs {
   articles: ArticleSlugRef[]
-  categories: SlugRef[]
+  categories: CategorySlugRef[]
   cities: SlugRef[]
   services: ServiceSlugRef[]
 }
