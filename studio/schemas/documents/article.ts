@@ -86,8 +86,18 @@ export const article = defineType({
     defineField({
       name: 'author',
       title: 'Auteur',
-      type: 'string',
+      type: 'reference',
       group: 'content',
+      to: [{ type: 'person' }],
+      // Une personne de la MÊME langue que l'article (i18n document-level),
+      // exclue de la copie auto à la traduction (l'éditeur choisit la version EN).
+      options: {
+        filter: ({ document }) => ({
+          filter: 'language == $language',
+          params: { language: (document as { language?: string })?.language ?? 'fr' },
+        }),
+        documentInternationalization: { exclude: true },
+      },
       validation: (R) => R.required(),
     }),
     defineField({

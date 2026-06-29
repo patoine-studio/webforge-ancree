@@ -1,5 +1,5 @@
-// Registre des 48 types du Studio: 13 objets partagés, 11 blocs réguliers,
-// 7 blocs article, 9 singletons, 4 collections, 4 banques. Deux définitions ne
+// Registre des 49 types du Studio: 13 objets partagés, 11 blocs réguliers,
+// 7 blocs article, 9 singletons, 4 collections, 5 banques. Deux définitions ne
 // sont PAS enregistrées car ce sont des helpers de champ réutilisés, pas des
 // types autonomes: pageBuilderField (objects/blocks/page-builder.ts) et
 // articlePortableText (objects/article-blocks/article-portable-text.ts).
@@ -61,6 +61,7 @@ import { category } from './documents/category'
 
 // Documents: banques et instances fixes
 import { testimonial } from './documents/testimonial'
+import { person } from './documents/person'
 import { faqItem } from './documents/faq-item'
 import { faqTheme } from './documents/faq-theme'
 import { legalPage } from './documents/legal-page'
@@ -123,6 +124,7 @@ export const schemaTypes = [
 
   // Documents: banques et instances fixes
   testimonial,
+  person,
   faqItem,
   faqTheme,
   legalPage,

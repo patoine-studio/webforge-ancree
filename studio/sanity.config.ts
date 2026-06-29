@@ -50,7 +50,7 @@ const I18N_SCHEMA_TYPES = [
   'siteSettings', 'homePage', 'servicesPage', 'villesPage', 'aboutPage',
   'blogPage', 'faqPage', 'contactPage', 'onePager',
   'service', 'serviceCity', 'article', 'category',
-  'testimonial', 'faqItem', 'faqTheme', 'legalPage',
+  'testimonial', 'faqItem', 'faqTheme', 'legalPage', 'person',
 ]
 
 const SINGLETON_TYPES = new Set([
@@ -71,7 +71,7 @@ const SINGLETON_ACTIONS = new Set([
 // Types ranges manuellement dans la structure, exclus de l'auto-listing.
 const NESTED_TYPES = new Set([
   'service', 'serviceCity', 'article', 'category',
-  'testimonial', 'faqItem', 'faqTheme', 'legalPage',
+  'testimonial', 'faqItem', 'faqTheme', 'legalPage', 'person',
 ])
 
 // URL de l'app Nuxt visee par le presentationTool (iframe live).
@@ -237,6 +237,7 @@ const structure = (S: StructureBuilder) =>
 
       S.listItem().title('Banques').icon(DatabaseIcon).child(
         S.list().title('Banques').items([
+          collection(S, 'person', 'Équipe', [{ field: 'name', direction: 'asc' }]),
           collection(S, 'testimonial', 'Témoignages', [{ field: 'order', direction: 'asc' }]),
         ]),
       ),

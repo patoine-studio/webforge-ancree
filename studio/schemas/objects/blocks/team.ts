@@ -36,43 +36,16 @@ export const team = defineType({
     defineField({
       name: 'members',
       title: 'Membres de l\'équipe',
+      description: 'Personnes de la banque, dans l\'ordre d\'affichage. Même langue que la page.',
       type: 'array',
       of: [
         defineArrayMember({
-          type: 'object',
-          name: 'teamMember',
-          title: 'Membre',
-          fields: [
-            defineField({
-              name: 'name',
-              title: 'Nom',
-              type: 'string',
-              validation: (R) => R.required(),
-            }),
-            defineField({
-              name: 'role',
-              title: 'Rôle',
-              type: 'string',
-              validation: (R) => R.required(),
-            }),
-            defineField({
-              name: 'bio',
-              title: 'Bio courte',
-              type: 'text',
-              rows: 3,
-            }),
-            defineField({
-              name: 'photo',
-              title: 'Portrait',
-              type: 'figure',
-            }),
-          ],
-          preview: {
-            select: { title: 'name', subtitle: 'role', media: 'photo.image' },
-            prepare: ({ title, subtitle, media }) => ({
-              title: title || '(membre sans nom)',
-              subtitle: subtitle || 'Membre de l\'équipe',
-              media,
+          type: 'reference',
+          to: [{ type: 'person' }],
+          options: {
+            filter: ({ document }) => ({
+              filter: 'language == $language',
+              params: { language: (document as { language?: string })?.language ?? 'fr' },
             }),
           },
         }),
