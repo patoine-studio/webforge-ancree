@@ -5177,6 +5177,33 @@
             "mode": "auto"
           },
           {
+            "_key": "op-process",
+            "_type": "process",
+            "eyebrow": "Notre méthode",
+            "heading": "Comment on règle un nuisible, pour de bon",
+            "lead": "Pas de mystère ni de pression: trois temps clairs, du premier appel à la garantie.",
+            "steps": [
+              {
+                "_key": "p1",
+                "_type": "processStep",
+                "title": "On inspecte et on identifie",
+                "body": "On trouve d'où vient le problème et quelle espèce vous visez, du sous-sol au toit, avant d'agir."
+              },
+              {
+                "_key": "p2",
+                "_type": "processStep",
+                "title": "On traite à la source",
+                "body": "Produits homologués Santé Canada, appliqués par un technicien certifié, avec un prix clair et aucune vente sous pression."
+              },
+              {
+                "_key": "p3",
+                "_type": "processStep",
+                "title": "On suit et on prévient",
+                "body": "On scelle les points d'entrée, on revient au besoin, et la garantie écrite tient: le nuisible ne doit pas revenir."
+              }
+            ]
+          },
+          {
             "_key": "b3",
             "_type": "serviceCities",
             "eyebrow": "Près de chez vous",
@@ -5229,6 +5256,38 @@
                 "_type": "stat",
                 "value": "9",
                 "label": "techniciens certifiés"
+              }
+            ]
+          },
+          {
+            "_key": "op-highlights",
+            "_type": "highlights",
+            "eyebrow": "Nos engagements",
+            "heading": "Ce que vous obtenez avec Rempart",
+            "items": [
+              {
+                "_key": "h1",
+                "_type": "highlight",
+                "title": "Garantie de retour sans frais",
+                "body": "Si le nuisible revient dans la période couverte, on revient le traiter sans vous refacturer."
+              },
+              {
+                "_key": "h2",
+                "_type": "highlight",
+                "title": "Rapport d'inspection écrit",
+                "body": "Remis après chaque visite: ce qu'on a trouvé, ce qu'on a traité et ce qu'on recommande."
+              },
+              {
+                "_key": "h3",
+                "_type": "highlight",
+                "title": "Produits homologués Santé Canada",
+                "body": "Choisis selon la situation, sûrs pour les enfants et les animaux de compagnie."
+              },
+              {
+                "_key": "h4",
+                "_type": "highlight",
+                "title": "Estimation gratuite, prix clair",
+                "body": "Le prix est fixé avant qu'on commence, sans vente sous pression ni surprise sur la facture."
               }
             ]
           },
@@ -5418,6 +5477,33 @@
             "mode": "auto"
           },
           {
+            "_key": "op-process",
+            "_type": "process",
+            "eyebrow": "Our method",
+            "heading": "How we deal with a pest, for good",
+            "lead": "No mystery, no pressure: three clear steps, from the first call to the guarantee.",
+            "steps": [
+              {
+                "_key": "p1",
+                "_type": "processStep",
+                "title": "We inspect and identify",
+                "body": "We find where the problem starts and which species you are facing, from basement to roof, before doing anything."
+              },
+              {
+                "_key": "p2",
+                "_type": "processStep",
+                "title": "We treat at the source",
+                "body": "Health Canada approved products, applied by a certified technician, with a clear price and no pressure selling."
+              },
+              {
+                "_key": "p3",
+                "_type": "processStep",
+                "title": "We follow up and prevent",
+                "body": "We seal the entry points, come back if needed, and the written guarantee holds: the pest should not return."
+              }
+            ]
+          },
+          {
             "_key": "b3",
             "_type": "serviceCities",
             "eyebrow": "Close to home",
@@ -5470,6 +5556,38 @@
                 "_type": "stat",
                 "value": "9",
                 "label": "certified technicians"
+              }
+            ]
+          },
+          {
+            "_key": "op-highlights",
+            "_type": "highlights",
+            "eyebrow": "Our commitments",
+            "heading": "What you get with Rempart",
+            "items": [
+              {
+                "_key": "h1",
+                "_type": "highlight",
+                "title": "Free return guarantee",
+                "body": "If the pest comes back within the covered period, we come back to treat it at no extra charge."
+              },
+              {
+                "_key": "h2",
+                "_type": "highlight",
+                "title": "Written inspection report",
+                "body": "Handed to you after every visit: what we found, what we treated and what we recommend."
+              },
+              {
+                "_key": "h3",
+                "_type": "highlight",
+                "title": "Health Canada approved products",
+                "body": "Chosen for the situation, safe for children and pets."
+              },
+              {
+                "_key": "h4",
+                "_type": "highlight",
+                "title": "Free estimate, clear price",
+                "body": "The price is set before we start, with no pressure selling and no surprise on the bill."
               }
             ]
           },
