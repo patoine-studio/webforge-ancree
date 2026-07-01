@@ -124,7 +124,7 @@ export const article = defineType({
       options: {
         insertMenu: {
           views: [
-            { name: 'grid', previewImageUrl: (typeName) => `/static/block-previews/${typeName}.svg` },
+            { name: 'grid', previewImageUrl: (typeName) => `/static/block-previews/${typeName}.svg?v=2` },
             { name: 'list' },
           ],
           filter: true,
