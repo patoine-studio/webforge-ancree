@@ -413,12 +413,17 @@ watch(() => route.fullPath, () => {
   opacity: 1;
   color: var(--accent-call);
 }
-.header__cta {
+/* Bascule d'affichage qualifiee par .header__actions (specificite 0,3,0) pour battre
+   DETERMINISTIQUEMENT le .btn { display: inline-flex } de base du composant Button
+   (0,2,0). Sans ce cran de specificite, l'egalite se tranche par l'ordre des feuilles
+   scoped, qui differe entre `nuxt dev` (l'en-tete gagne) et le build de prod (le .btn
+   gagne): les deux CTA restaient alors affiches en meme temps, cassant le mobile. */
+.header__actions .header__cta {
   display: none;
 }
 /* Bouton d'urgence: visible au mobile, masque au desktop (le CTA pleine forme prend
    le relais). Compact pour tenir a cote du burger sur les petits ecrans. */
-.header__urgence {
+.header__actions .header__urgence {
   display: inline-flex;
   gap: 0.6rem;
   padding: 1rem 1.4rem;
@@ -461,10 +466,10 @@ watch(() => route.fullPath, () => {
   .header__lang {
     display: inline-flex;
   }
-  .header__cta {
+  .header__actions .header__cta {
     display: inline-flex;
   }
-  .header__urgence {
+  .header__actions .header__urgence {
     display: none;
   }
   .header__burger {
