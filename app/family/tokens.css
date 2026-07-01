@@ -40,7 +40,6 @@
   --space-block-default: 10rem; /* palier standard, genereux (la chaleur vient de l'air) */
   --space-block-loose:   13rem; /* palier ample, moments signatures (conversion) */
   --space-block-band: clamp(2.6rem, 4vh, 3.6rem); /* bande mince (barre de confiance) sous le heros */
-  --space-block-open: clamp(3.2rem, 5vh, 4.8rem); /* ouverture de corps de page sous un masthead clair */
   --space-title-lead: 20px; /* titre vers texte, px fixe assume */
   --space-lead-cta:   36px; /* texte vers bouton (couple unique site-wide: heros ET tetes de section) */
   --space-head-content: 4.8rem; /* en-tete de section -> contenu du bloc (uniforme site-wide) */
