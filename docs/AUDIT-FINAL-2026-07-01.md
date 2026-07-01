@@ -268,6 +268,49 @@ plus structurant au cosmétique.
 7. **Nommage et indexation.** `package.json` `name` (racine et studio), `CLAUDE.md` / `README`,
    puis lever `site.indexable:false` (`nuxt.config.ts:565`) quand le vrai site est prêt.
 
+## Addendum (1er juillet, après arbitrage de Charles)
+
+Charles a tranché les arbitrages réservés. Résultat: quatre chantiers réalisés, deux écartés.
+
+**Réalisés et commités sur `staging`:**
+
+- **R3 (`b8c7d5f`) accordéon FAQ synchronisé.** La face CSS (chevron, fond ambre) passe de 460ms
+  à 200ms + `cubic-bezier(0.65,0,0.35,1)` (ease-in-out-cubic, miroir exact de `MOTION.ease.drawer`
+  = `power2.inOut`). Le chrome se pose désormais en même temps que la hauteur du panneau, sans
+  décalage. Fait dans le composant, sans toucher `tokens.css`.
+- **R7 (`45b3afe`) contraste de l'ambre sur blanc.** L'astérisque « requis » et l'icône de callout
+  « note » passent de `--accent-call` (ambre, 1.64:1) à `--accent-trust` (bleu, 5.21:1 sur blanc,
+  conforme WCAG 1.4.11). L'ambre reste la couleur d'appel partout ailleurs (sur navy).
+- **R1 (`33f2c19`) dimensions d'image (MAJ-06 fermé).** `metadata.dimensions` remonte via
+  `FIGURE_PROJECTION` et transite jusqu'à `<NuxtImg>` (`width`/`height`) à travers `ResolvedFigure`,
+  `ArticleFigure`, `HeroVisual`, `HeroPageVisual`, `AboutPhoto`, `TeamPhoto`, `EditorialImage` et
+  leurs huit sites d'appel. **156 images de contenu portent maintenant des dimensions explicites**
+  (0 avant). Le ratio de rendu reste l'`aspect-ratio` d'emplacement (override CSS); le `srcset`
+  responsive est préservé; les six héros full-bleed sont exclus (positionnés). Dernier défaut
+  prioritaire Minimaliste fermé.
+- **R2 (`8865012`) contenu du hero d'accueil.** **Correction de cadrage:** l'investigation montre que
+  le contenu du hero d'accueil vient DÉJÀ de Sanity (`homePage.heroHome` via `useHeroContent`), et
+  l'aria du logo de `site.brand.homeAriaLabel` (Sanity). Les clés i18n `hero.title/lead/cta_secondary/
+  proof_*/image_alt`, `home.title/lead` et `site.home_aria` étaient du contenu Rempart **mort**
+  (aucun usage de code, confirmé par un build sans avertissement intlify), reliquat d'avant la
+  migration. La bonne action n'était donc pas une migration ni une écriture live, mais un retrait de
+  code mort. Fait, parité stricte fr/en (158 clés). Résidu mineur noté: `hero.kicker` reste (fallback
+  d'eyebrow vivant) avec une valeur territoriale (« Rive-Nord... »); acceptable car il ne sert que de
+  repli pour un pageHero de service sans surtitre.
+
+**Écartés (décision de Charles):**
+
+- **R6 hreflang presence-aware: reporté.** La seule voie propre est le mode `strictSeo` expérimental
+  de nuxt-i18n, qui restructure tout le head SEO. Problème latent seulement (aucun document
+  mono-langue), démo noindex. À revisiter quand un vrai client aura du contenu mono-langue.
+- **R4 preload du Bitter: laissé tomber.** `@nuxt/fonts` n'expose pas de preload propre par graisse;
+  un preload manuel dépendrait d'un nom de fichier hashé (fragile). Le `font-display:swap` et les
+  fallbacks à métriques ajustées atténuent déjà le FOUT sur un démo noindex.
+
+**Aussi durci ce jour:** posture noindex à trois couches (voir plus haut, `cf765c1`), et
+`wrangler.jsonc` corrigé d'une référence Minimaliste (« Atelier Cormier » vers « Rempart
+Extermination », `e529c4a`).
+
 ## Annexe: méthode et limites
 
 - Build réel `NUXT_SANITY_TOKEN=<token> nuxt generate` contre le project `5if00rwn`, dataset
