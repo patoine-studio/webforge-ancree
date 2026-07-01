@@ -5,9 +5,15 @@ Runbook du déploiement du démo Rempart Extermination sur Cloudflare. Plan viva
 frère, déjà en ligne), avec une seule vraie divergence: le secret de build
 `NUXT_SANITY_TOKEN` est requis sur prod ET staging (pas seulement sur le preview).
 
-État au moment d'écrire: rien n'est posé côté Cloudflare. Zéro Worker
-`webforge-ancree*` dans le compte. Les trois branches (`main`, `staging`,
-`preview`) sont poussées sur `patoine-studio/webforge-ancree`. Les deux fichiers
+**État (1 juillet 2026): PHASE 1 EN LIGNE ET VÉRIFIÉE.** Prod
+(`webforge-ancree` sur `main`, `webforge-ancree.patoinestudio.ca`) et staging
+(`webforge-ancree-staging` sur `staging`, `webforge-ancree-staging.patoinestudio.ca`)
+déployés via Workers Builds; secret de build `NUXT_SANITY_TOKEN` + variable
+`NUXT_PUBLIC_SITE_URL` par environnement; builds des branches non-prod coupés;
+`workers.dev` off; vérifiés en live (200, hreflang slug-traduit correct, canonical
+par environnement, noindex, zéro fuite du token). `origin/staging` a été
+fast-forwardé sur `main`. Reste la **Phase 2 (preview SSR)**. Les trois branches
+(`main`, `staging`, `preview`) sont poussées sur `patoine-studio/webforge-ancree`. Les deux fichiers
 `wrangler.jsonc` et `wrangler.preview.jsonc` sont prêts (noms échangés depuis
 Minimaliste, workers.dev et preview_urls coupés). Le site reste `noindex`
 (`site.indexable: false`, gabarit non indexable tant qu'aucun vrai site n'est en
@@ -184,6 +190,26 @@ côté `nuxt.config.ts` et dépendances, calquée sur Minimaliste.
 - [ ] **Vérif**: depuis le Studio > Presentation, l'iframe charge le Worker
   preview; un draft non publié est visible; overlays click-to-edit actifs; images
   CDN Sanity affichées.
+
+## Pièges rencontrés (Phase 1, tableau de bord)
+
+- **Compte GitHub à sélectionner**: le wizard part sur `elvispat1` (perso, aucun
+  repo). Basculer sur **`patoine-studio`** pour voir `webforge-ancree`.
+- **Premier build « à vide »**: le wizard crée le Worker et lance un premier build
+  SANS les variables. On pose ensuite `NUXT_PUBLIC_SITE_URL` + le secret
+  `NUXT_SANITY_TOKEN` dans Settings > Build > Variables and secrets, puis on relance
+  (build history > **Retry build**). Ce premier build est invisible (pas de domaine
+  attaché, site noindex), on branche le domaine seulement après le build correct.
+- **Staging, branche de prod**: le wizard crée le Worker sur la branche par défaut
+  (`main`). Mettre la production branch à **`staging`** dans Settings > Build >
+  Branch control APRÈS création. Le combobox exige de VRAIES frappes clavier (taper
+  « staging » puis cliquer l'option), un simple remplissage programmatique ne
+  s'enregistre pas.
+- **Notice de renommage `wrangler.jsonc`**: sur le Worker staging, Cloudflare affiche
+  « renomme wrangler.jsonc en webforge-ancree-staging » et peut ouvrir une PR.
+  **À IGNORER / fermer**: prod et staging partagent volontairement `wrangler.jsonc`
+  (name `webforge-ancree`), staging surcharge via `--name` dans sa commande de deploy;
+  renommer casserait la prod.
 
 ## Gardes-fous
 
