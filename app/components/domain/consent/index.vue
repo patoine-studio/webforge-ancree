@@ -7,14 +7,14 @@
  * même carte:
  *   - main      : titre, explication + lien politique, 3 actions de poids égal
  *                 (Tout accepter / Nécessaires seulement / Personnaliser).
- *   - customize : cases par catégorie + Enregistrer, avec un bouton Retour.
+ *   - customize : interrupteurs par catégorie + Enregistrer, avec un bouton Retour.
  * Le panneau customize piège le focus clavier de façon autonome (Tab cycle dans
  * le panneau); Retour rend le focus au déclencheur. La carte de base reste
  * atteignable au clavier sans piéger.
  *
  * La plomberie (store, plugin, config) est portée 1:1 de Minimaliste; SEULE la
- * peau (markup ancré, tokens Ancrée, case à cocher au lieu d'un switch) est
- * propre à Ancrée. Catégories pilotées par la config (useContent('consent')):
+ * peau (markup ancré, tokens Ancrée, interrupteur pilule maison) est propre à
+ * Ancrée. Catégories pilotées par la config (useContent('consent')):
  * « Nécessaires » implicite et verrouillé en tête, puis les opt-in. Toute la
  * copie vient d'i18n (consent.*), surchargeable string par string via `overrides`.
  *
@@ -158,20 +158,19 @@ function onSaveCustom() { consent.saveCustom({ ...draft }) }
           </button>
 
           <ul class="consent__cats">
-            <!-- Nécessaires: catégorie requise, pas de bascule — juste la mention « Requis ». -->
+            <!-- Nécessaires: catégorie requise, pas d'interrupteur — libellé + mention « Requis ». -->
             <li class="consent__cat consent__cat--required">
               <span class="consent__cat-label">{{ copy('categories.necessary.label') }}</span>
               <span class="consent__required">{{ copy('required') }}</span>
             </li>
-            <!-- Catégories opt-in: libellé + case. Les descriptions détaillées
+            <!-- Catégories opt-in: libellé + interrupteur. Les descriptions détaillées
                  vivent dans la politique de confidentialité (panneau sobre). -->
             <li v-for="c in config.categories" :key="c.id" class="consent__cat">
-              <Checkbox
+              <Switch
                 :model-value="draft[c.id] ?? false"
+                :label="copy(`categories.${c.id}.label`)"
                 @update:model-value="draft[c.id] = $event"
-              >
-                {{ copy(`categories.${c.id}.label`) }}
-              </Checkbox>
+              />
             </li>
           </ul>
 
@@ -189,13 +188,21 @@ function onSaveCustom() { consent.saveCustom({ ...draft }) }
   left: clamp(1.2rem, 3vw, 2.4rem);
   z-index: 70;
   width: min(38rem, calc(100vw - 2.4rem));
+  max-height: calc(100dvh - 4.8rem); /* carte basse: si l'écran est court, elle défile plutôt que déborder */
+  overflow-y: auto;
   padding: 2.4rem;
   background: var(--bg-base);
-  border: var(--line-width) solid var(--line-soft);
+  border: var(--line-soft); /* le token EST le raccourci complet (1px solid couleur) */
   border-radius: var(--radius-lg);
   box-shadow: var(--elev-high);
   outline: none;
 }
+.consent__view {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Vue de base ──────────────────────────────────────────────────────────── */
 .consent__title {
   margin: 0 0 0.8rem;
   color: var(--text-base);
@@ -210,60 +217,100 @@ function onSaveCustom() { consent.saveCustom({ ...draft }) }
 }
 .consent__link {
   color: var(--accent-trust);
+  text-decoration: underline;
   text-underline-offset: 0.2em;
+  transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
+.consent__link:hover {
+  color: var(--text-base);
+}
+/* Actions empilées pleine largeur: hiérarchie par le remplissage (l'appel plein
+ * navy) contre les filets des deux replis, jamais par la taille. Remplace le
+ * flex-wrap qui empilait les boutons de travers. */
 .consent__actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
 }
+.consent__actions :deep(.btn) {
+  width: 100%;
+}
+
+/* ── Vue personnaliser ────────────────────────────────────────────────────── */
 .consent__back {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  align-self: flex-start;
   margin: 0 0 1.6rem;
-  padding: 0;
+  padding: 0.2rem 0.4rem 0.2rem 0;
   background: none;
   border: none;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 600;
   color: var(--text-muted);
-  font: inherit;
   cursor: pointer;
+  transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .consent__back:hover {
   color: var(--text-base);
 }
+.consent__back:focus-visible {
+  outline: var(--focus-ring-width) solid var(--accent-trust);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+/* Registre sobre: chaque catégorie posée sur un filet, séparée par des lignes
+ * (jamais de cartes emboîtées). */
 .consent__cats {
   list-style: none;
   margin: 0 0 2rem;
   padding: 0;
-  display: grid;
-  gap: 1.2rem;
+  display: flex;
+  flex-direction: column;
 }
 .consent__cat {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
+  border-top: var(--line-hair);
 }
+.consent__cat:last-child {
+  border-bottom: var(--line-hair);
+}
+/* Nécessaires: requise, pas d'interrupteur — libellé + « Requis ». Même gabarit
+ * de rangée que les catégories à interrupteur (grille 1fr auto, hauteur calée
+ * sur la cible tactile du Switch pour que toutes les rangées s'alignent). */
 .consent__cat--required {
-  padding-bottom: 1.2rem;
-  border-bottom: var(--line-width) solid var(--line-hair);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 4.4rem;
 }
 .consent__cat-label {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 600;
   color: var(--text-base);
 }
 .consent__required {
-  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 600;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 .consent__save {
   width: 100%;
 }
 
-/* Entrée/sortie ancrée: glisse depuis le sol, sans rebond. */
+/* Entrée/sortie: la carte s'ancre en montant (translation depuis le sol +
+ * fondu), déceleration expo « settle ». Le kill-switch reduced-motion global la
+ * fige; ce bloc annule aussi la translation pour un simple fondu. */
 .consent-enter-active,
 .consent-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity var(--motion-duration-expand) var(--motion-ease-out),
+    transform var(--motion-duration-expand) var(--motion-ease-settle);
 }
 .consent-enter-from,
 .consent-leave-to {
@@ -271,10 +318,6 @@ function onSaveCustom() { consent.saveCustom({ ...draft }) }
   transform: translateY(1.2rem);
 }
 @media (prefers-reduced-motion: reduce) {
-  .consent-enter-active,
-  .consent-leave-active {
-    transition: opacity 0.2s ease;
-  }
   .consent-enter-from,
   .consent-leave-to {
     transform: none;
