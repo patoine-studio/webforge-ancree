@@ -52,13 +52,10 @@ const { t } = useI18n()
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--elev-low);
-  transition:
-    transform var(--motion-duration-hover) var(--motion-ease-settle),
-    box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
+  transition: box-shadow var(--motion-duration-hover) var(--motion-ease-settle);
 }
 .acard:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--elev-high);
+  box-shadow: var(--elev-mid);
 }
 .acard__media {
   position: relative;
