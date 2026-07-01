@@ -6,6 +6,7 @@
  * rendu directement dans le slot SgNav de /showcase. */
 import Input from '~/components/ui/input/index.vue'
 import Checkbox from '~/components/ui/checkbox/index.vue'
+import Switch from '~/components/ui/switch/index.vue'
 import Button from '~/components/ui/button/index.vue'
 import FormSuccess from '~/components/domain/form-success/index.vue'
 
@@ -15,6 +16,7 @@ const name = ref('')
 const message = ref('')
 const errored = ref('')
 const consent = ref(false)
+const analytics = ref(false)
 
 // Exemple complet (etat local, aucun envoi reel: vitrine interne).
 const exName = ref('')
@@ -56,6 +58,18 @@ const exConsent = ref(false)
         <h2 class="wf-h3 sg-forms__title">{{ t('showcase.styleguide.forms.section_selection') }}</h2>
         <div class="sg-forms__grid">
           <Checkbox v-model="consent">{{ t('showcase.styleguide.forms.consent') }}</Checkbox>
+          <Switch
+            v-model="analytics"
+            :label="t('showcase.styleguide.forms.switch_label')"
+            :description="t('showcase.styleguide.forms.switch_desc')"
+          />
+          <!-- Verrouillé (catégorie requise): rendu de l'état désactivé, comme « Nécessaires ». -->
+          <Switch
+            :model-value="true"
+            disabled
+            :label="t('showcase.styleguide.forms.switch_locked_label')"
+            :description="t('showcase.styleguide.forms.switch_locked_desc')"
+          />
         </div>
       </div>
     </section>
