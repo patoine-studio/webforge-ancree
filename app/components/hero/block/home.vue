@@ -291,8 +291,11 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
  * mouvement permis (alors useEntrance le revele en montant). Sans JS ou en
  * reduced-motion, le contenu est visible tout de suite. */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .hero [data-reveal],
-  .hero [data-reveal-stagger] > * {
+  /* En preview (<html class="wf-no-motion">, pose par nuxt.config): pas de masque.
+   * Le mouvement est coupe (motion.ts motionDisabled lit __WF_PREVIEW__), donc rien
+   * ne revelerait le contenu; il doit rester visible d'emblee dans l'iframe. */
+  html:not(.wf-no-motion) .hero [data-reveal],
+  html:not(.wf-no-motion) .hero [data-reveal-stagger] > * {
     opacity: 0;
   }
 }

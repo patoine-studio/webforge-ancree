@@ -48,6 +48,24 @@ const sanityReadToken = process.env.NUXT_SANITY_TOKEN || process.env.SANITY_API_
 // absolus). Posée par Worker sur Cloudflare (NUXT_PUBLIC_SITE_URL).
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://webforge-ancree.patoinestudio.ca'
 
+// ── Interrupteurs du mode preview (calque webforge-minimaliste, adapte au token
+// composite d'Ancree) ─────────────────────────────────────────────────────────
+// Le preview (Presentation tool, stega, drafts, SSR) s'active UNIQUEMENT quand:
+//   1. la branche de build est `preview` (WORKERS_CI_BRANCH, injecte au build par
+//      Cloudflare Workers Builds; undefined en dev local, alors permissif);
+//   2. un token de lecture Sanity est pose (sanityReadToken = NUXT_SANITY_TOKEN
+//      || SANITY_API_READ_TOKEN, deja declare plus haut) ET NUXT_PUBLIC_STUDIO_URL.
+// Le gating par branche est une couche de securite: un token egare sur le Worker
+// prod ou staging n'allumerait PAS le preview. Hors preview, les variables vides
+// suffisent a ce que @nuxtjs/sanity desactive tout le visual editing (token et
+// studioUrl requis, sinon options.visualEditing = undefined): ni stega, ni routes
+// /preview/*, ni React dans le build. previewEnabled pilote AUSSI le preset Nitro
+// (SSR sur le Worker preview, statique ailleurs).
+const studioUrl = process.env.NUXT_PUBLIC_STUDIO_URL
+const ciBranch = process.env.WORKERS_CI_BRANCH
+const onPreviewBranch = ciBranch === 'preview' || ciBranch === undefined
+const previewEnabled = onPreviewBranch && !!sanityReadToken && !!studioUrl
+
 // ── Slugs des routes dynamiques, fetches au BUILD (parade au seul crawl) ──────
 // Client @sanity/client direct: le module @nuxtjs/sanity n'existe pas dans le
 // contexte de la fermeture nuxt.config. Lecture publique, contenu PUBLIE, CDN.
@@ -334,10 +352,37 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    // Constante de compilation: false en prod (le mode preview Sanity sera
-    // recable avec l'architecture de contenu). Elle coupe le code de preview et
-    // le bypass de mouvement dans la signature « s'ancre en montant ».
-    define: { __WF_PREVIEW__: 'false' }
+    // __WF_PREVIEW__: constante de COMPILATION derivee des interrupteurs d'env.
+    // false en build statique (prod/staging): les branches preview de l'app
+    // (plugins 01.content/02.preview-live, middleware, usePayload, bypass de
+    // mouvement de la signature « s'ancre en montant ») deviennent du code mort
+    // que Rollup elimine (aucun chunk visual editing dans .output/public).
+    define: { __WF_PREVIEW__: previewEnabled },
+    // Pre-bundle de la stack React/styled-components du visual editing Sanity, en
+    // preview SEULEMENT (sinon aucun de ces paquets n'entre dans le build). Calque
+    // verbatim de webforge-minimaliste (specificateurs de paquets, rien a adapter).
+    ...(previewEnabled
+      ? {
+          optimizeDeps: {
+            include: [
+              '@nuxtjs/sanity > @sanity/visual-editing > @sanity/insert-menu',
+              '@nuxtjs/sanity > @sanity/visual-editing > @sanity/mutate > lodash/groupBy.js',
+              '@nuxtjs/sanity > @sanity/visual-editing > @sanity/ui > styled-components',
+              '@nuxtjs/sanity > @sanity/visual-editing > @sanity/visual-editing > react-is',
+              '@nuxtjs/sanity > @sanity/visual-editing > react',
+              '@nuxtjs/sanity > @sanity/visual-editing > react/jsx-runtime',
+              '@nuxtjs/sanity > @sanity/visual-editing > react-dom',
+              '@nuxtjs/sanity > @sanity/visual-editing > react-dom/client',
+              '@nuxtjs/sanity > @sanity/visual-editing > react-compiler-runtime',
+              '@sanity/client',
+              '@nuxtjs/sanity > @sanity/client > @sanity/visual-editing',
+              '@vue/devtools-core',
+              '@vue/devtools-kit',
+              '@sanity/image-url'
+            ]
+          }
+        }
+      : {})
   },
 
   // Noms de composants plats (sans prefixe de dossier): <Hero>, <Button>,
@@ -353,7 +398,15 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: { lang: 'fr-CA' },
+      // Marqueur preview: <html class="wf-no-motion"> en preview SEULEMENT. Ancree
+      // coupe le mouvement en JS (family/motion.ts motionDisabled lit __WF_PREVIEW__),
+      // mais le masque anti-flash du hero (home.vue) est du CSS pur qui ne voit pas
+      // __WF_PREVIEW__. La classe donne au CSS ce signal: html:not(.wf-no-motion)
+      // garde le masque hors preview, le leve dans l'iframe (contenu visible d'emblee).
+      htmlAttrs: {
+        lang: 'fr-CA',
+        ...(previewEnabled ? { class: 'wf-no-motion' } : {})
+      },
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon-32.png' },
@@ -390,19 +443,48 @@ export default defineNuxtConfig({
     dataset: sanityDataset,
     apiVersion: sanityApiVersion,
     useCdn: false,
-    // PAS de token ici: l'option token du module @nuxtjs/sanity atterrit dans la
-    // config PUBLIQUE (embarquee dans chaque page). La lecture authentifiee de
-    // translation.metadata se fait server-only via un client dedie dans le plugin
-    // 01.content (token depuis runtimeConfig prive). Ici: lecture publique.
-    perspective: 'published'
+    // PAS de token ici HORS preview: l'option token du module @nuxtjs/sanity
+    // atterrit dans la config PUBLIQUE (embarquee dans chaque page). La lecture
+    // authentifiee de translation.metadata se fait server-only via un client dedie
+    // dans le plugin 01.content (token depuis runtimeConfig prive). Lecture publique.
+    perspective: 'published',
+    // En preview SEULEMENT: on active le visual editing. Le token (server-only cote
+    // module: le proxy /_sanity/visual-editing/fetch le garde au serveur, la copie
+    // publique est videe) vient de sanityReadToken, LA MEME source que le gate
+    // previewEnabled et le client de build (zero divergence de token).
+    ...(previewEnabled
+      ? {
+          visualEditing: {
+            // Mode 'live-visual-editing': edition IN-PLACE. Le module abonne
+            // useSanityQuery au queryStore; une mutation du Presentation tool
+            // re-evalue la requete COTE CLIENT (zero CPU Worker par frappe). Le
+            // plugin 02.preview-live.client.ts garde la requete vivante par route
+            // et re-derive transformGraph dans livePayload, lu par usePayload().
+            mode: 'live-visual-editing' as const,
+            token: sanityReadToken,
+            studioUrl,
+            stega: true
+          }
+        }
+      : {})
   },
 
   hooks: {
-    // Statique pur (cette demo): le module @nuxtjs/sanity place une config `stega`
-    // dans runtimeConfig.public.sanity (utile au visual editing en preview SSR).
-    // Hors preview, elle n'a aucune utilite et fuit dans le HTML genere: on la
-    // retire pour garder .output propre (aucun marqueur stega embarque).
     'nitro:config'(nitroConfig) {
+      if (previewEnabled) {
+        // SSR preview: AUCUN prerendu (le draft est rendu a la requete; prerendre
+        // figerait le contenu PUBLIE). On neutralise la config heritee de
+        // nitro.prerender (routes explicites + crawlLinks).
+        if (nitroConfig.prerender) {
+          nitroConfig.prerender.routes = []
+          nitroConfig.prerender.crawlLinks = false
+        }
+        return
+      }
+      // Statique pur (prod/staging): le module @nuxtjs/sanity place une config
+      // `stega` dans runtimeConfig.public.sanity (utile au visual editing en
+      // preview SSR). Hors preview, elle n'a aucune utilite et fuit dans le HTML
+      // genere: on la retire pour garder .output propre (aucun marqueur stega).
       const runtimeConfig = nitroConfig.runtimeConfig as
         | { public?: { sanity?: Record<string, unknown> } }
         | undefined
@@ -416,6 +498,10 @@ export default defineNuxtConfig({
   // Pipeline image (@nuxt/image, IPX). Les images du contenu vivront sur le CDN
   // Sanity; les variantes sont prérendues au build (provider ipxStatic).
   image: {
+    // En preview SSR (Worker): sharp ne tourne pas sur workerd, pas d'IPX runtime.
+    // Provider `none`: <NuxtImg> sert le `src` cdn.sanity.io tel quel. Hors preview:
+    // PAS de provider explicite (ipxStatic au build, ipx en dev).
+    ...(previewEnabled ? { provider: 'none' } : {}),
     domains: ['cdn.sanity.io'],
     screens: { xs: 375, sm: 500, md: 640, lg: 1024, xl: 1440, xxl: 1920 }
   },
@@ -523,7 +609,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'static',
+    // SSR sur le Worker preview (previewEnabled, build `nuxt build`); statique
+    // partout ailleurs (prod/staging, build `nuxt generate`). Le prerendu ci-dessous
+    // est neutralise en preview par le hook nitro:config plus haut.
+    preset: previewEnabled ? 'cloudflare-module' : 'static',
     prerender: {
       crawlLinks: true,
       // Pages statiques du route-map (segments EN localises) + pages dynamiques
@@ -552,10 +641,13 @@ export default defineNuxtConfig({
     contactFromEmail: process.env.CONTACT_FROM_EMAIL,
     // Token de lecture Sanity, SERVER-ONLY (jamais dans public): lecture
     // authentifiee de translation.metadata au build via le client dedie du plugin
-    // 01.content. Override possible par NUXT_SANITY_READ_TOKEN.
+    // 01.content. Source: NUXT_SANITY_TOKEN (|| SANITY_API_READ_TOKEN en repli).
     sanityReadToken,
     public: {
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
+      // URL du Studio pour un eventuel lien « Ouvrir le Studio » du chrome preview.
+      // Vide en statique (aucun lien rendu); posee en preview via NUXT_PUBLIC_STUDIO_URL.
+      studioUrl: studioUrl || '',
       contactDemo: true,
       // Couture de build pour app/router.options.ts: les slugs de categories du
       // blogue PAR LANGUE (deja fetches pour les routes de prerendu), injectes en
