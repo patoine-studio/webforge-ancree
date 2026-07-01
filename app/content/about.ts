@@ -16,6 +16,8 @@ export interface AboutStat {
 export interface AboutPhoto {
   src: string
   alt: string
+  width?: number // dimension native de l'asset (width/height sur <NuxtImg>, anti-CLS)
+  height?: number
 }
 
 export interface AboutContent {

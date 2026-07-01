@@ -11,6 +11,9 @@ export interface ArticleFigure {
   src: string
   alt: string
   caption?: string
+  /** Dimensions natives de l'asset (pour width/height sur <NuxtImg>, anti-CLS). */
+  width?: number
+  height?: number
 }
 
 /* Portable Text: la forme standard Sanity du texte riche. On la garde telle quelle

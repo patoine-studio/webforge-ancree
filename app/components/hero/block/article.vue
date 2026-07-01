@@ -58,6 +58,8 @@ const metaItems = computed(() => {
           <Image
             :src="cover.src"
             :alt="cover.alt"
+            :width="cover.width"
+            :height="cover.height"
             ratio="var(--ratio-wide)"
             sizes="xs:100vw sm:100vw md:100vw lg:1100px xl:1100px xxl:1100px"
             loading="eager"

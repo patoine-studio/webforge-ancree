@@ -70,6 +70,8 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
             <Image
               :src="image.src"
               :alt="image.alt"
+              :width="image.width"
+              :height="image.height"
               ratio="4/3"
               sizes="xs:100vw sm:100vw md:50vw lg:45vw xl:45vw xxl:45vw"
             />

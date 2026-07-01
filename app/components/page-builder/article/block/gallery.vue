@@ -15,6 +15,8 @@ defineProps<BlockBase<'gallery'> & ArticleGalleryContent>()
           <Image
             :src="item.src"
             :alt="item.alt"
+            :width="item.width"
+            :height="item.height"
             :caption="item.caption"
             sizes="xs:100vw sm:100vw md:380px lg:380px xl:380px xxl:380px"
             tone="base"

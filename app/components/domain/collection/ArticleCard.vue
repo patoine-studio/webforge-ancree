@@ -1,9 +1,10 @@
 <script setup lang="ts">
 /* Carte d'article: couverture arrondie, puce de categorie, titre slab (lien
  * etire sur toute la carte), accroche, pied (date, duree, fleche). Carte blanche
- * posee (ombre chaude, pas de filet dur), elle se souleve au survol. Le titre
- * porte le lien; un ::after etire rend toute la carte cliquable sans imbriquer
- * d'interactifs. headingLevel ajustable selon le contexte (liste vs reliés). */
+ * posee (ombre chaude, pas de filet dur), ancree au sol: au survol l'ombre se
+ * renforce d'un cran, sans soulevement. Le titre porte le lien; un ::after etire
+ * rend toute la carte cliquable sans imbriquer d'interactifs. headingLevel
+ * ajustable selon le contexte (liste vs reliés). */
 import type { ArticleCardData } from '~/composables/useArticles'
 
 withDefaults(
@@ -20,6 +21,8 @@ const { t } = useI18n()
       <Image
         :src="card.cover.src"
         :alt="card.cover.alt"
+        :width="card.cover.width"
+        :height="card.cover.height"
         sizes="xs:100vw sm:100vw md:50vw lg:380px xl:420px xxl:420px"
         tone="base"
       />

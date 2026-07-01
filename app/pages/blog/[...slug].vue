@@ -76,7 +76,7 @@ const articleHero = computed<HeroArticleBlock | null>(() => {
   const trail: Crumb[] = [{ label: routeLabel('blog', loc.value), to: routePath('blog', loc.value) }]
   if (a.category) trail.push({ label: a.category.title, to: categoryHref(a.category.slug, loc.value) })
   trail.push({ label: a.title })
-  const cover: HeroVisual = { src: a.cover.src, alt: a.cover.alt }
+  const cover: HeroVisual = { src: a.cover.src, alt: a.cover.alt, width: a.cover.width, height: a.cover.height }
   return {
     _type: 'hero-article',
     _key: 'masthead',

@@ -557,6 +557,9 @@ function linkPair(link: SanityLink, locale: WfLocale, phoneE164: string): { labe
 export interface ResolvedFigure {
   src?: string
   alt: string
+  /** Dimensions natives de l'asset (pour width/height sur <NuxtImg>, anti-CLS). */
+  width?: number
+  height?: number
 }
 
 /**
@@ -569,7 +572,9 @@ export function resolveFigure(figure: Maybe<SanityFigure>): ResolvedFigure {
   const f = figure ?? {}
   return {
     src: opt(f.src),
-    alt: f.alt ?? ''
+    alt: f.alt ?? '',
+    width: opt(f.width),
+    height: opt(f.height)
   }
 }
 
@@ -580,7 +585,9 @@ function resolveArticleFigure(figure: Maybe<SanityFigure>): ArticleFigure {
   return {
     src: opt(f.src) ?? '',
     alt: f.alt ?? '',
-    caption: opt(f.caption)
+    caption: opt(f.caption),
+    width: opt(f.width),
+    height: opt(f.height)
   }
 }
 
@@ -735,7 +742,7 @@ function transformTeam(raw: SanityTeamBlock, locale: WfLocale): TeamContent {
         name: m.name,
         role: m.role,
         bio: opt(m.bio),
-        photo: { src: f.src ?? '', alt: f.alt }
+        photo: { src: f.src ?? '', alt: f.alt, width: f.width, height: f.height }
       }
     })
   }
@@ -766,7 +773,7 @@ function transformPageHeroBody(raw: SanityPageHero, locale: WfLocale, phoneE164:
     lead: opt(raw.lead),
     cta: raw.cta ? linkPair(raw.cta, locale, phoneE164) : undefined,
     // crumbs: composes par la page (route-map), jamais au CMS.
-    image: rf.src ? { src: rf.src, alt: rf.alt } : undefined
+    image: rf.src ? { src: rf.src, alt: rf.alt, width: rf.width, height: rf.height } : undefined
   }
 }
 
@@ -780,7 +787,7 @@ function transformDetailHeroBody(raw: SanityDetailHero, locale: WfLocale, phoneE
     title: raw.title,
     lead: opt(raw.lead),
     cta: raw.cta ? linkPair(raw.cta, locale, phoneE164) : undefined,
-    image: rf.src ? { src: rf.src, alt: rf.alt } : undefined
+    image: rf.src ? { src: rf.src, alt: rf.alt, width: rf.width, height: rf.height } : undefined
   }
 }
 
@@ -899,7 +906,7 @@ function transformBlock(
         body: toParagraphs(block.body),
         photo: ((): AboutBlock['photo'] => {
           const f = resolveFigure(block.photo)
-          return { src: f.src ?? '', alt: f.alt }
+          return { src: f.src ?? '', alt: f.alt, width: f.width, height: f.height }
         })(),
         stats: (block.stats ?? []).map((s) => ({ value: s.value, label: s.label }))
       }

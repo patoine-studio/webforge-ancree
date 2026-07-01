@@ -27,6 +27,8 @@ defineProps<AboutBlock>()
             <Image
               :src="photo.src"
               :alt="photo.alt"
+              :width="photo.width"
+              :height="photo.height"
               sizes="xs:100vw sm:100vw md:50vw lg:50vw xl:50vw xxl:50vw"
               tone="base"
             />

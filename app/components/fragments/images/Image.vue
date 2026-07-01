@@ -11,6 +11,8 @@
       :ref="setImageEl"
       :src="src"
       :alt="alt"
+      :width="width"
+      :height="height"
       :loading="loading"
       :sizes="sizes"
       :fetchpriority="fetchpriority"
@@ -24,6 +26,8 @@
     v-else-if="src"
     :src="src"
     :alt="alt"
+    :width="width"
+    :height="height"
     :loading="loading"
     :sizes="sizes"
     :fetchpriority="fetchpriority"
@@ -79,6 +83,12 @@ const props = withDefaults(
     alt?: string
     /** Ratio CSS, idealement un token (ex: 'var(--ratio-landscape)'). */
     ratio?: string
+    /** Dimensions natives de l'asset. Posees sur <NuxtImg> (attributs width/height)
+     *  pour reserver l'espace avant chargement (anti-CLS, signal Lighthouse). Le ratio
+     *  de RENDU reste l'aspect-ratio ci-dessus; width/height ne servent qu'a
+     *  l'intrinseque de l'image source. */
+    width?: number
+    height?: number
     /** Largeur rendue selon l'emplacement, pour le srcset (syntaxe @nuxt/image avec
      *  alias d'ecran sm:/md:/lg:/xl:/xxl:). Nommer les hauts breakpoints (xl/xxl),
      *  sinon le srcset ramollit sur grand ecran et Retina. */
@@ -102,6 +112,8 @@ const props = withDefaults(
     src: undefined,
     alt: '',
     ratio: 'var(--ratio-landscape)',
+    width: undefined,
+    height: undefined,
     sizes: 'sm:100vw md:100vw lg:50vw xl:50vw xxl:50vw',
     caption: undefined,
     tone: 'alt',

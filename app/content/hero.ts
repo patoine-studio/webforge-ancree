@@ -10,6 +10,8 @@ import type { Crumb } from '~/config/route-map'
 export interface HeroVisual {
   src?: string // URL CDN deja resolue (jamais un objet asset Sanity); absente -> pas de couverture
   alt?: string // lu sur l'asset (asset->altText)
+  width?: number // dimension native de l'asset (width/height sur <NuxtImg>, anti-CLS)
+  height?: number
 }
 
 /* Visuel du heros full bleed: minimal (src + alt seulement). Cadrage en CODE
@@ -46,6 +48,8 @@ export interface HeroContent {
 export interface HeroPageVisual {
   src: string
   alt?: string
+  width?: number // dimension native de l'asset (width/height sur <NuxtImg>, anti-CLS)
+  height?: number
 }
 
 export interface HeroPageContent {

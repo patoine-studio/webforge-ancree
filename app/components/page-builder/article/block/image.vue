@@ -16,6 +16,8 @@ defineProps<BlockBase<'image'> & ArticleImageContent>()
       <ImageFragment
         :src="image.src"
         :alt="image.alt"
+        :width="image.width"
+        :height="image.height"
         :caption="image.caption"
         sizes="xs:100vw sm:100vw md:720px lg:760px xl:760px xxl:760px"
         tone="base"

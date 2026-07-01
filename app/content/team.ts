@@ -10,6 +10,8 @@
 export interface TeamPhoto {
   src: string
   alt: string
+  width?: number // dimension native de l'asset (width/height sur <NuxtImg>, anti-CLS)
+  height?: number
 }
 
 export interface TeamMember {

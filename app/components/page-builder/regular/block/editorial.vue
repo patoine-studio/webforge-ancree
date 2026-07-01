@@ -193,7 +193,7 @@ function imgSizes(vm: SegmentView, j: number): string {
               class="editorial__img"
               :class="imgClass(vm, j)"
             >
-              <Image :src="img.src" :alt="img.alt" :ratio="imgRatio(vm, j)" :sizes="imgSizes(vm, j)" />
+              <Image :src="img.src" :alt="img.alt" :width="img.width" :height="img.height" :ratio="imgRatio(vm, j)" :sizes="imgSizes(vm, j)" />
             </div>
             <figcaption v-if="vm.caption" class="editorial__caption wf-caption">
               {{ vm.caption }}

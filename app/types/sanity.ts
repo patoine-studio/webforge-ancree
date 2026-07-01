@@ -49,6 +49,12 @@ export interface SanityFigure {
   src?: Maybe<string>
   alt?: Maybe<string>
   caption?: Maybe<string>
+  // Dimensions natives de l'asset (metadata.dimensions), remontees pour poser
+  // width/height sur <NuxtImg> (reservation d'espace, signal Lighthouse). Le ratio
+  // de RENDU reste decide a l'emplacement (aspect-ratio CSS), ces valeurs ne servent
+  // qu'a l'intrinseque de l'image source.
+  width?: Maybe<number>
+  height?: Maybe<number>
 }
 
 /** Visuel du héros (objet `heroImage`): desktop + mobile optionnelle, alt sur l'asset.

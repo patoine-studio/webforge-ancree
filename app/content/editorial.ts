@@ -12,6 +12,8 @@ export interface EditorialImage {
   src: string
   alt: string
   caption?: string
+  width?: number // dimension native de l'asset (width/height sur <NuxtImg>, anti-CLS)
+  height?: number
 }
 
 // Côté de l'image au desktop: `auto` alterne en zigzag d'un segment à l'autre.

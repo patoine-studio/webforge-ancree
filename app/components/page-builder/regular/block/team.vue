@@ -32,6 +32,8 @@ const hasHead = computed(() => Boolean(props.heading || props.eyebrow))
             <Image
               :src="member.photo.src"
               :alt="member.photo.alt"
+              :width="member.photo.width"
+              :height="member.photo.height"
               :ratio="'var(--ratio-portrait)'"
               sizes="xs:100vw sm:50vw md:33vw lg:25vw xl:25vw xxl:25vw"
               tone="base"

@@ -21,5 +21,7 @@
 export const FIGURE_PROJECTION = /* groq */ `{
   "src": image.asset->url,
   "alt": select($language == "en" => image.asset->altText.en, image.asset->altText.fr),
-  "caption": select($language == "en" => image.asset->description.en, image.asset->description.fr)
+  "caption": select($language == "en" => image.asset->description.en, image.asset->description.fr),
+  "width": image.asset->metadata.dimensions.width,
+  "height": image.asset->metadata.dimensions.height
 }`
