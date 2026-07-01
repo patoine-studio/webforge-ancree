@@ -15,10 +15,10 @@ export const articleImage = defineType({
     }),
   ],
   preview: {
-    select: { label: 'image.label', caption: 'image.caption', media: 'image.image' },
-    prepare({ label, caption, media }) {
+    select: { filename: 'image.image.asset.originalFilename', media: 'image.image' },
+    prepare({ filename, media }) {
       return {
-        title: label || caption || '(image sans etiquette)',
+        title: filename || 'Image',
         subtitle: 'Image',
         media,
       }
