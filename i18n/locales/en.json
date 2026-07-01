@@ -161,7 +161,8 @@
     "still_wondering_title": "A question that isn’t here?",
     "still_wondering_lead": "Call us, you always reach a real person.",
     "browse": "On this page",
-    "nav_label": "FAQ topics"
+    "nav_label": "FAQ topics",
+    "no_theme": "Other questions"
   },
   "site": {
     "home_aria": "Rempart Extermination, back to home"
