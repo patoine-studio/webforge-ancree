@@ -114,26 +114,6 @@ svg {
   border-radius: 3px;
 }
 
-/* Transition de page: fondu leger au changement de page. Opacite SEULE en out-in
- * (la page sortante disparait avant l'entree de la suivante, jamais de
- * chevauchement). Le retour en haut reste INSTANTANE (app/router.options.ts,
- * behavior: 'instant'); le fondu masque le micro-flash residuel et lisse le
- * changement. Classes globales (la transition enveloppe la racine de page).
- * Neutralise sous reduced-motion (bloc suivant: transition-duration 0.01ms) et en
- * preview (.wf-no-motion). */
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.2s ease;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-}
-.wf-no-motion .page-enter-active,
-.wf-no-motion .page-leave-active {
-  transition: none;
-}
-
 /* prefers-reduced-motion: fige toutes les animations et transitions CSS. Le JS
  * (GSAP: reveal, entree, parallaxe) est coupe separement via motionDisabled(). */
 @media (prefers-reduced-motion: reduce) {

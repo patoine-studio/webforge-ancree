@@ -412,15 +412,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon-32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }
       ]
-    },
-    // Fondu leger au changement de page (out-in: la page sortante disparait avant
-    // l'entree de la suivante, jamais de chevauchement). Le retour en haut reste
-    // instantane (app/router.options.ts, behavior: 'instant'); le fondu lisse le
-    // changement et masque le micro-flash residuel. Classes .page-* dans main.css;
-    // neutralise sous prefers-reduced-motion (transition-duration 0.01ms) et en
-    // preview (.wf-no-motion). Pas de duration explicite: Vue detecte la fin via
-    // transitionend, donc le fondu s'adapte a ces deux coupures.
-    pageTransition: { name: 'page', mode: 'out-in' }
+    }
   },
 
   modules: [
