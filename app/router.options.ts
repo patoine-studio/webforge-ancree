@@ -55,7 +55,12 @@ function headerOffset(): number {
 
 export default <RouterConfig>{
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) return savedPosition
+    // behavior: 'instant' sur les SAUTS de navigation (retour en haut, back/forward,
+    // vue liste du blog): le CSS global `html { scroll-behavior: smooth }`, voulu
+    // pour le glissement des ancres internes, animerait sinon ce scroll et rendrait
+    // le retour en haut VISIBLE au changement de page. L'option explicite écrase le
+    // CSS pour ce scroll précis; les ancres (branche to.hash) gardent le smooth.
+    if (savedPosition) return { ...savedPosition, behavior: 'instant' }
     if (to.hash) return { el: to.hash, top: headerOffset() }
     // Navigation INTERNE au blog vers une vue de liste (filtre, pagination, ou
     // retour d'un article vers sa liste): rester au niveau de la liste. Arriver sur
@@ -66,9 +71,9 @@ export default <RouterConfig>{
     if (stripLocalePrefix(from.path, pathLocale(from.path)).startsWith('/blog')) {
       const { categorySlugs } = useRuntimeConfig().public.wf
       if (isBlogList(stripLocalePrefix(to.path, locale), categorySlugs[locale])) {
-        return { el: '#blog-list', top: headerOffset() }
+        return { el: '#blog-list', top: headerOffset(), behavior: 'instant' }
       }
     }
-    return { top: 0 }
+    return { top: 0, behavior: 'instant' }
   }
 }
