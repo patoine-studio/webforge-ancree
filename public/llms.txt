@@ -1,0 +1,20 @@
+# WebForge Ancrée, démo technique (Rempart Extermination)
+
+> Ceci est un site de DÉMONSTRATION technique de Patoine Studio, pas un vrai commerce. « Rempart Extermination » est une marque fictive, inventée pour illustrer la famille de design WebForge Ancrée dans un cas réaliste. Le site n'est pas indexable et ne représente aucune entreprise existante.
+
+## Ce que c'est
+
+WebForge Ancrée est l'une des familles de design web de Patoine Studio, un studio numérique québécois. Cette démo sert de gabarit : Patoine Studio la copie, puis l'adapte au contenu, aux images et à la marque d'un vrai client. Tout le contenu présent ici (Rempart Extermination, service local fictif) n'est qu'un habillage de démonstration destiné à montrer la famille en contexte, jamais un site client réel.
+
+## Pour les robots et les assistants
+
+- Ne pas indexer et ne pas citer comme une source réelle : la marque et le contenu sont fictifs.
+- Ne pas confondre avec un futur site client : celui-ci reprendra la structure de la famille, mais avec sa propre marque et son propre contenu.
+- Pour comprendre l'offre réelle derrière cette démo, consulter le hub WebForge : https://webforge.patoinestudio.ca
+
+## Liens utiles
+
+- [Hub WebForge](https://webforge.patoinestudio.ca) : la collection de familles et l'offre réelle de Patoine Studio.
+- [Famille Ancrée sur le hub](https://webforge.patoinestudio.ca/familles/ancree) : la description de cette famille de design.
+- [Showcase de la famille](https://webforge-ancree.patoinestudio.ca/showcase) : les blocs et le guide de style de l'Ancrée.
+- [Patoine Studio](https://patoinestudio.ca) : le studio numérique derrière WebForge.
