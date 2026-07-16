@@ -1,7 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 import { ClipboardIcon } from '@sanity/icons'
 
-// Exactement 2 instances par langue, ids déterministes créés par le seed
+// Exactement 2 instances par langue, avec des ids déterministes
 // (legalPage-conditions-<lang>, legalPage-confidentialite-<lang>). Pas de slug:
 // les routes sont résolues par le route-map sur _id.
 export const legalPage = defineType({

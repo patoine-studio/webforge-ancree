@@ -11,5 +11,3 @@ export const heroBlockMap = {
   'hero-page': HeroPage,
   'hero-article': HeroArticle
 } as const
-
-export type HeroBlockType = keyof typeof heroBlockMap

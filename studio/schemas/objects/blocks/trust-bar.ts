@@ -4,10 +4,10 @@ import { anchorField } from './_anchor-field'
 
 /**
  * Barre de confiance: rangée de signaux de confiance posée sous le héros.
- * Forme propre à Ancrée (pas d'analogue Minimaliste): un tableau de l'objet
+ * Forme propre à Ancrée: un tableau de l'objet
  * `proof`, deux à quatre entrées pour tenir la mise en page sur une ligne.
  * Conventions (defineField, validation .warning(), preview) alignées sur les
- * blocs Minimaliste.
+ * blocs de preuve.
  */
 export const trustBar = defineType({
   name: 'trustBar',

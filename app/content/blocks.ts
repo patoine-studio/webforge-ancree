@@ -1,6 +1,6 @@
 /* Contrats de contenu des blocs de la page-builder Ancree. Miroir de ce que la
  * transformation Sanity produira; AUCUNE valeur design ici. On garde l'esprit des
- * champs de Minimaliste (technique partagee), la disposition change. Le type
+ * champs de contenu partagés, tandis que la disposition change. Le type
  * « projet » est remplace par « services par ville » (moteur SEO local). Aucun
  * champ de numerotation: jamais de numero affiche, site-wide. */
 

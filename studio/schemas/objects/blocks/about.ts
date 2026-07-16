@@ -5,8 +5,7 @@ import { anchorField } from './_anchor-field'
 /**
  * Bloc À propos: surtitre, titre, paragraphes, photo d'équipe et chiffres de
  * confiance. Forme propre à Ancrée (champ `stats` de l'objet `stat`, et non les
- * `diffs`/`figcaption` de Minimaliste), conventions alignées sur l'analogue
- * Minimaliste (objects/blocks/about.ts).
+ * `stats`, image et texte éditorial selon le contrat du bloc Ancrée.
  */
 export const about = defineType({
   name: 'about',

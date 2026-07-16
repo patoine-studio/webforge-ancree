@@ -4,8 +4,7 @@
  * Rend une barre laterale gauche sticky (liste d'ancres + scroll-spy) ET le
  * contenu de la page passe en slot, dans une mise en page 2 colonnes. La barre se
  * replie en rail mince (animation de largeur) et POUSSE le contenu (jamais
- * d'overlay sur desktop). Tout le comportement vit ici. Porte de Minimaliste,
- * peau Ancree.
+ * d'overlay sur desktop). Tout le comportement vit ici.
  *
  * Usage:
  *   <SgNav :items="sections" label="…">

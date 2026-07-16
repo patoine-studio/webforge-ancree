@@ -2,7 +2,7 @@
  * formulaire (contact, devis, infolettre…). Gère la machine à états de la
  * soumission, le jeton Turnstile et le honeypot, puis poste le payload vers
  * l'endpoint serveur. Plomberie NIVEAU DEMO/TERRAIN (Resend + Turnstile au vrai
- * site client), portée de webforge-minimaliste.
+ * site client).
  *
  * La VALIDATION des champs et les messages d'erreur restent dans le composant
  * appelant: ils dépendent du contenu (le bloc contact Sanity les porte). Ce

@@ -2,7 +2,7 @@
 /* TurnstileWidget, verification anti-bot Cloudflare Turnstile, reutilisable par
  * tout formulaire. Charge le script Turnstile a la demande (render explicite) et
  * emet le jeton via @success. A envelopper dans <ClientOnly> (logique navigateur,
- * accede a window). Plomberie portee de webforge-minimaliste; TERRAIN: dormant en
+ * accède à window). Le composant demeure dormant en
  * demo (l'appelant garde l'affichage par v-if sur la cle publique, vide en demo).
  *
  * Aucun texte d'interface en dur ici: le widget rend la boite Cloudflare et n'emet

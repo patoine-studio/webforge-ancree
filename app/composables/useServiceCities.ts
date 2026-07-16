@@ -1,10 +1,10 @@
 // Selection dans la collection de villes desservies (serviceCity, le moteur SEO
-// local d'Ancree, qui remplace les projets de Minimaliste).
+// local d'Ancrée, fondé sur les pages de villes et de services).
 //
 // V2 (Sanity, fail-fast): la collection vient du payload (triee `order asc` par la
-// query); le filtrage reste local. Le doc porte `translations` (slug partage fr/en)
-// et, pour l'item de detail courant, `body`/`seo`. Calque sur useProjects (memes
-// filtres featured/exclude/limit/pad), `city` (la ville) a la place du projet.
+// query); le filtrage reste local. Le document porte `translations` (slug partagé fr/en)
+// et, pour l'item de détail courant, `body`/`seo`. Les filtres disponibles sont
+// featured, exclude, limit et pad.
 
 import type { ServiceCityWithDetail } from '~/sanity/transform'
 

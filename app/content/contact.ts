@@ -3,7 +3,7 @@
 // V2 (Sanity, actuel): le contenu vit dans les pageBuilders (bloc contact des
 // documents contactPage et onePager). Le bloc Sanity stocke les LIBELLÉS (champs,
 // erreurs, bouton, bannière d'échec, consentement) ET le message de succès,
-// tous éditables au Studio (parité 1:1 Minimaliste). Les VALEURS des coordonnées
+// tous éditables au Studio. Les valeurs des coordonnées
 // (numéro, courriel, adresse, heures) viennent de siteSettings.contact, jointes
 // au transform (un seul point d'édition). Interface consommée par types/blocks.ts
 // et le transform.

@@ -1,64 +1,62 @@
-# DESIGN.md, famille WebForge Ancrée (v2, dispositions et mouvement)
+# DESIGN.md, famille WebForge Ancrée
 
-> Version 2, 18 juin 2026. Cette version ajoute ce qui manquait à la v1: la LANGUE de mise en page, l'usage de la grille et la signature de mouvement. C'est cette couche, pas les tokens, qui distingue Ancrée de Minimaliste. À déposer comme `DESIGN.md` à la racine de `webforge-ancree`.
+Ce document décrit la langue visuelle active de la famille. Les valeurs exactes vivent dans `app/family/tokens.css` et `app/brand/tokens.css`; la démo Rempart Extermination ne doit pas figer la famille à un seul métier.
 
 ## Pour qui, et le nom
 
-Ancrée est la famille des métiers de service local à domicile, ceux qui se déplacent chez le client: extermination, lavage de vitres, plomberie, déneigement, ramonage. Le nom dit tout, ces entreprises sont ancrées dans leur localité, et le client cherche quelqu'un de proche, fiable, qu'il peut appeler tout de suite. Le premier cas est une démo fictive d'extermination, mais la peau doit servir tous ces métiers.
+Ancrée sert les entreprises locales qui se déplacent chez le client, notamment l’extermination, le lavage de vitres, la plomberie, le déneigement et le ramonage. Le nom traduit une présence fiable dans la localité et une capacité d’intervention concrète.
 
-## L'idée maîtresse, ce qui distingue Ancrée de Minimaliste
+## Idée maîtresse
 
-Minimaliste est suisse: rigueur, froideur premium, grille stricte, angles tranchants, tout aligné, beaucoup de blanc. C'est taillé pour un ébéniste ou un comptable qui veut paraître haut de gamme.
+Ancrée est solide, accueillante, terre-à-terre et vivante. Le visiteur doit sentir une entreprise de quartier fiable. Trois partis pris structurent cette impression.
 
-Ancrée est son opposé chaleureux: solide, accueillant, terre-à-terre, vivant. Le visiteur doit sentir une entreprise de quartier fiable, pas une galerie d'art. Trois partis pris de mise en page portent cette différence:
+- **Asymétrie posée.** Les sections média et texte alternent, les héros utilisent des rapports inégaux et la grille respire en largeurs variables. Le mouvement reste contrôlé.
+- **Matière et profondeur.** Les cartes ont des coins doux, des ombres chaudes et de légères superpositions. Les bandes pleine largeur marquent les moments de confiance et d’appel.
+- **Le local comme motif.** Les zones desservies, les villes et les quartiers forment un fil visuel récurrent. Les pages service-ville soutiennent le maillage local.
 
-1. **Asymétrie posée.** Là où Minimaliste aligne tout proprement, Ancrée alterne. Les sections media-texte se font en zigzag (image à gauche, puis à droite), les héros sont asymétriques (60/40), la grille respire en largeurs inégales. Ça crée du mouvement et de la chaleur sans désordre.
-2. **De la matière et de la profondeur.** Minimaliste est plat et tranchant. Ancrée a des cartes aux coins arrondis avec une ombre douce et chaude, de légères superpositions, des bandes pleine largeur qui marquent les moments forts (la confiance, l'appel). Les blocs semblent posés, stables, ancrés au sol.
-3. **Le local comme motif.** Un fil visuel récurrent rappelle l'ancrage: la zone de service mise en avant, des puces de villes, un ton qui nomme les quartiers. La section services par ville devient un bloc signature, pas une arrière-pensée.
+## Grille à colonnes variables
 
-## La grille à colonnes variables
+La base active compte 16 colonnes. Elle permet des compositions asymétriques tout en gardant des alignements stables.
 
-Base de 12 colonnes, exploitée en largeurs inégales pour créer le rythme:
-- Héros et media-texte: répartitions asymétriques (7/5, 8/4), jamais le 6/6 sage.
-- Sections fortes (barre de confiance, bandeau CTA, zone de service): pleine largeur, fond coloré, pour casser le rythme et ancrer.
-- Grilles de cartes (services, villes, témoignages): colonnes qui varient, une carte vedette plus large à l'occasion, façon mosaïque légère plutôt que grille parfaitement régulière.
+- Les héros et les blocs média-texte utilisent des répartitions inégales.
+- Les barres de confiance, bandeaux d’appel et zones de service peuvent occuper toute la largeur.
+- Les grilles de services, villes et témoignages peuvent mettre un élément en vedette sans devenir chaotiques.
+- `DevGrid` demeure l’outil de contrôle de cette trame en développement.
 
-L'alternance des largeurs d'une section à l'autre est ce qui rend Ancrée vivante. À doser: asymétrie contrôlée, jamais chaotique.
+## Signature de mouvement
 
-## La signature de mouvement, ça s'ancre en montant
+Les éléments s’ancrent en montant doucement depuis le bas au moment où ils entrent dans la vue. Les groupes entrent en cascade, les images peuvent porter une parallaxe légère et les appels restent présents sans mouvement agressif. `prefers-reduced-motion` et le mode preview coupent ces animations proprement.
 
-Une seule idée d'animation, tenue partout, cohérente avec le nom: les éléments s'ancrent en montant doucement depuis le bas (translation vers le haut plus fondu) au moment où ils entrent dans la vue, comme s'ils se posaient au sol. Les groupes entrent en cascade échelonnée (titre, puis texte, puis bouton). Les images portent un léger parallaxe au défilement. Le bouton d'appel reste présent et pulse très subtilement, pour attirer sans agresser. Respecte `prefers-reduced-motion`: tout se fige proprement si l'utilisateur le demande.
+## Palette, typographie et formes
 
-## Palette, typo, formes (inchangé de la v1)
+- Base blanche et surfaces légèrement teintées.
+- Bleu nuit pour la structure, bleu de confiance pour les actions sur fond clair et ambre pour l’appel.
+- Bitter pour les titres, Source Sans 3 pour le corps.
+- Rayons doux, ombres chaudes et bandes fortes qui donnent une assise aux sections.
+- Variante de marque possible par `app/brand/tokens.css`, sans modifier les tokens de famille.
 
-- Fond crème chaud `#F5F0E8`, texte bleu nuit `#16243F`, ardoise `#5C6678`, accent bleu confiance `#1E6FB0`, accent ambre `#FBBF24` pour les appels.
-- Plus Jakarta Sans (display) plus Source Sans 3 (corps).
-- Rayons doux autour de 10 px, ombres chaudes et douces.
-- Variante éco-sauge disponible pour un client qui veut l'angle « sûr pour la famille et les animaux ».
+## Blocs
 
-## Les blocs, direction de disposition (pas de pixels, de la latitude créative)
-
-Garde les contrats de contenu de Minimaliste (mêmes champs Sanity), change la disposition.
-
-- **Héros**: trois variantes au catalogue. Un héros split asymétrique (grande photo d'équipe ou de camion qui déborde d'un côté, bloc de texte posé de l'autre avec bouton d'appel et trois preuves de confiance intégrées). Un héros pleine image avec un bandeau de confiance ancré en bas. Un héros centré chaleureux pour les pages simples. C'est LE bloc à reconcevoir en premier et à faire valider.
-- **Barre de confiance**: pleine largeur, sous le héros, fond contrasté, licencié et assuré, avis Google, garantie, années.
-- **Services**: grille à colonnes variables, cartes arrondies à ombre douce, icône line-art, possibilité d'une carte vedette plus large.
-- **Services par ville (remplace projets)**: bloc signature. Une mosaïque ou liste de villes desservies menant à des pages service-ville (extermination de fourmis à Laval, etc.), avec une carte de zone de service stylisée. C'est le moteur SEO local de la famille.
-- **À propos**: media-texte en zigzag, vraie photo de l'équipe, gros chiffres de confiance (années, clients, avis) comme éléments graphiques.
-- **Témoignages**: disposition différente de Minimaliste, un mur asymétrique ou un rail, avec nom et ville du client pour renforcer le local.
-- **FAQ**: accordéon, désamorce les objections (prix, délai, sécurité pour la famille et les animaux).
-- **Bandeau CTA**: pleine largeur, fond coloré, gros bouton d'appel, une phrase de réassurance.
-- **Contact**: formulaire à trois champs, à côté des coordonnées et de la zone de service.
-- **Composants de conversion gravés**: header collant avec numéro, barre d'appel collante mobile, chips de réassurance (même jour, 24/7, estimation gratuite), galerie avant et après.
+- **Héros**: `HeroHome`, `HeroPage`, `HeroDetail` et `HeroArticle` couvrent l’accueil, les pages fixes, les détails et les articles.
+- **Barre de confiance**: bande contrastée pour les preuves importantes.
+- **Services**: mosaïque de cartes cliquables avec une mise en avant facultative.
+- **Services par ville**: bloc signature et moteur du maillage local.
+- **À propos**: composition média-texte, équipe et chiffres de confiance.
+- **Témoignages**: mur asymétrique ou rail qui renforce le contexte local.
+- **FAQ**: accordéon destiné aux objections concrètes.
+- **Bandeau d’appel**: bande forte avec geste de conversion principal et réassurance.
+- **Contact**: formulaire complet à côté des coordonnées et de la zone desservie.
+- **Éditorial, processus, points forts et équipe**: variantes régulières disponibles dans le catalogue Ancrée.
+- **Corps d’article**: texte riche, image, galerie, citation, encadré et appel intégré.
 
 ## Contenu adapté au métier
 
-Pas de portfolio de projets. À la place: services par ville (SEO local), une mise en avant urgence, les types de nuisibles ou de services en icônes line-art. Ton direct, humain, rassurant, local, on parle au client.
+La famille met en avant les services, les urgences, les territoires et les signaux de confiance. La démo utilise les nuisibles et l’extermination, mais les contrats restent génériques pour d’autres entreprises de service local.
 
-## Liberté créative (important)
+## Liberté créative
 
-Ce document donne la LANGUE et les principes, pas une maquette figée. À l'intérieur de ce cadre (asymétrie posée, matière et profondeur, local comme motif, grille à colonnes variables, mouvement qui s'ancre en montant), sois créatif: les compositions exactes, les détails, les micro-interactions, les variantes de cartes, c'est à toi de les inventer pour qu'Ancrée soit vivante et distincte. Le seul interdit: reproduire la mise en page de Minimaliste. Le test de réussite: un visiteur qui voit Minimaliste et Ancrée côte à côte doit les ressentir comme deux familles différentes, même en noir et blanc.
+Ce cadre fixe une langue, pas une maquette. Les compositions, détails et micro-interactions peuvent évoluer tant que l’asymétrie reste posée, que le contenu demeure lisible et que le mouvement conserve une sensation d’assise.
 
-## Ce qui reste commun, ce qui est propre
+## Frontières
 
-Commun (hérité du scaffold, ne pas réinventer): la technique Nuxt, Sanity, i18n, le déploiement, et les contrats de quelques blocs partagés (media-texte, bandeau CTA, témoignages) qui gardent leurs champs. Propre à Ancrée: toutes les dispositions, les héros, la grille, le mouvement, et les types de contenu adaptés au métier (villes au lieu de projets).
+La technique commune à WebForge reste générique. Les dispositions, les héros, la grille, le mouvement et les variantes de blocs appartiennent à Ancrée. La marque Rempart vit dans Sanity, les assets sociaux et `app/brand/`, jamais dans les abstractions de famille.

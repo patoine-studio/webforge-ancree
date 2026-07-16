@@ -28,7 +28,7 @@ const heroBlock = computed<HeroPageBlock>(() => ({
 // Corps de page: pageBuilder du document servicesPage (grille de services en tete,
 // puis differenciateur, maillage villes, bandeau d'appel), resolu contre les
 // collections. La grille de cartes vit DANS le bloc `services` (plus de doublon avec
-// un <ServicesGrid> code en dur dans la page).
+// une seconde grille codee en dur dans la page).
 const blocks = useServicesPageBlocks()
 
 // SEO du document servicesPage (payload, par locale). Fil d'Ariane = route-map.

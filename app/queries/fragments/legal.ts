@@ -5,7 +5,7 @@
 import { SEO_PROJECTION } from './seo'
 
 /**
- * Page legale: id deterministe du seed (legalPage-<conditions|confidentialite>-
+ * Page légale: id déterministe (legalPage-<conditions|confidentialite>-
  * <lang>), titre, dates optionnelles (effective/updated) et sections (titre +
  * corps minimal { _type, text, items }). Petit document, garde FULL dans tous les
  * regimes. Aucun slug: le routage se fait par _id (legalRouteKeyForId).

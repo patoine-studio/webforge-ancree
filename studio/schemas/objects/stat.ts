@@ -3,7 +3,7 @@ import { TrendUpwardIcon } from '@sanity/icons'
 
 /**
  * Chiffre de confiance: paire { value, label } affichée dans le bloc À propos.
- * Propre à Ancrée (pas d'analogue Minimaliste).
+ * Propre à la présentation des statistiques Ancrée.
  */
 export const stat = defineType({
   name: 'stat',

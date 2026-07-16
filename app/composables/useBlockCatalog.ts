@@ -4,7 +4,7 @@
 // PRODUCTION via les MEMES composables que les pages (useHomeBlocks,
 // useServicesPageBlocks, ...), donc la vitrine rend les blocs EXACTEMENT comme le
 // site (memes composants, memes props). Quand le contenu evolue au Studio, la
-// vitrine suit sans entretien. Porte de Minimaliste, adapte a la peau Ancree:
+// vitrine suit sans entretien. Adapté à la peau Ancrée:
 // pas de project (serviceCity prend sa place), pas de media-text/stats/highlights/
 // logos/projects-preview/blog-preview/iframe/video; le bloc process vit sur le
 // detail d'un service.
@@ -70,7 +70,7 @@ export function navItemsFor(items: CatalogItem[]): { id: string; label: string }
 }
 
 // Pioche le premier bloc d'un _type dans une composition resolue. La vitrine EXIGE
-// la presence (seed fidele): un bloc manquant echoue ici avec un message clair,
+// la présence dans le contenu: un bloc manquant échoue ici avec un message clair,
 // jamais une vitrine silencieusement trouee.
 function pickBlock<T extends PageBlock['_type']>(
   blocks: PageBlock[],
@@ -112,7 +112,7 @@ export function useBlockCatalog(): CatalogCategory[] {
   // Compositions de production (snapshot: la vitrine n'a pas besoin de reactivite).
   // On reunit tous les pageBuilder en un pool, puis on pioche chaque _type ou qu'il
   // soit defini (trust-bar/services/about sur l'accueil, contact sur la page contact,
-  // etc.). Couvre les 8 blocs du page-builder; `process` vit sur le detail service.
+  // etc.). Couvre les 12 blocs du page-builder, dont certains vivent sur les détails.
   const pool: PageBlock[] = [
     ...useHomeBlocks().value,
     ...useServicesPageBlocks().value,

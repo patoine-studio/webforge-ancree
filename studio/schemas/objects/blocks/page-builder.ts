@@ -3,22 +3,20 @@ import { defineField, defineArrayMember } from 'sanity'
 /**
  * Helper pageBuilder partagé pour Ancrée.
  *
- * NOTE D'ARCHITECTURE: Minimaliste déclare son pageBuilder INLINE dans chaque
- * singleton de page (homePage, etc.), avec la même config insertMenu répétée.
- * Pour Ancrée, on factorise en un helper réutilisable: chaque page importe
+ * Le constructeur est factorisé en un helper réutilisable: chaque page importe
  * `pageBuilderField` plutôt que de recopier le tableau et l'insertMenu.
  *
  * Si une page a besoin d'un sous-ensemble de blocs ou d'options propres, elle
  * peut soit utiliser ce champ tel quel, soit appeler `pageBuilderField` puis
  * surcharger `group`/`of` à la déclaration. Le `group` par défaut est 'content'
- * (la convention des singletons Minimaliste).
+ * pour les singletons de page.
  *
- * Les 8 blocs d'Ancrée listés par leur `name`:
- *   trustBar, services, serviceCities, about,
- *   testimonials, faq, ctaBand, contact.
+ * Les 12 blocs d'Ancrée listés par leur `name`:
+ *   trustBar, services, serviceCities, about, testimonials, faq, ctaBand,
+ *   contact, editorial, highlights, process, team.
  *
- * insertMenu: replique EXACTEMENT la config de Minimaliste (vues grid + list,
- * aperçus SVG sous /static/block-previews/<typeName>.svg, filtre actif).
+ * insertMenu propose les vues grille et liste, les aperçus SVG sous
+ * /static/block-previews/<typeName>.svg et le filtre actif.
  */
 export const pageBuilderField = defineField({
   name: 'pageBuilder',

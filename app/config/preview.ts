@@ -1,24 +1,19 @@
 /**
- * Source unique du mode preview Sanity (terrain de l'etape 5; pattern adapte de
- * webforge-minimaliste). Plain TS, AUCUN import: importable de partout (app,
- * server, futur Studio).
+ * Source unique du mode preview Sanity. TypeScript sans import, utilisable dans
+ * l'application et le serveur.
  *
  * Le module @nuxtjs/sanity pose un cookie quand l'editeur valide un secret via
  * `/preview/enable` (route fournie par le module, active SEULEMENT quand
  * sanity.visualEditing est configure, donc jamais en statique pur). Consommateurs:
  *   - server/api/exit-preview.get.ts : deleteCookie + 204
  *
- * NOTE: l'activation du preview (gating par branche WORKERS_CI_BRANCH + token +
- * studioUrl, config sanity.visualEditing, bascule du preset SSR) est l'etape 6/7
- * (deploiement). Ici on prepare le TERRAIN: les fichiers + le gating __WF_PREVIEW__.
+ * L'activation complète est gardée par la branche WORKERS_CI_BRANCH, le token,
+ * le studioUrl et la constante de compilation __WF_PREVIEW__.
  */
 
 export const PREVIEW_COOKIE_NAME = 'sanity-preview-id'
 
-/** Endpoints. `/preview/enable` et `/preview/disable` viennent de @nuxtjs/sanity.
- *  `/api/exit-preview` est l'override custom (pas de redirect serveur). */
-export const PREVIEW_ENABLE_PATH = '/preview/enable'
-export const PREVIEW_DISABLE_PATH = '/preview/disable'
+/** Endpoint custom de sortie du preview, sans redirection serveur. */
 export const EXIT_PREVIEW_PATH = '/api/exit-preview'
 
 /**

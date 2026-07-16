@@ -3,7 +3,7 @@
 // transform, et champs propres comme les CTA du blogue ou les sections de la FAQ).
 //
 // Composable interne ADDITIF: sert usePageHero, les appels usePageSeo des pages et
-// les gabarits des pages de detail. Porte 1:1 de Minimaliste.
+// les gabarits des pages de détail.
 
 import type { ContentPayload, BlogPagePayload } from '~/sanity/transform'
 

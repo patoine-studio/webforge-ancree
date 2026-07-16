@@ -7,7 +7,7 @@
   //
   // Utilisé par le Worker `webforge-ancree-preview` (branche de prod
   // `preview`), via la commande de déploiement:
-  //   npx wrangler deploy --config wrangler.preview.jsonc
+  //   yarn dlx wrangler deploy --config wrangler.preview.jsonc
   // Les chemins sont RELATIFS à CE fichier (à la racine du repo).
 
   "name": "webforge-ancree-preview",

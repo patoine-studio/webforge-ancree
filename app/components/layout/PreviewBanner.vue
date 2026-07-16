@@ -21,7 +21,7 @@
  * l'accueil local. Le plein rechargement force un SSR sans cookie: contenu publie,
  * etat preview purge.
  *
- * Plomberie portee 1:1 de webforge-minimaliste; SEULE la peau (pastille navy posee
+ * Le bandeau utilise les états de preview partagés; la peau (pastille marine posée
  * au sol, point d'appel ambre, tokens Ancree, style scope) est propre a Ancree. */
 import { EXIT_PREVIEW_PATH, prodHostFromPreviewHost } from '~/config/preview'
 

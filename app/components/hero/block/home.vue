@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /* Heros full bleed d'Ancree. L'image remplit TOUT le heros, bord a bord; le
  * contenu est pose par-dessus, ancre au sol (aligne en bas a gauche), comme s'il
- * reposait sur le terrain. Aucune parente avec le split contenu de Minimaliste.
+ * reposait sur le terrain. La composition reste propre à la famille Ancrée.
  * Le contenu monte et se pose au chargement (useEntrance, cascade), l'image
  * porte un parallaxe leger. Un degrade navy garantit la lisibilite du texte
  * clair et donne de la profondeur. Consomme le contrat HeroHomeBlock inchange. */

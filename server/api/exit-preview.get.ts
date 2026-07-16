@@ -1,5 +1,4 @@
-/* GET /api/exit-preview — sortie custom du mode preview Sanity (terrain de l'etape
- * 5; pattern adapte de webforge-minimaliste).
+/* GET /api/exit-preview: sortie personnalisée du mode preview Sanity.
  *
  * Pourquoi pas le /preview/disable natif du module @nuxtjs/sanity: son 302 serveur
  * peut etre pollue par certains pipelines edge (la query du request original
@@ -13,8 +12,8 @@
  * navigateur refuse la suppression en prod.
  *
  * En statique pur (preset static), les routes serveur ne sont pas bundlees: ce
- * fichier est INERTE en production. Il sert le dev local et la future branche
- * preview deployee en SSR (etape 6/7).
+ * fichier est inerte en production et sert le développement local ainsi que la
+ * branche preview déployée en SSR.
  */
 import { PREVIEW_COOKIE_NAME } from '~/config/preview'
 

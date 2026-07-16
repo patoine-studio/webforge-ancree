@@ -4,7 +4,7 @@ import { HomeIcon } from '@sanity/icons'
 /**
  * Héros d'accueil (split full bleed): champ héros dédié de homePage ET onePager,
  * HORS pageBuilder. Forme propre à Ancrée (kicker d'ancrage, preuves intégrées,
- * visuel unique full bleed), conventions de fieldsets alignées sur Minimaliste.
+ * visuel unique pleine largeur), avec des groupes de champs cohérents.
  * Fieldsets et non groups: c'est un objet.
  */
 export const heroHome = defineType({

@@ -13,7 +13,7 @@ export default defineCliConfig({
     projectId: process.env.SANITY_STUDIO_PROJECT_ID || '5if00rwn',
     dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   },
-  // Hostname du Studio hébergé (Phase 2 preview): fige l'URL à
+  // Hostname du Studio hébergé pour le preview: fige l'URL à
   // webforge-ancree.sanity.studio et rend `sanity deploy` non interactif
   // (sinon il demande le hostname au premier déploiement).
   // À CHANGER au transfert client (sinon `sanity deploy` viserait l'URL de la démo).
@@ -21,7 +21,7 @@ export default defineCliConfig({
   // deployment.appId: figé au PREMIER `sanity deploy` de la famille Ancrée (le
   // CLI le propose, on le fige ici pour rendre les déploiements suivants non
   // interactifs). Propre à l'app Studio d'Ancrée (webforge-ancree.sanity.studio),
-  // distincte de la démo Minimaliste. À CHANGER au transfert client.
+  // propre à la démo Ancrée. À changer au transfert client.
   deployment: {
     appId: 'cj30bl1gqvc56km7d170ksyq',
   },

@@ -1,33 +1,43 @@
 # webforge-ancree
 
-Famille de design **Ancrée** (WebForge, Patoine Studio). Nuxt 4 statique généré, déployé sur Cloudflare Workers.
+Famille de design **Ancrée** du système WebForge de Patoine Studio. La démo fictive **Rempart Extermination** présente la famille dans ses modes multipage, one-pager et vitrine de composants.
 
-**État: canvas vierge** (reset au 19 juin 2026). Seules la fondation technique et l'identité d'Ancrée subsistent; le design, les blocs, l'architecture Sanity et le contenu sont à rebâtir. Détails dans [CLAUDE.md](./CLAUDE.md), chantiers dans [ROADMAP.md](./ROADMAP.md).
+Le site est une application Nuxt 4 bilingue générée en statique pour la production et le staging. La branche `preview` produit un Worker SSR réservé au Studio Sanity et à l’édition visuelle. Le gabarit demeure volontairement non indexable.
 
 ## Démarrer
 
 ```bash
-nvm use            # Node verrouillé par .nvmrc
+nvm use
 yarn install
-yarn dev           # app sur http://localhost:3000
-yarn generate      # build statique -> .output/public
+yarn dev
 ```
 
-Le Studio Sanity vit dans `studio/` (workspace yarn):
+Le contenu vient du dataset Sanity live. Un token de lecture est requis pour générer des alternates hreflang complets sur les documents à slug traduit.
 
 ```bash
-yarn studio:dev    # Studio sur http://localhost:3333
+NUXT_SANITY_TOKEN=<token> yarn generate
+```
+
+Le Studio Sanity est le seul workspace Yarn du dépôt.
+
+```bash
+yarn studio:dev
+yarn studio:build
 ```
 
 ## Structure
 
-```
+```text
 webforge-ancree/
-├── app/              # srcDir Nuxt (coquille minimale: app.vue, layouts, pages, tokens)
-├── i18n/             # locales fr / en
-├── studio/           # Studio Sanity (schémas vides pour l'instant)
-├── public/           # favicons
-├── nuxt.config.ts    # modules + identité Ancrée
-├── wrangler*.jsonc   # Workers Cloudflare (prod / preview)
-└── package.json
+├── app/                    application Nuxt, famille, marque et pipeline Sanity
+├── i18n/                   traductions d’interface françaises et anglaises
+├── public/                 favicons, image sociale, en-têtes et llms.txt
+├── server/                 routes réservées au contact réel et au preview SSR
+├── studio/                 Studio Sanity, schémas et aperçus de blocs
+├── docs/                   runbook Cloudflare et documents de direction actifs
+├── nuxt.config.ts          modules, SEO, prérendu et gating preview
+├── wrangler.jsonc          Workers statiques de production et staging
+└── wrangler.preview.jsonc  Worker SSR de preview
 ```
+
+Les conventions détaillées, les identifiants d’environnement et les contrats à préserver vivent dans [CLAUDE.md](./CLAUDE.md). Les travaux encore ouverts vivent dans [ROADMAP.md](./ROADMAP.md).

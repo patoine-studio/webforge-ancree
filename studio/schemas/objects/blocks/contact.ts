@@ -8,7 +8,7 @@ import { anchorField } from './_anchor-field'
  * éditables au Studio. Les VALEURS des coordonnées (téléphone, courriel, adresse,
  * heures) NE vivent PAS dans le bloc: elles sont jointes depuis siteSettings.contact
  * à la résolution. Les flags required des champs restent en code. Conventions
- * alignées 1:1 sur l'analogue Minimaliste (objects/blocks/contact.ts).
+ * alignées sur le contrat du formulaire Ancrée.
  */
 export const contact = defineType({
   name: 'contact',

@@ -1,8 +1,8 @@
 // Selection dans la banque de temoignages.
 //
 // V2 (Sanity, fail-fast): la banque vient du payload (triee `order asc` par la
-// query, ids = _id Sanity); le filtrage reste local. Calque sur Minimaliste, avec
-// le filtre `city` (slug de serviceCity) a la place de `project`.
+// query, ids = _id Sanity); le filtrage reste local, avec le filtre `city`
+// fondé sur le slug de serviceCity.
 
 import type { TestimonialPayload } from '~/sanity/transform'
 

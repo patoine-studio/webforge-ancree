@@ -1,10 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 //
-// webforge-ancree — CANVAS BLANC (reset au scaffold du 19 juin 2026).
-// Coquille Nuxt 4 minimale: les modules de la famille (i18n, Sanity, image,
-// fonts, icon, seo, pinia) et l'identité Ancrée (project Sanity 5if00rwn,
-// déploiement Cloudflare). AUCUN bloc, contenu, schéma ni preview: la
-// reconstruction (design + architecture Sanity) repart d'ici.
+// Configuration Nuxt 4 de la famille WebForge Ancrée: i18n, Sanity, images,
+// polices, icônes, SEO, Pinia, prérendu et preview SSR Cloudflare.
 import tailwindcss from '@tailwindcss/vite'
 import { createClient } from '@sanity/client'
 import type { CustomRoutePages } from '@nuxtjs/i18n'
@@ -31,7 +28,7 @@ import simpleIconsData from '@iconify-json/simple-icons/icons.json'
 
 // Connexion Sanity: constantes de code, override env OPTIONNEL (identité du
 // site, invariante par environnement; un fork change ce bloc, pas l'env).
-// Dataset 'production' (vidé au reset, l'architecture de contenu sera refaite).
+// Dataset `production` du projet Ancrée.
 const sanityProjectId = process.env.NUXT_PUBLIC_SANITY_PROJECT_ID || '5if00rwn'
 const sanityDataset = process.env.NUXT_PUBLIC_SANITY_DATASET || 'production'
 const sanityApiVersion = process.env.NUXT_PUBLIC_SANITY_API_VERSION || '2026-06-01'
@@ -48,7 +45,7 @@ const sanityReadToken = process.env.NUXT_SANITY_TOKEN || process.env.SANITY_API_
 // absolus). Posée par Worker sur Cloudflare (NUXT_PUBLIC_SITE_URL).
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://webforge-ancree.patoinestudio.ca'
 
-// ── Interrupteurs du mode preview (calque webforge-minimaliste, adapte au token
+// ── Interrupteurs du mode preview, adaptés au token
 // composite d'Ancree) ─────────────────────────────────────────────────────────
 // Le preview (Presentation tool, stega, drafts, SSR) s'active UNIQUEMENT quand:
 //   1. la branche de build est `preview` (WORKERS_CI_BRANCH, injecte au build par
@@ -103,8 +100,8 @@ const ROUTE_SLUGS_QUERY = `{
 
 const EMPTY_SLUGS: RouteSlugs = { articles: [], categories: [], cities: [], services: [] }
 
-// Fetch GRACIEUX: un reseau coupe ne casse pas le build (Ancree retombe partout
-// sur ses fixtures). Sans slugs: sitemap dynamique reduit, prerendu rabattu sur
+// Fetch gracieux de la fermeture de configuration: un réseau coupé ne bloque pas
+// le chargement de Nuxt. Sans slugs: sitemap dynamique réduit, prérendu rabattu sur
 // le crawl. Le site reste noindex tant qu'il n'est pas en ligne; l'avertissement
 // signale la degradation sans la masquer.
 const slugsByLocale = {} as Record<Locale, RouteSlugs>
@@ -139,8 +136,8 @@ for (const locale of SUPPORTED_LOCALES) {
 
 // Nom de marque depuis Sanity (siteSettings.brandName, langue par defaut): alimente
 // site.name -> gabarit de titre « %s | {marque} » du module @nuxtjs/seo ET l'identite
-// du graphe Schema.org (Organization/WebSite via usePageSeo). Le seed porte le meme
-// nom dans les deux langues. Repli gracieux sur le nom de famille si indisponible.
+// du graphe Schema.org (Organization/WebSite via usePageSeo). Le contenu publié porte
+// le même nom dans les deux langues. Repli gracieux sur le nom de famille si indisponible.
 let siteBrandName = 'Ancrée'
 try {
   const brand = await sanityBuildClient.fetch<string | null>(
@@ -358,9 +355,8 @@ export default defineNuxtConfig({
     // mouvement de la signature « s'ancre en montant ») deviennent du code mort
     // que Rollup elimine (aucun chunk visual editing dans .output/public).
     define: { __WF_PREVIEW__: previewEnabled },
-    // Pre-bundle de la stack React/styled-components du visual editing Sanity, en
-    // preview SEULEMENT (sinon aucun de ces paquets n'entre dans le build). Calque
-    // verbatim de webforge-minimaliste (specificateurs de paquets, rien a adapter).
+    // Précompilation de la pile React/styled-components de l'édition visuelle
+    // Sanity. Ces paquets ne sont chargés que dans le graphe de preview.
     ...(previewEnabled
       ? {
           optimizeDeps: {
@@ -393,7 +389,7 @@ export default defineNuxtConfig({
   // index PageBuilder/ArticleBuilder) sont consommes via les block-maps (imports
   // EXPLICITES) et les pages. Sans ca, plusieurs fichiers « image.vue » / « article »
   // produisent le meme nom auto et entrent en collision avec le fragment partage
-  // <Image> et le heros <Article>. Calque sur webforge-minimaliste.
+  // <Image> et le héros <Article>.
   components: [{ path: '~/components', pathPrefix: false, extensions: ['vue'], ignore: ['**/page-builder/**'] }],
 
   app: {
@@ -553,7 +549,7 @@ export default defineNuxtConfig({
     // Nom de marque du DEMO (siteSettings.brandName depuis Sanity, fetch au build):
     // alimente le gabarit de titre « %s | {marque} » et l'identite Schema.org. Le
     // nom de famille « Ancrée » est le repli si Sanity est injoignable. Suit le
-    // patron Minimaliste (site.name = suffixe de titres depuis le CMS).
+    // site.name agit comme suffixe de titres depuis le CMS.
     name: siteBrandName,
     defaultLocale: 'fr',
     // Og-image de marque par defaut (repli social quand une page ne fournit pas
@@ -626,8 +622,8 @@ export default defineNuxtConfig({
     }
   },
 
-  // Plomberie backend du formulaire de contact (TERRAIN, niveau demo; pattern
-  // adapte de webforge-minimaliste, voir server/api/contact.post.ts). Les cles
+  // Plomberie backend du formulaire de contact de démonstration. Voir
+  // server/api/contact.post.ts. Les clés
   // privees restent cote serveur; turnstileSiteKey est publique (le widget la
   // rend dans le navigateur). EN STATIQUE PUR (preset 'static', cas de la demo):
   // contactDemo: true -> useContactForm simule le succes cote client, AUCUN

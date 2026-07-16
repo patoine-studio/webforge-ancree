@@ -5,8 +5,7 @@
 // cache (useNuxtData), jamais fetcher: les composables publics (useContent,
 // useServices, useServiceCities...) gardent leurs signatures synchrones.
 //
-// POSTURE FAIL-FAST (decision Charles, porte 1:1 de Minimaliste, renverse le repli
-// fixtures historique d'Ancree): usePayload() THROW (createError 500) quand le
+// Posture fail-fast: usePayload() lève une erreur 500 quand le
 // payload est absent. Plus de retour `null`, plus de repli fixtures runtime: un
 // rendu sans contenu doit echouer fort, jamais produire un site vide.
 //

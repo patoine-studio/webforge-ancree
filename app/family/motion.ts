@@ -9,7 +9,7 @@ export const MOTION = {
   // (depart ET fin doux): l'ouverture d'un tiroir d'accordeon se pose sans a-coup.
   ease: { settle: 'settle', drawer: 'power2.inOut' },
   // Apparition au defilement (directive v-reveal). Montee plus ample qu'en
-  // Minimaliste (32px), deceleration plus lente: le bloc « se pose ».
+  // Montée ample et décélération lente: le bloc « se pose ».
   reveal: { distance: 32, start: 'top 88%', stagger: 0.1 },
   // Parallaxe d'image, discret par design (DESIGN.md: leger parallaxe).
   parallax: { travel: 2, scrub: 1.1, start: 'top bottom', end: 'bottom top' },

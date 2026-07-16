@@ -139,21 +139,6 @@ export function useArticles(query: ArticleQuery = {}): Translated<Article>[] {
   return out
 }
 
-export function useArticle(slug: string): Translated<Article> | undefined {
-  return usePayload().collections.articles.find((a) => a.slug === slug)
-}
-
-/** Articles relies: meme categorie (ou plus recents si l'article n'en a pas), en
- *  excluant l'article courant. */
-export function useRelatedArticles(article: Article, limit = 2): Translated<Article>[] {
-  return useArticles({ category: article.category?.slug, exclude: article.slug, limit })
-}
-
-/** Met un article en forme de carte (categorie resolue en titre affichable). */
-export function articleCard(article: Article, locale: Locale): ArticleCardData {
-  return toCard(article, locale)
-}
-
 /* ---------- Contenu du blog (articles + categories du payload) ---------- */
 
 /** Contenu du blog, lu du payload unique (fail-fast, aucun repli fixtures). Lecture

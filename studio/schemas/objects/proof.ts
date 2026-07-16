@@ -5,7 +5,7 @@ import { LucideIconInput } from '../../components/lucideIconInput'
 /**
  * Preuve de confiance: petit trio { icon, value, label } réutilisé dans les
  * preuves intégrées du héros et dans la barre de confiance. Propre à Ancrée
- * (pas d'analogue Minimaliste).
+ * utilisé par les éléments de preuve Ancrée.
  */
 export const proof = defineType({
   name: 'proof',

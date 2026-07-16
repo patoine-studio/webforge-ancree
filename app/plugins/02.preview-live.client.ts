@@ -9,7 +9,7 @@
 // jour in-place.
 //
 // Contact: le bloc contact porte ses propres libelles + message de succes au
-// Studio (1:1 Minimaliste); transformGraph ne prend que (graph, locale).
+// Studio; transformGraph ne prend que (graph, locale).
 //
 // Purete statique: suffixe `.client` (jamais cote serveur) + garde __WF_PREVIEW__
 // (constante de compilation) en tete -> corps mort en build statique, elague par

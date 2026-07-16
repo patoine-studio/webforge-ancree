@@ -4,7 +4,7 @@
 import type { BlockBase } from '~/types/blocks'
 import type { ArticleImageContent } from '~/content/article-blocks'
 // Ce fichier s'appelle image.vue: <Image> dans le template se resoudrait vers CE
-// composant (auto-reference). L'import nomme leve l'ambiguite (calque Minimaliste).
+// composant (auto-référence). L'import nommé lève l'ambiguïté.
 import ImageFragment from '~/components/fragments/images/Image.vue'
 
 defineProps<BlockBase<'image'> & ArticleImageContent>()

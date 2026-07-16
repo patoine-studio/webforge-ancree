@@ -126,7 +126,7 @@ export type SanityRawHeroBlock = SanityHeroHome | SanityPageHero | SanityDetailH
 
 // ── Blocs du pageBuilder (PAGE_BUILDER_PROJECTION, discrimines par `_type`) ────
 
-// Les 8 blocs du pageBuilder (PAGE_BUILDER_PROJECTION), discrimines par `_type`.
+// Les 12 blocs du pageBuilder (PAGE_BUILDER_PROJECTION), discriminés par `_type`.
 export interface SanityTrustBarBlock {
   _type: 'trustBar'
   _key: string

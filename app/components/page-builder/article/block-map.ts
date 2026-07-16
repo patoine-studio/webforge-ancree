@@ -18,5 +18,3 @@ export const articleBlockMap = {
   callout: Callout,
   'inline-cta': InlineCta
 } as const
-
-export type ArticleBlockType = keyof typeof articleBlockMap

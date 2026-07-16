@@ -1,7 +1,7 @@
 /* Grille de page Ancree: 16 colonnes au desktop (4 au mobile), exploitees en
  * largeurs INEGALES pour creer le rythme (DESIGN.md: grille a colonnes variables,
  * jamais le 6/6 sage). 16 pistes donnent une asymetrie plus fine que le 12
- * classique et distinguent Ancree de Minimaliste. Gouttiere 20px au desktop
+ * classique et renforcent la stabilité visuelle d'Ancrée. Gouttière 20px au desktop
  * (2rem @1440). Le decoupage de chaque bloc se fait avec grid-column N / span M
  * sous @container site, DANS le bloc. Breakpoints en requete de conteneur
  * (jamais viewport): une seule source de largeur, blocs portables. */

@@ -6,7 +6,7 @@ import { pageBuilderField } from '../objects/blocks/page-builder'
 /**
  * Page Contact (singleton de niveau 2, un document par langue).
  *
- * Patron porté de Minimaliste: champ `hero` verrouillé à un seul bloc `pageHero`
+ * Le champ `hero` est verrouillé à un seul bloc `pageHero`
  * (mini-builder à un élément), suivi du `pageBuilder` libre, puis du bloc `seo`.
  * Le formulaire de contact réel vit dans un bloc `contact` du pageBuilder,
  * pas dans un champ propre de la page.

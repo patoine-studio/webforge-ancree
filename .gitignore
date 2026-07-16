@@ -18,7 +18,7 @@ logs
 .fleet
 .idea
 
-# Nano Banana Pro: images générées temporaires (les retenues sont déplacées vers apps/*/public/images/)
+# Images générées temporaires; les retenues vont dans public/ ou dans Sanity.
 generated_imgs/
 
 # Archive locale des images remplacées (les originaux restent dans l'historique git)

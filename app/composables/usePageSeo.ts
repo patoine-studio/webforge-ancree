@@ -7,7 +7,7 @@
 // Article, LocalBusiness, FAQPage). Bâti par-dessus les primitives du module
 // @nuxtjs/seo (useSeoMeta, useSchemaOrg, define*).
 //
-// PORT de webforge-minimaliste (plomberie SEO éprouvée), adapté à Ancrée:
+// Plomberie SEO partagée, adaptée à Ancrée:
 //   - Replis SEO globaux lus depuis le payload CMS (usePayload().site.seo,
 //     siteSettings.seo): defaultDescription (repli de la description de page ET
 //     description du nœud WebSite) et defaultOgImage (repli d'og:image). Une
@@ -153,7 +153,7 @@ export function usePageSeo(input: PageSeoInput): void {
   // leur propre visuel; les pages sans visuel (légales, FAQ, contact...) tombent
   // sur la carte de marque, fabriquée exactement en 1200x630.
   // Chaîne de repli og:image (12.10): visuel propre de la page -> defaultOgImage
-  // du CMS (siteSettings.seo, carte de marque seedée) -> og-image de marque en
+  // du CMS (siteSettings.seo, carte de marque publiée) -> og-image de marque en
   // dur (nuxt.config, dernier recours code). `||` (pas `??`): une image vide ('' d'un
   // champ Sanity optionnel) retombe sur le repli suivant, pas court-circuiter l'og:image.
   const codeOgImage = site.defaultOgImage ? String(site.defaultOgImage) : undefined

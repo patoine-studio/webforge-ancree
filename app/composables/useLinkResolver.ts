@@ -15,7 +15,7 @@
 //
 // Posture d'erreur, differente du transform a dessein: au build, un lien irresoluble
 // interrompt le generate (jamais de lien mort silencieux); cote composant, on degrade
-// en `undefined`, le caller decide. Porte de Minimaliste.
+// en `undefined`, l'appelant décide.
 
 import { routePath, onePagerPath, type RouteKey } from '~/config/route-map'
 import { docPath, resolveLink, type WfLocale } from '~/sanity/transform'

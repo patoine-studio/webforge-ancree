@@ -5,7 +5,7 @@
 // du payload. Le heros n'en fait PAS partie: ce n'est pas un bloc, la page le rend
 // explicitement (<HeroHome>) avant le page-builder.
 //
-// Porte de Minimaliste, adapte a la PEAU d'Ancree: le contrat FaqContent n'a pas de
+// Adapté à la peau d'Ancrée: le contrat FaqContent n'a pas de
 // drapeau faqSchema (la PEAU est intouchable), donc on ne le pose pas ici. Reste la
 // decision contextuelle EN CODE (jamais un champ Studio): sur le one-pager, pas de
 // pages de detail, donc les cartes services ne sont pas cliquables (href retire).

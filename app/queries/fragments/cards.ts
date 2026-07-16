@@ -15,7 +15,7 @@
 // pour que l'item de DETAIL courant fusionne ses champs lourds via le `=>` GROQ.
 // Pas de virgule finale: le `,` avant le conditionnel est ajoute a l'appel.
 //
-// SERVICE_CITY_CARD_FIELDS remplace le PROJECT_CARD_FIELDS de Minimaliste: les
+// SERVICE_CITY_CARD_FIELDS décrit les cartes de pages locales: les
 // projets sont abandonnes, les services par ville sont le moteur SEO local.
 
 import { FIGURE_PROJECTION } from './figure'

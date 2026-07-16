@@ -6,7 +6,7 @@
  * chiffres de confiance en bleu nuit la CHEVAUCHE par le bas, comme une plaque
  * posee au sol, et un filet ambre signe le coin. Les grands chiffres deviennent
  * des elements graphiques (valeur ambre en display lourd, qualificatif sobre).
- * Aucune parente avec le split photo collante + liste numerotee de Minimaliste.
+ * La composition en strates est propre à la famille Ancrée.
  * Aucune numerotation. Le fond peint tout de suite (pas de data-reveal sur la
  * section: PageBuilder enveloppe deja le bloc dans v-reveal). */
 import type { BlockBase } from '~/types/blocks'

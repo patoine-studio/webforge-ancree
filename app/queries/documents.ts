@@ -6,14 +6,10 @@
 // composables. Les requetes scopees par-route (preview) vivent dans
 // app/queries/pages/ (via route-query-map) et composent les MEMES fragments.
 //
-// Piege fermeture: ce fichier est importe par nuxt.config.ts (ROUTE_SLUGS_QUERY,
-// SITE_TITLE_SUFFIX_QUERY), donc typecheke aussi par le projet TS node. Imports
-// RELATIFS seulement, aucun alias ~, aucun auto-import Nuxt.
-//
 // Famille Ancree (decisions Charles): pas de doc-type project; serviceCity (les
 // villes desservies) est le moteur SEO local et remplace la collection projects.
 // La page villesPage remplace projectsPage. Le parametre de langue est $language
-// PARTOUT (jamais $lang). Les 8 blocs d'Ancree seulement (via PAGE_BUILDER_PROJECTION).
+// PARTOUT (jamais $lang). Les 12 blocs d'Ancree seulement (via PAGE_BUILDER_PROJECTION).
 
 import { FIGURE_PROJECTION } from './fragments/figure'
 import { SEO_PROJECTION } from './fragments/seo'
@@ -160,44 +156,5 @@ export const CONTENT_GRAPH_QUERY = /* groq */ `{
       "markDefs": ${PT_LINK_MARKDEFS}
     },
     "theme": theme->slug.current
-  }
-}`
-
-/**
- * Suffixe des titres (siteSettings.seo.titleSuffix), minimal pour la fermeture
- * de nuxt.config.ts: alimente le gabarit de titre du module @nuxtjs/seo.
- * Parametre: `$language`. Resultat: string | null.
- */
-export const SITE_TITLE_SUFFIX_QUERY = /* groq */ `
-  *[_type == "siteSettings" && language == $language][0].seo.titleSuffix
-`
-
-/**
- * Slugs des routes dynamiques, minimal pour la fermeture de nuxt.config.ts
- * (PRERENDER_ROUTES + sitemap). Parametre: `$language`. Resultat typo par
- * `RouteSlugs` (app/types/sanity.ts).
- *
- * `translations` (par doc): slugs de l'autre langue, pour les alternatives
- * hreflang du sitemap. Meme source que le prerendu: aucune divergence possible
- * entre les pages generees et celles listees au sitemap. Pas de `projects`:
- * `serviceCities` prend sa place (slug partage fr/en, segment parent localise).
- */
-export const ROUTE_SLUGS_QUERY = /* groq */ `{
-  "services": *[_type == "service" && language == $language]{
-    "slug": slug.current,
-    "translations": ${TRANSLATIONS_PROJECTION}
-  },
-  "serviceCities": *[_type == "serviceCity" && language == $language]{
-    "slug": slug.current,
-    "translations": ${TRANSLATIONS_PROJECTION}
-  },
-  "articles": *[_type == "article" && language == $language]{
-    "slug": slug.current,
-    "category": category->slug.current,
-    "translations": ${TRANSLATIONS_PROJECTION}
-  },
-  "categories": *[_type == "category" && language == $language]{
-    "slug": slug.current,
-    "translations": ${TRANSLATIONS_PROJECTION}
   }
 }`

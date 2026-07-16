@@ -4,7 +4,7 @@
  * Orchestrateur: delegue chaque bloc a <BlockShowcaseItem>, qui gere son propre
  * controle de variantes et le rend EN VRAI dans un wrapper .wf-site (contexte de
  * requete de conteneur, comme en prod). La vitrine montre la verite visuelle, et
- * double comme QA. Porte de Minimaliste, peau Ancree. */
+ * sert aussi de surface de QA. */
 import { computed } from 'vue'
 import { anchorIdFor } from '~/composables/useBlockCatalog'
 import type { CatalogCategory } from '~/composables/useBlockCatalog'

@@ -10,7 +10,7 @@
  * symétriques: couper l'analytique en cours de session recharge la page
  * (GA4 ne se déchargeant pas proprement, il ne se réinjecte pas au reload).
  *
- * Port 1:1 de Minimaliste (plomberie produit, pas de la peau).
+ * État partagé de la plomberie de consentement.
  */
 import { CONSENT_CONFIG } from '~/content/consent'
 

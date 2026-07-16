@@ -15,9 +15,8 @@
 //
 // AUCUNE copie autoree ici: toute la copie vit dans Sanity. Les helpers ne font que
 // decorer (_type, _key) et resoudre les items vers la forme attendue par les blocs
-// (app/types/blocks.ts AU CHAMP PRES, la PEAU est intouchable). Porte de Minimaliste,
-// adapte aux 8 blocs d'Ancree (project -> serviceCity/city, pas de projectsPreview ni
-// de blogPreview).
+// (app/types/blocks.ts au champ près, la peau est intouchable), selon les 12 blocs
+// autorisés dans le constructeur Ancrée.
 
 import { computed, type ComputedRef } from 'vue'
 import type {

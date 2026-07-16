@@ -5,7 +5,7 @@ import { anchorField } from './_anchor-field'
 /**
  * Bloc bandeau d'appel: titre, sous-titre et deux boutons (objet `link`).
  * Forme propre à Ancrée (icône MobileDeviceIcon de la démo Rempart),
- * conventions alignées sur l'analogue Minimaliste (objects/blocks/cta-band.ts).
+ * conventions alignées sur le contrat d'appel à l'action Ancrée.
  */
 export const ctaBand = defineType({
   name: 'ctaBand',

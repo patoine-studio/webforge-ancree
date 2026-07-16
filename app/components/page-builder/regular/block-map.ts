@@ -28,5 +28,3 @@ export const regularBlockMap = {
   highlights: Highlights,
   team: Team
 } as const
-
-export type RegularBlockType = keyof typeof regularBlockMap

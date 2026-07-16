@@ -21,7 +21,7 @@ const pageData = computed(() => paginate(articles.value, 1))
 const cards = computed(() => pageData.value.items.map((a) => toCard(a, loc.value)))
 
 // Heros de page lu du document blogPage (title/lead), fil d'Ariane derive du
-// route-map (source unique du chemin), comme le port de Minimaliste.
+// route-map (source unique du chemin).
 const heroBlock = computed<HeroPageBlock>(() => ({
   _type: 'hero-page',
   _key: 'masthead',

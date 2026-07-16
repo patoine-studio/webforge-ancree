@@ -6,7 +6,7 @@ import { pageBuilderField } from '../objects/blocks/page-builder'
 /**
  * Page À propos (singleton de niveau 2, un document par langue).
  *
- * Patron porté de Minimaliste: champ `hero` verrouillé à un seul bloc `pageHero`
+ * Le champ `hero` est verrouillé à un seul bloc `pageHero`
  * (mini-builder à un élément), suivi du `pageBuilder` libre, puis du bloc `seo`.
  *
  * i18n document-level via le plugin document-internationalization: le champ

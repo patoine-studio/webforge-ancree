@@ -1,10 +1,10 @@
-// Agregateur GROQ du page-builder: les 8 blocs d'Ancree discrimines par `_type`,
+// Agrégateur GROQ du page-builder: les 12 blocs d'Ancrée discriminés par `_type`,
 // composes a partir des fragments transverses. C'est le point d'entree unique du
 // contenu de page compose au Studio. Imports RELATIFS (fermeture nuxt.config).
 //
-// Les 8 blocs d'Ancree (et UNIQUEMENT ceux-la, pas de bloc Minimaliste absent):
-//   trustBar, services, serviceCities, about,
-//   testimonials, faq, ctaBand, contact.
+// Les 12 blocs autorisés dans le constructeur Ancrée:
+//   trustBar, services, serviceCities, about, testimonials, faq, ctaBand,
+//   contact, editorial, process, highlights, team.
 //
 // Blocs intelligents (services, serviceCities, testimonials,
 // faq): on ne projette QUE les parametres de selection, jamais les items

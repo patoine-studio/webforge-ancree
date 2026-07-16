@@ -58,7 +58,7 @@ const SINGLETON_TYPES = new Set([
   'blogPage', 'faqPage', 'contactPage', 'onePager',
 ])
 
-// Instances fixes creees par le seed (ids deterministes), pas de creation libre.
+// Instances fixes aux ids déterministes, sans création libre.
 const FIXED_INSTANCE_TYPES = new Set(['legalPage'])
 
 // Actions conservees sur les singletons ET les instances fixes (legalPage):

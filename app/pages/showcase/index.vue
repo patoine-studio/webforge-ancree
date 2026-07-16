@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* /showcase — guide interne de tout ce qu'un site de la famille Ancree comprend.
- * Coquille reprise de Minimaliste, peau Ancree: une BARRE D'ONGLETS sombre en haut
+ * Coquille de la vitrine Ancrée: une barre d'onglets sombre en haut
  * (heros, blocs, articles, formulaire, guide de style) et une BARRE LATERALE SgNav
  * (ancres de la section active). Les onglets basculent la section affichee cote
  * client -> une seule route bilingue, noindex, prerendue (zero routage). */

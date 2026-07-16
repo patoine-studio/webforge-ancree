@@ -1,7 +1,7 @@
 // Selection et regroupement dans la banque FAQ.
 //
 // V2 (Sanity, fail-fast): la banque vient du payload (ids = _id Sanity); le
-// filtrage reste local. Porte 1:1 de Minimaliste.
+// filtrage reste local.
 //   - useFaq({ ids }): selections manuelles (bloc faq), resolues dans l'ORDRE des
 //     refs, pas l'ordre de la banque;
 //   - useFaq({ theme }): theme = SLUG du faqTheme (plus le libelle);

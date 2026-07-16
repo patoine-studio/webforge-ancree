@@ -34,7 +34,7 @@ const blocks = computed<PageBlock[]>(() =>
 // faits au transform). Titre COMPLET (porte deja la marque) -> gabarit
 // neutralise pour ne pas doubler le suffixe. Visuel OG du heros. Identite
 // LocalBusiness complete du graphe (NAP + zone desservie), source UNIQUE de la
-// marque. Pas de fil d'Ariane (page racine). Suit le patron Minimaliste.
+// marque. Pas de fil d'Ariane sur la page racine.
 usePageSeo({
   ...seo,
   titleTemplate: null,

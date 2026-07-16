@@ -3,7 +3,7 @@
 // V2 (Sanity, actuel): le contenu vit dans les documents `legalPage` (payload
 // via useContent('legal')). Ce fichier garde les interfaces (contrat de
 // <LegalPage> et du transform) et la doctrine du gabarit ci-dessous, qui
-// gouverne le contenu seedé et tout futur site client.
+// gouverne le contenu publié et tout futur site client.
 //
 // LE CONTENU LÉGAL EST UN GABARIT RÉUTILISABLE D'UN SITE À L'AUTRE.
 //   - Le texte en clair (paragraphe, liste) est l'OSSATURE: constant pour tous

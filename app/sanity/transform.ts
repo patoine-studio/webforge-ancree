@@ -5,27 +5,25 @@
 // ne voient JAMAIS le brut: images en `src` string, `_type` Vue kebab-case, liens
 // en `href` string.
 //
-// Architecture portee 1:1 de webforge-minimaliste (app/sanity/transform.ts); la
-// LOGIQUE metier des 8 blocs vient de l'ancien app/sanity/content.ts (transformHome),
-// reshapee dans cette architecture. La PEAU est intouchable: la sortie de
-// resolveBlocks (cote composable) doit matcher app/types/blocks.ts AU CHAMP PRES.
+// Architecture autonome: la logique métier des 12 blocs est centralisée ici.
+// La sortie de resolveBlocks, côté composable, doit correspondre à
+// app/types/blocks.ts au champ près.
 //
 // POSTURE FAIL-FAST (decision Charles, renverse la discipline 3 historique): le
 // transform THROW si un singleton ou un hero manque (requireDoc / requireHero), et
 // assertNever garantit l'exhaustivite des switchs de blocs. AUCUN repli fixtures
 // runtime ici: un generate sans contenu doit echouer, jamais produire un site vide.
 //
-// Familly Ancree (vs Minimaliste): pas de doc-type project; serviceCity (les villes
-// desservies) est le moteur SEO local et remplace projects. Le parametre GROQ est
+// Famille Ancrée: serviceCity (les villes desservies) est le moteur SEO local.
+// Le paramètre GROQ est
 // $language partout. La SEO d'une ville vient de l'objet `seo` (title/description/
 // ogImage), pas de seoTitle/seoDescription. `article.category` est un objet
 // {slug,title} dereference, `readingTime` le nom du champ.
 //
 // Blocs intelligents (services, serviceCities, testimonials, faq): le payload les
 // garde SEMI-resolus (copie transformee SANS items + parametres de selection). La
-// resolution des items vit dans resolveBlocks (couche composable), qui reutilise
-// les collections du payload. Les 4 blocs autonomes (trustBar, about, cta-band,
-// contact) sortent deja dans leur forme finale.
+// résolution des items vit dans resolveBlocks (couche composable), qui réutilise
+// les collections du payload. Les autres blocs sortent déjà dans leur forme finale.
 
 import { routePath, onePagerPath, serviceCityPath, legalRouteKeyForId } from '../config/route-map'
 import { SOCIAL_PLATFORMS, type SocialPlatform } from '../config/socials'
@@ -126,7 +124,7 @@ export interface ServiceCitiesSelection {
   limit?: number
 }
 export interface TestimonialsSelection {
-  // Mode `city` (ref serviceCity) remplace le `project` de Minimaliste.
+  // Le mode `city` utilise une référence serviceCity.
   mode: 'featured' | 'service' | 'city' | 'manual'
   /** Slug du service (mode service). */
   service?: string
@@ -265,7 +263,7 @@ export interface OnePagerPayload {
 
 /** Le modele de contenu complet, fetche et transforme une fois par langue. */
 export interface ContentPayload {
-  /** Globales du site, forme monolithique SiteContent (miroir 1:1 de Minimaliste):
+  /** Globales du site, forme monolithique SiteContent:
    *  brand, contact NAP imbriquee (phoneE164 derive), nav, footer, socials et seo.
    *  Source unique de l'En-tete, du Menu mobile, du Pied de page et de usePageSeo. */
   site: SiteContent
@@ -359,9 +357,8 @@ function slugifyAnchor(value: Maybe<string>): string {
     .replace(/^-+|-+$/g, '')
 }
 
-/** Coerce un tableau de contenu en paragraphes texte. Accepte des chaines ou des
- *  blocs Portable Text { children:[{text}] } / { text }. Repris de l'ancien
- *  content.ts (corps de about / serviceCity). */
+/** Convertit un tableau de contenu en paragraphes texte. Accepte des chaînes ou des
+ *  blocs Portable Text { children:[{text}] } / { text } pour about et serviceCity. */
 function toParagraphs(arr: Maybe<unknown[]>): string[] {
   if (!Array.isArray(arr)) return []
   return arr
@@ -382,59 +379,10 @@ function toParagraphs(arr: Maybe<unknown[]>): string[] {
 function requireDoc<T>(doc: Maybe<T>, name: string): T {
   if (!doc) {
     throw new Error(
-      `Document Sanity « ${name} » introuvable (seed incomplet ou langue manquante): generate interrompu.`
+      `Document Sanity « ${name} » introuvable (contenu incomplet ou langue manquante): generate interrompu.`
     )
   }
   return doc
-}
-
-// ── Mapping des _type (camelCase Sanity -> kebab Vue) ─────────────────────────
-
-const PAGE_BLOCK_TYPE_MAP = {
-  trustBar: 'trust-bar',
-  services: 'services',
-  serviceCities: 'service-cities',
-  about: 'about',
-  testimonials: 'testimonials',
-  faq: 'faq',
-  ctaBand: 'cta-band',
-  contact: 'contact',
-  editorial: 'editorial',
-  process: 'process',
-  highlights: 'highlights',
-  team: 'team'
-} as const
-
-const ARTICLE_BLOCK_TYPE_MAP = {
-  articleLead: 'lead',
-  articleRichText: 'rich-text',
-  articleImage: 'image',
-  articleQuote: 'quote',
-  articleGallery: 'gallery',
-  articleCallout: 'callout',
-  articleInlineCta: 'inline-cta'
-} as const
-
-const HERO_BLOCK_TYPE_MAP = {
-  heroHome: 'hero-home',
-  pageHero: 'hero-page',
-  detailHero: 'hero-page'
-} as const
-
-/** `_type` Sanity (camelCase) -> `_type` Vue (kebab-case). Restreint aux 8 blocs
- *  de page + 7 blocs d'article + 2 heros. Inconnu = erreur immediate (un nouveau
- *  bloc au Studio exige son pendant Vue). */
-export function mapBlockType(sanityType: string): string {
-  const maps: Record<string, string> = {
-    ...PAGE_BLOCK_TYPE_MAP,
-    ...ARTICLE_BLOCK_TYPE_MAP,
-    ...HERO_BLOCK_TYPE_MAP
-  }
-  const mapped = maps[sanityType]
-  if (!mapped) {
-    throw new Error(`_type Sanity sans equivalent Vue: « ${sanityType} »`)
-  }
-  return mapped
 }
 
 /** Cle d'ancrage stable par type de bloc: les ancres de section (#services...
@@ -499,7 +447,7 @@ export function docPath(ref: SanityLinkRef, locale: WfLocale): string {
     case 'category':
       return `${routePath('blog', locale)}/${requireSlug()}`
     case 'legalPage': {
-      // Pas de slug sur legalPage: routage par _id deterministe du seed.
+      // Pas de slug sur legalPage: routage par _id déterministe du document.
       const key = legalRouteKeyForId(ref._id)
       if (key) return routePath(key, locale)
       throw new Error(`Page legale inconnue (id ${ref._id}): lien irresoluble`)
@@ -806,7 +754,7 @@ function transformHeroBlock(raw: SanityRawHeroBlock, locale: WfLocale, phoneE164
 }
 
 function requireHero(raw: Maybe<SanityRawHeroBlock>, name: string): SanityRawHeroBlock {
-  if (!raw) throw new Error(`Document « ${name} » sans bloc heros (seed/contenu incomplet).`)
+  if (!raw) throw new Error(`Document « ${name} » sans bloc héros (contenu incomplet).`)
   return raw
 }
 
@@ -849,7 +797,7 @@ function optSeoOverride(seo: Maybe<SanitySeo>): SeoOverride | undefined {
   return title || description || image ? { title, description, image } : undefined
 }
 
-// ── Page builder (8 blocs) ────────────────────────────────────────────────────
+// ── Page builder (12 blocs) ───────────────────────────────────────────────────
 
 function transformBlock(
   block: SanityRawBlock,
@@ -959,7 +907,7 @@ function transformBlock(
 /**
  * Compose le contact final. Le bloc Sanity porte les LIBELLES (etiquettes NAP,
  * champs du formulaire, bouton, banniere d'echec, consentement) ET le message de
- * succes, tous editables au Studio (parite 1:1 Minimaliste). La NAP (telephone,
+ * succès, tous éditables au Studio. La NAP (téléphone,
  * courriel, adresse, heures) est JOINTE depuis siteSettings.contact: le format
  * machine tel:/mailto: est DERIVE en code (phoneE164), jamais saisi. Le jeton
  * {email} de la banniere d'echec est remplace par le courriel des Globales.
@@ -1148,7 +1096,7 @@ function transformFooter(raw: SanitySiteSettings['footer'], locale: WfLocale, ph
   }
 }
 
-/** siteSettings FULL -> SiteContent (monolithe, miroir 1:1 de Minimaliste). NAP
+/** siteSettings complet vers SiteContent monolithique. NAP
  *  imbriquee: phoneE164 + tel:/mailto: DERIVES en code (jamais saisis); adresse
  *  d'affichage (cityProv) + structuree (les cles Schema.org sont reconstruites au
  *  point de consommation, index.vue); zone desservie en array; heures
@@ -1202,7 +1150,7 @@ function transformLegalBlock(block: SanityLegalBlock): LegalBlock {
       return { todo: block.text }
     default:
       // Union exhaustive: un _type legal inconnu casse le build (fail-fast), jamais
-      // un rendu silencieux. Le contenu reel vient du seed (types legalParagraph/
+      // un rendu silencieux. Le contenu réel vient de Sanity (types legalParagraph/
       // legalList/legalTodo uniquement).
       return assertNever(block)
   }
@@ -1222,7 +1170,7 @@ function transformLegalDoc(doc: SanityLegalPage, locale: WfLocale): LegalDoc {
 }
 
 export function transformLegal(pages: SanityLegalPage[], locale: WfLocale): LegalContent {
-  // Ids deterministes du seed: legalPage-<conditions|confidentialite>-<lang>.
+  // Ids déterministes: legalPage-<conditions|confidentialite>-<lang>.
   const findDoc = (key: 'conditions' | 'confidentialite'): SanityLegalPage => {
     const id = `legalPage-${key}-${locale}`
     const doc = pages.find((page) => page._id === id)

@@ -197,7 +197,7 @@ export const DOC_ROUTES: Record<WfDocType, DocRouteSpec> = {
     urls: { fr: '/services/[slug]', en: '/services/[slug]' },
     params: ['slug']
   },
-  // Route dynamique du metier Ancree (remplace le 'project' de Minimaliste): pages
+  // Route dynamique du métier Ancrée: pages locales par ville et service
   // service-ville, le « ou » du SEO local, sous le hub /villes (FR) / /service-areas
   // (EN). Le slug de ville est PARTAGE entre langues; seul le segment parent est
   // localise (customRoutes i18n). Cohabite avec les pages par nuisible sous /services
@@ -219,12 +219,12 @@ export const DOC_ROUTES: Record<WfDocType, DocRouteSpec> = {
     urls: { fr: '/blog/[slug]', en: '/blog/[slug]' },
     params: ['slug']
   },
-  // Pas de slug sur legalPage: routage par _id deterministe du seed
+  // Pas de slug sur legalPage: routage par _id déterministe du document
   // (legalPage-<conditions|confidentialite>-<lang>), voir legalRouteKeyForId.
   legalPage: { pageName: null, urls: ROUTES.terms.path, params: [] }
 }
 
-/** Cle de ROUTES d'une page legale, deduite de son _id deterministe du seed
+/** Clé de ROUTES d'une page légale, déduite de son _id déterministe
  *  (legalPage-<conditions|confidentialite>-<lang>). null = id inconnu. */
 export function legalRouteKeyForId(id: string): Extract<RouteKey, 'terms' | 'privacy'> | null {
   if (id.includes('confidentialite')) return 'privacy'
@@ -321,7 +321,7 @@ export function buildStudioMainDocuments(): Array<{ route: string; filter: strin
     }
   }
 
-  // Pages legales: routage par _id deterministe du seed, une entree par document
+  // Pages légales: routage par _id déterministe, une entrée par document
   // par langue (multipage; les vues one-pager des memes documents relevent des
   // locations, pas des mainDocuments).
   const legalKeys: Array<{ route: Extract<RouteKey, 'terms' | 'privacy'>; idKernel: string }> = [

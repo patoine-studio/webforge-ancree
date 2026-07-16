@@ -12,7 +12,7 @@
  * le panneau); Retour rend le focus au déclencheur. La carte de base reste
  * atteignable au clavier sans piéger.
  *
- * La plomberie (store, plugin, config) est portée 1:1 de Minimaliste; SEULE la
+ * La plomberie repose sur le store, le plugin et la configuration partagée; seule la
  * peau (markup ancré, tokens Ancrée, interrupteur pilule maison) est propre à
  * Ancrée. Catégories pilotées par la config (useContent('consent')):
  * « Nécessaires » implicite et verrouillé en tête, puis les opt-in. Toute la

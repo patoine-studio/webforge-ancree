@@ -8,6 +8,6 @@
 # L'entête X-Robots-Tag est servi sur CHAQUE réponse (HTML comme non-HTML) et est
 # lu même par un robot qui ignorerait robots.txt ou fetcherait une URL directement.
 # À RETIRER le jour où un vrai site client passe indexable (voir site.indexable
-# dans nuxt.config.ts et la checklist de transfert de docs/AUDIT-FINAL-2026-07-01.md).
+# dans nuxt.config.ts et les conventions de transfert dans CLAUDE.md).
 /*
   X-Robots-Tag: noindex, nofollow

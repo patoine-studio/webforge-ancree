@@ -67,7 +67,7 @@ let heroH = 0
 // + degrade de garde), 'light' = masthead interne clair (texte sombre, sans degrade).
 const heroTone = ref<'dark' | 'light'>('dark')
 
-// Auto-masquage au defilement (mecanique reprise de la famille Minimaliste):
+// Auto-masquage au défilement selon le sens et la distance parcourue:
 // l'en-tete se retire vers le haut quand on descend (au-dela de sa propre
 // hauteur, pour ne pas disparaitre trop tot), et revient des qu'on remonte.
 // Hysteresis de quelques pixels pour ignorer les micro-mouvements (anti-jitter).

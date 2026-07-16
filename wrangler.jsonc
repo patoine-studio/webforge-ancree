@@ -42,8 +42,8 @@
     "directory": ".output/public",
 
     // SSG multipage, pas une SPA: chaque route est son propre index.html.
-    // auto-trailing-slash résout « /services/cuisines » vers
-    // « /services/cuisines/index.html » sans redirection. 404-page sert le
+    // auto-trailing-slash résout « /services/extermination-fourmis-charpentieres » vers
+    // « /services/extermination-fourmis-charpentieres/index.html » sans redirection. 404-page sert le
     // 404.html prérendu de Nuxt sur route inconnue (le défaut « none »
     // renverrait un 404 vide). Valeurs confirmées contre la sortie réelle au
     // smoke test `yarn generate`.

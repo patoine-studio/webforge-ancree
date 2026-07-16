@@ -10,7 +10,7 @@
 // V2 (Sanity, fail-fast): `site` et `legal` viennent du payload (fetch unique du
 // plugin 01.content, lecture synchrone via usePayload). `consent` reste du CODE:
 // c'est la config par site (categories de temoins reellement installees), pas du
-// contenu editorial. Porte 1:1 de Minimaliste.
+// contenu éditorial.
 //
 // Chaque accesseur rend un computed: les consommateurs qui le RENDENT (Header,
 // Footer, Logo, pages legales) se mettent a jour IN-PLACE en mode preview

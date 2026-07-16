@@ -4,7 +4,7 @@
  * (preset Nitro 'static'): cette route n'est PAS deployee et le formulaire simule
  * le succes cote client (runtimeConfig.public.contactDemo). Un vrai site client met
  * contactDemo a false et deploie avec un runtime serveur sur Cloudflare Workers
- * (preset 'cloudflare-module', comme la future branche preview SSR), ou Nitro la
+ * (preset 'cloudflare-module', comme la branche preview SSR), où Nitro la
  * compile en handler du Worker.
  *
  * MODE DEMO / TERRAIN: sans cle Resend configuree, la route valide les champs puis
@@ -12,7 +12,7 @@
  * CONTACT_TO_EMAIL) pour activer l'envoi reel. Turnstile: ignore si non configure,
  * fail-closed des que TURNSTILE_SECRET_KEY est posee.
  *
- * Plomberie portee/adaptee de webforge-minimaliste. Difference de contrat: Ancree a
+ * Plomberie du formulaire Ancrée. Le contrat expose
  * UN champ « contact » (telephone OU courriel), pas des champs separes; le reply_to
  * Resend n'est pose que si ce champ est un courriel. */
 

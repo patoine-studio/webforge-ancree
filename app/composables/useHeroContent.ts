@@ -7,7 +7,7 @@
 // V2 (Sanity, fail-fast): deux documents portent un heros d'accueil: homePage (CTA
 // en routes, mode multipage) et onePager (CTA en ancres). Le parametre `source`
 // (optionnel, defaut 'home') choisit le document. Les CTA sortent du transform deja
-// resolus en href: les pages ne les reecrivent plus. Porte 1:1 de Minimaliste.
+// résolus en href: les pages ne les réécrivent plus.
 
 import { computed, type ComputedRef } from 'vue'
 import type { HeroHomeBlock } from '~/types/blocks'

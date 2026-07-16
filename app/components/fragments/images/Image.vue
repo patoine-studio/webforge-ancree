@@ -70,7 +70,7 @@
 // URL d'asset du CDN Sanity (resolue par app/sanity/transform.ts -> ResolvedFigure),
 // rendue en <NuxtImg> webp responsive (srcset + sizes, variantes optimisees au build
 // par IPX, domains cdn.sanity.io dans nuxt.config), ou placeholder visuel si aucun
-// src. Porte de webforge-minimaliste; SEULE adaptation Ancree: la parallaxe est
+// src. Dans Ancrée, la parallaxe est
 // OPT-IN (defaut false) au lieu d'opt-out, fidele au langage « ancre au sol » de la
 // famille (les images restent posees, pas flottantes). Discipline 1: le ratio passe
 // par un token (var(--ratio-*)), jamais une valeur en dur cote appelant.

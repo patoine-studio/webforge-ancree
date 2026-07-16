@@ -1,6 +1,6 @@
 // usePageHero: acces au contenu d'un heros de page de niveau 2 (masthead). Homogene
 // avec useHeroContent() (accueil): le heros vit sur le document de page fixe
-// correspondant, lu via le payload. Porte 1:1 de Minimaliste.
+// correspondant, lu via le payload.
 
 import { computed, type ComputedRef } from 'vue'
 import type { ContentPayload } from '~/sanity/transform'

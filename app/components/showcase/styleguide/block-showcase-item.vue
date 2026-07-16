@@ -3,7 +3,7 @@
  * variantes (onglets segmentes). Tient son propre etat de selection: changer de
  * variante echange les props passees au composant, rendu EN VRAI dans .wf-site
  * (contexte de requete de conteneur, comme en prod). Voir useBlockCatalog pour le
- * modele (CatalogItem.variants). Porte de Minimaliste, peau Ancree. */
+ * modèle (CatalogItem.variants). */
 import { computed, ref } from 'vue'
 import type { BlockVariant, CatalogItem } from '~/composables/useBlockCatalog'
 

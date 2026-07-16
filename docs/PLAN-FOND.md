@@ -5,9 +5,8 @@ structure. La forme (tokens, typo, espacements, couleurs, animations) reste à C
 parallèle. Ce document est le plan d'audit du Temps 1. Rien n'est codé tant que Charles n'a pas
 approuvé. Le brief d'images détaillé vit dans [IMAGES-BRIEF.md](./IMAGES-BRIEF.md).
 
-Audit produit le 26 juin 2026 à partir de la vérité terrain (`studio/seed-content.json`, miroir du
-live, 129 docs), des schémas Studio, du pipeline de requêtes et de la spec
-`docs/superpowers/specs/2026-06-25-service-city-cms-pagebuilder-design.md`.
+Audit produit le 26 juin 2026 à partir du dataset Sanity en ligne, des schémas Studio et du
+pipeline de requêtes. Les schémas et le code courant font foi pour l'architecture réalisée.
 
 ## Cadre et postures
 
@@ -19,18 +18,16 @@ live, 129 docs), des schémas Studio, du pipeline de requêtes et de la spec
   On ne fabrique aucune autorité vérifiable. Les signaux de licence, d'assurance et d'avis sont
   posés comme champs optionnels branchables, pas comme faits.
 - Bilingue obligatoire (fr racine, en sous `/en`), avec `translation.metadata` par paire.
-- Fail-fast: le build doit rester vert. Tout contenu requis est seedé avant la vérif de build.
+- Fail-fast: le build doit rester vert. Tout contenu requis est publié avant la vérification.
 - Aucune numérotation visible d'éléments, site-wide.
 
 ## Voie d'écriture retenue
 
-Conforme à la convention du repo (CLAUDE.md et la spec service/serviceCity): **le live fait foi**.
-On mute le dataset live (`5if00rwn`/`production`) en fr et en via le client Sanity (MCP
-`patch_documents` / `create_documents` / `publish_documents`, ou un script `studio/seed/*.mjs` au
-besoin pour les lots volumineux), on tient les `translation.metadata` par paire, puis on **mire** le
-résultat dans `studio/seed-content.json` (au format de refs d'images du seed). Les schémas (nouveaux
-champs, nouveau bloc) se déploient via `sanity:deploy-schema` puis `sanity deploy` une fois la
-migration faite. Le token `NUXT_SANITY_TOKEN` (server-only) est requis au `nuxt generate` local
+Conforme à la convention du repo: **le live fait foi**. On modifie le dataset live
+(`5if00rwn`/`production`) en fr et en depuis le Studio ou par script ad hoc, puis on tient les
+`translation.metadata` par paire. Aucune copie du dataset n'est conservée dans le dépôt. Les
+schémas (nouveaux champs, nouveau bloc) se déploient via `sanity:deploy-schema` puis
+`sanity deploy` une fois la migration faite. Le token `NUXT_SANITY_TOKEN` (server-only) est requis au `nuxt generate` local
 (lecture des `translation.metadata`).
 
 ## État global du site (vérité terrain)
@@ -52,7 +49,7 @@ migration faite. Le token `NUXT_SANITY_TOKEN` (server-only) est requis au `nuxt 
 Signaux globaux réels (`siteSettings`): marque Rempart Extermination, fondée en 2008, téléphone
 450 555 0199, courriel bonjour@rempart-extermination.ca, adresse 1450 boulevard Industriel
 Terrebonne QC J6Y 1W8, zones Rive-Nord de Montréal et Laval, heures lun-ven 7h-21h et sam-dim
-8h-17h. Villes seedées: Laval, Terrebonne, Repentigny, Blainville, Mascouche, Boisbriand,
+8h-17h. Villes publiées: Laval, Terrebonne, Repentigny, Blainville, Mascouche, Boisbriand,
 Saint-Eustache. Absents et à brancher: numéro de permis ou licence, assurance responsabilité,
 certification ASTTQ, note d'avis.
 
@@ -85,7 +82,7 @@ le cadrage par hotspot.
 
 1. **Chiffres canoniques, à figer site-wide.** Ancrer l'expérience sur la fondation réelle:
    "Depuis 2008" (environ 18 ans). Corriger le faux "15 ans" du trustBar et le "10 villes" du about
-   (7 villes seedées). Stats about proposées: "Depuis 2008", "6 200+ foyers servis", "7 villes
+   (7 villes publiées). Stats about proposées: "Depuis 2008", "6 200+ foyers servis", "7 villes
    desservies", "9 techniciens certifiés". Aligner l'accueil et le one-pager à l'identique.
 2. **Signaux E-E-A-T branchables.** Ajouter à `siteSettings` un groupe `credentials` (tous champs
    optionnels, fictifs crédibles): `licenseLabel` + `licenseNumber` (ex. permis de gestion
@@ -123,7 +120,7 @@ Diagnostic:
 - Aucun bloc de garanties (highlights absent): les signaux Trust (garantie de retour, produits
   homologués Santé Canada, rapport écrit) ne sont portés nulle part.
 - Chevauchement de signaux entre meta du héros, trustBar et stats about (incohérence "15 ans" vs
-  "18 ans", "10 villes" vs 7 seedées).
+  "18 ans", "10 villes" vs 7 publiées).
 - En-tête du bloc services identique mot pour mot à celui de la page /services.
 - Maillage sortant pauvre: rien vers les villes ni le blog.
 
@@ -187,7 +184,7 @@ Séquence cible (héros pageHero conservé):
 | 7 | contact | réutiliser | formulaire + NAP |
 
 Contenu à rédiger: en-tête services distinct du héros (ex. surtitre "Nos interventions"). Process
-en 3 à 4 temps. Highlights de 4 bénéfices Trust. 3 témoignages attribués prénom + ville seedée
+en 3 à 4 temps. Highlights de 4 bénéfices Trust. 3 témoignages attribués prénom + ville publiée
 (souris à l'automne à Terrebonne, guêpes en juillet à Repentigny, punaises à Blainville).
 
 Blocs à créer ou enrichir: process, highlights, testimonials instanciés (existants). Une seule
@@ -259,7 +256,7 @@ complète.
 
 Brief images: editorial segment 1 (technicien au travail sur le nuisible, remplace les visuels
 faibles), segment 2 en band (équipement homologué ou chantier), detailHero (nuisible net sur fond
-blanc, déjà seedé). Voir IMAGES-BRIEF.md.
+blanc, déjà publié). Voir IMAGES-BRIEF.md.
 
 Checklist E-E-A-T: CTA téléphone oui, urgence oui (contextualisée), preuves oui, ancrage local oui
 (maillage villes).
@@ -649,8 +646,8 @@ Un check-in après chaque page. Ordre proposé, du socle vers les feuilles:
 11. One-pager (alignement sur l'accueil).
 12. Légales (déduplication NAP, parité en).
 
-À chaque page: contenu écrit en fr et en sur le live, translation.metadata tenu, miroir
-seed-content.json, build vert, brief d'images consigné, revue de rythme de la page, petit commit
+À chaque page: contenu écrit en fr et en sur le live, translation.metadata tenu, build vert,
+brief d'images consigné, revue de rythme de la page, petit commit
 conventionnel (feat(content):, feat(block):, feat(seo):, fix(content):).
 
 ## Hors périmètre
