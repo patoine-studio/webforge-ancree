@@ -11,6 +11,7 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck",
     "postinstall": "nuxt prepare",
     "studio:dev": "yarn workspace webforge-ancree-studio dev",
     "studio:build": "yarn workspace webforge-ancree-studio build",
@@ -27,22 +28,27 @@
     "@sanity/client": "^7.22.1",
     "@sanity/image-url": "^1.1.0",
     "@tailwindcss/vite": "^4.2.4",
+    "@unhead/vue": "^2.1.15",
     "gsap": "^3.13.0",
-    "nuxt": "^4.4.6",
+    "nuxt": "^4.4.8",
     "pinia": "^3.0.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "styled-components": "^6.1.0",
     "tailwindcss": "^4.2.4",
-    "vue": "^3.5.34",
-    "vue-router": "^5.0.7"
+    "ufo": "^1.6.4",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.87",
+    "@nuxt/schema": "4.4.8",
     "@types/node": "^25.9.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vite": "^7.3.6",
+    "vue-tsc": "^3.3.7"
   }
 }

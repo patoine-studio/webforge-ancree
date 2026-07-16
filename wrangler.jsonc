@@ -23,6 +23,10 @@
   // webforge-ancree.patoinestudio.ca. Le staging surcharge ce nom via --name.
   "name": "webforge-ancree",
 
+  // Compte explicite: évite que Wrangler refuse les commandes non interactives
+  // lorsque l'authentification locale donne accès à plusieurs comptes.
+  "account_id": "27f4f9d60c66b323730888a958b513a6",
+
   // Date de compatibilité du runtime Worker. Sans effet en assets-only (aucun
   // code ne tourne), mais requise par wrangler. Convention de la doc: date du jour.
   "compatibility_date": "2026-06-14",

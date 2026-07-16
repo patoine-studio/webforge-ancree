@@ -12,6 +12,10 @@
 
   "name": "webforge-ancree-preview",
 
+  // Compte explicite: évite que Wrangler refuse les commandes non interactives
+  // lorsque l'authentification locale donne accès à plusieurs comptes.
+  "account_id": "27f4f9d60c66b323730888a958b513a6",
+
   // Entrée serveur générée par Nitro (preset cloudflare-module). Chemin confirmé
   // par un build SSR local: Nitro affiche « deploy using wrangler deploy
   // .output/server/index.mjs --assets .output/public ».
