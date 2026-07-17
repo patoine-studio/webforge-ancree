@@ -33,6 +33,15 @@
   --ratio-wide:      3 / 2;
   --ratio-video:     16 / 9;
 
+  /* Bloc A propos. Les preuves acceptent des valeurs textuelles longues, pas
+   * seulement des nombres. La plaque reste donc en matrice lisible plutôt que
+   * de forcer quatre colonnes étroites sur les écrans intermédiaires. */
+  --about-stats-columns-compact: 1;
+  --about-stats-columns-wide: 2;
+  --about-stat-value-size-min: 3rem;
+  --about-stat-value-size-fluid: 6.5cqi;
+  --about-stat-value-size-max: 4rem;
+
   /* Rythme d'espacement. La base Tailwind (--spacing, @theme) vaut 0.5rem; ici
    * les paliers verticaux de bloc et les espaces typographiques intra-bloc. */
   --spacing-unit: calc(var(--spacing) * 2); /* 1rem, alias pour le CSS brut */
