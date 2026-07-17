@@ -91,9 +91,9 @@
         "sm": "Small",
         "disabled": "Disabled",
         "acc1_q": "Do you offer emergency service?",
-        "acc1_a": "Yes. For an active infestation we schedule a fast visit, often within 24 to 48 hours depending on the area.",
+        "acc1_a": "When you call, we assess the situation, confirm the next available appointment and explain precautions to take while you wait.",
         "acc2_q": "Are your treatments safe?",
-        "acc2_a": "We use approved products applied by certified technicians, with clear guidance for your family and pets."
+        "acc2_a": "We choose the method for the situation and clearly explain precautions before and after the visit."
       },
       "forms": {
         "section_champs": "Fields",
@@ -174,7 +174,7 @@
     "optional": "optional"
   },
   "callbar": {
-    "estimate": "Free estimate"
+    "estimate": "Request an estimate"
   },
   "legal": {
     "effective": "In effect since {date}.",

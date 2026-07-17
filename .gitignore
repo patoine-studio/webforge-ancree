@@ -32,6 +32,9 @@ generated_imgs/
 # Docs de travail jetables (prompts d'audit et de passe, jamais livrés au client)
 docs/PROMPT-*.md
 
+# Revue éditoriale locale Codex (cartes, manifestes et images de validation)
+.codex/review/
+
 # Claude Code: config locale et scripts de workflow jetables (launch.json est versionné)
 .claude/settings.local.json
 .claude/wf-*.mjs

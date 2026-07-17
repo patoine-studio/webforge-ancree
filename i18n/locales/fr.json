@@ -91,9 +91,9 @@
         "sm": "Petit",
         "disabled": "Désactivé",
         "acc1_q": "Intervenez-vous en urgence ?",
-        "acc1_a": "Oui. Pour une infestation active, nous planifions une intervention rapide, souvent sous 24 à 48 heures selon la zone.",
+        "acc1_a": "À l’appel, nous évaluons la situation, confirmons le prochain créneau disponible et expliquons les précautions à prendre pendant l’attente.",
         "acc2_q": "Vos traitements sont-ils sécuritaires ?",
-        "acc2_a": "Nous utilisons des produits homologués, appliqués par des techniciens certifiés, avec des consignes claires pour votre famille et vos animaux."
+        "acc2_a": "Nous choisissons la méthode selon la situation et expliquons clairement les précautions avant et après l’intervention."
       },
       "forms": {
         "section_champs": "Champs",
@@ -174,7 +174,7 @@
     "optional": "facultatif"
   },
   "callbar": {
-    "estimate": "Estimation gratuite"
+    "estimate": "Demander une estimation"
   },
   "legal": {
     "effective": "En vigueur depuis le {date}.",
