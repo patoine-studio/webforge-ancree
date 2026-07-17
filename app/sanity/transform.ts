@@ -662,15 +662,12 @@ function transformCtaBand(raw: SanityCtaBand, locale: WfLocale, phoneE164: strin
 
 /** Bloc processus (champ dedie service.detail.process). eyebrow/heading exiges par
  *  ProcessContent: replis sur '' si absents du Studio (cas degrade). */
-function transformProcess(raw: SanityProcess, locale: WfLocale): ProcessPayload {
+function transformProcess(raw: SanityProcess): ProcessPayload {
   return {
     eyebrow: raw.eyebrow ?? '',
     heading: raw.heading ?? '',
     lead: opt(raw.lead),
     steps: (raw.steps ?? []).map((step) => ({
-      // Icone d'etape non saisie au Studio (le schema processus n'a pas d'icone
-      // par etape): le bloc Vue rend l'index de la ligne d'horizon. Repli vide.
-      icon: '',
       title: step.title,
       body: step.body
     }))
@@ -888,7 +885,7 @@ function transformBlock(
     case 'editorial':
       return { _type: 'editorial', _key: key, ...transformEditorial(block, locale, site.contact.phoneE164) }
     case 'process':
-      return { _type: 'process', _key: key, ...transformProcess(block, locale) }
+      return { _type: 'process', _key: key, ...transformProcess(block) }
     case 'highlights':
       return {
         _type: 'highlights',

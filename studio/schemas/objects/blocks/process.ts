@@ -5,8 +5,8 @@ import { anchorField } from './_anchor-field'
 /**
  * Bloc Processus: le déroulement d'un mandat, en étapes posées. Promu en bloc de
  * page-builder de plein droit (auparavant un sous-objet figé de service.detail).
- * Le numéro d'étape est dérivé de la position au rendu (zéro numérotation saisie
- * à la main). Forme distincte du bloc Points forts pour éviter deux grilles de
+ * L'ordre suit la position dans la liste et se lit par les connecteurs, sans
+ * numérotation. Forme distincte du bloc Points forts pour éviter deux grilles de
  * tuiles jumelles.
  */
 export const process = defineType({
@@ -34,7 +34,7 @@ export const process = defineType({
     defineField({
       name: 'steps',
       title: 'Étapes',
-      description: 'Le numéro d\'étape est dérivé de la position au rendu.',
+      description: 'L’ordre des étapes suit leur position dans la liste.',
       type: 'array',
       of: [
         defineArrayMember({

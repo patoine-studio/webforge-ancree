@@ -6,7 +6,6 @@
  * chiffre pas. AUCUNE valeur design ni de contenu ici, que des champs. */
 
 export interface ProcessStep {
-  icon: string // nom Iconify line-art (lucide)
   title: string
   body: string
 }

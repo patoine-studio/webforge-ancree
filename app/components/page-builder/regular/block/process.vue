@@ -22,9 +22,7 @@ defineProps<ProcessBlock>()
 
       <ul class="process__steps" data-reveal-stagger>
         <li v-for="(step, index) in steps" :key="step.title" class="process__step">
-          <span class="process__pastille" aria-hidden="true">
-            <Icon v-if="step.icon" :name="step.icon" class="process__icon" />
-          </span>
+          <span class="process__pastille" aria-hidden="true" />
           <!-- Connecteur directionnel vers la station suivante: un filet qui se
                renforce vers un chevron. Decoratif (aria-hidden), monte avec sa
                station. Absent apres la derniere station. Desktop seulement (au
@@ -63,24 +61,28 @@ defineProps<ProcessBlock>()
   align-items: flex-start;
 }
 
-/* Station: pastille opaque posee sur la ligne d'horizon. Meme materiau que les
- * autres blocs (ambre doux, icone bleu confiance quand une icone est saisie). */
+/* Station: marqueur plein pose sur la ligne d'horizon. Le disque bleu nuit et
+ * son coeur ambre forment un repere autonome, pas un emplacement d'icone vide. */
 .process__pastille {
   position: relative;
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 5.2rem;
-  height: 5.2rem;
-  border-radius: var(--radius);
-  background: var(--accent-call-soft);
+  width: var(--process-node-size);
+  height: var(--process-node-size);
+  border-radius: var(--radius-pill);
+  background: var(--bg-deep);
+  border: var(--line-ondeep);
   box-shadow: var(--elev-low);
   margin-bottom: 2rem;
 }
-.process__icon {
-  width: 2.8rem;
-  height: 2.8rem;
-  color: var(--accent-trust);
+.process__pastille::before {
+  content: '';
+  width: var(--process-node-core-size);
+  height: var(--process-node-core-size);
+  border-radius: var(--radius-pill);
+  background: var(--accent-call);
+  box-shadow: 0 0 0 var(--process-node-core-halo) var(--accent-call-soft);
 }
 .process__title {
   margin: 0;
@@ -92,14 +94,14 @@ defineProps<ProcessBlock>()
 }
 
 /* Connecteur directionnel (desktop). Pose sur l'horizon (centre des pastilles,
- * 2.6rem = moitie de 5.2rem), il enjambe la gouttiere de la station courante a la
+ * centre du marqueur), il enjambe la gouttiere de la station courante a la
  * suivante. Le filet se RENFORCE de gauche a droite et finit sur un chevron bleu
  * confiance pointe vers la station suivante: la direction se lit, sans chiffre. */
 .process__link {
   position: absolute;
-  top: 2.6rem;
-  left: 6.2rem;          /* apres la pastille (5.2rem) + un souffle */
-  right: -3rem;          /* jusqu'a la station suivante (gouttiere 4rem) - un souffle */
+  top: var(--process-link-center);
+  left: var(--process-link-start);
+  right: var(--process-link-end);
   transform: translateY(-50%);
   display: none;
   align-items: center;
