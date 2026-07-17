@@ -33,6 +33,24 @@
   --ratio-wide:      3 / 2;
   --ratio-video:     16 / 9;
 
+  /* Bloc A propos. Les preuves acceptent des valeurs textuelles longues, pas
+   * seulement des nombres. La plaque reste donc en matrice lisible plutôt que
+   * de forcer quatre colonnes étroites sur les écrans intermédiaires. */
+  --about-stats-columns-compact: 1;
+  --about-stats-columns-wide: 2;
+  --about-stat-value-size-min: 3rem;
+  --about-stat-value-size-fluid: 6.5cqi;
+  --about-stat-value-size-max: 4rem;
+
+  /* Bloc Processus. Les etapes sont des stations sur une ligne d'horizon,
+   * jamais des numeros ni des emplacements d'icone vides. */
+  --process-node-size: 5.2rem;
+  --process-node-core-size: 1.2rem;
+  --process-node-core-halo: 0.6rem;
+  --process-link-center: calc(var(--process-node-size) / 2);
+  --process-link-start: calc(var(--process-node-size) + 1rem);
+  --process-link-end: -3rem;
+
   /* Rythme d'espacement. La base Tailwind (--spacing, @theme) vaut 0.5rem; ici
    * les paliers verticaux de bloc et les espaces typographiques intra-bloc. */
   --spacing-unit: calc(var(--spacing) * 2); /* 1rem, alias pour le CSS brut */

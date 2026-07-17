@@ -6,7 +6,10 @@
  * chiffres de confiance en bleu nuit la CHEVAUCHE par le bas, comme une plaque
  * posee au sol, et un filet ambre signe le coin. Les grands chiffres deviennent
  * des elements graphiques (valeur ambre en display lourd, qualificatif sobre).
- * La composition en strates est propre à la famille Ancrée.
+ * La plaque reste une matrice a deux colonnes au plus: les valeurs Sanity
+ * peuvent etre des mots aussi bien que des nombres et doivent garder leur assise
+ * aux largeurs intermediaires. La composition en strates est propre à la
+ * famille Ancrée.
  * Aucune numerotation. Le fond peint tout de suite (pas de data-reveal sur la
  * section: PageBuilder enveloppe deja le bloc dans v-reveal). */
 import type { BlockBase } from '~/types/blocks'
@@ -74,6 +77,7 @@ defineProps<AboutBlock>()
  * la carte se pose juste apres la photo, en debord controle. */
 .about__media {
   position: relative;
+  container-type: inline-size;
 }
 .about__figure {
   position: relative;
@@ -101,7 +105,7 @@ defineProps<AboutBlock>()
   margin: -3.2rem 0 0;
   padding: 2.8rem;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--about-stats-columns-compact), minmax(0, 1fr));
   gap: 2.6rem 2rem;
   background: var(--bg-deep);
   color: var(--text-ondeep);
@@ -110,6 +114,7 @@ defineProps<AboutBlock>()
 }
 .about__stat {
   position: relative;
+  min-width: 0;
   padding-left: 1.6rem;
   /* Markup dt(libelle) -> dd(valeur) pour la semantique; on retablit l'ordre
    * visuel (valeur en haut, libelle en bas) sans toucher au DOM. */
@@ -123,9 +128,14 @@ defineProps<AboutBlock>()
   order: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, calc(2.4rem + 1.4vw), 4rem);
+  font-size: clamp(
+    var(--about-stat-value-size-min),
+    var(--about-stat-value-size-fluid),
+    var(--about-stat-value-size-max)
+  );
   line-height: 1;
   letter-spacing: -0.02em;
+  text-wrap: balance;
   color: var(--accent-call);
 }
 /* Libelle: echelle de corps portee par wf-body-3 (sur l'element). On garde la
@@ -179,6 +189,7 @@ defineProps<AboutBlock>()
      * franchement en chevauchement sur la photo. */
     margin-top: -4rem;
     margin-inline: 3.2rem 0;
+    grid-template-columns: repeat(var(--about-stats-columns-wide), minmax(0, 1fr));
   }
 }
 
@@ -192,7 +203,6 @@ defineProps<AboutBlock>()
   .about__stats {
     margin-top: -5.6rem;
     margin-inline: 4.8rem -4rem;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2.4rem 2rem;
     padding: 3.2rem 3.6rem;
   }
