@@ -13,7 +13,9 @@
  *   await submit({ name, email, phone, message })
  */
 
-export type ContactStatus = 'idle' | 'loading' | 'success' | 'error'
+import { DEMO_NOTICE_EVENT } from '~/config/demo-notice'
+
+export type ContactStatus = 'idle' | 'loading' | 'success' | 'demo' | 'error'
 
 export function useContactForm(endpoint = '/api/contact') {
   const status = ref<ContactStatus>('idle')
@@ -30,10 +32,11 @@ export function useContactForm(endpoint = '/api/contact') {
     status.value = 'loading'
 
     if (demo) {
-      // Latence réaliste, puis succès. Honeypot rempli = bot: même issue visible
-      // (succès silencieux), aucun envoi de toute façon en démo.
+      // Aucun payload ne quitte le navigateur. La reponse inline est explicite
+      // et l'avis global est rouvert sans deplacer automatiquement le focus.
       await new Promise((resolve) => setTimeout(resolve, 600))
-      status.value = 'success'
+      status.value = 'demo'
+      window.dispatchEvent(new CustomEvent(DEMO_NOTICE_EVENT))
       return
     }
 

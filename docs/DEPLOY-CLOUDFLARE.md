@@ -39,6 +39,7 @@ la racine du dépôt et le chemin surveillé est `*`.
 | Variable | Production | Staging | Preview | Nature |
 |---|---|---|---|---|
 | `NUXT_PUBLIC_SITE_URL` | URL production | URL staging | URL preview | publique |
+| `NUXT_PUBLIC_SITE_MODE` | `demo` | `demo` | `demo` | publique |
 | `NUXT_SANITY_TOKEN` | requis | requis | requis | secret serveur |
 | `NUXT_PUBLIC_STUDIO_URL` | absente | absente | URL du Studio | publique |
 
@@ -46,6 +47,10 @@ la racine du dépôt et le chemin surveillé est `*`.
 résoudre les alternates hreflang des pages dont le slug est traduit. Il reste
 dans `runtimeConfig` privé et ne doit jamais utiliser l'option publique `token`
 du module Sanity.
+
+`NUXT_PUBLIC_SITE_MODE` est volontairement explicite. Sa valeur `demo` active
+l'avis WebForge et les interactions simulées. Une valeur absente ou différente
+revient au mode `client`, sans marqueur de démonstration.
 
 Le mode preview est activé seulement quand les trois conditions suivantes sont
 réunies:
@@ -73,6 +78,7 @@ Production ou staging:
 ```sh
 WORKERS_CI_BRANCH=main \
 NUXT_PUBLIC_SITE_URL=https://webforge-ancree.patoinestudio.ca \
+NUXT_PUBLIC_SITE_MODE=demo \
 yarn generate
 ```
 
@@ -81,6 +87,7 @@ Preview:
 ```sh
 WORKERS_CI_BRANCH=preview \
 NUXT_PUBLIC_SITE_URL=https://webforge-ancree-preview.patoinestudio.ca \
+NUXT_PUBLIC_SITE_MODE=demo \
 NUXT_PUBLIC_STUDIO_URL=https://webforge-ancree.sanity.studio \
 yarn build
 ```

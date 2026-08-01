@@ -94,4 +94,16 @@
    * du settle qui est front-loaded (change presque tout d'emblee, d'ou un effet
    * brusque). Ici la transition se repartit sur toute la duree, douce a l'oeil. */
   --motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* Chrome WebForge commun aux demos. Palette neutre et sombre, distincte de la
+   * marque fictive Rempart et de ses accents bleu et ambre. */
+  --wf-demo-surface: oklch(24% 0.012 75);
+  --wf-demo-text: oklch(96% 0.012 85);
+  --wf-demo-muted: oklch(80% 0.012 85);
+  --wf-demo-line: 1px solid color-mix(in oklch, var(--wf-demo-text) 18%, transparent);
+  --wf-demo-focus: oklch(88% 0.06 80);
+  --wf-demo-shadow: 0 1.2rem 3.6rem -1.2rem color-mix(in oklch, var(--wf-demo-surface) 62%, transparent);
+  --wf-demo-width: 36rem;
+  --wf-demo-control-size: 4.4rem;
+  --wf-demo-z: 95;
 }

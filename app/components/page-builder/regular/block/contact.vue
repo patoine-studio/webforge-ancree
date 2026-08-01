@@ -25,7 +25,7 @@ const { status, turnstileToken, honeypot, submit } = useContactForm()
 // Cle publique Turnstile: vide en demo -> le widget n'est pas rendu (le geste
 // anti-bot est TERRAIN, actif seulement sur un vrai site client). Le widget reste
 // monte/demonte par le v-if; on garde une ref pour le reinitialiser apres erreur.
-const { public: { turnstileSiteKey } } = useRuntimeConfig()
+const { public: { turnstileSiteKey, demoNotice } } = useRuntimeConfig()
 const turnstile = ref<{ reset: () => void } | null>(null)
 
 // Identifiants stables des champs (association label / aria-describedby).
@@ -88,7 +88,7 @@ function focusFirstError(): void {
 // requis: on vide le jeton et on reinitialise le widget (la banniere s'annonce
 // d'elle-meme via role="alert").
 watch(status, async (next) => {
-  if (next === 'success') {
+  if (next === 'success' || next === 'demo') {
     await nextTick()
     successPanel.value?.focus()
   } else if (next === 'error') {
@@ -156,10 +156,12 @@ const NuxtLink = resolveComponent('NuxtLink')
         <!-- Formulaire d'appel ou confirmation au succes. -->
         <div class="contact__form-col wf-col-full wf-from-8 wf-to-end" data-reveal>
           <FormSuccess
-            v-if="status === 'success'"
+            v-if="status === 'success' || status === 'demo'"
             ref="successPanel"
-            :title="success.title"
-            :body="success.body"
+            :title="status === 'demo' ? t('demo_notice.form_title') : success.title"
+            :body="status === 'demo' ? t('demo_notice.interaction_body') : success.body"
+            :link-href="status === 'demo' ? demoNotice.projectUrl : undefined"
+            :link-label="status === 'demo' ? t('demo_notice.interaction_link') : undefined"
           />
           <form v-else class="contact__form" novalidate @submit.prevent="onSubmit">
             <!-- Honeypot anti-bot: hors ecran, ignore des humains, rempli par les

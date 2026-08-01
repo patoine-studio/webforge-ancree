@@ -7,6 +7,8 @@
 const props = defineProps<{
   title: string
   body: string
+  linkHref?: string
+  linkLabel?: string
 }>()
 
 const panel = ref<HTMLElement | null>(null)
@@ -36,6 +38,9 @@ void props
     </span>
     <h3 class="success__title wf-h4">{{ title }}</h3>
     <p class="success__body wf-body-2">{{ body }}</p>
+    <a v-if="linkHref && linkLabel" class="success__link" :href="linkHref">
+      {{ linkLabel }}
+    </a>
   </div>
 </template>
 
@@ -78,4 +83,14 @@ void props
   max-width: 42ch;
   color: var(--text-muted);
 }
+.success__link {
+  margin-top: 1.6rem;
+  color: var(--accent-trust);
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.success__link:hover { color: var(--text-base); }
 </style>

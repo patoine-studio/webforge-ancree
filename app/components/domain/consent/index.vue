@@ -52,6 +52,16 @@ const view = ref<'main' | 'customize'>('main')
 const mounted = ref(false)
 onMounted(() => { mounted.value = true })
 
+/* Etat de collision partage avec le chrome WebForge. Une fois l'avis demo
+ * reduit, le consentement prend temporairement sa place au mobile. */
+watch([mounted, () => consent.bannerVisible], ([ready, visible]) => {
+  if (!import.meta.client) return
+  document.documentElement.dataset.wfConsent = ready && visible ? 'visible' : 'hidden'
+}, { immediate: true })
+onBeforeUnmount(() => {
+  if (import.meta.client) delete document.documentElement.dataset.wfConsent
+})
+
 /* Brouillon des bascules opt-in, initialisé depuis l'état courant à l'ouverture
  * du panneau. « Nécessaires » n'y est pas (toujours vrai, verrouillé). */
 const draft = reactive<Record<string, boolean>>({})
