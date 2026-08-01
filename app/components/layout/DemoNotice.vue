@@ -89,10 +89,13 @@ onBeforeUnmount(() => {
           {{ t('demo_notice.title') }}
         </h2>
         <p class="wf-demo-notice__body">{{ t('demo_notice.body') }}</p>
-        <a class="wf-demo-notice__link" :href="demoNotice.discoveryUrl">
+        <button
+          type="button"
+          class="wf-demo-notice__link"
+          @click="reduceNotice"
+        >
           {{ t('demo_notice.link') }}
-          <Icon name="lucide:arrow-up-right" aria-hidden="true" />
-        </a>
+        </button>
         <p
           v-if="interactionShown"
           class="wf-demo-notice__feedback"
@@ -182,17 +185,20 @@ onBeforeUnmount(() => {
 .wf-demo-notice__link {
   display: inline-flex;
   align-items: center;
-  gap: calc(var(--spacing-unit) * 0.6);
   margin-top: calc(var(--spacing-unit) * 1.8);
+  padding: 0;
   color: var(--wf-demo-text);
+  background: transparent;
+  border: 0;
+  font-family: inherit;
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.4;
   text-decoration: underline;
   text-decoration-color: color-mix(in oklch, var(--wf-demo-text) 50%, transparent);
   text-underline-offset: 0.25em;
+  cursor: pointer;
 }
-.wf-demo-notice__link svg { width: 1.5rem; height: 1.5rem; }
 .wf-demo-notice__feedback {
   margin: calc(var(--spacing-unit) * 1.8) 0 0;
   padding: calc(var(--spacing-unit) * 1.2);

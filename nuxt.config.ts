@@ -648,7 +648,6 @@ export default defineNuxtConfig({
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
       siteMode,
       demoNotice: {
-        discoveryUrl: 'https://webforge.patoinestudio.ca/',
         projectUrl: 'https://patoinestudio.ca/'
       },
       // URL du Studio pour un eventuel lien « Ouvrir le Studio » du chrome preview.
