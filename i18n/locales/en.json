@@ -193,7 +193,7 @@
     "cta_primary": "Call now"
   },
   "demo_notice": {
-    "label": "WebForge · Demo site",
+    "label": "WebForge {'|'} Demo site",
     "title": "Fictional business",
     "body": "Rempart Extermination is not a real business. This demo showcases WebForge’s Ancrée design family. The copy, images, brand colours, and contact information are examples and will be tailored to each project.",
     "link": "Discover the Ancrée family",
