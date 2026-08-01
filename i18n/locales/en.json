@@ -192,6 +192,18 @@
     "kicker": "North Shore of Montreal and Laval",
     "cta_primary": "Call now"
   },
+  "demo_notice": {
+    "label": "WebForge · Demo site",
+    "title": "Fictional business",
+    "body": "Rempart Extermination is not a real business. This demo showcases WebForge’s Ancrée design family. The copy, images, brand colours, and contact information are examples and will be tailored to each project.",
+    "link": "Discover the Ancrée family",
+    "badge": "Demo site",
+    "reduce_aria": "Minimize the demo notice",
+    "open_aria": "Open the WebForge demo notice",
+    "form_title": "No message was sent",
+    "interaction_body": "This is a demonstration. To discuss a real project, contact Patoine Studio.",
+    "interaction_link": "Contact Patoine Studio"
+  },
   "consent": {
     "aria_label": "Cookie preferences",
     "title": "Cookies and privacy",

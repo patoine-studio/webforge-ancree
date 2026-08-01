@@ -192,6 +192,18 @@
     "kicker": "Rive-Nord de Montréal et Laval",
     "cta_primary": "Appeler maintenant"
   },
+  "demo_notice": {
+    "label": "WebForge · Site démo",
+    "title": "Entreprise fictive",
+    "body": "Rempart Extermination n’est pas une entreprise réelle. Cette démo présente la famille Ancrée de WebForge. Les textes, les images, les couleurs de marque et les coordonnées servent d’exemple et seront adaptés à chaque projet.",
+    "link": "Découvrir la famille Ancrée",
+    "badge": "Site démo",
+    "reduce_aria": "Réduire l’avis de démonstration",
+    "open_aria": "Ouvrir l’avis de démonstration WebForge",
+    "form_title": "Aucun message n’a été envoyé",
+    "interaction_body": "Ceci est une démonstration. Pour discuter d’un vrai projet, communiquez avec Patoine Studio.",
+    "interaction_link": "Communiquer avec Patoine Studio"
+  },
   "consent": {
     "aria_label": "Préférences de témoins",
     "title": "Témoins et confidentialité",

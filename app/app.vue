@@ -17,6 +17,7 @@ useHead(() => ({
 
 // Overlay de grille, outil dev seulement (touche `g`). Hors bundle de prod.
 const isDev = import.meta.dev
+const isDemoSite = useRuntimeConfig().public.siteMode === 'demo'
 </script>
 
 <template>
@@ -24,5 +25,10 @@ const isDev = import.meta.dev
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <!-- Chrome WebForge global, hors layout: il persiste pendant la navigation et
+       couvre le multipage, le one-pager, les pages interieures et la vitrine. -->
+  <ClientOnly>
+    <DemoNotice v-if="isDemoSite" />
+  </ClientOnly>
   <DevGrid v-if="isDev" />
 </template>

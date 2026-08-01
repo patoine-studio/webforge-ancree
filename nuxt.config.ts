@@ -45,6 +45,11 @@ const sanityReadToken = process.env.NUXT_SANITY_TOKEN || process.env.SANITY_API_
 // absolus). Posée par Worker sur Cloudflare (NUXT_PUBLIC_SITE_URL).
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://webforge-ancree.patoinestudio.ca'
 
+// Mode d'usage explicite. Le repli « client » protege les futurs sites reels:
+// aucun avis de demo ni neutralisation des coordonnees sans configuration
+// volontaire. Les Workers de cette demonstration posent la valeur `demo` au build.
+const siteMode = process.env.NUXT_PUBLIC_SITE_MODE === 'demo' ? 'demo' : 'client'
+
 // ── Interrupteurs du mode preview, adaptés au token
 // composite d'Ancree) ─────────────────────────────────────────────────────────
 // Le preview (Presentation tool, stega, drafts, SSR) s'active UNIQUEMENT quand:
@@ -641,10 +646,15 @@ export default defineNuxtConfig({
     sanityReadToken,
     public: {
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
+      siteMode,
+      demoNotice: {
+        discoveryUrl: 'https://webforge.patoinestudio.ca/',
+        projectUrl: 'https://patoinestudio.ca/'
+      },
       // URL du Studio pour un eventuel lien « Ouvrir le Studio » du chrome preview.
       // Vide en statique (aucun lien rendu); posee en preview via NUXT_PUBLIC_STUDIO_URL.
       studioUrl: studioUrl || '',
-      contactDemo: true,
+      contactDemo: siteMode === 'demo',
       // Couture de build pour app/router.options.ts: les slugs de categories du
       // blogue PAR LANGUE (deja fetches pour les routes de prerendu), injectes en
       // config publique. scrollBehavior les lit via useRuntimeConfig (locale
