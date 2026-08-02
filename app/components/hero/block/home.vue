@@ -235,7 +235,8 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   padding-top: 2.4rem;
   border-top: 1px solid color-mix(in oklch, white 22%, transparent);
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
   gap: 1.6rem 3rem;
 }
 .hero__proof {
@@ -277,6 +278,7 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
  * bornent la longueur de ligne a l'interieur de la colonne. */
 @container site (min-width: 1024px) {
   .hero__proofs {
+    flex-direction: row;
     gap: 1.6rem 4rem;
   }
 }
