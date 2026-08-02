@@ -153,25 +153,19 @@ function ctaKind(href: string): 'internal' | 'external' | 'anchor' {
   }
 }
 
-/* Degrade navy: fort en bas (lisibilite du contenu ancre au sol), leger en haut
- * (lisibilite de l'en-tete clair). Profondeur sans glassmorphisme. */
+/* Mobile: masque soutenu dans toute la zone de lecture. Sur grand ecran, le
+ * degrade redevient plus leger afin de conserver la profondeur de l'image. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(
-      to top,
-      color-mix(in oklch, var(--navy) 92%, transparent) 0%,
-      color-mix(in oklch, var(--navy) 68%, transparent) 20%,
-      color-mix(in oklch, var(--navy) 22%, transparent) 44%,
-      transparent 66%
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklch, var(--navy) 42%, transparent) 0%,
-      transparent 22%
-    );
+  background: var(--hero-scrim-mobile);
+}
+
+@container site (min-width: 1024px) {
+  .hero__scrim {
+    background: var(--hero-scrim-wide);
+  }
 }
 
 .hero__inner {
