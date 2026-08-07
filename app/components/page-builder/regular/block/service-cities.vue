@@ -8,7 +8,9 @@ import type { ServiceCitiesBlock } from '~/types/blocks'
 import type { SectionCta } from '~/content/blocks'
 import { routePath } from '~/config/route-map'
 
-defineProps<ServiceCitiesBlock>()
+const props = withDefaults(defineProps<ServiceCitiesBlock>(), {
+  showHubCta: true
+})
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -31,7 +33,9 @@ function cityBindings(href: string) {
 // Libelle i18n (affordance de nav), cible derivee du route-map (pas en dur).
 const villesPath = computed(() => routePath('villes', locale.value as 'fr' | 'en'))
 const areaCtas = computed<SectionCta[]>(() =>
-  route.path === villesPath.value ? [] : [{ label: t('cities.see_all'), href: villesPath.value }]
+  !props.showHubCta || route.path === villesPath.value
+    ? []
+    : [{ label: t('cities.see_all'), href: villesPath.value }]
 )
 
 function cityKind(href: string): 'internal' | 'external' {
