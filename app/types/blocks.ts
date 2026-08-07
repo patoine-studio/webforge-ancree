@@ -33,7 +33,11 @@ export type HeroBlock = HeroHomeBlock | HeroPageBlock | HeroArticleBlock
 // Blocs de la page-builder.
 export type TrustBarBlock = BlockBase<'trust-bar'> & TrustBarContent
 export type ServicesBlock = BlockBase<'services'> & ServicesContent
-export type ServiceCitiesBlock = BlockBase<'service-cities'> & ServiceCitiesContent
+export type ServiceCitiesBlock = BlockBase<'service-cities'> &
+  ServiceCitiesContent & {
+    /** Contexte de rendu: le one-pager ne doit pas mener vers le hub multipage. */
+    showHubCta?: boolean
+  }
 export type AboutBlock = BlockBase<'about'> & AboutContent
 export type TestimonialsBlock = BlockBase<'testimonials'> & TestimonialsContent
 export type FaqBlock = BlockBase<'faq'> & FaqContent

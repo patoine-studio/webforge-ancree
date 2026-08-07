@@ -8,7 +8,8 @@
 // Adapté à la peau d'Ancrée: le contrat FaqContent n'a pas de
 // drapeau faqSchema (la PEAU est intouchable), donc on ne le pose pas ici. Reste la
 // decision contextuelle EN CODE (jamais un champ Studio): sur le one-pager, pas de
-// pages de detail, donc les cartes services ne sont pas cliquables (href retire).
+// pages de detail, donc les cartes services ne sont pas cliquables (href retire) et
+// les blocs ne proposent pas de CTA vers les hubs Services ou Villes.
 
 import { computed, type ComputedRef } from 'vue'
 import type { PageBlock } from '~/types/blocks'
@@ -18,9 +19,19 @@ import type { PageBlock } from '~/types/blocks'
 export function useOnePagerBlocks(): ComputedRef<PageBlock[]> {
   return computed(() =>
     resolveBlocks(useFixedPage('onePager').pageBuilder).map((block) => {
-      // Pas de pages de detail sur le one-pager: cartes services non cliquables.
+      // Pas de pages de detail ni de hub Services sur le one-pager.
       if (block._type === 'services') {
-        return { ...block, items: block.items.map((it) => ({ ...it, href: undefined })) }
+        return {
+          ...block,
+          ctaLabel: undefined,
+          ctaHref: undefined,
+          items: block.items.map((it) => ({ ...it, href: undefined }))
+        }
+      }
+      // Le bloc reste partage avec le multipage, mais son CTA vers le hub Villes
+      // n'a pas sa place dans le parcours autonome du one-pager.
+      if (block._type === 'service-cities') {
+        return { ...block, showHubCta: false }
       }
       return block
     })
