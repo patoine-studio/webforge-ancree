@@ -10,11 +10,11 @@ La famille Ancrée est largement bâtie. Démo: **Rempart Extermination** (exter
 - **Identité**: package `webforge-ancree`, project Sanity `5if00rwn` (« WebForge - Ancrée », org Patoine Studio `o7R0d3u6V`), dataset `production`, déploiement Cloudflare Workers (`wrangler.jsonc` / `wrangler.preview.jsonc`, domaines `*.patoinestudio.ca`).
 - **Design**: peau propre à Ancrée, base **BLANCHE** (la palette crème de DESIGN.md est surclassée), Bitter slab, grille **16 colonnes**, ombres chaudes, asymétrie posée, mouvement « s'ancre au sol ». Tokens dans `app/family/tokens.css` (famille) et `app/brand/tokens.css` (marque). Vitrine sur `/showcase`.
 - **Modes**: multipage à la racine `/`, one-pager sous `/one-pager`, showcase sous `/showcase`. Routage = source unique `app/config/route-map.ts` (bilingue, customRoutes i18n, breadcrumbs).
-- **Contenu (Sanity)**: architecture complète et autonome depuis juin 2026. Dataset seedé (**129 docs** fr+en: siteSettings en groupes, 8 singletons de page, service, serviceCity, testimonial, faqItem, faqTheme, legalPage, category, article, plus translation.metadata). Schémas **éclatés** sous `studio/schemas/{documents,objects,objects/blocks,objects/article-blocks}/`. Desk custom (groupes, séparateurs, icônes, filtre FR, singletons verrouillés, groupe Villes), i18n par plugin `@sanity/document-internationalization`, presentation tool. Pipeline `app/queries/{fragments,pages,blocks}` + `app/sanity/transform.ts` (transform pur, **fail-fast**). i18n document-level (slug traduit par langue pour service, partagé pour serviceCity). **Le live fait foi**: le site se borde uniquement par les queries GROQ sur le live au build, aucune copie du dataset dans le repo. Sauvegarde ou clonage de dataset par `sanity dataset export`/`import` (CLI natif, hors repo) au besoin. Lecture de translation.metadata au build via token server-only (voir Conventions).
+- **Contenu (Sanity)**: architecture complète et autonome depuis juin 2026. Le dataset bilingue actif contient les réglages, pages, services, villes, témoignages, FAQ, pages légales, catégories, articles et métadonnées de traduction. Aucun nombre de documents n'est figé ici, puisqu'il varie avec le contenu live. Schémas **éclatés** sous `studio/schemas/{documents,objects,objects/blocks,objects/article-blocks}/`. Desk custom (groupes, séparateurs, icônes, filtre FR, singletons verrouillés, groupe Villes), i18n par plugin `@sanity/document-internationalization`, presentation tool. Pipeline `app/queries/{fragments,pages,blocks}` + `app/sanity/transform.ts` (transform pur, **fail-fast**). i18n document-level (slug traduit par langue pour service, partagé pour serviceCity). **Le live fait foi**: le site se borde uniquement par les queries GROQ sur le live au build, aucune copie du dataset dans le repo. Sauvegarde ou clonage de dataset par `sanity dataset export`/`import` (CLI natif, hors repo) au besoin. Lecture de translation.metadata au build via token server-only (voir Conventions).
 - **Blog**: complet (liste, archives de catégorie, articles, Portable Text riche, pagination numérotée dormante sous le seuil). `serviceCity` (`/villes/[slug]` fr, `/service-areas/[slug]` en) = moteur SEO local (remplace les projets, abandonnés).
 - **SEO**: `usePageSeo` (graphe Schema.org site-wide), JSON-LD, sitemap dynamique avec alternates hreflang. Marque depuis Sanity.
 
-**Reste à bâtir** (voir [ROADMAP.md](./ROADMAP.md) et [DESIGN.md](./DESIGN.md)): formulaire de contact réel (Turnstile + Resend), déploiement Cloudflare (poser `NUXT_SANITY_TOKEN` en secret de build, voir Conventions), retravail des blocs un à un. L'architecture Sanity et le back-end sont en place (lots A à G, juin 2026).
+**Reste à bâtir** (voir [ROADMAP.md](./ROADMAP.md) et [DESIGN.md](./DESIGN.md)): formulaire de contact réel (Turnstile + Resend), remplacement des images distantes faibles et retravail des blocs un à un. Les trois environnements Cloudflare sont en ligne; `NUXT_SANITY_TOKEN` reste requis comme secret de build.
 
 ## Vocabulaire WebForge
 
@@ -22,7 +22,7 @@ La famille Ancrée est largement bâtie. Démo: **Rempart Extermination** (exter
 - **Famille de design** = axe esthétique propre à chaque produit. Une famille = preset de tokens + variantes typographiques + bibliothèque de variantes de blocs. **Une famille = un repo.**
 - **Mode** = palier d'usage (One-Pager, Multipage, Builder avec CMS Sanity).
 - **Démo** = site fictif qui démontre une famille (la démo d'Ancrée est Rempart Extermination).
-- **Client** = site réel (repo séparé, consommera les packages WebForge plus tard).
+- **Client** = site réel, dans un repo autonome créé depuis le scaffold WebForge copié.
 
 ## Les trois disciplines de code
 
@@ -36,7 +36,7 @@ La famille Ancrée est largement bâtie. Démo: **Rempart Extermination** (exter
 - **Layout**: CSS Grid par défaut; flex pour les petits éléments inline.
 - **Typographie des textes** (docs, commits, communication): aucun tiret cadratin, aucun middle dot comme séparateur, français québécois soutenu et direct, sans buzzwords.
 - **Jamais de numérotation** d'éléments, site-wide.
-- **Token Sanity au build** (`NUXT_SANITY_TOKEN`, server-only, jamais `NUXT_PUBLIC_*`): requis au `nuxt generate` pour lire les docs `translation.metadata` (non exposés en lecture publique sur le dataset) et résoudre les alternates hreflang des pages à slug traduit. Sans lui, le build produit des alternates croisés cassés. Vérif: le token ne doit JAMAIS apparaître dans `.output` (ne pas utiliser l'option `token` du module `@nuxtjs/sanity`, qui fuit en config publique). En local: `NUXT_SANITY_TOKEN=<authToken CLI> npx nuxt generate`.
+- **Token Sanity au build** (`NUXT_SANITY_TOKEN`, server-only, jamais `NUXT_PUBLIC_*`): requis au `yarn generate` pour lire les docs `translation.metadata` (non exposés en lecture publique sur le dataset) et résoudre les alternates hreflang des pages à slug traduit. Sans lui, le build produit des alternates croisés cassés. En statique, le token ne doit jamais apparaître dans `.output` (ne pas utiliser l'option `token` du module `@nuxtjs/sanity`, qui fuit en config publique). Le preview doit aussi migrer vers un secret runtime avant de pouvoir respecter cette règle dans son bundle serveur; voir `docs/DEPLOY-CLOUDFLARE.md`. En local: `NUXT_SANITY_TOKEN=<authToken CLI> yarn generate`.
 
 ## Cadence
 

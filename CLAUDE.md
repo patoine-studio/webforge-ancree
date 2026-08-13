@@ -22,7 +22,7 @@ La famille Ancrée est largement bâtie. Démo: **Rempart Extermination** (exter
 - **Famille de design** = axe esthétique WebForge. Une famille = preset de tokens + variantes typographiques + bibliothèque de variantes de blocs. **Une famille = un repo.**
 - **Mode** = palier d'usage (One-Pager, Multipage, Builder avec CMS Sanity).
 - **Démo** = site fictif qui démontre une famille (la démo d'Ancrée est Rempart Extermination).
-- **Client** = site réel (repo séparé, consommera les packages WebForge plus tard).
+- **Client** = site réel, dans un repo autonome créé depuis le scaffold WebForge copié.
 
 ## Les trois disciplines de code
 

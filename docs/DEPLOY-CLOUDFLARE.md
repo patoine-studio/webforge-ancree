@@ -2,11 +2,14 @@
 
 Runbook de la démo Rempart Extermination. Les trois environnements sont en ligne
 et vérifiés depuis le 1er juillet 2026. Le site demeure non indexable tant qu'il
-sert de gabarit.
+sert de gabarit. Nouvelle vérification publique le 12 août 2026: la production
+répond directement, tandis que le staging et le preview redirigent vers
+Cloudflare Access.
 
 ## Identité
 
 - Compte Cloudflare: `Patoine Studio` (`27f4f9d60c66b323730888a958b513a6`).
+- Connexion opérationnelle Cloudflare: `charles@patoinestudio.ca`.
 - Zone: `patoinestudio.ca`.
 - Dépôt GitHub: `patoine-studio/webforge-ancree`.
 - Projet Sanity: `5if00rwn`, organisation Patoine Studio, dataset `production`.
@@ -47,6 +50,10 @@ la racine du dépôt et le chemin surveillé est `*`.
 résoudre les alternates hreflang des pages dont le slug est traduit. Il reste
 dans `runtimeConfig` privé et ne doit jamais utiliser l'option publique `token`
 du module Sanity.
+
+Il s'agit d'un secret de **build** dans Workers Builds, pas d'un secret runtime
+du Worker. Au 12 août 2026, `wrangler secret list` ne rapporte aucun secret
+runtime sur les trois Workers Ancrée.
 
 `NUXT_PUBLIC_SITE_MODE` est volontairement explicite. Sa valeur `demo` active
 l'avis WebForge et les interactions simulées. Une valeur absente ou différente
@@ -113,7 +120,9 @@ L'origine preview doit rester autorisée dans le CORS Sanity avec les identifian
 - Maintenir `site.indexable: false` tant que le dépôt représente une démo.
 - Confirmer avant toute création ou modification de Worker, domaine, secret,
   webhook ou configuration Git distante.
-- Le preview et le staging peuvent être protégés par Cloudflare Access.
+- Le preview et le staging sont protégés par Cloudflare Access. Toute
+  modification de leurs politiques exige un nouveau test du login et de
+  l'iframe du Presentation tool.
 - Un hook de déploiement production peut être relié à un webhook Sanity filtré
   pour ignorer `drafts.**`.
 - Si un premier build démarre avant la pose des variables, configurer les
