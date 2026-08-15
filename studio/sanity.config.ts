@@ -74,9 +74,22 @@ const NESTED_TYPES = new Set([
   'testimonial', 'faqItem', 'faqTheme', 'legalPage', 'person',
 ])
 
-// URL de l'app Nuxt visee par le presentationTool (iframe live).
-// Override via SANITY_STUDIO_PREVIEW_URL pour un autre environnement.
-const PREVIEW_ORIGIN = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+// URL de l'app Nuxt visee par le presentationTool (iframe live). Le Studio
+// deploye doit rester fonctionnel meme si la variable n'est pas injectee au
+// `sanity deploy`; le dev local, lui, continue de viser Nuxt sur le port 3000.
+const LOCAL_PREVIEW_ORIGIN = 'http://localhost:3000'
+const DEPLOYED_PREVIEW_ORIGIN = 'https://webforge-ancree-preview.patoinestudio.ca'
+const configuredPreviewOrigin = process.env.SANITY_STUDIO_PREVIEW_URL
+const isProductionStudio = process.env.NODE_ENV === 'production'
+
+// Un .env local peut etre charge aussi par `sanity build`/`sanity deploy`. Dans
+// ce cas, ne jamais embarquer localhost dans le Studio public: une origine
+// distante explicite reste permise, sinon le Worker preview Ancree fait foi.
+const PREVIEW_ORIGIN = isProductionStudio
+  ? configuredPreviewOrigin && !configuredPreviewOrigin.startsWith(LOCAL_PREVIEW_ORIGIN)
+    ? configuredPreviewOrigin
+    : DEPLOYED_PREVIEW_ORIGIN
+  : configuredPreviewOrigin || LOCAL_PREVIEW_ORIGIN
 
 // Helper singleton: le doc FR est la porte d'entree, le switch FR/EN passe par
 // le panneau Translations du plugin (en haut a droite du doc).
